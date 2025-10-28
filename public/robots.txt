@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://gatewayabroadeducations.com/sitemap.xml
+Disallow: /cgi-bin/

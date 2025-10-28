@@ -1,0 +1,1096 @@
+@media only screen and (min-width: 1140px) {
+	.header-inner {
+		padding-inline: 30px;
+	}
+
+}
+
+@media only screen and (max-width: 1366px) {
+	.logo-sec a img {
+		height: 58px;
+		transition: var(--transition);
+	}
+
+	.header-inner {
+		padding: 0 30px;
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+	.header-menus>ul>li {
+		margin-left: 35px;
+	}
+
+	.header-inner {
+		padding-inline: 40px;
+	}
+
+	.logo-sec a img {
+		height: 68px;
+	}
+
+	.py-70 {
+		padding-block: 50px;
+	}
+
+	.py-60 {
+		padding-block: 40px;
+	}
+
+	.faq-section {
+		margin-block-end: 50px;
+	}
+}
+
+@media only screen and (max-width: 1140px) {
+	.header-menus>ul>li {
+		margin-left: 50px;
+		padding-block: 28px;
+	}
+
+	.logo-sec a img {
+		height: 58px;
+	}
+
+	.about-us-right.ps-3 {
+		padding-inline-start: 0 !important;
+	}
+
+	.about-us-right .descp {
+		margin-block-end: 20px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp1 {
+		top: 18px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp2 {
+		top: 220px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp3 {
+		top: 445px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp4 {
+		top: -55px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp5 {
+		top: 130px;
+	}
+
+	.vetting-process-section-inner .vetting-content.vp6 {
+		top: 325px;
+	}
+
+	.student-yt-slider.slick-initialized.slick-slider.slick-dotted {
+		width: calc(100% + 40px);
+		margin-inline-start: -20px;
+	}
+
+	.student-img {
+		width: 55px;
+		height: 55px;
+	}
+
+	.app-banner-content-left h2 {
+		font-size: 32px;
+	}
+
+	.vacancy-card-body .job-duration li {
+		padding: 5px 7px;
+		font-size: 12px;
+	}
+
+	.vacancy-card-body .job-duration li:last-child {
+		margin-inline-end: 0;
+	}
+
+	.contact-us-box h5 a {
+		font-size: 16px;
+	}
+
+	.contact-us-box.our-branch-box p {
+		font-size: 14px;
+		line-height: normal;
+	}
+
+	.career-form-section-left p br {
+		display: none;
+	}
+
+	.blog-tab {
+		gap: 5px;
+	}
+
+	.latest-post-section-inner .latest-post-card .latest-post-card-img {
+		height: 150px;
+	}
+
+	.gmat-descp-sec .gmat-desc-card .gmat-desc-card-icon {
+		width: 50px;
+		height: 50px;
+		margin-block-end: 15px;
+	}
+
+	.gmat-descp-sec .gmat-desc-card h5 {
+		min-height: 44px;
+		margin-block-end: 15px;
+	}
+
+	.pricing-plan-section-inner {
+		padding-inline: 30px;
+	}
+
+	.test-prep-resource-card-body p {
+		font-size: 14px;
+	}
+}
+
+@media only screen and (max-width: 1024px) {
+	.header-menus>ul>li {
+		margin-left: 35px;
+	}
+
+	.header-menus ul li a {
+		font-size: 15px;
+	}
+
+	.banner-img-sec img {
+		height: 360px;
+	}
+
+	.banner-content-sec h1 {
+		font-size: 38px;
+		line-height: 48px;
+	}
+
+	.student-yt-slider-inner iframe {
+		height: 270px;
+	}
+
+	.test-preparation-sec .test-pre-box p {
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	.app-banner-section-inner {
+		margin-block-end: 50px;
+	}
+
+	.counselling-session-sec-inner {
+		margin-block-start: 50px;
+	}
+
+	.footer-right ul li a {
+		font-size: 16px;
+	}
+
+	footer .footer-left .logo-sec img {
+		height: 58px;
+	}
+
+	.about-us-sec hr {
+		margin-block: 20px !important;
+	}
+
+	.number-counter-section {
+		padding-block: 40px;
+	}
+
+	.blog-card-img-box {
+		height: 160px;
+	}
+
+	.single-blog-banner .banner-heading {
+		font-size: 30px;
+	}
+
+	.mb-50 {
+		margin-block-end: 20px;
+	}
+
+	.blog-content-section-right h5 {
+		margin-block-end: 20px;
+	}
+
+	.test-pre-dropdown-content {
+		padding-block: 12px;
+		bottom: -80px;
+	}
+
+	.test-pre-dropdown-content ul li a>div {
+		width: 86px;
+		height: 40px;
+	}
+
+	.banner-content h1 {
+		font-size: 34px;
+	}
+
+	.new-banner-sec {
+		padding-block: 80px !important;
+	}
+}
+
+@media only screen and (max-width: 991px) {
+	.logo-sec a img {
+		height: 54px;
+	}
+
+	.banner-img-sec img {
+		height: 290px;
+	}
+
+	.about-us-img-box {
+		height: auto;
+	}
+
+	.about-us-right .descp {
+		margin-block-end: 20px;
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.students-info-right {
+		margin-block-start: 40px;
+	}
+
+	.sub-heading {
+		font-size: 20px;
+	}
+
+	.student-info-slider-inner h6 {
+		font-size: 16px;
+	}
+
+	.banner-content-sec h1 {
+		font-size: 30px;
+		line-height: 42px;
+	}
+
+	.banner-sec {
+		padding-block: 25px;
+	}
+
+	.our-working-process-sec {
+		display: none;
+	}
+
+	.mobile-vetting-process {
+		display: block;
+		background-color: #FAFBFF;
+	}
+
+	.vetting-box img {
+		height: 70px;
+	}
+
+	.vetting-process-section-inner .vetting-content {
+		position: static;
+	}
+
+	.vetting-box {
+		position: relative;
+	}
+
+	.vetting-tittle {
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.vetting-content {
+		position: static;
+		margin: 40px auto;
+	}
+
+	.vetting-left-p1 {
+		text-align: left;
+	}
+
+	.vetting-box {
+		position: relative;
+	}
+
+	.vetting-num {
+		width: 40px;
+		height: 40px;
+		background: #D71635;
+		border-radius: 30px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 40px;
+		color: #fff;
+		position: absolute;
+		left: -76px;
+		top: 10px;
+	}
+
+	.vetting-num:after {
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border-top: 9px solid transparent;
+		border-left: 18px solid #D71635;
+		border-bottom: 9px solid transparent;
+		border-radius: 0px;
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		margin: auto;
+		right: -10px;
+	}
+
+	.student-yt-slider-inner iframe {
+		height: 210px;
+	}
+
+	.our-testimonials-slider-inner {
+		margin-inline: 0;
+	}
+
+	.our-testimonials-slider {
+		width: calc(100% + 40px);
+		margin-inline-start: -20px;
+	}
+
+	.test-univ-sec h5 {
+		font-size: 12px;
+	}
+
+	.student-img {
+		right: 20px;
+	}
+
+	.app-banner-section-inner {
+		margin-block: 50px;
+	}
+
+	.app-banner-content-left {
+		text-align: center;
+		padding: 40px;
+	}
+
+	.number-counter-inner .counter-box {
+		padding: 25px;
+	}
+
+	.number-counter-inner .counter-box h4 {
+		font-size: 34px;
+	}
+
+	.number-counter-inner .counter-box p {
+		font-size: 16px;
+	}
+
+	.heading {
+		font-size: 26px;
+		margin-block-end: 15px;
+	}
+
+	.career-form-section-left .heading {
+		text-align: center;
+	}
+
+	.career-form-section-img {
+		width: 372px;
+		height: 370px;
+	}
+
+	.get-in-touch-section>p.descp {
+		padding-inline: 10px !important;
+	}
+
+	.contact-us-left-content {
+		text-align: center;
+	}
+
+	.contact-us-left-content p {
+		text-align: center !important;
+	}
+
+	.blog-tab-scroll {
+		width: 100%;
+		/* overflow-x: scroll; */
+		padding-block-end: 15px;
+	}
+
+	/* width */
+	.blog-tab-scroll::-webkit-scrollbar {
+		height: 4px;
+	}
+
+	/* Track */
+	.blog-tab-scroll::-webkit-scrollbar-track {
+		background: #E0E0E0;
+	}
+
+	/* Handle */
+	.blog-tab-scroll::-webkit-scrollbar-thumb {
+		background: var(--site-red);
+	}
+
+	.blog-tab {
+		gap: 8px;
+		/* width: 1000px; */
+	}
+
+	.blog-banner-img.text-center img {
+		height: auto;
+		max-width: 100%;
+	}
+
+	.hero-search-field input {
+		height: 58px;
+		padding-inline-end: 20px;
+	}
+
+	.hero-search-field button {
+		position: static;
+		margin-block-start: 10px;
+		padding: 12px 40px;
+	}
+
+	.hero-search-field span {
+		top: calc(50% - 43px);
+	}
+
+	.gallery-section-inner {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding-top: 20px !important;
+	}
+
+	.blog-content-section-right.ps-4 {
+		padding-inline-start: 0 !important;
+	}
+
+	.blog-content-section-left h4 {
+		font-size: 20px;
+	}
+
+	.blog-content-section-left p,
+	.blog-content-section-left ol li {
+		font-size: 15px;
+	}
+
+	.latest-post-section-inner .latest-post-card .latest-post-card-img {
+		height: 120px;
+	}
+
+	.latest-post-section-inner .latest-post-card .latest-post-card-body {
+		padding-block-start: 10px;
+	}
+
+	.share-blog-section ul li a {
+		text-align: center;
+	}
+
+	.share-blog-section ul li a span {
+		margin-inline-end: 0;
+		display: block;
+	}
+
+	.share-blog-section ul {
+		margin-block: 30px;
+	}
+
+	.post-comment-section {
+		margin-block-start: 30px;
+	}
+
+	.gmat-descp-sec .gmat-desc-card h5 {
+		min-height: auto;
+		margin-block-end: 15px;
+	}
+
+	.brochure-section-inner {
+		text-align: center;
+		padding: 40px;
+	}
+
+	.brochure-download-btn a {
+		margin-block-start: 20px;
+	}
+
+	.pricing-plan-section-inner {
+		margin-block-start: 40px;
+	}
+
+	.most-popular-card {
+		margin-block-start: 40px;
+	}
+
+	.our-testimonials-slider-inner.single-testmonial .student-test-box {
+		width: 100%;
+	}
+
+	.our-testimonials-slider-inner.single-testmonial .student-test-box .student-test-box p {
+		max-width: 100%;
+	}
+
+	.our-testimonials-slider-inner .stundent-content {
+		padding-block-start: 20px;
+	}
+
+	.pricing-card {
+		padding-inline: 20px;
+	}
+}
+.blog-tab-scroll {
+		width: 100%;
+		/* overflow-x: scroll; */
+		padding-block-end: 15px;
+	}
+.blog-tab-scroll::-webkit-scrollbar {
+	height: 4px;
+}
+
+/* Track */
+.blog-tab-scroll::-webkit-scrollbar-track {
+	background: #E0E0E0;
+}
+
+/* Handle */
+.blog-tab-scroll::-webkit-scrollbar-thumb {
+	background: var(--site-red);
+}
+
+@media only screen and (max-width: 768px) {
+	.vetting-process-section-inner.pt-3 {
+		padding-inline-start: 80px;
+	}
+
+	.student-test-box p {
+		max-width: 90%;
+		min-height: auto;
+	}
+
+	.header-menus {
+		display: none;
+	}
+
+	.mobile-toggle-btn-outer {
+		display: block;
+	}
+
+	.header-inner {
+		padding-inline: 0;
+		padding-block: 5px;
+	}
+
+	.banner-content h1 {
+		font-size: 32px;
+	}
+
+	.new-banner-sec {
+		padding-block: 80px !important;
+	}
+
+	.contact-us-img.text-center img {
+		height: 300px;
+		max-width: 100%;
+	}
+
+	.our-branch-box {
+		grid-template-columns: 115px auto;
+	}
+
+	.gatewayabroad-map-inner iframe {
+		height: 250px;
+	}
+
+	.blog-content-section-left p {
+		margin-block-end: 10px;
+	}
+
+	.app-banner-section-inner.app-banner-section-inner-2 {
+		margin-block-start: 0;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.banner-content-sec {
+		text-align: center;
+	}
+
+	.banner-img-sec.text-center {
+		margin-block-start: 40px;
+	}
+
+	.about-us-right.ps-3 {
+		padding-block-start: 30px;
+	}
+
+	.heading {
+		font-size: 26px;
+	}
+
+	.mobile-vetting-process .descp br {
+		display: none;
+	}
+
+	.student-yt-slider-inner iframe {
+		height: 260px;
+	}
+
+	.bottom-divider {
+		position: static;
+	}
+
+	.bottom-divider:after {
+		display: none;
+	}
+
+	.blog-section h2.heading.bottom-divider {
+		max-width: 50%;
+	}
+
+	.scroll-container {
+		height: 170px;
+	}
+
+	.profile-card-body {
+		padding-block-start: 10px;
+	}
+
+	.number-counter-inner .counter-box {
+		padding: 20px 10px;
+	}
+
+	.about-us-left-new img {
+		width: 70%;
+		display: block;
+		margin-inline: auto;
+		margin-block: 10px;
+	}
+
+	.about-us-right-new.ps-3 {
+		text-align: center;
+		padding-inline-start: 0 !important;
+	}
+
+	.hero-search-field input {
+		height: 58px;
+		padding-inline-end: 90px;
+	}
+
+	.hero-search-field button {
+		position: absolute;
+		margin-block-start: 0;
+		padding: 10px 40px;
+		top: 7px;
+	}
+
+	.hero-search-field span {
+		top: calc(50% - 14px);
+	}
+
+	.blog-search-box.mb-50 {
+		margin-block-start: 30px;
+	}
+
+	.single-blog-banner .banner-heading br {
+		display: none;
+	}
+
+	.about-us-left-new.gmat-test-pre-left {
+		margin-block-end: 30px;
+	}
+
+	.gmat-descp-sec {
+		margin-block-start: 40px;
+	}
+
+	.country-accept-gmat-left {
+		margin-block-end: 20px;
+	}
+
+	.pricing-card {
+		margin-block-end: 30px;
+	}
+
+	.plan-offer-list ul {
+		min-height: auto;
+	}
+
+	.most-popular-card {
+		margin-block-start: 0px;
+	}
+
+	.test-prep-resource-card-body p {
+		font-size: 15px;
+		min-height: auto;
+	}
+
+	.test-prep-resource-card-img {
+		height: 200px;
+	}
+
+	.pricing-card h5.plan-name {
+		min-height: auto;
+	}
+
+	.features-guide-box {
+		grid-template-columns: 1fr;
+		place-items: center;
+	}
+
+	.features-guide-right {
+		text-align: center;
+	}
+}
+
+@media only screen and (max-width: 580px) {
+	.blog-section-inner .blog-card h5.card-title {
+		min-height: auto;
+	}
+
+	.student-info-rank-sec .established-sec {
+		padding: 20px;
+	}
+
+	.student-info-rank-sec .established-sec p {
+		font-size: 14px;
+	}
+
+	.app-banner-content-left h2 {
+		font-size: 32px;
+	}
+
+	.app-banner-content-left p {
+		font-size: 16px;
+	}
+
+	footer .footer-inner {
+		padding-block: 40px;
+	}
+
+	.blog-banner-img.text-center img {
+		height: 220px;
+		max-width: 100%;
+	}
+
+	.banner-new-bg {
+		padding-block: 50px;
+	}
+
+	.scroll_top #scroll-button {
+		width: 40px;
+		height: 40px;
+		line-height: 35px;
+		font-size: 24px;
+		right: 20px;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.footer-middle.ps-5 {
+		padding-inline-start: 0 !important;
+		padding-block: 25px;
+	}
+
+	.sub-heading {
+		font-size: 18px;
+	}
+
+	.number-counter-inner {
+		display: block;
+		column-count: 2;
+		column-gap: 10px;
+	}
+
+	.number-counter-inner .counter-box {
+		margin-block-end: 10px;
+	}
+
+	.gallery-section-inner {
+		grid-gap: 10px;
+	}
+
+	.grid-column-inner {
+		row-gap: 10px;
+	}
+
+	#getintouchModel.modal.right .modal-dialog {
+		width: 300px;
+	}
+
+	.gallery-section .heading br {
+		display: none;
+	}
+
+	.single-blog-banner .banner-heading {
+		font-size: 24px;
+	}
+
+	.blog-details ul li:not(:last-child):after {
+		display: none;
+	}
+
+	.blog-details ul li {
+		font-size: 14px;
+	}
+
+	.brochure-download-btn a {
+		padding: 10px 52px;
+		font-size: 16px;
+	}
+}
+
+@media only screen and (max-width: 414px) {
+	.heading {
+		font-size: 22px;
+	}
+
+	.app-banner-content-left {
+		padding: 30px;
+	}
+
+	.brochure-section-inner {
+		padding: 25px 20px;
+	}
+
+	.profile-card .top-red-header {
+		height: 45px;
+	}
+}
+
+/* --- Style tables within blog content --- */
+/* Target the specific div that holds the blog description HTML */
+.blog-content-section-left table,
+.blog-content-section-left th,
+.blog-content-section-left td {
+  border: 2px solid #ccc; /* Adjust color (#ccc is light gray) and width (1px) as desired */
+}
+
+.blog-content-section-left table {
+  border-collapse: collapse; /* Ensures adjacent borders merge into one */
+  width: 100%; /* Makes the table take the full width of its container */
+  margin-bottom: 1rem; /* Adds some space below the table */
+}
+
+.blog-content-section-left th,
+.blog-content-section-left td {
+  padding: 8px; /* Adds space inside each cell for better readability */
+  text-align: left; /* Aligns text to the left within cells */
+  vertical-align: top; /* Aligns content to the top of the cell */
+}
+
+.blog-content-section-left th {
+  background-color: #f2f2f2; /* Adds a light gray background to header cells */
+  font-weight: bold; /* Ensures header text is bold */
+}
+
+@media only screen and (max-width: 375px) {
+	.mobile-nav-element {
+		top: 68px;
+	}
+
+	.app-banner-content-left {
+		padding: 30px;
+	}
+
+	.app-banner-content-right.text-center img {
+		max-width: 100%;
+	}
+
+	.test-preparation-sec .test-pre-box {
+		padding: 15px;
+	}
+
+	.student-test-box:before {
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-top: 25px solid #fff;
+		left: -35px;
+	}
+
+	.blog-section h2.heading.bottom-divider {
+		max-width: 40%;
+	}
+
+	header.sticky .logo-sec a img {
+		height: 48px;
+	}
+
+	.logo-sec a img {
+		height: 48px;
+	}
+
+	.hero-sec {
+		background-position: center right 12%;
+	}
+
+	.banner-content-sec p {
+		font-size: 15px;
+		line-height: 24px;
+		margin-block-end: 20px;
+	}
+
+	.new-banner-sec {
+		padding-block: 50px !important;
+	}
+
+	.get-in-touch-sidebar {
+		right: -50px;
+	}
+
+	.get-in-touch-sidebar button .content-red,
+	.get-in-touch-sidebar button .content-dark {
+		padding: 10px;
+		font-size: 12px;
+	}
+
+	.faq-section-container .accordion-item .accordion-button {
+		font-size: 16px;
+	}
+
+	.app-banner-content-left h2 {
+		font-size: 28px;
+	}
+
+	.career-form-section-img {
+		width: 302px;
+		height: 300px;
+	}
+
+	.hero-search-field button {
+		padding: 10px 20px;
+	}
+
+	.hero-search-field input {
+		font-size: 14px;
+	}
+
+	#getintouchModel.modal.right.fade.show .modal-dialog {
+		right: 42px;
+	}
+
+	.blog-content-section-left .post-section {
+		gap: 10px;
+		flex-direction: column;
+	}
+
+	.share-blog-section ul li a {
+		font-size: 14px;
+	}
+
+	.share-blog-section ul {
+		gap: 10px;
+	}
+
+	.why-choose-ga-feature-box .why-choose-ga-feature-box-icon {
+		width: 70px;
+		height: 70px;
+	}
+
+	.why-choose-ga-feature-box .why-choose-ga-feature-box-icon img {
+		width: 45px;
+	}
+
+	.pricing-card .choose-plan-btn {
+		font-size: 16px;
+	}
+
+	.banner-content h1 {
+		font-size: 24px;
+	}
+
+	.stundent-content,
+	.test-univ-sec {
+		padding-inline: 20px;
+	}
+
+	.slick-dots {
+		bottom: -20px;
+	}
+
+	.pricing-plan-section-inner {
+		padding-inline: 10px;
+		padding-block-end: 10px;
+	}
+
+	.test-preparation-sec .test-pre-box h4 {
+		font-size: 18px;
+		margin-block-end: 10px;
+	}
+
+	.vetting-content {
+		margin: 20px auto;
+	}
+
+	.coaching-service-box .descp {
+		font-size: 15px;
+	}
+
+	.student-test-box {
+		margin-inline-start: 30px;
+	}
+
+	.our-branch-box {
+		grid-template-columns: 95px auto;
+	}
+
+	.contact-us-box .contact-us-icon-outer {
+		width: 80px;
+		height: 80px;
+	}
+
+	.contact-us-box .contact-us-icon-inner {
+		padding: 15px;
+	}
+
+	.py-70 {
+		padding-block: 35px;
+	}
+}
+
+@media only screen and (max-width: 325px) {
+
+	.py-70,
+	.py-60 {
+		padding-block: 30px;
+	}
+
+	.coaching-service-box img {
+		width: 90px;
+	}
+
+	.coaching-service-box .descp {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.students-info-left h3.sub-heading {
+		font-size: 16px;
+	}
+
+	.students-info-left h3.sub-heading br {
+		display: none;
+	}
+
+	.student-info-slider-inner h6 {
+		font-size: 14px;
+	}
+
+	.students-info-right form .input-field input,
+	.students-info-right form .input-field select,
+	.students-info-right form .input-field textarea {
+		font-size: 14px;
+	}
+
+	.students-info-right .register-form {
+		padding: 25px 15px;
+	}
+
+	.career-form-section-img {
+		width: 252px;
+		height: 250px;
+	}
+
+	.modal.right .modal-dialog {
+		width: 250px;
+	}
+}
