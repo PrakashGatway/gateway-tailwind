@@ -2,11 +2,11 @@ import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import "@/public/css/style.css";
-import "@/public/css/responsive.css";
+// import "@/public/css/style.css";
+// import "@/public/css/responsive.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import ClientLayout from "@/components/home/mainLayout";
 import { Noto_Sans } from 'next/font/google';
 

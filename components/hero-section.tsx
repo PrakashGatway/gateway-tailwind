@@ -1,16 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const HeroSection = ({type ,title,description,image}:any) => {
+const HeroSection = ({ type, title, description, image }: any) => {
   return (
     <section className="hero-gradient pt-12 py-12 flex items-center relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
+        {/* <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
         <div className="absolute top-32 left-16 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-1"></div>
         <div className="absolute top-44 left-12 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-2"></div>
         <div className="absolute top-56 left-18 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-3"></div>
-        <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div>
+        <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div> */}
 
         <div className="absolute top-20 right-20 w-20 h-20 border-2 border-red-300 rounded-full animate-rotate-slow"></div>
         <div className="absolute bottom-40 left-20 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[30px] border-b-red-300 animate-float"></div>
@@ -20,23 +20,22 @@ const HeroSection = ({type ,title,description,image}:any) => {
         <div className="absolute bottom-1/3 right-1/3 w-8 h-8 bg-yellow-400 rounded-full animate-bounce-slow animate-stagger-3"></div>
       </div>
 
-      <div className="container-sm mx-auto px-12 sm:py-24 py-28 relative z-10">
+      <div className="container-sm max-w-7xl mx-auto sm:py-24 py-28 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content with staggered animations */}
           <div className="space-y-3">
             <div className="">
-              <h1 className="text-3xl lg:text-[2.6rem] font-bold leading-[1.2]">
-                <span className="inline-block">{title?.split(';')[0] || "Gateway"}</span>
-                <br />
-              { type != "about" &&<> <span className="text-gradient py-1 inline-block">
+              <h1 className="text-3xl lg:text-[2.5rem] font-bold leading-[1.1]">
+                <span className="inline">{title?.split(';')[0] || "Gateway"}</span>
+                {/* <br /> */}
+                {type != "about" && <> <span className="text-gradient py-1 inline">
                   {title?.split(';')?.slice(1, title?.split(';')?.length)?.join(" ") || "Abroad Jaipur"}
                 </span>
-                <br /> </>}
+                  <br /> </>}
               </h1>
             </div>
 
             <div className="">
-              <div className="text-gray-600 text-base text-justify leading-relaxed max-w-2xl" dangerouslySetInnerHTML={{__html :description}}></div>
+              <div className="text-gray-600 text-base text-justify leading-relaxed max-w-3xl" dangerouslySetInnerHTML={{ __html: description }}></div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-stagger-4">
@@ -77,15 +76,15 @@ const HeroSection = ({type ,title,description,image}:any) => {
               <Image
                 src={title ? image : "https://www.gatewayabroadeducations.com/uploads/1725703170821-319524011.svg"}
                 alt="Study Abroad Illustration"
-                width={type == "about" ? 490 :430}
+                width={type == "about" ? 490 : 430}
                 height={400}
-                className="drop-shadow-2xl"
+                className="drop-shadow-xl"
                 priority
               />
             </div>
 
             {/* Background circle with pulse animation */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white bg-opacity-30 rounded-full animate-pulse-slow -z-10"></div>
+            {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white bg-opacity-30 rounded-full animate-pulse-slow -z-10"></div> */}
 
             {/* Additional decorative elements */}
             <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full animate-bounce-slow"></div>

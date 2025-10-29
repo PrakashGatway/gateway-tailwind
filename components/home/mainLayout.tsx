@@ -6,14 +6,12 @@ import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
 import Loader from "../loader";
 
-// Lazy load components
 const Header = lazy(() => import("@/components/header"));
 const Footer = lazy(() => import("@/components/footer"));
 const AuthDrawer = lazy(() => import("../auth/drawer"));
 
 const hideLayoutOnPaths = ['/thank-you'];
 
-// Loading fallback component
 const LayoutFallback = () => (
   null
 );
@@ -45,10 +43,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
               <Header />
             </Suspense>
           )}
-          <Suspense fallback={<LayoutFallback />}>
-            <div className="min-h-screen">{children}</div>
-          </Suspense>
-          {/* <main>{children}</main> */}
+          <main>{children}</main>
           {!shouldHideLayout && (
              <Suspense fallback={<LayoutFallback />}>
               <Footer />

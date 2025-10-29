@@ -30,7 +30,7 @@ const AboutSection = ({ aboutUs }) => {
           Who Are We?
         </motion.h3>
 
-        <p className="descp">{aboutUs?.pageTitle ? aboutUs?.pageTitle : `Gateway Abroad is run by a team of British education consultants who have themselves been students in various UK universities for a number of years. We are connected to a large network of overseas students and staff currently studying or working in universities throughout the UK. Through this network and through our in-house experience, we are able to find the best solution for each student, depending on specific requirements.`}</p>
+        <p className="text-gray-600 text-base text-justify max-w-2xl">{aboutUs?.pageTitle ? aboutUs?.pageTitle : `Gateway Abroad is run by a team of British education consultants who have themselves been students in various UK universities for a number of years. We are connected to a large network of overseas students and staff currently studying or working in universities throughout the UK. Through this network and through our in-house experience, we are able to find the best solution for each student, depending on specific requirements.`}</p>
         <Link href="/contact" className="btn-primary inline-block text-center group">
           <span className="relative z-10">Know More</span>
         </Link>
