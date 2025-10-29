@@ -44,11 +44,11 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             </Suspense>
           )}
           <main>{children}</main>
-          {!shouldHideLayout && (
+          {/* {!shouldHideLayout && (
              <Suspense fallback={<LayoutFallback />}>
               <Footer />
             </Suspense>
-          )}
+          )} */}
         </LoaderWrapper>
       </GlobalProvider>
     </ThemeProvider>
