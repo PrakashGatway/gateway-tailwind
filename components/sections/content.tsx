@@ -8,8 +8,8 @@ export default function ReadMoreSection({ content }: any) {
   return (
     <section className="bg-white">
 
-      <div className="container-sm mx-auto p-8 lg:p-16">
-        <h2 style={{ textAlign: "center" }} className="sub-heading lg:!text-2xl mb-4">
+      <div className="container-sm mx-auto p-8 lg:p-16 w-[85%]">
+        <h2 style={{ textAlign: "center" }} className="sub-heading lg:!text-2xl mb-4 text-2xl font-bold">
           {content?.title || "Comprehensive Support for Your UK Education Journey"}
         </h2>
 

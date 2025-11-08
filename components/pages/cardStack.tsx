@@ -131,7 +131,7 @@ export default function CardStackGridSection({ video: cards }) {
     // Increased vertical padding for more spacing
     <div className="relative z-10 bg-pink-100 py-16 flex flex-col items-center justify-center">
       <div className="text-center mb-10 md:mb-12 px-4">
-        <h2 className="heading">What Our Students Say</h2>
+        <h2 className="heading text-2xl font-bold">What Our Students Say</h2>
       </div>
 
       {/* Animated Cards Container */}

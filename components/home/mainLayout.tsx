@@ -6,6 +6,7 @@ import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
 import Loader from "../loader";
 
+
 const Header = lazy(() => import("@/components/header"));
 const Footer = lazy(() => import("@/components/footer"));
 const AuthDrawer = lazy(() => import("../auth/drawer"));
@@ -44,11 +45,11 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             </Suspense>
           )}
           <main>{children}</main>
-          {/* {!shouldHideLayout && (
+          {!shouldHideLayout && (
              <Suspense fallback={<LayoutFallback />}>
               <Footer />
             </Suspense>
-          )} */}
+          )}
         </LoaderWrapper>
       </GlobalProvider>
     </ThemeProvider>

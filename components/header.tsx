@@ -14,6 +14,7 @@ import {
   LayoutDashboard,
   LogOut,
   ImageDownIcon,
+  Phone,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { constant } from "@/constant/index.constant";
@@ -35,6 +36,9 @@ const Header = () => {
   
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  // Gateway Abroad contact number
+  const contactNumber = "+91-8302092630";
 
   // Set mounted state to avoid hydration errors
   useEffect(() => {
@@ -242,7 +246,29 @@ const Header = () => {
             >
               Contact Us
             </Link>
+
+            {/* Contact Number Box */}
+            <div className="relative group">
+              <div className="flex items-center space-x-2 px-2 py-1 bg-[#fbbf24] border border-black rounded-[20px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/20 hover:bg-[#d61635] hover:text-white pt-[12px]">
+                <Phone className="h-4 w-4 text-black " />
+                <Link 
+                  href={`tel:${contactNumber}`}
+                  className="text-black hover:text-white font-bold text-[10px] whitespace-nowrap hover:no-underline"
+                >
+                  {contactNumber}
+                  
+                </Link>
+                
+              </div>
+
+              
+         
+              
+              <h5 className="text-[10px] font-bold text-[#d61635] pl-[10px] ">connect with expert</h5>
+            </div>
+            
           </nav>
+          
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-3">
@@ -555,6 +581,20 @@ const Header = () => {
                 <User className="h-5 w-5" />
                 <span>Contact Us</span>
               </Link>
+
+              {/* Mobile Contact Number Box */}
+              <div className="mx-2 my-3">
+                <Link 
+                  href={`tel:${contactNumber}`}
+                  className="flex items-center justify-center space-x-2 px-4 py-3 bg-[#fbbf24] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/20"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Phone className="h-5 w-5 text-white" />
+                  <span className="text-white font-bold text-base">
+                    {contactNumber}
+                  </span>
+                </Link>
+              </div>
 
               {/* Mobile User Menu */}
               {user?.email && (

@@ -21,7 +21,7 @@ const HeroSection = ({ type, title, description, image }: any) => {
       </div>
 
       {/* Content container with responsive padding */}
-      <div className="w-full px-4 sm:px-6 lg:px-8"> {/* Add responsive padding here */}
+      <div className="w-full px-6 sm:px-[4rem] lg:px-10"> {/* Add responsive padding here */}
         <div className="container-sm max-w-7xl mx-auto sm:py-24 py-28 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-3">

@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
 import { useGlobal } from "@/hooks/AppStateContext";
+import Image from "next/image";
 
 export default function CareerPage() {
   const {careerPage:data,jobFormData} = useGlobal();
@@ -71,7 +72,7 @@ export default function CareerPage() {
 
       {/* ====== Hero Section ====== */}
       <section className="hero-gradient">
-        <div className="px-4 min-h-[40vh]">
+        <div className="px-4 min-h-[40vh] max-w-7xl mx-auto">
           <div className="text-center mx-auto max-w-4xl pt-32 pb-8">
             <h1 className="text-3xl lg:text-[2.6rem] font-bold text-gray-900 mb-6">
               Join Our <span className="text-gradient">Team</span>
@@ -86,13 +87,15 @@ export default function CareerPage() {
 
       {/* ====== About Us Sections ====== */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
           {/* Culture of Success */}
           <div className="flex flex-col md:flex-row items-center mb-12 gap-8">
             <div className="w-full md:w-5/12 mb-6 md:mb-0">
-              <img
-                src="img/career-img-new-1.jpeg"
+              <Image
+                src="/img/career-img-new-1.jpeg"
                 alt="Culture of Success"
+                width={500}
+                height={350}
                 className="w-full rounded-2xl shadow-lg"
               />
             </div>
@@ -125,9 +128,11 @@ export default function CareerPage() {
               </div>
             </div>
             <div className="w-full md:w-5/12 order-1 md:order-2">
-              <img 
-                src="img/career-img-new-2.jpeg" 
+              <Image 
+                src="/img/career-img-new-2.jpeg" 
                 alt="Working with Gateway Abroad" 
+                width={500}
+                height={350}
                 className="w-full rounded-2xl shadow-lg" 
               />
             </div>
@@ -135,180 +140,199 @@ export default function CareerPage() {
         </div>
       </section>
 
-  {/* ====== Vacancies Section ====== */}
-<section className="py-16 bg-[#e9def7]">
-  <div className="container mx-auto px-4 max-w-6xl">
-    <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">Vacancies</h2>
-    <div className="pt-4">
-      <div className="flex flex-wrap justify-center gap-6">
-        {jobData.map((job) => (
-          <div key={job._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-[31.333333%]">
-            <div className="p-6">
-              <h4 className="text-xl font-bold text-gray-900 mb-2">{job.jobTitle}</h4>
-              <h6 className="text-[#666276] text-base font-medium pt-2">
-                No. of Vacancy: {job.vacancy}
-              </h6>
-              <h6 className="text-[#666276] text-base font-medium pt-2 mb-4">
-                Location: {job.location}
-              </h6>
-              <div className="max-h-48 overflow-y-auto mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
-                <div className="text-gray-700 text-sm mb-2" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
-                <div className="text-gray-700 text-sm" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
-              </div>
-              <div>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64] me-2">
-                    {job.jobType}
-                  </span>
-                  <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64] me-2">
-                    {job.jobExp} Year
-                  </span>
-                  <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64] me-2">
-                    {job.jobLevel} Level
-                  </span>
+      {/* ====== Vacancies Section ====== */}
+      <section className="py-16 bg-[linear-gradient(180deg,rgba(188,140,252,0.2),rgba(215,22,53,0.2))]">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">Vacancies</h2>
+          <div className="pt-4">
+            <div className="flex flex-wrap justify-center gap-6">
+              {jobData.map((job) => (
+                <div key={job._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm">
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">{job.jobTitle}</h4>
+                    <h6 className="text-[#666276] text-base font-medium pt-2">
+                      No. of Vacancy: {job.vacancy}
+                    </h6>
+                    <h6 className="text-[#666276] text-base font-medium pt-2 mb-4">
+                      Location: {job.location}
+                    </h6>
+                    <div className="max-h-[21rem] overflow-y-auto overflow-x-hidden mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
+                      <div className="text-[14px] leading-[20px] mb-2 break-words" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
+                      <div className="text-gray-700 text-sm break-words" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                          {job.jobType}
+                        </span>
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                          {job.jobExp} Year
+                        </span>
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                          {job.jobLevel} Level
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <button 
+                          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center mx-auto"
+                          onClick={() => section1Ref.current.scrollIntoView({ behavior: 'smooth' })}
+                        >
+                          Apply Now 
+                          <span className="ml-2">
+                            <i className="fa fa-paper-plane"></i>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <button 
-                    className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center mx-auto"
-                    onClick={() => section1Ref.current.scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    Apply Now 
-                    <span className="ml-2">
-                      <i className="fa fa-paper-plane"></i>
-                    </span>
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        ))}
+        </div>
+      </section>
+
+    {/* ====== Career Form Section ====== */}
+<section className="py-16 bg-[#EFECF3]" ref={section1Ref}>
+  <div className="container mx-auto px-4">
+    <div className="flex flex-col lg:flex-row items-center gap-8">
+      <div className="w-full lg:w-7/12">
+        <div>
+          <h2 className="text-2xl md:text-3xl lg:text-3xl font-bold text-gray-900 mb-6">
+            Boost Your Career! Find the Perfect <br />Role with Gateway Abroad
+          </h2>
+          <div className="mt-8">
+            <img src="img/career-form-img.svg" alt="Career Form" className="w-full max-w-md" />
+          </div>
+        </div>
+      </div>
+      <div className="w-full lg:w-5/12">
+        <div className="bg-white rounded-2xl p-8 shadow-lg">
+          <form className="space-y-6">
+            {/* Name Field */}
+            <div>
+              <label className="block text-gray-70 text-sm font-medium mb-2">Name</label>
+              <input 
+                type="text" 
+                name="name" 
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors "
+                onChange={(e) => setName(e.target.value)} 
+                placeholder="Enter your name" 
+              />
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label className="block text-gray-70 text-sm font-medium mb-2">Email</label>
+              <input 
+                type="email" 
+                name="email" 
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="Enter your email" 
+              />
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <label className="block text-gray-70 text-sm font-medium mb-2">Phone</label>
+              <input 
+                type="text" 
+                name="phone" 
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                onChange={(e) => setPhone(e.target.value)} 
+                placeholder="Enter your phone number" 
+              />
+            </div>
+
+            {/* Vacancies Select */}
+            <div>
+              <label className="block text-gray-70 text-sm font-medium mb-2">Select Vacancies</label>
+              <select 
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                value={branch}
+                onChange={(e) => setBranch(e.target.value)}
+              >
+                <option value="" className="text-gray-500">Choose a vacancy</option>
+                {jobData.map((job) => (
+                  <option key={job._id} value={job.jobTitle} className="text-gray-900">{job.jobTitle}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* CV Upload */}
+            <div>
+              <label className="block text-gray-70 text-sm font-medium mb-2">Upload your CV here</label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-red-400 transition-colors duration-300 bg-gray-50">
+                <label className="cursor-pointer flex flex-col items-center">
+                  <img src="img/upload-img.svg" className="w-12 h-12 mb-3" alt="Upload" />
+                  <span className="text-gray-600 font-medium">
+                    {file ? file.name : "Click to upload your CV"}
+                  </span>
+                  <input 
+                    className="hidden" 
+                    onChange={handleFileChange} 
+                    id="FileInput" 
+                    name="booking_attachment" 
+                    type="file" 
+                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" 
+                  />
+                </label>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button 
+              type="submit" 
+              onClick={handleUpdate}
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors duration-300 mt-4"
+            >
+              SUBMIT
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-      {/* ====== Career Form Section ====== */}
-      <section className="py-16 bg-white" ref={section1Ref}>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
-            <div className="w-full lg:w-7/12">
-              <div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                  Boost Your Career! Find the Perfect <br />Role with Gateway Abroad
-                </h2>
-                <div className="mt-8">
-                  <img src="img/career-form-img.svg" alt="Career Form" className="w-full max-w-md" />
-                </div>
-              </div>
+     
+       {/* ====== Counselling Session Section ====== */}
+<section className="py-12 md:py-16 bg-white">
+  <div className="container mx-auto px-4 max-w-7xl">
+    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+      {/* Content container with specific padding */}
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+          <div className="w-full lg:w-[48%]">
+            <div className="text-center lg:text-left pl-[17px]">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px]">
+                Avail A Complementary Counselling Session
+              </h2>
+              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                Join thousand of instructors and earn money hassle free!
+              </p>
+              <a 
+                href="/contact" 
+                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+              >
+                Contact us
+              </a>
             </div>
-            <div className="w-full lg:w-5/12">
-              <div className="bg-gray-50 rounded-2xl p-6 shadow-lg">
-                <form className="space-y-4">
-                  <div>
-                    <input 
-                      type="text" 
-                      name="name" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all duration-300"
-                      onChange={(e) => setName(e.target.value)} 
-                      placeholder="Name" 
-                    />
-                  </div>
-                  <div>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all duration-300"
-                      onChange={(e) => setEmail(e.target.value)} 
-                      placeholder="Email" 
-                    />
-                  </div>
-                  <div>
-                    <input 
-                      type="text" 
-                      name="phone" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all duration-300"
-                      onChange={(e) => setPhone(e.target.value)} 
-                      placeholder="Phone" 
-                    />
-                  </div>
-                  <div>
-                    <select 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all duration-300"
-                      value={branch}
-                      onChange={(e) => setBranch(e.target.value)}
-                    >
-                      <option value="">Select Vacancies</option>
-                      {jobData.map((job) => (
-                        <option key={job._id} value={job.jobTitle}>{job.jobTitle}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-red-400 transition-colors duration-300">
-                    <label className="cursor-pointer flex flex-col items-center">
-                      <img src="img/upload-img.svg" className="w-8 h-8 mb-2" alt="Upload" />
-                      <span className="text-gray-600 font-medium">
-                        {file ? file.name : "Upload your CV here"}
-                      </span>
-                      <input 
-                        className="hidden" 
-                        onChange={handleFileChange} 
-                        id="FileInput" 
-                        name="booking_attachment" 
-                        type="file" 
-                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" 
-                      />
-                    </label>
-                  </div>
-                  <button 
-                    type="submit" 
-                    onClick={handleUpdate}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold text-lg transition-colors duration-300"
-                  >
-                    SUBMIT
-                  </button>
-                </form>
-              </div>
+          </div>
+          <div className="w-full lg:w-[38%]">
+            <div className="flex justify-center">
+              <img
+                src="img/counselling-session.svg"
+                alt="Counselling Session"
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+              />
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ====== Counselling Session Section ====== */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg">
-            <div className="px-6 py-[10px] sm:px-6 sm:py-[10px] lg:px-6 lg:py-[10px]">
-              <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
-                <div className="w-full lg:w-1/2">
-                  <div>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635]">
-                      Avail A Complementary Counselling Session
-                    </h2>
-                    <p className="text-base sm:text-lg lg:text-xl mb-4 sm:mb-6 text-[#666276] whitespace-normal sm:whitespace-nowrap">
-                      Join thousand of instructors and earn money hassle free!
-                    </p>
-                    <a 
-                      href="/contact" 
-                      className="inline-block bg-[#974552] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
-                    >
-                      Contact us
-                    </a>
-                  </div>
-                </div>
-                <div className="w-full lg:w-1/2">
-                  <div className="flex justify-center">
-                    <img
-                      src="img/counselling-session.svg"
-                      alt="Counselling Session"
-                      className="w-full max-w-xs sm:max-w-sm lg:max-w-md"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
     </div>
   );
 }

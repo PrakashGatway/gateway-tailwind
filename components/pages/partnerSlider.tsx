@@ -108,7 +108,7 @@ export default function Component() {
     <div className="flex flex-col items-center justify-center bg-[#FAFBFF] py-12">
       <div className="w-full px-4">
           <div className="text-center mb-16">
-            <h2 className="heading text-center d-block mb-2">
+            <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
               Our Partner Universities
             </h2>
             </div>

@@ -87,14 +87,16 @@ function About() {
               <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
                 <div className="w-full md:w-2/5">
                   <div className="flex justify-center">
-                    <img
+                    <Image
                       src="/img/about-us-img-1.svg"
                       alt="About Us Image 1"
+                      width={400}
+                      height={300}
                       className="w-full max-w-xs sm:max-w-sm md:max-w-md"
                     />
                   </div>
                 </div>
-                <div className="w-full md:w-3/5">
+                <div className="w-full md:w-3/5 sm:px-[3rem]">
                   <div className="md:pl-6 lg:pl-8">
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 pb-3 md:pb-4">
                       Who Are We?
@@ -125,9 +127,11 @@ function About() {
                 </div>
                 <div className="w-full md:w-2/5 order-1 md:order-2">
                   <div className="flex justify-center">
-                    <img
+                    <Image
                       src="/img/about-us-img-2.svg"
                       alt="About Us Image 2"
+                      width={400}
+                      height={300}
                       className="w-full max-w-xs sm:max-w-sm md:max-w-md"
                     />
                   </div>
@@ -218,9 +222,9 @@ function About() {
               People behind Gateway Abroad
             </h2>
             <div className="pt-6 md:pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-items-center">
                 {form.map((m) => (
-                  <div key={m._id} className="bg-[#faf3fb] rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                  <div key={m._id} className="bg-[#fcedf0] rounded-xl shadow-lg overflow-hidden border border-gray-200 w-full max-w-[550px]">
                     {/* Header */}
                     <div className="bg-red-600 px-4 sm:px-6 py-3 sm:py-4 text-center">
                       <h4 className="text-lg sm:text-xl font-bold text-white">{m.name}</h4>
@@ -241,35 +245,35 @@ function About() {
           </div>
         </section>
 
-      {/* Counselling Session Section */}
+       {/* ====== Counselling Session Section ====== */}
 <section className="py-12 md:py-16 bg-white">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-0 sm:mx-2 lg:mx-4">
+  <div className="container mx-auto px-4 max-w-7xl">
+    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
       {/* Content container with specific padding */}
-      <div className="px-6 py-[10px] sm:px-6 sm:py-[10px] lg:px-6 lg:py-[10px]"> {/* 24px left-right, 10px top-bottom */}
-        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
-          <div className="w-full lg:w-1/2">
-            <div>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635]">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+          <div className="w-full lg:w-[48%]">
+            <div className="text-center lg:text-left pl-[17px]">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px]">
                 Avail A Complementary Counselling Session
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl mb-4 sm:mb-6 text-[#666276] whitespace-normal sm:whitespace-nowrap">
+              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
                 Join thousand of instructors and earn money hassle free!
               </p>
-              <Link
-                href='/contact'
-                className="inline-block bg-[#974552] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+              <a 
+                href="/contact" 
+                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
               >
                 Contact us
-              </Link>
+              </a>
             </div>
           </div>
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-[38%]">
             <div className="flex justify-center">
               <img
-                src="/img/counselling-session.svg"
+                src="img/counselling-session.svg"
                 alt="Counselling Session"
-                className="w-full max-w-xs sm:max-w-sm lg:max-w-md"
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
               />
             </div>
           </div>

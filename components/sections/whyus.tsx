@@ -5,9 +5,9 @@ import { DynamicIcon } from "./processRoad";
 export default function CardLayout({ content }: any) {
     const { drawer, setDrawer } = useGlobal()
     return (
-        <section className=" py-8 bg-[#FAFBFF]">
+        <section className=" py-8 bg-[#FAFBFF] px-[140px]">
             <div className="text-center mb-10">
-                <h2 className="heading text-center d-block mb-2">
+                <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
                     {content?.title || "Why Choose Our Study Platform?"}
                 </h2>
                 <p className="sub-heading !text-base max-w-3xl mx-auto">

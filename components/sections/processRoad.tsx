@@ -47,7 +47,7 @@ const ProcessRoadmap = ({ content }: any) => {
   return (
     <section
       ref={sectionRef}
-      className="py-8 md:py-12 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
+      className="py-8 md:py-12 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden px-[140px]"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 opacity-5">
@@ -58,7 +58,7 @@ const ProcessRoadmap = ({ content }: any) => {
       <div className="container-sm mx-auto px-4 relative z-5">
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2 className="heading mb-3">
+          <h2 className="heading mb-3 text-2xl font-bold">
             {content?.title.split(" ").slice(0, 3).join(" ") || "Your Study Abroad"}
             <span className="text-[#D71635]"> {content?.title.split(" ").slice(3).join(" ") || ""}</span>
           </h2>

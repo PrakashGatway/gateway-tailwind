@@ -1,22 +1,25 @@
 import Link from "next/link";
 
-export default function LocationAvailability({cities}) {
+export default function LocationAvailability({ cities }) {
   return (
-    <section className="pb-8">
+    <section className="pb-8 w-[80%] mx-auto">
       <div className="container-sm">
         <div className="row">
           <div className="col-12">
-            <div className="mb-4">
-              <h4 className="footer-title text-dark mb-4">STUDY ABROAD CONSULTATION IN</h4>
+            <div className="mb-3">
+              <h4 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full ">🌍 Study Abroad Consultants in</h4>
             </div>
 
-            <div className="row">
+            <div style={{borderColor:'#f1f1f14a!important'}} className="flex gap-1 flex-wrap justify-start items-center sm:gap-3 overflow-x-auto scrollbar-thin border-b scrollbar-thumb-gray-300 scrollbar-track-transparent pb-3">
               {cities.map((city, index) => (
-                <div key={index} className="col-lg-2 col-md-3 col-sm-4 col-6 mb-1">
-                  <div className="city-item">
-                    <Link href={`/study-abroad/${city?.slug}`} className="city-link duration-200 hover:!translate-x-[6px] capitalize text-dark d-block position-relative">{city?.slug}</Link>
-                  </div>
-                </div>
+                <Link
+                  key={index}
+                  href={`/study-abroad/${city?.slug}`}
+                  className={`relative flex items-center justify-center px-3 sm:px-3 py-2 text-sm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-900 shadow-sm
+                 text-gray-700 `}
+                >
+                  {city?.slug.toUpperCase()}
+                </Link>
               ))}
             </div>
           </div>

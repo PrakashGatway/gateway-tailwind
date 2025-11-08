@@ -2,28 +2,197 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // For App Router
-import { useForm } from 'react-hook-form'; // Import useForm
-import Slider from 'react-slick';
-import { slider2settings, settings, youtubeSlider, blogSlider, testimonialSlider } from '@/custom/custom'; // Ensure path is correct
-import PageServices from '@/services/PageServices'; // Ensure path is correct
-import { constant } from '@/constant/index.constant.js'; // Ensure path is correct
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
+import PageServices from '@/services/PageServices';
+import { constant } from '@/constant/index.constant.js';
 import HeroSection from '../hero-section';
 import AboutSection from '../about-section';
 import TestPreparation from '../TestPreparationSection';
 import { useGlobal } from '@/hooks/AppStateContext';
 import Swal from 'sweetalert2';
-import StudentInfoSection from './StudentSlider';
 import StudentRankSection from './StudentSlider';
+import Image from 'next/image';
+import BlogCard from '../pages/usable components/BlogCard';
 
 function Index() {
-  const router = useRouter(); // For App Router
+  const router = useRouter();
   const [blogData, setBlogData] = useState([]);
   const [video, setVideo] = useState([]);
   const [sliderData, setSliderData] = useState([]);
   const [studentData, setStudentData] = useState([]);
 
   const { homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 } = useGlobal();
+
+  // Keen Slider for student info - UPDATED with autoplay
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoaded(true);
+    },
+    loop: true,
+    mode: "snap",
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    // Autoplay configuration
+    drag: false, // Optional: disable drag if you only want autoplay
+  });
+
+  // Autoplay effect
+  useEffect(() => {
+    if (!studentInfoInstanceRef.current) return;
+
+    const interval = setInterval(() => {
+      if (studentInfoInstanceRef.current) {
+        studentInfoInstanceRef.current.next();
+      }
+    }, 2000); // Change slide every 3 seconds
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [studentInfoInstanceRef]);
+
+  // Keen Slider for student rank
+  const [studentRankRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 2,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(min-width: 640px)': {
+        slides: {
+          perView: 3,
+          spacing: 20,
+        },
+      },
+      '(min-width: 1024px)': {
+        slides: {
+          perView: 4,
+          spacing: 24,
+        },
+      },
+    },
+  });
+
+  // Keen Slider for testimonials
+  const [testimonialRef, testimonialInstanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(min-width: 768px)': {
+        slides: {
+          perView: 2,
+          spacing: 24,
+        },
+      },
+    },
+  });
+
+  // Autoplay for testimonials slider
+  useEffect(() => {
+    if (!testimonialInstanceRef.current) return;
+
+    const interval = setInterval(() => {
+      if (testimonialInstanceRef.current) {
+        testimonialInstanceRef.current.next();
+      }
+    }, 2000); // Change slide every 5 seconds
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [testimonialInstanceRef]);
+
+
+
+  // Keen Slider for YouTube videos
+  const [youtubeRef, youtubeInstanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(min-width: 640px)': {
+        slides: {
+          perView: 2,
+          spacing: 20,
+        },
+      },
+    },
+  });
+
+  // Autoplay for YouTube videos slider
+  useEffect(() => {
+    if (!youtubeInstanceRef.current) return;
+
+    const interval = setInterval(() => {
+      if (youtubeInstanceRef.current) {
+        youtubeInstanceRef.current.next();
+      }
+    }, 2000); // Change slide every 4 seconds
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [youtubeInstanceRef]);
+
+  // Keen Slider for blogs with navigation
+  const [currentBlogSlide, setCurrentBlogSlide] = useState(0);
+  const [blogRef, blogInstanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
+    breakpoints: {
+      '(min-width: 640px)': {
+        slides: {
+          perView: 2,
+          spacing: 20,
+        },
+      },
+      '(min-width: 1024px)': {
+        slides: {
+          perView: 3,
+          spacing: 24,
+        },
+      },
+    },
+    slideChanged(slider) {
+      setCurrentBlogSlide(slider.track.details.rel);
+    },
+  });
+
+  // Autoplay for blog slider
+  useEffect(() => {
+    if (!blogInstanceRef.current) return;
+
+    const interval = setInterval(() => {
+      if (blogInstanceRef.current) {
+        blogInstanceRef.current.next();
+      }
+    }, 4000); // Change slide every 4 seconds
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [blogInstanceRef]);
 
   const fetchBlogs = useCallback(async (page = 1, category = 'All', search = '') => {
     try {
@@ -33,7 +202,6 @@ function Index() {
       console.error('Error fetching blogs:', err);
     }
   }, []);
-
 
   useEffect(() => {
     fetchBlogs();
@@ -51,9 +219,6 @@ function Index() {
     }
   }, [slider, slider2, videoStudednt]);
 
-
-  const marqueeRef = useRef(null);
-
   const {
     register: registerRegister,
     handleSubmit: handleSubmitRegister,
@@ -64,12 +229,12 @@ function Index() {
       name: '',
       email: '',
       mobile: '',
-      studyDestination: '', // Default to empty string or a specific option if needed
+      studyDestination: '',
       query: ''
     }
   });
 
-  const handleUpdate = async (data) => { // 'data' now contains validated form values
+  const handleUpdate = async (data) => {
     const { name, email, mobile, studyDestination, query } = data;
     try {
       const createJob = await PageServices.createForme({
@@ -86,20 +251,17 @@ function Index() {
           title: "Success",
           text: "Thanks for registering!",
           icon: "success",
-          customClass: {
-            popup: "swal-zindex"
-          }
         });
       } else {
         alert('Something went wrong');
       }
     } catch (error) {
       console.error("Error submitting register form:", error);
-      alert('An error occurred. Please try again.'); // Provide user feedback
+      alert('An error occurred. Please try again.');
     }
   };
 
-  const {
+   const {
     register: registerPartner,
     handleSubmit: handleSubmitPartner,
     formState: { errors: partnerErrors },
@@ -169,697 +331,982 @@ function Index() {
     }
   };
 
-
   return (
     <>
       <HeroSection title={homePageDetails?.Title} description={homePageDetails?.Description} image={`${constant.REACT_APP_URL}/uploads/${homePageDetails?.image}`} />
-      <section className="py-20">
-        <div className="container-sm max-w-7xl mx-auto">
-          <h2 className="text-2xl lg:text-[2rem] font-bold leading-[1.1] mb-6">About us</h2>
+
+      {/* About Us Section */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8">About us</h2>
           <div className="about-us-inner">
             <AboutSection aboutUs={aboutPageData?.page} />
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl lg:text-[2rem] font-bold text-center mb-12">
+      {/* Coaching Services Section */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-900 mb-12">
             Best in the Industry Coaching Services
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-items-center">
-            {constant.TEST_PREPARATION.map((x) => {
-              return (
-                <div key={x.text1} className="w-full max-w-[200px]">
-                  <div className="text-center p-2 transition-all duration-300 hover:transform hover:scale-105">
-                    <img
-                      className="mx-auto w-16 h-16 md:w-28 md:h-28 object-contain"
-                      src={`/img/${x.imageName}`}
-                      alt={x.imageName}
-                    />
-                    <p className="text-sm md:text-base text-gray-800 dark:text-gray-300 mt-1 leading-relaxed">
-                      {x.text1}
-                      {x.text2 && <br />}
-                      {x.text2}
-                    </p>
-                  </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+            {constant.TEST_PREPARATION.map((x) => (
+              <div key={x.text1} className="text-center p-4 bg-white rounded-lg ">
+                <div className="w-[7rem] h-16 md:w-[8rem] md:h-20 mx-auto mb-4 flex items-center justify-center">
+                  <Image
+                    src={`/img/${x.imageName}`}
+                    alt={x.imageName}
+                    width={130}
+                    height={80}
+                    className="object-contain"
+                  />
                 </div>
-              );
-            })}
+                <p className="text-sm md:text-base text-gray-800 leading-relaxed font-medium">
+                  {x.text1}
+                  {x.text2 && <br />}
+                  {x.text2}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-      <StudentRankSection/>
 
-      <section className="student-info-sec linear-bg">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <div className="students-info-left">
-                <h3 className="sub-heading text-center">
-                  Established in <span>2009</span>, this institute is a leader in preparing students for standardized tests like GMAT, GRE, SAT, TOEFL, IELTS, and PTE.
-                </h3>
-                {studentData.length === 1 ? (
-                  <div className="student-info-slider">
-                    <div className="student-info-slider-inner">
-                      <div className='st-img-field'>
-                        {/* Ensure image path is correct for Next.js public directory */}
-                        <img src={`${constant.REACT_APP_URL}/uploads/${studentData?.[0].image}`} alt='icon' />
-                        <div className='student-info-name-rank'>
-                          <div className='st-name'><h5>{studentData[0].name}</h5></div>
-                          <div className='st-rank'><p>{studentData[0].courseName} Score</p><h5>{studentData[0].rank}</h5></div>
-                        </div>
-                      </div>
-                      <h6>{studentData[0].content}</h6>
-                    </div>
-                  </div>
-                ) : (
-                  <Slider {...slider2settings} className="student-info-slider">
-                    {studentData.map((s) => (
-                      <div key={s.image} className="student-info-slider-inner">
-                        <div className='st-img-field'>
-                          {/* Ensure image path is correct for Next.js public directory */}
-                          <img src={`${constant.REACT_APP_URL}/uploads/${s.image}`} alt='Student Profile' />
-                          <div className='student-info-name-rank'>
-                            <div className='st-name'><h5>{s.name}</h5></div>
-                            <div className='st-rank'><p>{s.courseName} Score</p><h5>{s.rank}</h5></div>
+
+
+      {/* Student Info Section */}
+      <section
+        className="py-12 md:py-[2rem] relative overflow-hidden h-[800px]"
+        style={{
+          background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left Column - Student Info & Slider */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 text-center lg:text-left mb-8 leading-[35px]">
+                Established in <span className="bg-red-600 py-[4px] px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span>GMAT</span>, <span>GRE</span>, <span>SAT</span>, <span>TOEFL</span>, <span>IELTS</span>, and <span>PTE</span>.
+              </h3>
+
+              {studentData.length > 0 && (
+                <div className="relative">
+                  <div ref={studentInfoRef} className="keen-slider">
+                    {studentData.map((s, index) => (
+                      <div key={index} className="keen-slider__slide">
+                        <div className="relative">
+                          {/* Student Image - Larger and centered above content */}
+                          <div className="flex justify-center">
+                            <div className="relative">
+                              <Image
+                                src={`${constant.REACT_APP_URL}/uploads/${s.image}`}
+                                alt={s.name}
+                                width={360}
+                                height={120}
+                                className="rounded-full w-full max-w-[360px] h-auto"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Name and Score side by side */}
+                          <div className="absolute top-[280px] flex ml-[95px] items-center w-[68%] h-[94px] sm:ml-[70px] sm:w-[75%] md:ml-[85px] md:w-[70%] lg:ml-[95px] lg:w-[68%]">
+                            <div className='w-[60%] bg-gray-300 h-[100%]'>
+                              <h5 className="text-center pt-[30px] font-bold text-gray-900 text-xl">{s.name}</h5>
+                            </div>
+                            <div className="text-center bg-[#9e0072] py-[11px] px-[25px] h-[100%]">
+                              <p className="text-sm text-white mb-1">{s.courseName} Score</p>
+                              <h5 className="text-2xl mt-[10px] font-bold text-white">{s.rank}</h5>
+                            </div>
+                          </div>
+
+                          {/* Content below */}
+                          <div className="mt-[400px] sm:mt-[380px] md:mt-[370px] lg:mt-[400px]">
+                            <p className="text-gray-600 leading-relaxed text-center text-lg">
+                              {s.content}
+                            </p>
                           </div>
                         </div>
-                        <h6>{s.content}</h6>
                       </div>
                     ))}
-                  </Slider>
-                )}
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="students-info-right">
-                <div className="register-form">
-                  <h3 className="sub-heading text-center text-uppercase">Register Now</h3>
-                  {/* --- Updated Register Form --- */}
-                  <form onSubmit={handleSubmitRegister(handleUpdate)}>
-                    <div className="input-field">
-                      <input
-                        type="text"
-                        {...registerRegister("name", { required: "Name is required" })}
-                        className={`form-control ${registerErrors.name ? 'is-invalid' : ''}`}
-                        placeholder="Name"
-                      />
-                      {registerErrors.name && <div className="invalid-feedback">{registerErrors.name.message}</div>}
+                  </div>
+
+                  {/* Slider Navigation */}
+                  {loaded && studentInfoInstanceRef.current && studentData.length > 1 && (
+                    <div className="flex items-center justify-center mt-6 space-x-4">
+
                     </div>
-                    <div className="input-field">
-                      <input
-                        type="email"
-                        {...registerRegister("email", {
-                          required: "Email is required",
-                          pattern: {
-                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                            message: "Invalid email address"
-                          }
-                        })}
-                        className={`form-control ${registerErrors.email ? 'is-invalid' : ''}`}
-                        placeholder="Email"
-                      />
-                      {registerErrors.email && <div className="invalid-feedback">{registerErrors.email.message}</div>}
-                    </div>
-                    <div className="input-field">
-                      <input
-                        type="text"
-                        {...registerRegister("mobile", {
-                          required: "Phone is required",
-                          pattern: {
-                            value: /^\d{10,15}$/, // Adjust pattern as needed
-                            message: "Invalid phone number"
-                          }
-                        })}
-                        className={`form-control ${registerErrors.mobile ? 'is-invalid' : ''}`}
-                        placeholder="Phone"
-                      />
-                      {registerErrors.mobile && <div className="invalid-feedback">{registerErrors.mobile.message}</div>}
-                    </div>
-                    <div className="input-field">
-                      <select
-                        {...registerRegister("studyDestination", { required: "Test Preparation is required" })}
-                        className={`form-select ${registerErrors.studyDestination ? 'is-invalid' : ''}`}
-                        aria-label="Default select example"
-                      >
-                        <option value="">Test Preparation</option>
-                        <option value='GMAT'>GMAT</option>
-                        <option value='IELTS'>IELTS</option>
-                        <option value="TOEFL">TOEFL</option>
-                        <option value="GRE">GRE</option>
-                        <option value="PTE">PTE</option>
-                        <option value="SAT">SAT</option>
-                      </select>
-                      {registerErrors.studyDestination && <div className="invalid-feedback">{registerErrors.studyDestination.message}</div>}
-                    </div>
-                    <div className="input-field">
-                      <textarea
-                        {...registerRegister("query")}
-                        className="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows={2}
-                        placeholder="Message"
-                      ></textarea>
-                    </div>
-                    <button type="submit" className="btn btn-primary">SUBMIT</button>
-                  </form>
+                  )}
                 </div>
-              </div>
+              )}
+            </div>
+
+            {/* Right Column - Register Form */}
+            <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-200 mb-[160px] w-[70%]">
+              <h3 className="text-2xl font-bold text-gray-900 text-center uppercase mb-6">Register Now</h3>
+              <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    {...registerRegister("name", { required: "Name is required" })}
+                    className={`w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors`}
+                    placeholder="Name"
+                  />
+                  {registerErrors.name && (
+                    <p className="text-red-500 text-sm mt-1">{registerErrors.name.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    type="email"
+                    {...registerRegister("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "Invalid email address"
+                      }
+                    })}
+                    className={`w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors`}
+                    placeholder="Email"
+                  />
+                  {registerErrors.email && (
+                    <p className="text-red-500 text-sm mt-1">{registerErrors.email.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <input
+                    type="text"
+                    {...registerRegister("mobile", {
+                      required: "Phone is required",
+                      pattern: {
+                        value: /^\d{10,15}$/,
+                        message: "Invalid phone number"
+                      }
+                    })}
+                    className={`w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors`}
+                    placeholder="Phone"
+                  />
+                  {registerErrors.mobile && (
+                    <p className="text-red-500 text-sm mt-1">{registerErrors.mobile.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <select
+                    {...registerRegister("studyDestination", { required: "Test Preparation is required" })}
+                    className={`w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full  px-4 text-gray-900 transition-colors`}
+                  >
+                    <option value="">Test Preparation</option>
+                    <option value='GMAT'>GMAT</option>
+                    <option value='IELTS'>IELTS</option>
+                    <option value="TOEFL">TOEFL</option>
+                    <option value="GRE">GRE</option>
+                    <option value="PTE">PTE</option>
+                    <option value="SAT">SAT</option>
+                  </select>
+                  {registerErrors.studyDestination && (
+                    <p className="text-red-500 text-sm mt-1">{registerErrors.studyDestination.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <textarea
+                    {...registerRegister("query")}
+                    className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors h-[110px]"
+                    rows={3}
+                    placeholder="Message"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  SUBMIT
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="student-info-rank-sec">
-        <div className="established-sec">
-          <p>Since 2009</p>
+
+
+
+
+      {/* Student Rank Section */}
+      <section className=" bg-[#d71635] relative">
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+          <div className="bg-black text-white px-4 p-[10px]  rounded-full absolute h-[65px] w-[211px] top-[-33px] right-[-158px]">
+            <p className="text-xl font-semibold text-center pl-[22px] pt-[8px]">Since 2009</p>
+          </div>
         </div>
-        <Slider {...settings} className="student-info-rank-slider">
-          {sliderData.map((s, index) => (
-            <div key={index} className="student-info-rank-inner">
-              <p className="st-name">{s.name}</p>
-              <p className="st-uni-name">{s.courseName} {s.rank}</p>
-            </div>
-          ))}
-        </Slider>
+
+    <div className="mx-auto ml-20 overflow-hidden">
+  <div className="flex group">
+    {/* First set for seamless loop */}
+    <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
+      {sliderData.map((s, index) => (
+        <div 
+          key={`first-${index}`} 
+          className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
+        >
+          {/* Right border for partition */}
+          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
+          
+          <p className="text-sm text-[#FFD8D8]">{s.name}</p>
+          <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
+        </div>
+      ))}
+    </div>
+    
+    {/* Duplicate set for seamless loop */}
+    <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
+      {sliderData.map((s, index) => (
+        <div 
+          key={`second-${index}`} 
+          className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
+        >
+          {/* Right border for partition */}
+          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
+          
+          <p className="text-sm text-[#FFD8D8]">{s.name}</p>
+          <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  {/* Add animation styles */}
+  <style jsx>{`
+    @keyframes infinite-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    .animate-infinite-scroll {
+      animation: infinite-scroll 20s linear infinite;
+      flex-shrink: 0;
+      min-width: 100%;
+    }
+    .group:hover .animate-infinite-scroll {
+      animation-play-state: paused;
+    }
+  `}</style>
+</div>
       </section>
 
-      <marquee
-        ref={marqueeRef}
-        className="marquee-product"
-        behavior="alternate"
-        direction="right"
-        // scrollAmount={5}
-        onMouseEnter={() => marqueeRef.current?.stop()}
-        onMouseLeave={() => marqueeRef.current?.start()}
-      >
-        {sliderData.map((s, index) => (
-          <small key={index} id="studentname">
-            {s.name} {s.courseName} <small id="studentscores">{s.rank}</small>
-          </small>
-        ))}
-      </marquee>
-      
+     {/* Marquee Section */}
+<section className="bg-[#d9d9d9] overflow-hidden">
+  <div className="flex group">
+    {/* First set for seamless loop */}
+    <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
+      {sliderData.map((s, index) => (
+        <div key={`first-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
+          {/* Right border for partition */}
+          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[20px] w-[1px] bg-black"></div>
+          {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
+        </div>
+      ))}
+    </div>
+    
+    {/* Duplicate set for seamless loop */}
+    <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
+      {sliderData.map((s, index) => (
+        <div key={`second-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
+          {/* Right border for partition */}
+          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-black"></div>
+          {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  {/* Add animation styles */}
+  <style jsx>{`
+    @keyframes infinite-scroll-reverse {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .animate-infinite-scroll-reverse {
+      animation: infinite-scroll-reverse 40s linear infinite;
+      flex-shrink: 0;
+      min-width: 100%;
+    }
+    .group:hover .animate-infinite-scroll-reverse {
+      animation-play-state: paused;
+    }
+  `}</style>
+</section>
 
-      <section className="test-preparation-sec py-70">
-        <div className="container">
-          <h2 className="heading bottom-divider">Test Preparation</h2>
-          <div className="row gy-4 justify-content-center">
+      {/* Test Preparation Section */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12 border-b-2 border-gray-200 pb-4">
+            Test Preparation
+          </h2>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 ">
             <TestPreparation CourseData={CourseData?.page} />
           </div>
         </div>
       </section>
 
-    <div className="box-border caret-transparent mt-12 pt-12">
-      <div className="box-border caret-transparent flex flex-wrap -mx-3">
-        <div className="relative box-border caret-transparent shrink-0 max-w-full min-h-0 min-w-0 text-right w-full px-3 right-5 md:min-h-[auto] md:min-w-[auto] md:w-[33.3333%]">
-          <div className="static box-border caret-transparent text-left w-full mx-auto my-5 top-[18px] md:absolute md:text-right md:m-0 md:top-12">
-            <div className="relative box-border caret-transparent text-left md:static md:text-right">
-              <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting2.svg"
-                className="box-border caret-transparent h-[70px] max-w-full text-left ml-auto md:h-auto md:text-right"
-              />
-              <h3 className="text-teal-700 text-base font-bold box-border caret-transparent leading-[30px] text-left mb-2 md:text-xl md:font-semibold md:text-right">
-                Teach
-              </h3>
-              <p className="text-zinc-500 text-sm font-medium box-border caret-transparent leading-5 text-left mb-4 md:text-right">
-                Guiding individuals through a comprehensive process aimed at
-                clearing the fundamentals of the students.
-              </p>
+      {/* Working Process Section */}
+      <section className="py-12 md:py-20 bg-[#FAFBFF]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
+            Our Working Process
+          </h2>
+          <p className="text-gray-600 text-center mb-[50px] max-w-3xl mx-auto">
+            A platform that takes care of everything beforehand. Gateway Abroad sources, vets, matches and manages all the talents.
+          </p>
+
+          {/* Desktop Process */}
+          <div className="hidden lg:block">
+            <div className="flex flex-wrap -mx-6">
+              {/* Left Column */}
+              <div className="w-1/3 px-6 mt-[90px]">
+                <div className="text-right space-y-20">
+                  <div className="relative">
+                    <div className=" items-center justify-end space-x-4 mb-4">
+                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
+                        <Image
+                          src="/img/vetting2.svg"
+                          alt="Teach"
+                          width={100}
+                          height={40}
+                          className='ml-[560px] mb-[41px]'
+                        />
+                      </div>
+                      <div className="text-right">
+                        <h3 className="text-[#00817d] text-xl font-semibold mb-2">Teach</h3>
+                        <p className="text-gray-600 text-sm leading-5">
+                          Guiding individuals through a comprehensive process aimed at clearing the fundamentals of the students.
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <div className=" items-center justify-end space-x-4 mb-4">
+                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
+                        <Image
+                          src="/img/vetting4.svg"
+                          alt="Feedback & Mock"
+                          width={100}
+                          height={40}
+                          className='ml-[560px] mb-[41px]'
+                        />
+                      </div>
+                      <div className="text-right mt-[20px]">
+                        <h3 className="text-[#7e5c6a] text-xl font-semibold mb-2">Feedback & Mock</h3>
+                        <p className="text-gray-600 text-sm leading-5">
+                          Regularly engage in mock exams and feedback sessions to familiarize yourself with the exam environment, improve time management, and identify areas that need further attention.
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className=" items-center justify-end space-x-4 mb-4">
+                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
+                        <Image
+                          src="/img/vetting6.svg"
+                          alt="Feedback & Mock"
+                          width={100}
+                          height={40}
+                          className='ml-[560px] mb-[41px]'
+                        />
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Center Column - Process Image */}
+              <div className="w-1/3 px-6 flex items-center justify-center">
+                <div className="relative">
+                  <Image
+                    src="/img/vaetting-process-number.svg"
+                    alt="Process Steps"
+                    width={300}
+                    height={400}
+                    className="mx-auto"
+                  />
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="w-1/3 px-6 mb-[40px]">
+                <div className="space-y-20">
+                  <div className="relative">
+                    <div className=" items-center space-x-4 mb-4">
+                      <div className="w-[7rem] h-16   flex items-center justify-center flex-shrink-0">
+                        <Image
+                          src="/img/vetting1.svg"
+                          alt="Counsell"
+                          width={80}
+                          height={40}
+                          className='mb-[80px]'
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-[#ffa515] text-xl font-semibold mb-2">Counsell</h3>
+                        <p className="text-gray-600 text-sm leading-5">
+                          It involves providing personalized advice to aid students in selecting the most suitable exam for their desired countries.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <div className=" items-center space-x-4 mb-4">
+                      <div className="w-[7rem] h-16   flex items-center justify-center flex-shrink-0">
+                        <Image
+                          src="/img/vetting3.svg"
+                          alt="Practice"
+                          width={100}
+                          height={40}
+                          className='mb-[40px]'
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-[#ff5e5b] text-xl font-semibold mb-2">Practice</h3>
+                        <p className="text-gray-600 text-sm leading-5">
+                          Engaging in regular and focused practice not only enhances one's understanding of the material but also hones skills, refines problem-solving abilities, and builds confidence.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <div className=" items-center space-x-4 mb-4">
+                      <div className="w-[7rem] h-16  flex items-center justify-center flex-shrink-0">
+                        <Image
+                          src="/img/vetting5.svg"
+                          alt="Book Test Date"
+                          width={100}
+                          height={40}
+                          className='mb-[80px]'
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-[#ff824b] text-xl font-semibold mb-2">Book Test Date</h3>
+                        <p className="text-gray-600 text-sm leading-5">
+                          Test date booking facility offered by Gateway Abroad.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="static box-border caret-transparent text-left w-full mx-auto my-5 top-[220px] md:absolute md:text-right md:m-0 md:top-[284px]">
-            <div className="relative box-border caret-transparent text-left md:static md:text-right">
-              <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting4.svg"
-                className="box-border caret-transparent h-[70px] max-w-full text-left ml-auto md:h-auto md:text-right"
-              />
-              <h3 className="text-stone-500 text-base font-bold box-border caret-transparent leading-[30px] text-left mb-2 md:text-xl md:font-semibold md:text-right">
-                Feedback &amp; Mock
-              </h3>
-              <p className="text-zinc-500 text-sm font-medium box-border caret-transparent leading-5 text-left mb-4 md:text-right">
-                Regularly engage in mock exams and feedback sessions to
-                familiarize yourself with the exam environment, improve time
-                management, and identify areas that need further attention.
-              </p>
+
+          {/* Mobile Process */}
+          <div className="lg:hidden space-y-8">
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src="/img/vetting1.svg"
+                    alt="Counsell"
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[#ffa515] text-lg font-semibold mb-1">Counsell</h3>
+                  <p className="text-gray-600 text-sm">
+                    It involves providing personalized advice to aid students in selecting the most suitable exam for their desired countries.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="static box-border caret-transparent text-left w-full mx-auto my-5 top-[445px] md:absolute md:text-right md:m-0 md:top-[545px]">
-            <div className="relative box-border caret-transparent text-left md:static md:text-right">
-              <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting6.svg"
-                className="box-border caret-transparent h-[70px] max-w-full text-left ml-auto md:h-auto md:text-right"
-              />
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src="/img/vetting2.svg"
+                    alt="Teach"
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[#00817d] text-lg font-semibold mb-1">Teach</h3>
+                  <p className="text-gray-600 text-sm">
+                    Guiding individuals through a comprehensive process aimed at clearing the fundamentals of the students.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src="/img/vetting3.svg"
+                    alt="Practice"
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[#ff5e5b] text-lg font-semibold mb-1">Practice</h3>
+                  <p className="text-gray-600 text-sm">
+                    Engaging in regular and focused practice not only enhances one's understanding of the material but also hones skills, refines problem-solving abilities, and builds confidence.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src="/img/vetting4.svg"
+                    alt="Feedback & Mock"
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[#7e5c6a] text-lg font-semibold mb-1">Feedback & Mock</h3>
+                  <p className="text-gray-600 text-sm">
+                    Regularly engage in mock exams and feedback sessions to familiarize yourself with the exam environment, improve time management, and identify areas that need further attention.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src="/img/vetting5.svg"
+                    alt="Book Test Date"
+                    width={30}
+                    height={30}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-[#ff824b] text-lg font-semibold mb-1">Book Test Date</h3>
+                  <p className="text-gray-600 text-sm">
+                    Test date booking facility offered by Gateway Abroad.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="box-border caret-transparent hidden shrink-0 max-w-full min-h-0 min-w-0 w-full px-3 md:block md:min-h-[auto] md:min-w-[auto] md:w-[33.3333%]">
-          <div className="box-border caret-transparent">
-            <img
-              alt="ampityinfotech"
-              src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vaetting-process-number.svg"
-              className="box-border caret-transparent max-w-full w-[90%] mx-auto"
-            />
-          </div>
+      </section>
+
+      {/* YouTube Testimonials Section */}
+      <section className="py-12 md:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12 border-b-2 border-gray-200 pb-4">
+            What Our Students Say
+          </h2>
+
+          {video.length > 0 && (
+            <div ref={youtubeRef} className="keen-slider">
+              {video.map((videoItem) => (
+                <div key={videoItem._id} className="keen-slider__slide">
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div className="aspect-w-16 aspect-h-9">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoItem.mediaLink}`}
+                        title="YouTube video player"
+                        className="w-full h-64 md:h-80"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="relative box-border caret-transparent basis-0 grow shrink-0 max-w-full min-h-0 min-w-0 w-full px-3 md:basis-auto md:grow-0 md:min-h-[auto] md:min-w-[auto] md:w-[33.3333%]">
-          <div className="static box-border caret-transparent top-[-55px] w-full mx-auto my-5 md:absolute md:top-[-45px] md:m-0">
-            <div className="relative box-border caret-transparent md:static">
-              <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting1.svg"
-                className="box-border caret-transparent h-[70px] max-w-full md:h-auto"
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-12 bg-gray-300 relative">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/img/testimonials-bg.svg"
+            alt="Background"
+            fill
+            className="object-cover"
+            quality={75}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
+            What Our Test Preparation Achievers Say
+          </h2>
+
+          {(!testimonials?.testimonial || testimonials.testimonial.length === 0) ? (
+            <div className="text-center text-gray-500 py-8">Loading testimonials...</div>
+          ) : (
+            <div className="relative group">
+              <div ref={testimonialRef} className="keen-slider">
+                {testimonials.testimonial.map((test, idx) => (
+                  <div key={test._id} className="keen-slider__slide p-2 pb-6">
+                    <div className="relative bg-white box-border caret-transparent z-0 ml-[30px] rounded-3xl md:ml-[50px] shadow-lg before:accent-auto before:border-b-gray-200 before:box-border before:caret-transparent before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-0 before:left-[-35px] before:tracking-[normal] before:leading-6 before:list-outside before:list-disc before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-0 before:z-[-1] before:border-t-white before:border-t-[25px] before:border-x-transparent before:border-x-[50px] before:border-separate before:border-solid before:top-0 before:font-noto_sans before:md:left-[-50px] before:md:border-t-[55px] before:md:border-x-[80px]">
+                      <div className="box-border caret-transparent pt-5 px-5 md:pt-[35px] md:px-[30px]">
+                        <div className="items-center box-border caret-transparent flex justify-between">
+                          <h6 className="text-gray-700 text-lg font-bold box-border caret-transparent leading-[21.6px] mb-2">
+                            {test.name}
+                          </h6>
+                          <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
+                                <span className="text-yellow-400 text-lg">★</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                          {test.content?.substring(0, 250)}
+                          {test.content?.length > 250 && '...'}
+                        </p>
+                      </div>
+                      <div className="bg-red-600 box-border caret-transparent px-5 py-3.5 rounded-b-3xl md:px-[30px]"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+
+            </div>
+          )}
+        </div>
+      </section>
+     {/* Blog Section */}
+<section className="py-12 md:py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-0 border-b-2 border-gray-200 pb-4">
+        Important Facts & Information
+      </h2>
+      <Link href="/blog" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+        View All Blogs
+        <i className='bx bx-chevron-right text-lg'></i>
+      </Link>
+    </div>
+
+    {blogData.length > 0 && (
+      <div className="relative">
+        <div ref={blogRef} className="keen-slider">
+          {blogData.map((blog) => (
+            <div key={blog.id} className="keen-slider__slide">
+              <BlogCard
+                blog={blog}
+                showDescription={false} // Add this prop to hide description
+                onClick={() => router.push(`/blog-description/${blog.Slug}`)}
               />
-              <h3 className="text-amber-500 text-base font-bold box-border caret-transparent leading-[30px] mb-2 md:text-xl md:font-semibold">
-                Counsell
-              </h3>
-              <p className="text-zinc-500 text-sm font-medium box-border caret-transparent leading-5 mb-4">
-                It involves providing personalized advice to aid students in
-                selecting the most suitable exam for their desired countries.
-              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Blog Slider Navigation */}
+        {blogData.length > 3 && (
+          <div className="flex items-center justify-center mt-8 space-x-4">
+            {/* Dots Indicator */}
+            <div className="flex space-x-2">
+              {[...Array(Math.ceil(blogData.length / 3))].map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => blogInstanceRef.current?.moveToIdx(idx * 3)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    currentBlogSlide === idx ? 'bg-red-600 w-6' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
             </div>
           </div>
-          <div className="static box-border caret-transparent w-full mx-auto my-5 top-[130px] md:absolute md:m-0 md:top-44">
-            <div className="relative box-border caret-transparent md:static">
-              <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting3.svg"
-                className="box-border caret-transparent h-[70px] max-w-[100px] md:h-auto"
-              />
-              <h3 className="text-red-400 text-base font-bold box-border caret-transparent leading-[30px] mb-2 md:text-xl md:font-semibold">
-                Practice
-              </h3>
-              <p className="text-zinc-500 text-sm font-medium box-border caret-transparent leading-5 mb-4">
-                Engaging in regular and focused practice not only enhances
-                one&#39;s understanding of the material but also hones skills,
-                refines problem-solving abilities, and builds confidence.
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+    {/* ====== Partner Section ====== */}
+<section className="py-12 md:py-16 bg-white">
+  <div className="container mx-auto px-4 max-w-7xl">
+    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+      {/* Content container with specific padding */}
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+          <div className="w-full lg:w-[48%]">
+            <div className="text-center lg:text-left pl-[17px]">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#d71635] lg:leading-[37px]">
+                Become a Partner
+              </h2>
+              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                Join thousand of instructors and earn money hassle free!
               </p>
+              <button 
+                onClick={() => document.getElementById('partnerModal').showModal()}
+                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
+              >
+                Apply Now
+              </button>
             </div>
           </div>
-          <div className="static box-border caret-transparent w-full mx-auto my-5 top-[325px] md:absolute md:m-0 md:top-[410px]">
-            <div className="relative box-border caret-transparent md:static">
+          <div className="w-full lg:w-[38%]">
+            <div className="flex justify-center">
               <img
-                alt="ampityinfotech"
-                src="https://c.animaapp.com/mhagjno9ooS9eW/assets/vetting5.svg"
-                className="box-border caret-transparent h-[70px] max-w-full md:h-auto"
+                src="/img/partner-img.svg"
+                alt="Partner Program"
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-[20rem]"
               />
-              <h3 className="text-orange-400 text-base font-bold box-border caret-transparent leading-[30px] mb-2 md:text-xl md:font-semibold">
-                Book Test Date
-              </h3>
-              <p className="text-zinc-500 text-sm font-medium box-border caret-transparent leading-5 mb-4">
-                Test date booking facility offered by Gateway Abroad.
-              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
+{/* Partner Modal */}
+<dialog id="partnerModal" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box max-w-4xl">
+    <div className="modal-header mb-6">
+      <h3 className="text-2xl font-bold text-gray-900">Become A Partner</h3>
+      <form method="dialog">
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+    </div>
+    
+    <div className="modal-body max-h-[70vh] overflow-y-auto">
+      <div className="get-in-touch-form">
+        <form onSubmit={handleSubmitPartner(handleUpdate2)} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* First Name */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("name", { required: "First Name is required" })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.name ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="First Name"
+              />
+              {partnerErrors.name && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.name.message}</p>
+              )}
+            </div>
 
-      <section className="mobile-vetting-process vetting-process-section py-60">
-        <div className="container">
-          <h2 className="heading text-center d-block mb-3">Our working Process</h2>
-          <p className="descp text-center">
-            A platform that takes care of everything beforehand. Gateway Abroad sources,<br /> vets, matches and manages all the talents.
-          </p>
-          <div className="vetting-process-section-inner pt-3">
-            <div className="row">
-              <div className="col-lg-4 col-md-12 col-sm-12 text-left" style={{ position: 'relative' }}>
-                <div className="vetting-content vp4 vetting-left-p2">
-                  <div className="vetting-box">
-                    <div className="vetting-num">1</div>
-                    {/* Ensure image path is correct for Next.js public directory */}
-                    <img src="/img/vetting1.svg" alt="ampityinfotech" />
-                    <h3 className="vetting-tittle" style={{ color: '#ffa515' }}>Counsell</h3>
-                    <p className="vetting-subtittle">
-                      It involves providing personalized advice to aid students in selecting the most suitable exam for their desired countries.
-                    </p>
-                  </div>
-                </div>
-                <div className="vetting-content vp1 vetting-left-p1">
-                  <div className="vetting-box">
-                    <div className="vetting-num">2</div>
-                    {/* Ensure image path is correct for Next.js public directory */}
-                    <img src="/img/vetting2.svg" alt="ampityinfotech" />
-                    <h3 className="vetting-tittle" style={{ color: '#00817d' }}>Teach</h3>
-                    <p className="vetting-subtittle">
-                      Guiding individuals through a comprehensive process aimed at clearing the fundamentals of the students.
-                    </p>
-                  </div>
-                </div>
-                <div className="vetting-content vp5 vetting-left-p2">
-                  <div className="vetting-box">
-                    <div className="vetting-num">3</div>
-                    {/* Ensure image path is correct for Next.js public directory */}
-                    <img src="/img/vetting3.svg" alt="ampityinfotech" style={{ maxWidth: '100px' }} />
-                    <h3 className="vetting-tittle" style={{ color: '#ff5e5b' }}>Practice</h3>
-                    <p className="vetting-subtittle">
-                      Engaging in regular and focused practice not only enhances one's understanding of the material but also hones skills, refines problem-solving abilities, and builds confidence.
-                    </p>
-                  </div>
-                </div>
-                <div className="vetting-content vp2 vetting-left-p1">
-                  <div className="vetting-box">
-                    <div className="vetting-num">4</div>
-                    {/* Ensure image path is correct for Next.js public directory */}
-                    <img src="/img/vetting4.svg" alt="ampityinfotech" />
-                    <h3 className="vetting-tittle" style={{ color: '#7e5c6a' }}>Feedback & Mock</h3>
-                    <p className="vetting-subtittle">
-                      Regularly engage in mock exams and feedback sessions to familiarize yourself with the exam environment, improve time management, and identify areas that need further attention.
-                    </p>
-                  </div>
-                </div>
-                <div className="vetting-content vp6 vetting-left-p2">
-                  <div className="vetting-box">
-                    <div className="vetting-num">5</div>
-                    {/* Ensure image path is correct for Next.js public directory */}
-                    <img src="/img/vetting5.svg" alt="ampityinfotech" />
-                    <h3 className="vetting-tittle" style={{ color: '#ff824b' }}>Book Test Date</h3>
-                    <p className="vetting-subtittle">Test date booking facility offered by Gateway Abroad.</p>
-                  </div>
-                </div>
-              </div>
+            {/* Last Name */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("lastName", { required: "Last Name is required" })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.lastName ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="Last Name"
+              />
+              {partnerErrors.lastName && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.lastName.message}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <input
+                type="email"
+                {...registerPartner("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address"
+                  }
+                })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.email ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="Email"
+              />
+              {partnerErrors.email && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.email.message}</p>
+              )}
+            </div>
+
+            {/* Mobile No. */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("mobile", {
+                  required: "Mobile No. is required",
+                  pattern: {
+                    value: /^\d{10,15}$/,
+                    message: "Invalid phone number"
+                  }
+                })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.mobile ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="Mobile No."
+              />
+              {partnerErrors.mobile && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.mobile.message}</p>
+              )}
+            </div>
+
+            {/* WhatsApp No. */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("whatsappNo")}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="WhatsApp No."
+              />
+            </div>
+
+            {/* Age */}
+            <div>
+              <input
+                type="number"
+                {...registerPartner("age", { min: 0, max: 120 })}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Age"
+              />
+            </div>
+
+            {/* City */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("city", { required: "City is required" })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.city ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="City"
+              />
+              {partnerErrors.city && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.city.message}</p>
+              )}
+            </div>
+
+            {/* Occupation */}
+            <div>
+              <input
+                type="text"
+                {...registerPartner("occupation", { required: "Occupation is required" })}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  partnerErrors.occupation ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="What is your current Occupation?"
+              />
+              {partnerErrors.occupation && (
+                <p className="text-red-500 text-sm mt-1">{partnerErrors.occupation.message}</p>
+              )}
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="student-yt-testimonials py-70">
-        <div className="container">
-          <h2 className="heading bottom-divider">What Our Students Say</h2>
-          <Slider {...youtubeSlider} className="student-yt-slider">
-            {video.map((video) => (
-              <div className="student-yt-slider-inner" key={video._id}>
-                <iframe
-                  width={530}
-                  height={310}
-                  src={`https://www.youtube.com/embed/${video.mediaLink}`}
-                  title="YouTube video player"
-                  frameBorder={0}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </section>
+          {/* Address - Full Width */}
+          <div>
+            <textarea
+              {...registerPartner("adress", { required: "Address is required" })}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
+                partnerErrors.adress ? 'border-red-500' : 'border-gray-300'
+              }`}
+              rows={3}
+              placeholder="Your Address"
+            />
+            {partnerErrors.adress && (
+              <p className="text-red-500 text-sm mt-1">{partnerErrors.adress.message}</p>
+            )}
+          </div>
 
-      <section className="our-testimonials py-70">
-        <div className="container">
-          <h2 className="heading bottom-divider mb-0">Our Testimonials</h2>
-          {testimonials?.testimonial?.length === 1 ? (
-            <div className="our-testimonials-slider-inner single-testmonial">
-              <div className="student-test-box">
-                <div className="stundent-content"> {/* Note: Typo in class name 'stundent-content' kept */}
-                  <div className="d-flex align-items-center justify-content-between">
-                    <h6>{testimonials?.testimonial[0]?.name}</h6>
-                    <ul className="list-unstyled d-flex">
-                      <li><span><i className="fa fa-star" /></span></li>
-                      <li><span><i className="fa fa-star" /></span></li>
-                      <li><span><i className="fa fa-star" /></span></li>
-                      <li><span><i className="fa fa-star" /></span></li>
-                      <li><span><i className="fa fa-star" /></span></li>
-                    </ul>
-                  </div>
-                  <p className="descp">{testimonials?.testimonial[0]?.content.substring(0, 250)}</p>
-                </div>
-                <div className="test-univ-sec">
-                  <h5></h5>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <Slider {...testimonialSlider} className="our-testimonials-slider">
-              {testimonials?.testimonial?.map((test) => (
-                <div className="our-testimonials-slider-inner" key={test._id}>
-                  <div className="student-test-box">
-                    <div className="stundent-content"> {/* Note: Typo in class name 'stundent-content' kept */}
-                      <div className="d-flex align-items-center justify-content-between">
-                        <h6>{test.name}</h6>
-                        <ul className="list-unstyled d-flex">
-                          <li><span><i className="fa fa-star" /></span></li>
-                          <li><span><i className="fa fa-star" /></span></li>
-                          <li><span><i className="fa fa-star" /></span></li>
-                          <li><span><i className="fa fa-star" /></span></li>
-                          <li><span><i className="fa fa-star" /></span></li>
-                        </ul>
-                      </div>
-                      <p className="descp">{test.content.substring(0, 250)}</p>
-                    </div>
-                    <div className="test-univ-sec">
-                      <h5></h5>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Slider>
-          )}
-        </div>
-      </section>
+          {/* How did you know about us - Full Width */}
+          <div>
+            <select
+              {...registerPartner("howDidyouKnow", { required: "Please select how you know about us" })}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                partnerErrors.howDidyouKnow ? 'border-red-500' : 'border-gray-300'
+              }`}
+            >
+              <option value="">How did you come to know about Gateway Abroad?</option>
+              <option value='google'>Google Ad</option>
+              <option value='facebook'>Facebook Ad</option>
+              <option value='email'>Email Campaign</option>
+              <option value='sms'>SMS Campaign</option>
+              <option value='whatsapp'>WhatsApp</option>
+              <option value='linkedin'>Linkedin</option>
+              <option value='reference'>Reference</option>
+              <option value='newspaper'>Newspaper</option>
+              <option value='website'>Website</option>
+              <option value='call'>Call</option>
+              <option value='instagram'>Instagram</option>
+              <option value='other'>Other</option>
+            </select>
+            {partnerErrors.howDidyouKnow && (
+              <p className="text-red-500 text-sm mt-1">{partnerErrors.howDidyouKnow.message}</p>
+            )}
+          </div>
 
-      <section className="blog-section py-70">
-        <div className="container">
-          <div className="title d-flex justify-content-between align-items-center mb-4">
-            <h2 className="heading bottom-divider mb-0">Important Facts &amp; Information</h2>
-            {/* Changed Link usage for Next.js */}
-            <Link href="/blog" className="ms-4 site-btn">Go to blog</Link>
+          {/* Qualifications - Full Width */}
+          <div>
+            <textarea
+              {...registerPartner("qualifications", { required: "Qualifications are required" })}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
+                partnerErrors.qualifications ? 'border-red-500' : 'border-gray-300'
+              }`}
+              rows={3}
+              placeholder="What are your Educational Qualifications?"
+            />
+            {partnerErrors.qualifications && (
+              <p className="text-red-500 text-sm mt-1">{partnerErrors.qualifications.message}</p>
+            )}
           </div>
-          <div className="blog-section-inner">
-            <Slider {...blogSlider} className="blog-section-slider">
-              {blogData.map((blog) => (
-                // Changed onClick navigation for Next.js
-                <div
-                  onClick={() => router.push(`/blog-description/${blog.Slug}`)} // For App Router
-                  // onClick={() => router.push(`/blog-description/${blog.Slug}`)} // For Pages Router (same method)
-                  className="blog-section-slider-inner cursor-pointer p-2"
-                  key={blog.id}
-                >
-                  <div className="blog-card">
-                    <div className="card">
-                      <div className="card-img-top">
-                        {/* Ensure image path is correct for Next.js public directory */}
-                        <img src={`${constant.REACT_APP_URL}/uploads/${blog.image}`} alt="blog-img" />
-                      </div>
-                      <div className="card-body ps-0 pb-0">
-                        <h5 className="card-title">
-                          {/* Changed Link usage for Next.js */}
-                          <Link href={`/blog-description/${blog.Slug}`}>{blog.blogTitle}</Link>
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Slider>
+
+          {/* Introduction - Full Width */}
+          <div>
+            <textarea
+              {...registerPartner("query", { required: "Introduction is required" })}
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
+                partnerErrors.query ? 'border-red-500' : 'border-gray-300'
+              }`}
+              rows={3}
+              placeholder="Please provide a Brief Introduction about yourself"
+            />
+            {partnerErrors.query && (
+              <p className="text-red-500 text-sm mt-1">{partnerErrors.query.message}</p>
+            )}
           </div>
-        </div>
-      </section>
-      {/* <PartnerSection/> */}
-      <section className="app-banner-section">
-        <div className="container">
-          <div className="app-banner-section-inner">
-            <div className="row align-items-center">
-              <div className="col-lg-6">
-                <div className="app-banner-content-left">
-                  <h2 className="mb-3">Become a Partner</h2>
-                  <p className="mb-4">Join thousand of instructors and earn money hassle free!</p>
-                  <button className="site-btn" data-bs-toggle="modal" data-bs-target="#partnerModal">Apply Now</button>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="app-banner-content-right text-center">
-                  <img className='mx-auto' src="/img/partner-img.svg" alt="partner" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <div className="modal right fade" id="partnerModal" tabIndex={-1} aria-labelledby="partnerModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="partnerModalLabel">Become A Partner</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-            </div>
-            <div className="modal-body">
-              <div className="get-in-touch-form">
-                {/* --- Updated Partner Form --- */}
-                <form onSubmit={handleSubmitPartner(handleUpdate2)}>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("name", { required: "First Name is required" })}
-                          className={`form-control ${partnerErrors.name ? 'is-invalid' : ''}`}
-                          placeholder="First Name"
-                        />
-                        {partnerErrors.name && <div className="invalid-feedback">{partnerErrors.name.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("lastName", { required: "Last Name is required" })}
-                          className={`form-control ${partnerErrors.lastName ? 'is-invalid' : ''}`}
-                          placeholder="Last Name"
-                        />
-                        {partnerErrors.lastName && <div className="invalid-feedback">{partnerErrors.lastName.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="email"
-                          {...registerPartner("email", {
-                            required: "Email is required",
-                            pattern: {
-                              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                              message: "Invalid email address"
-                            }
-                          })}
-                          className={`form-control ${partnerErrors.email ? 'is-invalid' : ''}`}
-                          placeholder="Email"
-                        />
-                        {partnerErrors.email && <div className="invalid-feedback">{partnerErrors.email.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("mobile", {
-                            required: "Mobile No. is required",
-                            pattern: {
-                              value: /^\d{10,15}$/, // Adjust pattern as needed
-                              message: "Invalid phone number"
-                            }
-                          })}
-                          className={`form-control ${partnerErrors.mobile ? 'is-invalid' : ''}`}
-                          placeholder="Mobile No."
-                        />
-                        {partnerErrors.mobile && <div className="invalid-feedback">{partnerErrors.mobile.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("whatsappNo", {
-                          })}
-                          className={`form-control ${partnerErrors.whatsappNo ? 'is-invalid' : ''}`}
-                          placeholder="WhatsApp No."
-                        />
-                        {partnerErrors.whatsappNo && <div className="invalid-feedback">{partnerErrors.whatsappNo.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="number"
-                          {...registerPartner("age", { min: 0, max: 120 })} // Optional: Add min/max
-                          className="form-control"
-                          placeholder="Age"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("city", { required: "City is required" })}
-                          className={`form-control ${partnerErrors.city ? 'is-invalid' : ''}`}
-                          placeholder="City"
-                        />
-                        {partnerErrors.city && <div className="invalid-feedback">{partnerErrors.city.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="input-field">
-                        <input
-                          type="text"
-                          {...registerPartner("occupation", { required: "Occupation is required" })}
-                          className={`form-control ${partnerErrors.occupation ? 'is-invalid' : ''}`}
-                          placeholder="What is your current Occupation?"
-                        />
-                        {partnerErrors.occupation && <div className="invalid-feedback">{partnerErrors.occupation.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="input-field type-file-field">
-                        <textarea
-                          {...registerPartner("adress", { required: "Address is required" })}
-                          className={`form-control ${partnerErrors.adress ? 'is-invalid' : ''}`} // Keep typo for consistency
-                          id="yourAddress"
-                          rows={2}
-                          placeholder="Your Address"
-                        ></textarea>
-                        {partnerErrors.adress && <div className="invalid-feedback">{partnerErrors.adress.message}</div>} {/* Keep typo for consistency */}
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="input-field">
-                        <select
-                          {...registerPartner("howDidyouKnow", { required: "Please select how you know about us" })}
-                          className={`form-control ${partnerErrors.howDidyouKnow ? 'is-invalid' : ''}`}
-                          aria-label="Default select example"
-                        >
-                          <option value="">How did you come to know about Gateway Abroad?</option>
-                          <option value='google'>Google Ad</option>
-                          <option value='facebook'>Facebook Ad</option>
-                          <option value='email'>Email Campaign</option>
-                          <option value='sms' >SMS Campaign</option>
-                          <option value='whatsapp'>WhatsApp</option>
-                          <option value='linkedin'>Linkedin</option>
-                          <option value='reference'>Reference</option>
-                          <option value='newspaper'>Newspaper</option>
-                          <option value='website' >Website</option>
-                          <option value='call'>Call</option>
-                          <option value='instagram'>Instagram</option>
-                          <option value='other'>Other</option>
-                        </select>
-                        {partnerErrors.howDidyouKnow && <div className="invalid-feedback">{partnerErrors.howDidyouKnow.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="input-field type-file-field">
-                        <textarea
-                          {...registerPartner("qualifications", { required: "Qualifications are required" })}
-                          className={`form-control ${partnerErrors.qualifications ? 'is-invalid' : ''}`}
-                          id="qualifications"
-                          rows={2}
-                          placeholder="What are your Educational Qualifications?"
-                        ></textarea>
-                        {partnerErrors.qualifications && <div className="invalid-feedback">{partnerErrors.qualifications.message}</div>}
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="input-field type-file-field">
-                        <textarea
-                          {...registerPartner("query", { required: "Introduction is required" })}
-                          className={`form-control ${partnerErrors.query ? 'is-invalid' : ''}`}
-                          id="introduction"
-                          rows={2}
-                          placeholder="Please provide a Brief Introduction about yourself"
-                        ></textarea>
-                        {partnerErrors.query && <div className="invalid-feedback">{partnerErrors.query.message}</div>}
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn btn-primary">SUBMIT</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg"
+          >
+            SUBMIT
+          </button>
+        </form>
       </div>
+    </div>
+  </div>
+</dialog>
     </>
   );
 }

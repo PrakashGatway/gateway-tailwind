@@ -144,7 +144,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
   if (loading) {
     return (
       <section className="py-20 bg-[#F3E0F2] overflow-hidden">
-        <div className="container-sm mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container-sm mx-auto px-4 sm:px-6 lg:px-8 w-[80%]">
           <div className="text-center mb-10">
             <h2 className="heading text-center d-block mb-2">Loading programs...</h2>
           </div>
@@ -161,7 +161,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
       <div className="container-sm mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="heading text-center d-block mb-2">
+          <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
             {content?.title || "Academic Programs"}
           </h2>
           <p className="sub-heading !text-base max-w-3xl mx-auto">
@@ -170,7 +170,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
         </div>
 
         {/* Slider */}
-        <div className="relative" ref={sliderContainerRef}>
+        <div className="relative ml-[110px]" ref={sliderContainerRef}>
           {programs.length > 0 ? (
             <>
               <div ref={sliderRef} className="keen-slider">
