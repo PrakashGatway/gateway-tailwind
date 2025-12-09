@@ -1,27 +1,27 @@
 import ArticleClient from "@/components/pages/ArticleDetails";
 
 
-export const revalidate = 21600;
+// export const revalidate = 21600;
 
-export async function generateStaticParams() {
-    try {
-        const res = await fetch("https://uat.gatewayabroadeducations.com/api/v1/web/blog?limit=1000", {
-            next: { revalidate: 21600 },
-        });
-        if (!res.ok) {
-            console.error("❌ Failed to fetch blog slugs for static generation");
-            return [];
-        }
-        const data = await res.json();
-        const blogs = data?.data || [];
-        return blogs.map((blog) => ({
-            slug: blog.slug,
-        }));
-    } catch (error) {
-        console.error("⚠️ Error generating static params:", error);
-        return [];
-    }
-}
+// export async function generateStaticParams() {
+//     try {
+//         const res = await fetch("https://uat.gatewayabroadeducations.com/api/v1/web/blog?limit=1000", {
+//             next: { revalidate: 21600 },
+//         });
+//         if (!res.ok) {
+//             console.error("❌ Failed to fetch blog slugs for static generation");
+//             return [];
+//         }
+//         const data = await res.json();
+//         const blogs = data?.data || [];
+//         return blogs.map((blog) => ({
+//             slug: blog.slug,
+//         }));
+//     } catch (error) {
+//         console.error("⚠️ Error generating static params:", error);
+//         return [];
+//     }
+// }
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
