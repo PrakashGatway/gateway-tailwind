@@ -30,38 +30,60 @@ function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider({
-    initial: 0,
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
-    },
-    created() {
-      setLoaded(true);
-    },
-    loop: true,
-    mode: "snap",
-    slides: {
-      perView: 1,
-      spacing: 16,
-    },
-    // Autoplay configuration
-    drag: false, // Optional: disable drag if you only want autoplay
-  });
 
-  // Autoplay effect
-  useEffect(() => {
-    if (!studentInfoInstanceRef.current) return;
+  const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider(
+    {
+      initial: 0,
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
+      created() {
+        setLoaded(true);
+      },
+      loop: true,
+      mode: "snap",
+      slides: {
+        perView: 1,
+        spacing: 16,
+      },
+      drag: false, // Disable drag since you want autoplay
+    },
+    // Add the autoplay plugin
+    [
+      (slider) => {
+        let timeout;
+        let mouseOver = false;
 
-    const interval = setInterval(() => {
-      if (studentInfoInstanceRef.current) {
-        studentInfoInstanceRef.current.next();
-      }
-    }, 2000); // Change slide every 3 seconds
+        function clearNextTimeout() {
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+        }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [studentInfoInstanceRef]);
+        function nextTimeout() {
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 2000); // 2 seconds as per your comment
+        }
+
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
 
   // Keen Slider for student rank
   const [studentRankRef] = useKeenSlider({
@@ -87,112 +109,178 @@ function Index() {
   });
 
   // Keen Slider for testimonials
-  const [testimonialRef, testimonialInstanceRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 1,
-      spacing: 16,
-    },
-    breakpoints: {
-      '(min-width: 768px)': {
-        slides: {
-          perView: 2,
-          spacing: 24,
+  const [testimonialRef, testimonialInstanceRef] = useKeenSlider(
+    {
+      loop: true,
+      slides: {
+        perView: 1,
+        spacing: 16,
+      },
+      breakpoints: {
+        '(min-width: 768px)': {
+          slides: {
+            perView: 3,
+            spacing: 24,
+          },
         },
       },
     },
-  });
+    // Add the autoplay plugin as a separate plugin
+    [
+      (slider) => {
+        let timeout;
+        let mouseOver = false;
 
-  // Autoplay for testimonials slider
-  useEffect(() => {
-    if (!testimonialInstanceRef.current) return;
+        function clearNextTimeout() {
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+        }
 
-    const interval = setInterval(() => {
-      if (testimonialInstanceRef.current) {
-        testimonialInstanceRef.current.next();
-      }
-    }, 2000); // Change slide every 5 seconds
+        function nextTimeout() {
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 2000);
+        }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [testimonialInstanceRef]);
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
 
 
-
-  // Keen Slider for YouTube videos
-  const [youtubeRef, youtubeInstanceRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 1,
-      spacing: 16,
-    },
-    breakpoints: {
-      '(min-width: 640px)': {
-        slides: {
-          perView: 2,
-          spacing: 20,
+  // Keen Slider for YouTube videos with built-in autoplay plugin
+  const [youtubeRef, youtubeInstanceRef] = useKeenSlider(
+    {
+      loop: true,
+      slides: {
+        perView: 1,
+        spacing: 16,
+      },
+      breakpoints: {
+        '(min-width: 640px)': {
+          slides: {
+            perView: 2,
+            spacing: 20,
+          },
         },
       },
     },
-  });
+    // Add the autoplay plugin
+    [
+      (slider) => {
+        let timeout;
+        let mouseOver = false;
 
-  // Autoplay for YouTube videos slider
-  useEffect(() => {
-    if (!youtubeInstanceRef.current) return;
+        function clearNextTimeout() {
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+        }
 
-    const interval = setInterval(() => {
-      if (youtubeInstanceRef.current) {
-        youtubeInstanceRef.current.next();
-      }
-    }, 2000); // Change slide every 4 seconds
+        function nextTimeout() {
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 4000); // 4 seconds as per your comment
+        }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [youtubeInstanceRef]);
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
 
   // Keen Slider for blogs with navigation
   const [currentBlogSlide, setCurrentBlogSlide] = useState(0);
-  const [blogRef, blogInstanceRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 1,
-      spacing: 16,
-    },
-    breakpoints: {
-      '(min-width: 640px)': {
-        slides: {
-          perView: 2,
-          spacing: 20,
+  const [blogRef, blogInstanceRef] = useKeenSlider(
+    {
+      loop: true,
+      slides: {
+        perView: 1,
+        spacing: 16,
+      },
+      breakpoints: {
+        '(min-width: 640px)': {
+          slides: {
+            perView: 2,
+            spacing: 20,
+          },
+        },
+        '(min-width: 1024px)': {
+          slides: {
+            perView: 3,
+            spacing: 24,
+          },
         },
       },
-      '(min-width: 1024px)': {
-        slides: {
-          perView: 3,
-          spacing: 24,
-        },
+      slideChanged(slider) {
+        setCurrentBlogSlide(slider.track.details.rel);
       },
     },
-    slideChanged(slider) {
-      setCurrentBlogSlide(slider.track.details.rel);
-    },
-  });
+    // Add the autoplay plugin
+    [
+      (slider) => {
+        let timeout;
+        let mouseOver = false;
 
-  // Autoplay for blog slider
-  useEffect(() => {
-    if (!blogInstanceRef.current) return;
+        function clearNextTimeout() {
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+        }
 
-    const interval = setInterval(() => {
-      if (blogInstanceRef.current) {
-        blogInstanceRef.current.next();
-      }
-    }, 4000); // Change slide every 4 seconds
+        function nextTimeout() {
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 10000); // 4 seconds as per your comment
+        }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [blogInstanceRef]);
+        slider.on("created", () => {
+          slider.container.addEventListener("mouseover", () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener("mouseout", () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
+
 
   const fetchBlogs = useCallback(async (page = 1, category = 'All', search = '') => {
     try {
@@ -261,7 +349,7 @@ function Index() {
     }
   };
 
-   const {
+  const {
     register: registerPartner,
     handleSubmit: handleSubmitPartner,
     formState: { errors: partnerErrors },
@@ -386,9 +474,9 @@ function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Column - Student Info & Slider */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 text-center lg:text-left mb-8 leading-[35px]">
-                Established in <span className="bg-red-600 py-[4px] px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span>GMAT</span>, <span>GRE</span>, <span>SAT</span>, <span>TOEFL</span>, <span>IELTS</span>, and <span>PTE</span>.
+            <div className='mt-[80px]'>
+              <h3 className="text-2xl font-bold text-gray-900 text-center lg:text-center mb-8 leading-[35px]">
+                Established in <span className="bg-red-600 py-[4px] px-[6px] text-white  rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span>GMAT</span>, <span>GRE</span>, <span>SAT</span>, <span>TOEFL</span>, <span>IELTS</span>, and <span>PTE</span>.
               </h3>
 
               {studentData.length > 0 && (
@@ -443,9 +531,9 @@ function Index() {
             </div>
 
             {/* Right Column - Register Form */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-200 mb-[160px] w-[70%]">
-              <h3 className="text-2xl font-bold text-gray-900 text-center uppercase mb-6">Register Now</h3>
-              <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-4">
+            <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-200 mb-[180px] w-[70%] ml-[100px]">
+              <h3 className="text-2xl font-bold text-gray-900 text-center uppercase mb-6 ">Register Now</h3>
+              <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-2">
                 <div>
                   <input
                     type="text"
@@ -545,43 +633,43 @@ function Index() {
           </div>
         </div>
 
-    <div className="mx-auto ml-20 overflow-hidden">
-  <div className="flex group">
-    {/* First set for seamless loop */}
-    <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
-      {sliderData.map((s, index) => (
-        <div 
-          key={`first-${index}`} 
-          className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
-        >
-          {/* Right border for partition */}
-          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
-          
-          <p className="text-sm text-[#FFD8D8]">{s.name}</p>
-          <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
-        </div>
-      ))}
-    </div>
-    
-    {/* Duplicate set for seamless loop */}
-    <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
-      {sliderData.map((s, index) => (
-        <div 
-          key={`second-${index}`} 
-          className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
-        >
-          {/* Right border for partition */}
-          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
-          
-          <p className="text-sm text-[#FFD8D8]">{s.name}</p>
-          <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-  
-  {/* Add animation styles */}
-  <style jsx>{`
+        <div className="mx-auto ml-20 overflow-hidden">
+          <div className="flex group">
+            {/* First set for seamless loop */}
+            <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
+              {sliderData.map((s, index) => (
+                <div
+                  key={`first-${index}`}
+                  className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
+                >
+                  {/* Right border for partition */}
+                  <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
+
+                  <p className="text-sm text-[#FFD8D8]">{s.name}</p>
+                  <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Duplicate set for seamless loop */}
+            <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
+              {sliderData.map((s, index) => (
+                <div
+                  key={`second-${index}`}
+                  className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
+                >
+                  {/* Right border for partition */}
+                  <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
+
+                  <p className="text-sm text-[#FFD8D8]">{s.name}</p>
+                  <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Add animation styles */}
+          <style jsx>{`
     @keyframes infinite-scroll {
       0% {
         transform: translateX(0);
@@ -599,37 +687,37 @@ function Index() {
       animation-play-state: paused;
     }
   `}</style>
-</div>
+        </div>
       </section>
 
-     {/* Marquee Section */}
-<section className="bg-[#d9d9d9] overflow-hidden">
-  <div className="flex group">
-    {/* First set for seamless loop */}
-    <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
-      {sliderData.map((s, index) => (
-        <div key={`first-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
-          {/* Right border for partition */}
-          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[20px] w-[1px] bg-black"></div>
-          {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
+      {/* Marquee Section */}
+      <section className="bg-[#d9d9d9] overflow-hidden">
+        <div className="flex group">
+          {/* First set for seamless loop */}
+          <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
+            {sliderData.map((s, index) => (
+              <div key={`first-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
+                {/* Right border for partition */}
+                <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[20px] w-[1px] bg-black"></div>
+                {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Duplicate set for seamless loop */}
+          <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
+            {sliderData.map((s, index) => (
+              <div key={`second-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
+                {/* Right border for partition */}
+                <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-black"></div>
+                {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-    
-    {/* Duplicate set for seamless loop */}
-    <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
-      {sliderData.map((s, index) => (
-        <div key={`second-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
-          {/* Right border for partition */}
-          <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-black"></div>
-          {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-  
-  {/* Add animation styles */}
-  <style jsx>{`
+
+        {/* Add animation styles */}
+        <style jsx>{`
     @keyframes infinite-scroll-reverse {
       0% {
         transform: translateX(-100%);
@@ -647,7 +735,7 @@ function Index() {
       animation-play-state: paused;
     }
   `}</style>
-</section>
+      </section>
 
       {/* Test Preparation Section */}
       <section className="py-12 md:py-20 bg-white">
@@ -999,314 +1087,303 @@ function Index() {
           )}
         </div>
       </section>
-     {/* Blog Section */}
-<section className="py-12 md:py-20 bg-gray-50">
-  <div className="max-w-7xl mx-auto px-4">
-    <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-0 border-b-2 border-gray-200 pb-4">
-        Important Facts & Information
-      </h2>
-      <Link href="/blog" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
-        View All Blogs
-        <i className='bx bx-chevron-right text-lg'></i>
-      </Link>
-    </div>
+      {/* Blog Section */}
+      <section className="py-12 md:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-0 border-b-2 border-gray-200 pb-4">
+              Important Facts & Information
+            </h2>
+            <Link href="/blog" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+              View All Blogs
+              <i className='bx bx-chevron-right text-lg'></i>
+            </Link>
+          </div>
 
-    {blogData.length > 0 && (
-      <div className="relative">
-        <div ref={blogRef} className="keen-slider">
-          {blogData.map((blog) => (
-            <div key={blog.id} className="keen-slider__slide">
-              <BlogCard
-                blog={blog}
-                showDescription={false} // Add this prop to hide description
-                onClick={() => router.push(`/blog-description/${blog.Slug}`)}
-              />
+          {blogData.length > 0 && (
+            <div className="relative ">
+              <div ref={blogRef} className="keen-slider">
+                {blogData.map((blog) => (
+                  <div key={blog.id} className="keen-slider__slide">
+                    <BlogCard
+                      blog={blog}
+                      showDescription={true} // Add this prop to hide description
+                      onClick={() => router.push(`/blog-description/${blog.Slug}`)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Blog Slider Navigation */}
+              {blogData.length > 3 && (
+                <div className="flex items-center justify-center mt-8 space-x-4">
+                  {/* Dots Indicator */}
+                  <div className="flex space-x-2">
+                    {[...Array(Math.ceil(blogData.length / 3))].map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => blogInstanceRef.current?.moveToIdx(idx * 3)}
+                        className={`w-2 h-2 rounded-full transition-all ${currentBlogSlide === idx ? 'bg-red-600 w-6' : 'bg-gray-300 hover:bg-gray-400'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          ))}
+          )}
         </div>
+      </section>
 
-        {/* Blog Slider Navigation */}
-        {blogData.length > 3 && (
-          <div className="flex items-center justify-center mt-8 space-x-4">
-            {/* Dots Indicator */}
-            <div className="flex space-x-2">
-              {[...Array(Math.ceil(blogData.length / 3))].map((_, idx) => (
+      {/* ====== Partner Section ====== */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+            {/* Content container with specific padding */}
+            <div className="px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+                <div className="w-full lg:w-[48%]">
+                  <div className="text-center lg:text-left pl-[17px]">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#d71635] lg:leading-[37px]">
+                      Become a Partner
+                    </h2>
+                    <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                      Join thousand of instructors and earn money hassle free!
+                    </p>
+                    <button
+                      onClick={() => document.getElementById('partnerModal').showModal()}
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
+                    >
+                      Apply Now
+                    </button>
+                  </div>
+                </div>
+                <div className="w-full lg:w-[38%]">
+                  <div className="flex justify-center">
+                    <img
+                      src="/img/partner-img.svg"
+                      alt="Partner Program"
+                      className="w-full max-w-xs sm:max-w-sm lg:max-w-[20rem]"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partner Modal */}
+      <dialog id="partnerModal" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box max-w-4xl">
+          <div className="modal-header mb-6">
+            <h3 className="text-2xl font-bold text-gray-900">Become A Partner</h3>
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+          </div>
+
+          <div className="modal-body max-h-[70vh] overflow-y-auto">
+            <div className="get-in-touch-form">
+              <form onSubmit={handleSubmitPartner(handleUpdate2)} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* First Name */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("name", { required: "First Name is required" })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.name ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="First Name"
+                    />
+                    {partnerErrors.name && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.name.message}</p>
+                    )}
+                  </div>
+
+                  {/* Last Name */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("lastName", { required: "Last Name is required" })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.lastName ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="Last Name"
+                    />
+                    {partnerErrors.lastName && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.lastName.message}</p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <input
+                      type="email"
+                      {...registerPartner("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Invalid email address"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.email ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="Email"
+                    />
+                    {partnerErrors.email && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.email.message}</p>
+                    )}
+                  </div>
+
+                  {/* Mobile No. */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("mobile", {
+                        required: "Mobile No. is required",
+                        pattern: {
+                          value: /^\d{10,15}$/,
+                          message: "Invalid phone number"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.mobile ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="Mobile No."
+                    />
+                    {partnerErrors.mobile && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.mobile.message}</p>
+                    )}
+                  </div>
+
+                  {/* WhatsApp No. */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("whatsappNo")}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      placeholder="WhatsApp No."
+                    />
+                  </div>
+
+                  {/* Age */}
+                  <div>
+                    <input
+                      type="number"
+                      {...registerPartner("age", { min: 0, max: 120 })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      placeholder="Age"
+                    />
+                  </div>
+
+                  {/* City */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("city", { required: "City is required" })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.city ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="City"
+                    />
+                    {partnerErrors.city && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.city.message}</p>
+                    )}
+                  </div>
+
+                  {/* Occupation */}
+                  <div>
+                    <input
+                      type="text"
+                      {...registerPartner("occupation", { required: "Occupation is required" })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.occupation ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                      placeholder="What is your current Occupation?"
+                    />
+                    {partnerErrors.occupation && (
+                      <p className="text-red-500 text-sm mt-1">{partnerErrors.occupation.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Address - Full Width */}
+                <div>
+                  <textarea
+                    {...registerPartner("adress", { required: "Address is required" })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${partnerErrors.adress ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    rows={3}
+                    placeholder="Your Address"
+                  />
+                  {partnerErrors.adress && (
+                    <p className="text-red-500 text-sm mt-1">{partnerErrors.adress.message}</p>
+                  )}
+                </div>
+
+                {/* How did you know about us - Full Width */}
+                <div>
+                  <select
+                    {...registerPartner("howDidyouKnow", { required: "Please select how you know about us" })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.howDidyouKnow ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                  >
+                    <option value="">How did you come to know about Gateway Abroad?</option>
+                    <option value='google'>Google Ad</option>
+                    <option value='facebook'>Facebook Ad</option>
+                    <option value='email'>Email Campaign</option>
+                    <option value='sms'>SMS Campaign</option>
+                    <option value='whatsapp'>WhatsApp</option>
+                    <option value='linkedin'>Linkedin</option>
+                    <option value='reference'>Reference</option>
+                    <option value='newspaper'>Newspaper</option>
+                    <option value='website'>Website</option>
+                    <option value='call'>Call</option>
+                    <option value='instagram'>Instagram</option>
+                    <option value='other'>Other</option>
+                  </select>
+                  {partnerErrors.howDidyouKnow && (
+                    <p className="text-red-500 text-sm mt-1">{partnerErrors.howDidyouKnow.message}</p>
+                  )}
+                </div>
+
+                {/* Qualifications - Full Width */}
+                <div>
+                  <textarea
+                    {...registerPartner("qualifications", { required: "Qualifications are required" })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${partnerErrors.qualifications ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    rows={3}
+                    placeholder="What are your Educational Qualifications?"
+                  />
+                  {partnerErrors.qualifications && (
+                    <p className="text-red-500 text-sm mt-1">{partnerErrors.qualifications.message}</p>
+                  )}
+                </div>
+
+                {/* Introduction - Full Width */}
+                <div>
+                  <textarea
+                    {...registerPartner("query", { required: "Introduction is required" })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${partnerErrors.query ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    rows={3}
+                    placeholder="Please provide a Brief Introduction about yourself"
+                  />
+                  {partnerErrors.query && (
+                    <p className="text-red-500 text-sm mt-1">{partnerErrors.query.message}</p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
                 <button
-                  key={idx}
-                  onClick={() => blogInstanceRef.current?.moveToIdx(idx * 3)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentBlogSlide === idx ? 'bg-red-600 w-6' : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    )}
-  </div>
-</section>
-
-    {/* ====== Partner Section ====== */}
-<section className="py-12 md:py-16 bg-white">
-  <div className="container mx-auto px-4 max-w-7xl">
-    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
-      {/* Content container with specific padding */}
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
-          <div className="w-full lg:w-[48%]">
-            <div className="text-center lg:text-left pl-[17px]">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#d71635] lg:leading-[37px]">
-                Become a Partner
-              </h2>
-              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
-                Join thousand of instructors and earn money hassle free!
-              </p>
-              <button 
-                onClick={() => document.getElementById('partnerModal').showModal()}
-                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
-              >
-                Apply Now
-              </button>
-            </div>
-          </div>
-          <div className="w-full lg:w-[38%]">
-            <div className="flex justify-center">
-              <img
-                src="/img/partner-img.svg"
-                alt="Partner Program"
-                className="w-full max-w-xs sm:max-w-sm lg:max-w-[20rem]"
-              />
+                  type="submit"
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  SUBMIT
+                </button>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* Partner Modal */}
-<dialog id="partnerModal" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box max-w-4xl">
-    <div className="modal-header mb-6">
-      <h3 className="text-2xl font-bold text-gray-900">Become A Partner</h3>
-      <form method="dialog">
-        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
-    </div>
-    
-    <div className="modal-body max-h-[70vh] overflow-y-auto">
-      <div className="get-in-touch-form">
-        <form onSubmit={handleSubmitPartner(handleUpdate2)} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* First Name */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("name", { required: "First Name is required" })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.name ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="First Name"
-              />
-              {partnerErrors.name && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.name.message}</p>
-              )}
-            </div>
-
-            {/* Last Name */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("lastName", { required: "Last Name is required" })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.lastName ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Last Name"
-              />
-              {partnerErrors.lastName && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.lastName.message}</p>
-              )}
-            </div>
-
-            {/* Email */}
-            <div>
-              <input
-                type="email"
-                {...registerPartner("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Invalid email address"
-                  }
-                })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.email ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Email"
-              />
-              {partnerErrors.email && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.email.message}</p>
-              )}
-            </div>
-
-            {/* Mobile No. */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("mobile", {
-                  required: "Mobile No. is required",
-                  pattern: {
-                    value: /^\d{10,15}$/,
-                    message: "Invalid phone number"
-                  }
-                })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.mobile ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Mobile No."
-              />
-              {partnerErrors.mobile && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.mobile.message}</p>
-              )}
-            </div>
-
-            {/* WhatsApp No. */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("whatsappNo")}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                placeholder="WhatsApp No."
-              />
-            </div>
-
-            {/* Age */}
-            <div>
-              <input
-                type="number"
-                {...registerPartner("age", { min: 0, max: 120 })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                placeholder="Age"
-              />
-            </div>
-
-            {/* City */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("city", { required: "City is required" })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.city ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="City"
-              />
-              {partnerErrors.city && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.city.message}</p>
-              )}
-            </div>
-
-            {/* Occupation */}
-            <div>
-              <input
-                type="text"
-                {...registerPartner("occupation", { required: "Occupation is required" })}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                  partnerErrors.occupation ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="What is your current Occupation?"
-              />
-              {partnerErrors.occupation && (
-                <p className="text-red-500 text-sm mt-1">{partnerErrors.occupation.message}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Address - Full Width */}
-          <div>
-            <textarea
-              {...registerPartner("adress", { required: "Address is required" })}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
-                partnerErrors.adress ? 'border-red-500' : 'border-gray-300'
-              }`}
-              rows={3}
-              placeholder="Your Address"
-            />
-            {partnerErrors.adress && (
-              <p className="text-red-500 text-sm mt-1">{partnerErrors.adress.message}</p>
-            )}
-          </div>
-
-          {/* How did you know about us - Full Width */}
-          <div>
-            <select
-              {...registerPartner("howDidyouKnow", { required: "Please select how you know about us" })}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                partnerErrors.howDidyouKnow ? 'border-red-500' : 'border-gray-300'
-              }`}
-            >
-              <option value="">How did you come to know about Gateway Abroad?</option>
-              <option value='google'>Google Ad</option>
-              <option value='facebook'>Facebook Ad</option>
-              <option value='email'>Email Campaign</option>
-              <option value='sms'>SMS Campaign</option>
-              <option value='whatsapp'>WhatsApp</option>
-              <option value='linkedin'>Linkedin</option>
-              <option value='reference'>Reference</option>
-              <option value='newspaper'>Newspaper</option>
-              <option value='website'>Website</option>
-              <option value='call'>Call</option>
-              <option value='instagram'>Instagram</option>
-              <option value='other'>Other</option>
-            </select>
-            {partnerErrors.howDidyouKnow && (
-              <p className="text-red-500 text-sm mt-1">{partnerErrors.howDidyouKnow.message}</p>
-            )}
-          </div>
-
-          {/* Qualifications - Full Width */}
-          <div>
-            <textarea
-              {...registerPartner("qualifications", { required: "Qualifications are required" })}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
-                partnerErrors.qualifications ? 'border-red-500' : 'border-gray-300'
-              }`}
-              rows={3}
-              placeholder="What are your Educational Qualifications?"
-            />
-            {partnerErrors.qualifications && (
-              <p className="text-red-500 text-sm mt-1">{partnerErrors.qualifications.message}</p>
-            )}
-          </div>
-
-          {/* Introduction - Full Width */}
-          <div>
-            <textarea
-              {...registerPartner("query", { required: "Introduction is required" })}
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
-                partnerErrors.query ? 'border-red-500' : 'border-gray-300'
-              }`}
-              rows={3}
-              placeholder="Please provide a Brief Introduction about yourself"
-            />
-            {partnerErrors.query && (
-              <p className="text-red-500 text-sm mt-1">{partnerErrors.query.message}</p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg"
-          >
-            SUBMIT
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</dialog>
+      </dialog>
     </>
   );
 }

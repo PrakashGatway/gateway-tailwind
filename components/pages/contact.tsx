@@ -322,7 +322,7 @@ function Contact() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-12 items-center">
                         {/* Left Content */}
-                        <div className="lg:w-1/2">
+                        <div className="lg:w-3/4">
                             <div className="text-center lg:text-left">
                                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Get in touch</h2>
                                 <p className="text-gray-600 text-lg mb-8">

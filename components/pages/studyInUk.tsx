@@ -42,7 +42,7 @@ const StudyInUk = ({ content, country }: any) => {
         slides: { perView: 3, spacing: 20 },
       },
       "(min-width: 1024px)": {
-        slides: { perView: 4, spacing: 24 },
+        slides: { perView: 3, spacing: 24 },
       },
     },
     slides: { perView: 1, spacing: 12 },
@@ -271,7 +271,8 @@ const StudyInUk = ({ content, country }: any) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
             <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
-            <Link href="/blog" className="site-btn whitespace-nowrap">Go to blog</Link>
+            <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold "> <Link href="/blog" className="site-btn ng-[] whitespace-nowrap ">Go to blog</Link></button>
+           
           </div>
 
           <div className="blog-section-inner">

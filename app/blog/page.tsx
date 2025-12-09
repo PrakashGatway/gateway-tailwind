@@ -18,6 +18,10 @@ export async function generateMetadata() {
     title: seoData.title,
     description: seoData.description,
     keywords: seoData.keywords,
+    robots: {
+      index: true,
+      follow: true,
+    },
     openGraph: {
       title: seoData.ogTitle,
       description: seoData.ogDescription,
@@ -37,9 +41,8 @@ export async function generateMetadata() {
 }
 
 function BlogsPage() {
-
   return (
-    <AllBlogs/>
+    <AllBlogs />
   );
 }
 

@@ -257,34 +257,36 @@ const [sliderRef, instanceRef] = useKeenSlider({
   </div>
 </section>
 
-      {/* Marquee Section */}
-      <section className="bg-[#1F1B2D] py-3 ">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="relative ">
-            <div
-              className="flex space-x-8 marquee-alternate"
-              style={{
-                '--marquee-duration': '25s',
-                '--marquee-direction': 'alternate'
-              } as React.CSSProperties}
-            >
-              {sliderData.map((e) => (
-                <div key={e._id || e.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap">
-                  {e.name} {e.courseName} <span className="text-red-400 font-bold">{e.rank}</span>
-                </div>
-              ))}
-
-              {/* Duplicate for seamless loop
+    
+{/* Marquee Section */}
+<section className="bg-[#1F1B2D] py-3">
+  <div className="max-w-full sm:max-w-xl md:max-w-3xl lg:max-w-full mx-auto ">
+    <div className="relative overflow-hidden">
+      <div
+        className="flex marquee-alternate"
+        style={{
+          '--marquee-duration': '25s',
+          '--marquee-direction': 'alternate',
+          gap: '2rem'
+        } as React.CSSProperties}
+      >
         {sliderData.map((e) => (
-          <div key={`${e._id}-dup` || `${e.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap">
+          <div key={e._id || e.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
             {e.name} {e.courseName} <span className="text-red-400 font-bold">{e.rank}</span>
           </div>
-        ))} */}
-            </div>
+        ))}
+        
+        {/* Duplicate for seamless loop */}
+        {sliderData.map((e) => (
+          <div key={`${e._id}-dup` || `${e.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
+            {e.name} {e.courseName} <span className="text-red-400 font-bold">{e.rank}</span>
+          </div>
+        ))}
+      </div>
 
-            <style jsx>{`
+      <style jsx>{`
         .marquee-alternate {
-          animation: marqueeAlternate var(--marquee-duration, 20s) linear infinite var(--marquee-direction, alternate);
+          animation: marqueeAlternate var(--marquee-duration, 25s) linear infinite var(--marquee-direction, alternate);
         }
         
         .marquee-alternate:hover {
@@ -299,10 +301,17 @@ const [sliderRef, instanceRef] = useKeenSlider({
             transform: translateX(-50%);
           }
         }
+        
+        @media (max-width: 640px) {
+          .marquee-alternate {
+            gap: 1rem;
+          }
+        }
       `}</style>
-          </div>
-        </div>
-      </section>
+    </div>
+  </div>
+</section>
+
 
       {/* Overview Section */}
       <section className="py-12 md:py-20 bg-white">

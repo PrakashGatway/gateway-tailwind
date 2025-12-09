@@ -26,13 +26,13 @@ function SpokenEnglish() {
         loop: true,
         drag: true,
         slides: {
-            perView: 2,
+            perView: 1,
             spacing: 16,
         },
         breakpoints: {
-            '(min-width: 1024px)': {
+            '(min-width: 768px)': {
                 slides: {
-                    perView: 2,
+                    perView: 3,
                     spacing: 24,
                 },
             },
@@ -171,7 +171,7 @@ function SpokenEnglish() {
             {spokenEnglishDetails?.WhyChoose?.map((data, index) => (
                 <div
                     key={index}
-                    className="bg-[#f3f4f6] rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300 shadow-[0_4px_6px_rgba(0,0,0,0.18)] w-full md:max-w-[400px] lg:max-w-[480px]"
+                    className="bg-[#f3f4f6] rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300 shadow-[0_4px_6px_rgba(0,0,0,0.18)] w-full md:max-w-[400px] lg:max-w-[400px]"
                 >
                     <div className="flex items-start gap-4">
                         <div className="flex-shrink-0">

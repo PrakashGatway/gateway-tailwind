@@ -177,7 +177,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
                 {programs.map((program, index) => (
                   <div key={program.id || index} className="keen-slider__slide p-2 overflow-hidden">
                     <div
-                      className={`group relative h-full bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-4 bg-[#FAFBFF] border border-red-800 border-2 hover:border-red-700 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden`}
+                      className={`group relative h-full bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-4 bg-[#FAFBFF] border border-red-800 border-2 hover:border-red-700 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden `}
                     >
                       {/* Content */}
                       <div className="relative z-10">

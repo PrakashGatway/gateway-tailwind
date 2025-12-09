@@ -130,20 +130,21 @@ const Header = () => {
     >
       <div className="mx-auto px-2 lg:p-0 sm:px-4 max-w-7xl container-sm">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center space-x-3 group flex-shrink-0"
-          >
-            <Image
-              src="/images/logo.svg"
-              alt="Company Logo"
-              width={200}
-              height={40}
-              className="w-auto h-12 sm:h-14 transition-all duration-300 group-hover:scale-105"
-              priority
-            />
-          </Link>
+        
+{/* Logo */}
+<Link
+  href="/"
+  className="flex items-center space-x-2 sm:space-x-3 group flex-shrink-0"
+>
+  <Image
+    src="/images/logo.svg"
+    alt="Company Logo"
+    width={120}
+    height={30}
+    className="w-[80px] sm:w-[200px] h-8 sm:h-[60px] object-contain transition-all duration-300 group-hover:scale-105"
+    priority
+  />
+</Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
@@ -247,31 +248,32 @@ const Header = () => {
               Contact Us
             </Link>
 
-            {/* Contact Number Box */}
-            <div className="relative group">
-              <div className="flex items-center space-x-2 px-2 py-1 bg-[#fbbf24] border border-black rounded-[20px] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/20 hover:bg-[#d61635] hover:text-white pt-[12px]">
-                <Phone className="h-4 w-4 text-black " />
-                <Link 
-                  href={`tel:${contactNumber}`}
-                  className="text-black hover:text-white font-bold text-[10px] whitespace-nowrap hover:no-underline"
-                >
-                  {contactNumber}
-                  
-                </Link>
-                
-              </div>
-
-              
-         
-              
-              <h5 className="text-[10px] font-bold text-[#d61635] pl-[10px] ">connect with expert</h5>
-            </div>
+           
             
           </nav>
+          
           
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-3">
+              
+{/* Contact Number Box */}
+<div className="relative group mt-3 sm:mt-4">
+  <div className="flex items-center space-x-1 px-2 py-1 bg-[#fbbf24] border border-black rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#d61635] hover:text-white">
+    <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-black" />
+    <Link 
+      href={`tel:${contactNumber}`}
+      className="text-black hover:text-white font-bold text-[10px] sm:text-[15px] truncate max-w-[80px] sm:max-w-[120px]"
+    >
+      {contactNumber}
+    </Link>
+  </div>
+  <h5 className="text-[8px] sm:text-[12px] font-bold text-[#d61635] pl-1 sm:pl-2 mt-0.5">
+    connect with expert
+  </h5>
+</div>
+
+
             {user?.email ? (
               <div
                 className="relative"

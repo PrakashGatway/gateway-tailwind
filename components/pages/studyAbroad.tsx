@@ -141,7 +141,7 @@ const StudyAbroadPage = ({ content }: any) => {
                         <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-4">Frequently asked questions</h2>
                         <p className="text-gray-600 text-base lg:text-lg max-w-2xl mx-auto">Can't find the answer you are looking for?</p>
                     </div>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="max-w-7xl mx-auto">
                         <Accordion type="single" collapsible className="w-full">
                             {faqData.map((f: any, index: number) => (
                                 <AccordionItem value={`item-${index}`} key={index}>
@@ -158,50 +158,50 @@ const StudyAbroadPage = ({ content }: any) => {
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-12 md:py-16 bg-white">
-                <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
-                        {/* Content container with specific padding */}
-                        <div className="px-4 sm:px-6 lg:px-8">
-                            <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
-                                <div className="w-full lg:w-[48%]">
-                                    <div className="text-center lg:text-left pl-[17px]">
-                                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
-                                            Avail A Complementary Counselling Session
-                                        </h2>
-                                        <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
-                                            Join thousand of instructors and earn money hassle free!
-                                        </p>
-                                        <a
-                                            href="/contact"
-                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
-                                        >
-                                            Contact us
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="w-full lg:w-[38%]">
-                                    <div className="flex justify-center">
-                                        <Image
-                                            src="/img/counselling-session.svg"
-                                            alt="Counselling Session"
-                                            width={400}
-                                            height={300}
-                                            className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
-                                            style={{
-                                                width: '100%',
-                                                height: 'auto',
-                                                maxWidth: '25rem'
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+          {/* CTA Section */}
+<section className="py-12 md:py-16 bg-white">
+    <div className="container mx-auto ">
+        <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg w-full max-w-[90rem] mx-auto"> {/* max-w-[90rem] for 7xl width */}
+            {/* Content container with specific padding */}
+            <div className="px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+                    <div className="w-full lg:w-[48%]">
+                        <div className="text-center lg:text-left pl-[17px]">
+                            <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
+                                Avail A Complementary Counselling Session
+                            </h2>
+                            <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                                Join thousand of instructors and earn money hassle free!
+                            </p>
+                            <a
+                                href="/contact"
+                                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                            >
+                                Contact us
+                            </a>
+                        </div>
+                    </div>
+                    <div className="w-full lg:w-[38%]">
+                        <div className="flex justify-center">
+                            <Image
+                                src="/img/counselling-session.svg"
+                                alt="Counselling Session"
+                                width={400}
+                                height={300}
+                                className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    maxWidth: '25rem'
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
         </>
     );
 };

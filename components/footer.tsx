@@ -142,30 +142,31 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/footer-bg.f6e76235.svg')] bg-no-repeat bg-cover bg-bottom font-noto_sans relative z-10">
+      <footer className="bg-[url('/img/footer-bg.svg')] bg-no-repeat bg-cover bg-bottom font-noto_sans relative z-10">
+
         {pathname.includes("study-abroad")}
 
-          <div className="container-6xl w-[80%] pt-[30px] mx-auto">
-            <h4 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full mb-3 ">
-              🌍 Choose Your Destination
-            </h4>
-            <div className="flex gap-1 flex-wrap justify-start items-center sm:gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-3">
+        <div className="container-6xl w-[80%] pt-[30px] mx-auto">
+          <h4 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full mb-3 ">
+            🌍 Choose Your Destination
+          </h4>
+          <div className="flex gap-1 flex-wrap justify-start items-center sm:gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-3">
 
-              {countryPage.map((country, index) => {
-                const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
-                return (
-                  <Link
-                    key={index}
-                    href={`/study-in-${slug}`}
-                    className={`relative flex flex-wrap items-center justify-center px-3 sm:px-3 py-2 rounded-full text-sm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 !border !border-gray-200 hover:bg-gray-50 hover:text-gray-900 shadow-sm text-gray-700 `}
-                  >
-                    {country?.slug.toUpperCase()}
-                  </Link>
-                );
-              })}
-            </div>
+            {countryPage.map((country, index) => {
+              const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={index}
+                  href={`/study-in-${slug}`}
+                  className={`relative flex flex-wrap items-center justify-center px-3 sm:px-3 py-2 rounded-full text-sm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 !border !border-gray-200 hover:bg-gray-50 hover:text-gray-900 shadow-sm text-gray-700 `}
+                >
+                  {country?.slug.toUpperCase()}
+                </Link>
+              );
+            })}
           </div>
-           {<LocationAvailability cities={cityPage} />}
+        </div>
+        {<LocationAvailability cities={cityPage} />}
 
         {/* Footer Content */}
         <div className="py-10 md:py-[60px]">
@@ -219,66 +220,42 @@ export const Footer = () => {
                   </div>
                 </div>
               </div>
-{/* Quick Links Column */}
-<div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
-  <div className="pl-5 mb-6">
-    <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
-      Quick Links
-    </h4>
-    <ul className="leading-[normal] list-none mb-4 pl-0">
-      {[
-        { href: "/", text: "Home" },
-        { href: "/about", text: "About Us" },
-        { href: "/spoken-english", text: "Spoken English" },
-        { href: "/blog", text: "Blog" },
-        {href: "/article" , text: "Articles"},
-        { href: "/career", text: "Career" },
-        { href: "/contact", text: "Contact Us" },
-        { href: "/gallary", text: "Gallery" }
-      ].map((link, index) => (
-        <li
-          key={index}
-          className="relative mb-2 pl-[15px] before:accent-auto before:bg-zinc-800 before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-[5px] before:tracking-[normal] before:leading-[normal] before:list-outside before:list-none before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-[5px] before:rounded-[50%] before:border-separate before:left-0 before:top-[9px] before:font-noto_sans"
-        >
-          <Link
-            href={link.href}
-            className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
-          >
-            {link.text}
-          </Link>
-        </li>
-      ))}
-    </ul>
-
-   
-  </div>
-</div>
-
-              {/* Study Abroad Column */}
+              {/* Quick Links Column */}
               <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
-                <div className="pl-2 mb-6">
+                <div className="pl-5 mb-6">
                   <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
-                    <Link href="/study-abroad" className="text-gray-800 hover:text-red-600 transition-colors duration-200">
-                      Study Abroad
-                    </Link>
+                    Quick Links
                   </h4>
                   <ul className="leading-[normal] list-none mb-4 pl-0">
-                    {countryPage.map((country, index) => (
+                    {[
+                      { href: "/", text: "Home" },
+                      { href: "/about", text: "About Us" },
+                      { href: "/spoken-english", text: "Spoken English" },
+                      { href: "/blog", text: "Blog" },
+                      { href: "/article", text: "Articles" },
+                      { href: "/career", text: "Career" },
+                      { href: "/contact", text: "Contact Us" },
+                      { href: "/gallary", text: "Gallery" }
+                    ].map((link, index) => (
                       <li
                         key={index}
                         className="relative mb-2 pl-[15px] before:accent-auto before:bg-zinc-800 before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-[5px] before:tracking-[normal] before:leading-[normal] before:list-outside before:list-none before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-[5px] before:rounded-[50%] before:border-separate before:left-0 before:top-[9px] before:font-noto_sans"
                       >
                         <Link
-                          href={`/study-in-${country?.slug.toLowerCase().replace(' ', '-')}`}
-                          className="capitalize text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-all duration-200 hover:translate-x-[6px]"
+                          href={link.href}
+                          className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
                         >
-                          Study in {country?.slug}
+                          {link.text}
                         </Link>
                       </li>
                     ))}
                   </ul>
+
+
                 </div>
               </div>
+
+            
 
               {/* Test Preparation Column */}
               <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
@@ -422,275 +399,298 @@ export const Footer = () => {
         </Link>
       </div>
 
-    {/* Get in Touch Sidebar */}
-<div className="fixed top-1/2 -right-14 transform -translate-y-1/2 z-40 rotate-90">
-  <button
-    onClick={openModal}
-    className="bg-[#d71635] text-white px-6 py-3 rounded-b-lg hover:bg-red-700 transition-colors duration-200 flex items-center relative group"
-  >
-    {/* Arrow with black background */}
-    <span className="mr-2  bg-black p-[1.5rem] rounded-l-lg absolute -left-10 top-0 h-full flex items-center justify-center">
-      <i className="fa fa-long-arrow-down text-white rotate-180" />
-    </span>
-    
-    <span className="ml-4 rotate-180"><i className="fa fa-envelope-o" /> Get in touch</span>
-  </button>
-</div>
+      {/* Get in Touch Sidebar */}
+      <div className="fixed top-1/2 -right-[63px] transform -translate-y-1/2 z-40 rotate-90">
+        <button
+          onClick={openModal}
+          className="bg-[#d71635] text-white px-3 py-3 rounded-br-lg hover:bg-red-700 transition-colors duration-200 flex items-center relative group"
+        >
+          {/* Arrow with black background */}
+          <span className="mr-2  bg-black p-[1rem] rounded-bl-lg rounded-br-lg absolute -left-8 top-0 h-full flex items-center justify-center">
+            <i className="fa fa-long-arrow-down text-white pb-[30px] rotate-180" />
+          </span>
 
-      {/* Contact Modal - Now properly positioned */}
-      {showModal && (
-        <div className="fixed inset-0 z-[9999] modal-overlay">
-          {/* Backdrop */}
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+          <span className="pb-[30px]  rotate-180"><i className="fa fa-envelope-o mr-[5px]" /> Get in touch</span>
+        </button>
+
+      </div>
+
+     
+
+{/* Modern Contact Modal - Premium Design */}
+{showModal && (
+  <div className="fixed inset-0 z-[9999] modal-overlay">
+    {/* Premium Backdrop with Blur & Gradient */}
+    <div 
+      className="fixed inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/30 backdrop-blur-md"
+      onClick={closeModal}
+    ></div>
+
+    {/* Modal Container with Glassmorphism */}
+    <div className="fixed inset-0 flex items-center justify-center p-2 sm:p-4">
+      <div className="relative w-full max-w-[92vw] sm:max-w-md overflow-hidden">
+        {/* Animated Border Effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#d71635] via-[#9e0072] to-[#d71635] rounded-2xl blur opacity-75 animate-gradient-xy"></div>
+        
+        {/* Modal Card */}
+        <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl overflow-hidden border border-white/20">
           
-          {/* Modal Content */}
-          <div className="fixed inset-0 flex items-center justify-center p-4">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform animate-scale-in">
+          {/* Premium Header with Gradient */}
+          <div className="relative bg-gradient-to-r from-[#d71635] to-[#9e0072] py-4 sm:py-5 px-5 sm:px-6">
+            {/* Shiny Overlay Effect */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="p-1.5 bg-white/20 rounded-lg">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <h5 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Get In Touch</h5>
+              </div>
               
-              {/* Modal Header with Gradient Background */}
-              <div className="bg-[#d71635] text-white py-6 px-8">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h5 className="text-2xl font-bold">
-                      Get In Touch
-                    </h5>
-                    <p className="text-red-100 text-sm mt-1">
-                      Let's start your educational journey together
-                    </p>
+              <button
+                onClick={closeModal}
+                className="group p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300"
+              >
+                <svg className="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            
+            <p className="text-white/90 text-sm mt-2 font-light">
+              We'll get back to you within 24 hours
+            </p>
+          </div>
+
+          {/* Modal Body with Subtle Pattern */}
+          <div className="relative p-5 sm:p-6 bg-gradient-to-b from-white to-gray-50/50">
+            {/* Subtle Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d71635' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                backgroundSize: '20px'
+              }}></div>
+            </div>
+
+            <div className="relative space-y-1">
+              {/* Floating Label Inputs */}
+              <div className="space-y-1">
+                {/* Name Field */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d71635]/20 to-transparent rounded-lg blur opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-1">
+                      <svg className="w-4 h-4 text-[#d71635] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"/>
+                      </svg>
+                      <span className="text-xs font-medium text-gray-600">Full Name</span>
+                    </div>
+                    <input
+                      type="text"
+                      {...registerContact("name", { required: "Name is required" })}
+                      className={`w-full px-4 py-3.5 bg-white/80 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+                        ${contactErrors.name 
+                          ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
+                          : 'border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20'
+                        }`}
+                      placeholder="John Doe"
+                    />
+                    {contactErrors.name && (
+                      <div className="absolute -bottom-5 left-0 text-red-500 text-xs font-medium flex items-center mt-1">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                        </svg>
+                        {contactErrors.name.message}
+                      </div>
+                    )}
                   </div>
-                  <button 
-                    type="button" 
-                    onClick={closeModal}
-                    className="text-black  transition-colors duration-200 text-2xl font-bold"
-                  >
-                    ×
-                  </button>
+                </div>
+
+                {/* Email Field */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d71635]/20 to-transparent rounded-lg blur opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-1">
+                      <svg className="w-4 h-4 text-[#d71635] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                      </svg>
+                      <span className="text-xs font-medium text-gray-600">Email Address</span>
+                    </div>
+                    <input
+                      type="email"
+                      {...registerContact("email", {
+                        required: "Email is required",
+                        pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email" }
+                      })}
+                      className={`w-full px-4 py-3.5 bg-white/80 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+                        ${contactErrors.email 
+                          ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
+                          : 'border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20'
+                        }`}
+                      placeholder="john@example.com"
+                    />
+                    {contactErrors.email && (
+                      <div className="absolute -bottom-5 left-0 text-red-500 text-xs font-medium flex items-center mt-1">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                        </svg>
+                        {contactErrors.email.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Mobile Field */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d71635]/20 to-transparent rounded-lg blur opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-1">
+                      <svg className="w-4 h-4 text-[#d71635] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                      </svg>
+                      <span className="text-xs font-medium text-gray-600">Mobile Number</span>
+                    </div>
+                    <input
+                      type="tel"
+                      {...registerContact("mobile", {
+                        required: "Mobile is required",
+                        pattern: { value: /^\d{10,15}$/, message: "Invalid number" }
+                      })}
+                      className={`w-full px-4 py-3.5 bg-white/80 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+                        ${contactErrors.mobile 
+                          ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
+                          : 'border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20'
+                        }`}
+                      placeholder="9876543210"
+                    />
+                    {contactErrors.mobile && (
+                      <div className="absolute -bottom-5 left-0 text-red-500 text-xs font-medium flex items-center mt-1">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                        </svg>
+                        {contactErrors.mobile.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* City Field */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d71635]/20 to-transparent rounded-lg blur opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-1">
+                      <svg className="w-4 h-4 text-[#d71635] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                      </svg>
+                      <span className="text-xs font-medium text-gray-600">City</span>
+                    </div>
+                    <input
+                      type="text"
+                      {...registerContact("city", { required: "City is required" })}
+                      className={`w-full px-4 py-3.5 bg-white/80 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+                        ${contactErrors.city 
+                          ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200' 
+                          : 'border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20'
+                        }`}
+                      placeholder="New Delhi"
+                    />
+                    {contactErrors.city && (
+                      <div className="absolute -bottom-5 left-0 text-red-500 text-xs font-medium flex items-center mt-1">
+                        <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                        </svg>
+                        {contactErrors.city.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Message Field */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#d71635]/20 to-transparent rounded-lg blur opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <div className="flex items-center mb-1">
+                      <svg className="w-4 h-4 text-[#d71635] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clipRule="evenodd"/>
+                      </svg>
+                      <span className="text-xs font-medium text-gray-600">Your Message</span>
+                    </div>
+                    <textarea
+                      {...registerContact("message")}
+                      className="w-full px-4 py-3.5 bg-white/80 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
+                      rows="3"
+                      placeholder="Tell us about your requirements..."
+                    ></textarea>
+                  </div>
                 </div>
               </div>
 
-              {/* Modal Body */}
-              <div className="overflow-y-auto max-h-[calc(90vh-120px)]">
-                <div className="grid grid-cols-1 lg:grid-cols-2">
-                  {/* Left Side - Contact Information */}
-                  <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-                    <div className="mb-8">
-                      <h3 className="text-xl font-bold text-gray-800 mb-4">Why Choose Gateway Abroad?</h3>
-                      <ul className="space-y-3">
-                        <li className="flex items-start">
-                          <i className="fa fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
-                          <span className="text-gray-700">15+ Years of Experience</span>
-                        </li>
-                        <li className="flex items-start">
-                          <i className="fa fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
-                          <span className="text-gray-700">Expert Counselling</span>
-                        </li>
-                        <li className="flex items-start">
-                          <i className="fa fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
-                          <span className="text-gray-700">Multiple Country Options</span>
-                        </li>
-                        <li className="flex items-start">
-                          <i className="fa fa-check-circle text-red-600 mt-1 mr-3 flex-shrink-0"></i>
-                          <span className="text-gray-700">Test Preparation Support</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-6">
-                      <h4 className="text-lg font-semibold text-gray-800 mb-4">Contact Information</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center">
-                          <div className="bg-red-100 p-2 rounded-full mr-3">
-                            <i className="fa fa-phone text-red-600 text-sm"></i>
-                          </div>
-                          <div>
-                            <p className="text-gray-600 text-sm">Call us at</p>
-                            <p className="text-gray-800 font-medium">{contactData.contectOne || '+91-XXXXXXXXXX'}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="bg-red-100 p-2 rounded-full mr-3">
-                            <i className="fa fa-envelope text-red-600 text-sm"></i>
-                          </div>
-                          <div>
-                            <p className="text-gray-600 text-sm">Email us</p>
-                            <p className="text-gray-800 font-medium">{contactData.email || 'info@gatewayabroad.com'}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center">
-                          <div className="bg-red-100 p-2 rounded-full mr-3">
-                            <i className="fa fa-whatsapp text-red-600 text-sm"></i>
-                          </div>
-                          <div>
-                            <p className="text-gray-600 text-sm">WhatsApp</p>
-                            <p className="text-gray-800 font-medium">{contactData.contectOne || '+91-XXXXXXXXXX'}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Side - Contact Form */}
-                  <div className="p-8">
-                    <form onSubmit={handleSubmitContact(handleUpdate)} className="space-y-6">
-                      {/* Name Field */}
-                      <div className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Full Name <span className="text-[#d71635]">*</span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            {...registerContact("name", { required: "Name is required" })}
-                            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-[#d71635] transition-all duration-200 ${
-                              contactErrors.name ? 'border-[#d71635] ring-2 ring-[#d71635]' : 'border-gray-300'
-                            }`}
-                            placeholder="Enter your full name"
-                          />
-                          <i className="fa fa-user absolute right-3 top-3 text-gray-400"></i>
-                        </div>
-                        {contactErrors.name && (
-                          <div className="text-[#d71635] text-sm mt-1 flex items-center">
-                            <i className="fa fa-exclamation-circle mr-1"></i>
-                            {contactErrors.name.message}
-                        </div>
-                        )}
-                      </div>
-
-                      {/* Email Field */}
-                      <div className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Email Address <span className="text-[#d71635]">*</span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="email"
-                            {...registerContact("email", {
-                              required: "Email is required",
-                              pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: "Invalid email address"
-                              }
-                            })}
-                            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#d71635] focus:border-red-500 transition-all duration-200 ${
-                              contactErrors.email ? 'border-[#d71635] ring-2 ring-[#d71635]' : 'border-gray-300'
-                            }`}
-                            placeholder="Enter your email address"
-                          />
-                          <i className="fa fa-envelope absolute right-3 top-3 text-gray-400"></i>
-                        </div>
-                        {contactErrors.email && (
-                          <div className="text-[#d71635] text-sm mt-1 flex items-center">
-                            <i className="fa fa-exclamation-circle mr-1"></i>
-                            {contactErrors.email.message}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Mobile Field */}
-                      <div className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Mobile Number <span className="text-[#d71635]">*</span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            {...registerContact("mobile", {
-                              required: "Mobile No. is required",
-                              pattern: {
-                                value: /^\d{10,15}$/,
-                                message: "Invalid phone number"
-                              }
-                            })}
-                            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 ${
-                              contactErrors.mobile ? 'border-red-500 ring-2 ring-red-200' : 'border-gray-300'
-                            }`}
-                            placeholder="Enter your mobile number"
-                          />
-                          <i className="fa fa-phone absolute right-3 top-3 text-gray-400"></i>
-                        </div>
-                        {contactErrors.mobile && (
-                          <div className="text-red-500 text-sm mt-1 flex items-center">
-                            <i className="fa fa-exclamation-circle mr-1"></i>
-                            {contactErrors.mobile.message}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* City Field */}
-                      <div className="relative">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          City <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            {...registerContact("city", { required: "City is required" })}
-                            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 ${
-                              contactErrors.city ? 'border-red-500 ring-2 ring-red-200' : 'border-gray-300'
-                            }`}
-                            placeholder="Enter your city"
-                          />
-                          <i className="fa fa-map-marker absolute right-3 top-3 text-gray-400"></i>
-                        </div>
-                        {contactErrors.city && (
-                          <div className="text-red-500 text-sm mt-1 flex items-center">
-                            <i className="fa fa-exclamation-circle mr-1"></i>
-                            {contactErrors.city.message}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Message Field */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Message
-                        </label>
-                        <textarea
-                          {...registerContact("message")}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 resize-none"
-                          rows={3}
-                          placeholder="Tell us about your requirements or any questions..."
-                        ></textarea>
-                      </div>
-
-                      {/* Submit Button */}
-                      <button
-                        type="submit"
-                        className="w-full bg-[#d71635] to-[#d71635] text-white font-semibold py-4 px-6 rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl flex items-center justify-center"
-                      >
-                        <i className="fa fa-paper-plane mr-2"></i>
-                        SUBMIT YOUR REQUEST
-                      </button>
-
-                      {/* Privacy Note */}
-                      <p className="text-xs text-gray-500 text-center mt-4">
-                        By submitting this form, you agree to our privacy policy and consent to being contacted by our educational counsellors.
-                      </p>
-                    </form>
-                  </div>
+              {/* Animated Submit Button */}
+              <button
+                type="submit"
+                className="group relative w-full overflow-hidden bg-gradient-to-r from-[#d71635] to-[#9e0072] text-white font-semibold py-4 px-6 rounded-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]"
+              >
+                {/* Shine Effect */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="absolute -inset-[100px] bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
                 </div>
+                
+                {/* Button Content */}
+                <div className="relative flex items-center justify-center space-x-2">
+                  <span className="text-lg">Send Message</span>
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                  </svg>
+                </div>
+                
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9e0072] to-[#d71635] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+
+              {/* Privacy Note */}
+              <div className="text-center pt-2">
+                <p className="text-xs text-gray-500 flex items-center justify-center">
+                  <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/>
+                  </svg>
+                  Your information is secure and private
+                </p>
               </div>
             </div>
           </div>
         </div>
-      )}
-      
-      {/* Add custom animation */}
-      <style jsx>{`
-        @keyframes scale-in {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        .animate-scale-in {
-          animation: scale-in 0.2s ease-out;
-        }
-      `}</style>
+      </div>
+    </div>
+  </div>
+)}
+
+{/* Add these animations to your global CSS */}
+<style jsx>{`
+  @keyframes gradient-xy {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(10px, 10px); }
+  }
+  
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+  
+  .animate-gradient-xy {
+    animation: gradient-xy 3s ease-in-out infinite;
+  }
+  
+  .animate-shine {
+    animation: shine 2s infinite;
+  }
+`}</style>
+
+
+     
     </>
   );
 };

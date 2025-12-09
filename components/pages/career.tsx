@@ -127,7 +127,7 @@ export default function CareerPage() {
                 </p>
               </div>
             </div>
-            <div className="w-full md:w-5/12 order-1 md:order-2">
+            <div className="w-full md:w-5/12 order-1 md:order-2 shadow-lg rounded-2xl shadow-gray-200">
               <Image 
                 src="/img/career-img-new-2.jpeg" 
                 alt="Working with Gateway Abroad" 
@@ -211,49 +211,49 @@ export default function CareerPage() {
           <form className="space-y-6">
             {/* Name Field */}
             <div>
-              <label className="block text-gray-70 text-sm font-medium mb-2">Name</label>
+        
               <input 
                 type="text" 
                 name="name" 
                 className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors "
                 onChange={(e) => setName(e.target.value)} 
-                placeholder="Enter your name" 
+                placeholder="Name" 
               />
             </div>
 
             {/* Email Field */}
             <div>
-              <label className="block text-gray-70 text-sm font-medium mb-2">Email</label>
+             
               <input 
                 type="email" 
                 name="email" 
                 className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 onChange={(e) => setEmail(e.target.value)} 
-                placeholder="Enter your email" 
+                placeholder="Email" 
               />
             </div>
 
             {/* Phone Field */}
             <div>
-              <label className="block text-gray-70 text-sm font-medium mb-2">Phone</label>
+              
               <input 
                 type="text" 
                 name="phone" 
                 className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 onChange={(e) => setPhone(e.target.value)} 
-                placeholder="Enter your phone number" 
+                placeholder="Phone Number" 
               />
             </div>
 
             {/* Vacancies Select */}
             <div>
-              <label className="block text-gray-70 text-sm font-medium mb-2">Select Vacancies</label>
+              
               <select 
                 className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
               >
-                <option value="" className="text-gray-500">Choose a vacancy</option>
+                <option value="" className="text-gray-500"> Select Vacancy</option>
                 {jobData.map((job) => (
                   <option key={job._id} value={job.jobTitle} className="text-gray-900">{job.jobTitle}</option>
                 ))}
@@ -262,12 +262,12 @@ export default function CareerPage() {
 
             {/* CV Upload */}
             <div>
-              <label className="block text-gray-70 text-sm font-medium mb-2">Upload your CV here</label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-red-400 transition-colors duration-300 bg-gray-50">
+              
+              <div className="border-2  border-gray-300 rounded-lg p-6 text-center hover:border-red-400 transition-colors duration-300 bg-gray-50">
                 <label className="cursor-pointer flex flex-col items-center">
-                  <img src="img/upload-img.svg" className="w-12 h-12 mb-3" alt="Upload" />
+                  <img src="img/upload-img.svg" className="w-12 h-[4rem] " alt="Upload" />
                   <span className="text-gray-600 font-medium">
-                    {file ? file.name : "Click to upload your CV"}
+                    {file ? file.name : "upload your CV Here"}
                   </span>
                   <input 
                     className="hidden" 
@@ -285,7 +285,7 @@ export default function CareerPage() {
             <button 
               type="submit" 
               onClick={handleUpdate}
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg transition-colors duration-300 mt-4"
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold text-lg transition-colors duration-300 mt-4"
             >
               SUBMIT
             </button>
