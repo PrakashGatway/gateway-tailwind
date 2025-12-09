@@ -2,27 +2,27 @@ import SingleBlogPage from "@/components/pages/blogDetail";
 import axios from "axios";
 export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  try {
-    const res = await fetch("https://www.gatewayabroadeducations.com/api/v1/blog?all=true")
-    const data = await res.json();
+// export async function generateStaticParams() {
+//   try {
+//     const res = await fetch("https://www.gatewayabroadeducations.com/api/v1/blog?all=true")
+//     const data = await res.json();
 
-    const blogs = data?.data?.blogs || [];
-    return blogs
-      .filter((b) => typeof b?.Slug === "string" && b.Slug.trim() !== "")
-      .map((b) => ({
-        slug: b.Slug,
-      }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
+//     const blogs = data?.data?.blogs || [];
+//     return blogs
+//       .filter((b) => typeof b?.Slug === "string" && b.Slug.trim() !== "")
+//       .map((b) => ({
+//         slug: b.Slug,
+//       }));
+//   } catch (error) {
+//     console.error("Error generating static params:", error);
+//     return [];
+//   }
+// }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
-    const response = await axios.get(`https://www.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+    const response = await axios.get(`http://143.110.241.174:3001/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
 
     const seoData = response?.data?.data?.blog;
 
@@ -83,7 +83,7 @@ export async function generateMetadata({ params }) {
 
 export default async function SingleBlog({ params }) {
   const { slug } = await params;
-  const res = await fetch(`https://www.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`http://143.110.241.174:3001/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
   const data = await res.json();
 
   return <SingleBlogPage data={data?.data?.blog} />;
