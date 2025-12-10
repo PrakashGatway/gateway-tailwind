@@ -294,7 +294,7 @@ const StudyInUk = ({ content, country }: any) => {
                     <div className="card h-full border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                       <div className="card-img-top aspect-[4/3] overflow-hidden">
                         <Image
-                          src={`${constant.REACT_APP_URL}/uploads/${blog.image}`}
+                          src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
                           alt="blog-img"
                           className="w-full h-full object-fill  transition-transform duration-300"
                           width={600}

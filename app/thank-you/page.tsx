@@ -64,7 +64,7 @@ const Thankyou = () => {
                 </div>
                 <div className="absolute_thanks">
                     <div className="thanks_bottom_button">
-                        <a href={constant.REACT_APP_URL} className="text-black" target="_blank" rel="noopener noreferrer">
+                        <a href={"https://gatewayabroadeducations.com"} className="text-black" target="_blank" rel="noopener noreferrer">
                             Stay tuned for exciting opportunities!
                         </a>
                     </div>

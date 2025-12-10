@@ -187,28 +187,28 @@ export default function SingleBlogPage({ data }) {
                       <div className="flex space-x-3">
                         <Link
                           target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.REACT_APP_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                          href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
                           className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
                         >
                           <i className="fa fa-facebook"></i>
                         </Link>
                         <Link
                           target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.REACT_APP_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                          href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
                           className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
                         >
                           <i className="fa fa-twitter"></i>
                         </Link>
                         <Link
                           target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.REACT_APP_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                          href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
                           className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
                         >
                           <i className="fa fa-linkedin"></i>
                         </Link>
                         <Link
                           target='_blank'
-                          href={`mailto:?subject=${encodeURIComponent(singleBlogData?.blogTitle)}&body=${encodeURIComponent(`${constant.REACT_APP_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                          href={`mailto:?subject=${encodeURIComponent(singleBlogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
                           className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
                         >
                           <i className="fa fa-envelope"></i>
