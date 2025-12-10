@@ -173,7 +173,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     "postalCode": "302006",
                     "addressCountry": "IN"
                   },
-                  "image": "https://www.gatewayabroadeducations.com/api/uploads/1753516103974-178845458.PNG",
+                  "image": "https://api.gatewayabroadeducations.com/uploads/1753516103974-178845458.PNG",
                   "priceRange": "Free Consultation",
                   "areaServed": [
                     "IN",

@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next";
 export const revalidate = 21600;
 
 async function getBlogs() {
-  const res = await fetch("https://www.gatewayabroadeducations.com/api/v1/blog?all=true", {
+  const res = await fetch("https://api.gatewayabroadeducations.com/v1/blog?all=true", {
     next: { revalidate: 21600 },
   });
   const data = await res.json();
