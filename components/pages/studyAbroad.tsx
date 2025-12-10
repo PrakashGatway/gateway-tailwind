@@ -108,6 +108,7 @@ const StudyAbroadPage = ({ content }: any) => {
                                     height={500}
                                     className="w-full h-auto max-h-[400px] lg:max-h-[500px] xl:max-h-[80vh]"
                                     priority
+                                    onError={(e) => (e.currentTarget.src = "/anime/bg01.png")}
                                 />
                             </div>
 

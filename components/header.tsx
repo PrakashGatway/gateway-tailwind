@@ -206,7 +206,7 @@ const Header = () => {
                         >
                           <Image
                             alt="course logo"
-                            src={`${constant.REACT_APP_URL}/uploads/${course.image}`}
+                            src={`${constant.REACT_APP_URL}/api/uploads/${course.image}`}
                             width={60}
                             height={0}
                             className="rounded-full border-2 border-gray-200 dark:border-gray-600"

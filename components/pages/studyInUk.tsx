@@ -95,7 +95,7 @@ const StudyInUk = ({ content, country }: any) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-4">
+            <div className="space-y-4 w-full ">
               <div className="">
                 <h1 className="text-3xl lg:text-5xl xl:text-[2.6rem] font-bold text-black leading-tight">
                   {content?.title}
@@ -143,13 +143,14 @@ const StudyInUk = ({ content, country }: any) => {
             </div>
 
             {/* Right Illustration */}
-            <div className="relative animate-fadeInRight mx-auto">
+            <div className="relative animate-fadeInRight mx-auto w-full">
               <div className="relative z-10 mx-auto">
                 <Image
                   src={content?.pageContent?.heroImage ? `${baseUrl}/uploads/${content?.pageContent?.heroImage}` : '/anime/map.png'}
                   alt="Study Abroad Illustration"
-                  width={500}
+                  width={600}
                   height={470}
+                  onError={(e) => (e.currentTarget.src = "/anime/bg01.png")}
                   className="drop-shadow-2xl mx-auto"
                   priority
                 />
@@ -218,17 +219,23 @@ const StudyInUk = ({ content, country }: any) => {
           </div>
 
           {/* Desktop Image */}
-          <img
+          <Image
             src={content?.pageContent?.roadmapImage ? `${baseUrl}/uploads/${content?.pageContent?.roadmapImage}` : "/anime/road.svg"}
             alt={getContentByType('form-section')?.title}
             className="hidden md:block w-full h-auto"
+            width={600}
+            height={470}
+            onError={(e) => (e.currentTarget.src = "/anime/road.svg")}
           />
 
           {/* Mobile Image */}
-          <img
+          <Image
             src={content?.pageContent?.mobileRoadMap ? `${baseUrl}/uploads/${content?.pageContent?.mobileRoadMap}` : "/anime/mobileRoad.png"}
             alt="Study in UK Roadmap - Mobile"
             className="block md:hidden w-full h-auto"
+            width={600}
+            height={470}
+            onError={(e) => (e.currentTarget.src = "/anime/mobileRoad.png")}
           />
         </div>
       </section>
@@ -286,10 +293,13 @@ const StudyInUk = ({ content, country }: any) => {
                   <div className="blog-card h-full">
                     <div className="card h-full border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                       <div className="card-img-top aspect-[4/3] overflow-hidden">
-                        <img
+                        <Image
                           src={`${constant.REACT_APP_URL}/uploads/${blog.image}`}
                           alt="blog-img"
                           className="w-full h-full object-fill  transition-transform duration-300"
+                          width={600}
+                          height={470}
+                          onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
                         />
                       </div>
                       <div className="card-body p-4 lg:p-6">

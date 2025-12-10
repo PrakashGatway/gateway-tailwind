@@ -19,7 +19,7 @@ const sanitizeContent = (content) => {
     if (!content) return { __html: '' };
     
     try {
-        return { __html: DOMPurify.sanitize(content) };
+        return { __html: content };
     } catch (error) {
         console.error('Error sanitizing content:', error);
         return { __html: '' };
@@ -37,7 +37,7 @@ const formatDate = (dateString) => {
 const getCoverImageUrl = (coverImage) => {
     if (!coverImage) return "/img/placeholder-blog.jpg";
     if (coverImage.startsWith("http")) return coverImage;
-    return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
+    return `https://uat.gatewayabroadeducations.com/api/uploads/${coverImage}`;
 };
 
 export default function ArticleClient({ article }) {

@@ -421,7 +421,7 @@ function Index() {
 
   return (
     <>
-      <HeroSection title={homePageDetails?.Title} description={homePageDetails?.Description} image={`${constant.REACT_APP_URL}/uploads/${homePageDetails?.image}`} />
+      <HeroSection title={homePageDetails?.Title} description={homePageDetails?.Description} image={`${constant.REACT_APP_URL}/api/uploads/${homePageDetails?.image}`} />
 
       {/* About Us Section */}
       <section className="py-12 md:py-20 bg-white">
@@ -489,7 +489,7 @@ function Index() {
                           <div className="flex justify-center">
                             <div className="relative">
                               <Image
-                                src={`${constant.REACT_APP_URL}/uploads/${s.image}`}
+                                src={`${constant.REACT_APP_URL}/api/uploads/${s.image}`}
                                 alt={s.name}
                                 width={360}
                                 height={120}

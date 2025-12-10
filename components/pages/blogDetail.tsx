@@ -147,7 +147,7 @@ export default function SingleBlogPage({ data }) {
                   <div className="mb-6">
                     <img
                       className="w-full h-auto"
-                      src={`${constant.REACT_APP_URL}/uploads/${singleBlogData.image}`}
+                      src={`${constant.REACT_APP_URL}/api/uploads/${singleBlogData.image}`}
                       alt={singleBlogData?.blogTitle || 'Blog Image'}
                     />
                   </div>
@@ -296,7 +296,7 @@ export default function SingleBlogPage({ data }) {
                             <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">
                               <img
                                 className="w-full h-full object-fill  transition duration-300"
-                                src={`${constant.REACT_APP_URL}/uploads/${blog.image}`}
+                                src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
                                 alt={blog?.blogTitle || 'Similar Blog Image'}
                               />
                             </div>
@@ -327,7 +327,7 @@ export default function SingleBlogPage({ data }) {
                           <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">
                             <img
                               className="w-full h-full object-fill  transition duration-300"
-                              src={`${constant.REACT_APP_URL}/uploads/${blog.image}`}
+                              src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
                               alt={blog?.blogTitle || 'Latest Post Image'}
                             />
                           </div>

@@ -10,7 +10,7 @@ const AboutSection = ({ aboutUs }) => {
     <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 items-center">
       <div className="relative animate-fadeInLeft">
         <Image
-          src={`${constant.REACT_APP_URL}/uploads/${aboutUs?.image}`}
+          src={`${constant.REACT_APP_URL}/api/uploads/${aboutUs?.image}`}
           alt="Education Illustration"
           width={500}
           height={400}

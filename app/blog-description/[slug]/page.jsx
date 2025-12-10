@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
     const title = seoData?.blogTitle || defaultTitle;
     const description = seoData?.descriptions || defaultDescription;
     const keywords = seoData?.keyword || "study abroad blog, IELTS tips, student visa updates, university admissions, abroad education news, Gateway Abroad blog";
-    const ogImage = seoData?.image ? `https://www.gatewayabroadeducations.com/uploads/${seoData.image}` : defaultImage;
+    const ogImage = seoData?.image ? `https://www.gatewayabroadeducations.com/api/uploads/${seoData.image}` : defaultImage;
 
     return {
       metadataBase: new URL('https://www.gatewayabroadeducations.com'),
@@ -83,7 +83,7 @@ export async function generateMetadata({ params }) {
 
 export default async function SingleBlog({ params }) {
   const { slug } = await params;
-  const res = await fetch(`http://143.110.241.174:3001/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`https://www.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
   const data = await res.json();
 
   return <SingleBlogPage data={data?.data?.blog} />;

@@ -1,6 +1,6 @@
 export const constant = {
-    REACT_APP_API_BASE_URL: `${process.env.NODE_ENV === "development" ? 'http://143.110.241.174:3001' : 'http://143.110.241.174:3001'}/api/v1`,
-    REACT_APP_URL: `${process.env.NODE_ENV === "development" ? 'http://143.110.241.174:3001' : 'http://143.110.241.174:3001'}`,
+    REACT_APP_API_BASE_URL: `${process.env.NODE_ENV === "development" ? 'https://www.gatewayabroadeducations.com' : 'https://www.gatewayabroadeducations.com'}/api/v1`,
+    REACT_APP_URL: `${process.env.NODE_ENV === "development" ? 'https://www.gatewayabroadeducations.com' : 'https://www.gatewayabroadeducations.com'}`,
     SOCIAL_MEDIA_LINK: {
         FB: "https://www.facebook.com/sharer/sharer.php",
         LINKEDIN: "https://www.linkedin.com/sharing/share-offsite/?url=",

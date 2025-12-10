@@ -49,6 +49,7 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
         <Image
           src={`${constant.REACT_APP_URL}/uploads/${blog.image}`}
           alt={blog.blogTitle}
+          onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
           fill
           className="object-fill rounded-2xl"
         />

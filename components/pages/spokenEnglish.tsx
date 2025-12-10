@@ -143,7 +143,7 @@ function SpokenEnglish() {
 
                         <div className="relative">
                             <Image
-                                src={`${constant.REACT_APP_URL}/uploads/${spokenEnglishDetails?.image}`}
+                                src={`${constant.REACT_APP_URL}/api/uploads/${spokenEnglishDetails?.image}`}
                                 alt="Spoken English"
                                 width={500}
                                 height={400}

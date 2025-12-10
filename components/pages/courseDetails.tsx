@@ -241,7 +241,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
 
       <div className="relative flex justify-center mt-8 md:mt-0">
         <Image
-          src={courseData.image2 ? `${constant.REACT_APP_URL}/uploads/${courseData.image2}` : "/placeholder.svg"}
+          src={courseData.image2 ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image2}` : "/placeholder.svg"}
           alt={`${courseName} Preparation`}
           width={500}
           height={400}
@@ -319,7 +319,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <Image
-                src={courseData.image3 ? `${constant.REACT_APP_URL}/uploads/${courseData.image3}` : '/placeholder-image.jpg'}
+                src={courseData.image3 ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image3}` : '/placeholder-image.jpg'}
                 alt={`${courseName} Overview`}
                 width={500}
                 height={400}

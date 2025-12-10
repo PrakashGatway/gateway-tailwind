@@ -204,7 +204,7 @@ const Blog = () => {
         >
           &laquo;
         </button>
-        
+
         {pages.map((page, i) =>
           page === "..." ? (
             <span key={i} className="px-3 py-1">...</span>
@@ -218,7 +218,7 @@ const Blog = () => {
             </button>
           )
         )}
-        
+
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
@@ -265,6 +265,7 @@ const Blog = () => {
               <Image
                 src="/img/blog-banner-img.svg"
                 alt="blog banner"
+                onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
                 width={500}
                 height={300}
                 className="w-full max-w-md lg:max-w-full"
@@ -294,7 +295,7 @@ const Blog = () => {
               <div
                 ref={scrollRef}
                 className="flex space-x-2 overflow-x-auto py-2 mx-10 scrollbar-hide"
-                style={{ 
+                style={{
                   scrollBehavior: "smooth",
                   scrollbarWidth: "none",
                   msOverflowStyle: "none"
@@ -354,6 +355,7 @@ const Blog = () => {
                         src={getCoverImageUrl(article.coverImage)}
                         alt={article.title}
                         fill
+                        onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
@@ -372,7 +374,7 @@ const Blog = () => {
                       <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors duration-200">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600 text-sm line-clamp-2.5">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {article.description}
                       </p>
                     </div>

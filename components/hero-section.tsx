@@ -76,7 +76,7 @@ const HeroSection = ({ type, title, description, image }: any) => {
             <div className="relative animate-fadeInRight mx-auto">
               <div className="relative z-10 animate-floa mx-auto">
                 <Image
-                  src={title ? image : "https://www.gatewayabroadeducations.com/uploads/1725703170821-319524011.svg"}
+                  src={title ? image : "https://www.gatewayabroadeducations.com/api/uploads/1725703170821-319524011.svg"}
                   alt="Study Abroad Illustration"
                   width={type == "about" ? 490 : 430}
                   height={400}

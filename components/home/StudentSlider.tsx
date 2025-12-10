@@ -3,6 +3,7 @@
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useState, useEffect } from "react";
+import { constant } from "@/constant/index.constant";
 
 const StudentInfoSection = () => {
   const [studentData, setStudentData] = useState([]);
@@ -105,7 +106,7 @@ const StudentInfoSection = () => {
                       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-xl">
                         <div className="flex items-center gap-4 mb-4">
                           <img 
-                            src={`/uploads/${student.image}`} 
+                            src={`${constant.REACT_APP_URL}/api/uploads/${student.image}`} 
                             alt={student.name}
                             className="w-16 h-16 rounded-full object-cover border-2 border-purple-500 shadow-lg"
                           />
