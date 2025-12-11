@@ -105,13 +105,35 @@ export default function ArticleClient({ article }) {
             <section className="hero-gradient py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
                     {/* Breadcrumb Navigation */}
-                    <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-                        <Link href="/" className="hover:text-[#E12827] transition-colors">Home</Link>
-                        <span>›</span>
-                        <Link href="/article" className="hover:text-[#E12827] transition-colors">Articles</Link>
-                        <span>›</span>
-                        <span className="text-gray-900 font-medium truncate">{article.title}</span>
-                    </nav>
+                   <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+            <Link 
+                href="/" 
+                style={{ 
+                    pointerEvents: 'auto', 
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 9999 
+                }}
+                className="hover:text-[#E12827] transition-colors"
+            >
+                Home
+            </Link>
+            <span>›</span>
+            <Link 
+                href="/article"
+                style={{ 
+                    pointerEvents: 'auto', 
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 9999 
+                }}
+                className="hover:text-[#E12827] transition-colors"
+            >
+                Articles
+            </Link>
+            <span>›</span>
+            <span className="text-gray-900 font-medium truncate">{article.title}</span>
+        </nav>
 
                     {/* Article Title */}
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">

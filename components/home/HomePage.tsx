@@ -470,18 +470,18 @@ function Index() {
 
 
 
-    {/* Student Info Section */}
+ {/* Student Info Section - AUTO HEIGHT */}
 <section
-  className="py-6 md:py-8 relative min-h-[400px] md:min-h-[600px]"
+  className="pt-6 relative"
   style={{
     background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
   }}
 >
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-12">
+    <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
       
-      {/* Student Info Column */}
-      <div className="w-full lg:w-1/2">
+      {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
+      <div className="w-full lg:w-1/2 order-2 lg:order-1 ">
         <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center lg:text-left mb-6 leading-[30px] md:leading-[35px]">
           Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span className="font-semibold">GMAT</span>, <span className="font-semibold">GRE</span>, <span className="font-semibold">SAT</span>, <span className="font-semibold">TOEFL</span>, <span className="font-semibold">IELTS</span>, and <span className="font-semibold">PTE</span>.
         </h3>
@@ -492,35 +492,35 @@ function Index() {
               {studentData.map((s, index) => (
                 <div key={index} className="keen-slider__slide">
                   <div className="relative">
-                    {/* Student Image */}
+                    {/* Student Image - Responsive */}
                     <div className="flex justify-center">
                       <div className="relative">
                         <Image
                           src={`${constant.REACT_APP_URL}/api/uploads/${s.image}`}
                           alt={s.name}
                           width={300}
-                          height={100}
-                          className="rounded-full w-full max-w-[300px] md:max-w-[360px] h-auto"
+                          height={300}
+                          className="rounded-full w-full max-w-[250px] md:max-w-[300px] h-auto aspect-square object-cover"
                         />
                       </div>
                     </div>
 
                     {/* Name and Score side by side - Responsive */}
-                    <div className="absolute top-[230px] md:top-[280px] flex items-center justify-center w-full">
-                      <div className="flex items-center w-[90%] md:w-[68%] h-[80px] md:h-[94px]">
+                    <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] flex items-center justify-center w-full">
+                      <div className="flex items-center w-[90%] md:w-[75%] lg:w-[68%] h-[70px] md:h-[84px]">
                         <div className='w-[60%] bg-gray-300 h-full flex items-center justify-center'>
-                          <h5 className="font-bold text-gray-900 text-lg md:text-xl">{s.name}</h5>
+                          <h5 className="font-bold text-gray-900 text-base md:text-lg lg:text-xl px-2 text-center">{s.name}</h5>
                         </div>
-                        <div className="text-center bg-[#9e0072] py-2 md:py-[11px] px-4 md:px-[25px] h-full flex flex-col items-center justify-center">
+                        <div className="text-center bg-[#9e0072] py-2 md:py-[10px] px-3 md:px-[20px] h-full flex flex-col items-center justify-center">
                           <p className="text-xs md:text-sm text-white">{s.courseName} Score</p>
-                          <h5 className="text-xl md:text-2xl font-bold text-white mt-1 md:mt-[10px]">{s.rank}</h5>
+                          <h5 className="text-lg md:text-xl lg:text-2xl font-bold text-white mt-1">{s.rank}</h5>
                         </div>
                       </div>
                     </div>
 
                     {/* Content below - Responsive */}
-                    <div className="mt-[320px] md:mt-[400px]">
-                      <p className="text-gray-600 leading-relaxed text-center text-base md:text-lg">
+                    <div className="mt-[280px] md:mt-[340px] lg:mt-[380px] mb-8">
+                      <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base lg:text-lg">
                         {s.content}
                       </p>
                     </div>
@@ -532,23 +532,23 @@ function Index() {
         )}
       </div>
 
-      {/* Form Column - Mobile pe neeche, Desktop pe right */}
-      <div className="w-full lg:w-1/2 flex justify-center items-start mt-4 md:mt-0">
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-5 border border-gray-200 w-full max-w-[350px] md:max-w-[400px]">
-          <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center uppercase mb-3 md:mb-4">
+      {/* Register Form Column - MOBILE: TOP, DESKTOP: RIGHT SIDE */}
+      <div className="w-full lg:w-1/2 order-1 lg:order-2 flex justify-center lg:justify-start items-start mt-0 lg:mt-[150px]">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 w-full max-w-[400px] lg:max-w-[85%]">
+          <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center uppercase mb-4 md:mb-6">
             Register Now
           </h3>
-          <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-2 md:space-y-3">
+          <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-3 md:space-y-4">
             
             <div>
               <input
                 type="text"
                 {...registerRegister("name", { required: "Name is required" })}
-                className="w-full h-9 md:h-10 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-1.5 md:py-2 px-3 text-gray-900 focus:outline-none"
+                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
                 placeholder="Name"
               />
               {registerErrors.name && (
-                <p className="text-red-500 text-xs mt-0.5">{registerErrors.name.message}</p>
+                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.name.message}</p>
               )}
             </div>
 
@@ -562,11 +562,11 @@ function Index() {
                     message: "Invalid email address"
                   }
                 })}
-                className="w-full h-9 md:h-10 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-1.5 md:py-2 px-3 text-gray-900 focus:outline-none"
+                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
                 placeholder="Email"
               />
               {registerErrors.email && (
-                <p className="text-red-500 text-xs mt-0.5">{registerErrors.email.message}</p>
+                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.email.message}</p>
               )}
             </div>
 
@@ -580,18 +580,18 @@ function Index() {
                     message: "Invalid phone number"
                   }
                 })}
-                className="w-full h-9 md:h-10 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-1.5 md:py-2 px-3 text-gray-900 focus:outline-none"
+                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
                 placeholder="Phone"
               />
               {registerErrors.mobile && (
-                <p className="text-red-500 text-xs mt-0.5">{registerErrors.mobile.message}</p>
+                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.mobile.message}</p>
               )}
             </div>
 
             <div>
               <select
                 {...registerRegister("studyDestination", { required: "Test Preparation is required" })}
-                className="w-full h-9 md:h-10 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 px-3 text-gray-900 focus:outline-none"
+                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 appearance-none"
               >
                 <option value="">Test Preparation</option>
                 <option value='GMAT'>GMAT</option>
@@ -602,21 +602,21 @@ function Index() {
                 <option value="SAT">SAT</option>
               </select>
               {registerErrors.studyDestination && (
-                <p className="text-red-500 text-xs mt-0.5">{registerErrors.studyDestination.message}</p>
+                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.studyDestination.message}</p>
               )}
             </div>
 
             <div>
               <textarea
                 {...registerRegister("query")}
-                className="w-full min-h-[70px] md:min-h-[80px] text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-1.5 md:py-2 px-3 text-gray-900 focus:outline-none resize-none"
+                className="w-full min-h-[80px] md:min-h-[100px] text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 resize-none"
                 placeholder="Message"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-2 md:py-2.5 px-4 rounded-lg font-semibold text-sm md:text-base transition-colors duration-300 shadow hover:shadow-md"
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-3 md:py-3.5 px-4 rounded-lg font-semibold text-sm md:text-base transition-colors duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 active:translate-y-0"
             >
               SUBMIT
             </button>
@@ -636,8 +636,8 @@ function Index() {
       {/* Student Rank Section */}
       <section className=" bg-[#d71635] relative">
         <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
-          <div className="bg-black text-white px-4 p-[10px]  rounded-full absolute h-[65px] w-[211px] top-[-33px] right-[-158px]">
-            <p className="text-xl font-semibold text-center pl-[22px] pt-[8px]">Since 2009</p>
+          <div className="bg-black text-white px-4 p-[10px]  rounded-full absolute h-[65px] w-[150px] top-[-33px] right-[-105px]">
+            <p className="text-base font-semibold text-center pl-[22px] pt-[8px]">Since 2009</p>
           </div>
         </div>
 
@@ -687,7 +687,7 @@ function Index() {
       }
     }
     .animate-infinite-scroll {
-      animation: infinite-scroll 20s linear infinite;
+      animation: infinite-scroll 60s linear infinite;
       flex-shrink: 0;
       min-width: 100%;
     }
@@ -735,7 +735,7 @@ function Index() {
       }
     }
     .animate-infinite-scroll-reverse {
-      animation: infinite-scroll-reverse 60s linear infinite;
+      animation: infinite-scroll-reverse 80s linear infinite;
       flex-shrink: 0;
       min-width: 100%;
     }
