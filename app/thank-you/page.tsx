@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { constant } from '@/constant/index.constant.js'; // Adjust path as needed
+
 export async function generateMetadata() {
   const seoData = {
     title: "Thank You - Gateway Abroad",
@@ -37,65 +37,96 @@ export async function generateMetadata() {
   };
 }
 
-
 const Thankyou = () => {
     return (
-        <>
-            <div className="container-fluid thanks_you_page_heder" style={{ backgroundImage: "url('/img/Background.png')" }}>
-                <div className="thank_you_pafe header-inner">
-                    <div className="row align-items-center justify-content-center">
-                        <div className="col-12">
-                            <div className="logo-sec text-center">
-                                <Link href="/">
-                                    <img src="/img/ga-logo.svg" alt="Gateway Abroad Logo" />
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="col-7">
-                            <h1 className="heading thanks_text text-center">
-                                Thank You for Reaching Out to Gateway Abroad!
-                            </h1>
-                        </div>
-                        <div className="col-7 thanks_small_text">
-                            Thank you for submitting the form! Our expert consultant will review your details and reach out to you soon.
-                            In the meantime, feel free to explore our services or contact us for any immediate questions.
-                        </div>
-                    </div>
+        <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/img/Background.png')" }}>
+            {/* Main Content */}
+            <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+                {/* Logo Section */}
+                <div className="mb-10 text-center">
+                    <Link href="/" className="inline-block">
+                        <img 
+                            src="/img/ga-logo.svg" 
+                            alt="Gateway Abroad Logo" 
+                            className="h-16 md:h-20 w-auto mx-auto"
+                        />
+                    </Link>
                 </div>
-                <div className="absolute_thanks">
-                    <div className="thanks_bottom_button">
-                        <a href={"https://gatewayabroadeducations.com"} className="text-black" target="_blank" rel="noopener noreferrer">
-                            Stay tuned for exciting opportunities!
-                        </a>
+
+                {/* Thank You Heading */}
+                <div className="w-full max-w-4xl mb-6">
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-900 leading-tight">
+                        Thank You for Reaching Out to Gateway Abroad!
+                    </h1>
+                </div>
+
+                {/* Thank You Message */}
+                <div className="w-full max-w-2xl mb-12">
+                    <p className="text-lg md:text-xl text-gray-700 text-center leading-relaxed">
+                        Thank you for submitting the form! Our expert consultant will review your details 
+                        and reach out to you soon. In the meantime, feel free to explore our services 
+                        or contact us for any immediate questions.
+                    </p>
+                </div>
+
+                {/* Stay Tuned Link */}
+                <div className="mb-12">
+                    <a 
+                        href="https://gatewayabroadeducations.com" 
+                        className="inline-block bg-white hover:bg-gray-50 text-gray-900 font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                    >
+                        Stay tuned for exciting opportunities!
+                    </a>
+                </div>
+
+                {/* Social Media Section */}
+                <div className="mt-auto pt-8">
+                    <p className="text-center text-gray-600 mb-6 text-lg">
+                        Get social with us
+                    </p>
+                    
+                    <div className="flex justify-center items-center space-x-8 md:space-x-12">
+                        <Link 
+                            href="https://www.facebook.com/gagatewayabroadjaipur?mibextid=ZbWKwL" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all duration-300 hover:scale-110"
+                        >
+                            <i className="fa fa-facebook text-xl"></i>
+                        </Link>
+                        
+                        <Link 
+                            href="https://www.youtube.com/@GatewayAbroadJaipur" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full transition-all duration-300 hover:scale-110"
+                        >
+                            <i className="fa fa-youtube text-xl"></i>
+                        </Link>
+                        
+                        <Link 
+                            href="https://api.whatsapp.com/send?phone=8302092630" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-full transition-all duration-300 hover:scale-110"
+                        >
+                            <i className="fa fa-whatsapp text-xl"></i>
+                        </Link>
+                        
+                        <Link 
+                            href="https://www.instagram.com/testprep_with_gatewayjaipur/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white rounded-full transition-all duration-300 hover:scale-110"
+                        >
+                            <i className="fa fa-instagram text-xl"></i>
+                        </Link>
                     </div>
-                    <span className="mt-2 d-flex justify-content-center">
-                        Get social
-                    </span>
-                    <ul className="d-flex list-unstyled justify-content-evenly align-items-center thanks_footer_block">
-                        <li>
-                            <Link href="https://www.facebook.com/gagatewayabroadjaipur?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-facebook" />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="https://www.youtube.com/@GatewayAbroadJaipur" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-youtube" />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="https://api.whatsapp.com/send?phone=8302092630" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-whatsapp" />
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="https://www.instagram.com/testprep_with_gatewayjaipur/" target="_blank" rel="noopener noreferrer">
-                                <i className="fa fa-instagram" />
-                            </Link>
-                        </li>
-                    </ul>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

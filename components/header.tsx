@@ -141,7 +141,7 @@ const Header = () => {
     alt="Company Logo"
     width={120}
     height={30}
-    className="w-[80px] sm:w-[200px] h-8 sm:h-[60px] object-contain transition-all duration-300 group-hover:scale-105"
+    className="w-[130px] sm:w-[200px] h-8 sm:h-[60px] object-contain transition-all duration-300 group-hover:scale-105"
     priority
   />
 </Link>
@@ -389,7 +389,7 @@ const Header = () => {
               </div>
             ) : (
               <button
-                className="flex lg:flex hidden items-center justify-center py-2 space-x-2 btn-primary"
+                className="flex btn-primary lg:flex text-sm hidden items-center justify-center !py-2 !px-3 space-x-1 "
                 onClick={() => setDrawer(!drawer)}
               >
                 <User className="h-5 w-5" />
@@ -649,7 +649,7 @@ const Header = () => {
 
               {!user?.email && (
                 <button
-                  className="flex items-center py-2 justify-center btn-primary"
+                  className="btn-primary flex items-center !py-0 justify-center "
                   onClick={() => setDrawer(!drawer)}
                 >
                   <User className="h-5 w-5" />

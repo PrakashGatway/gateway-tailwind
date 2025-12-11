@@ -37,7 +37,7 @@ const formatDate = (dateString) => {
 const getCoverImageUrl = (coverImage) => {
     if (!coverImage) return "/img/placeholder-blog.jpg";
     if (coverImage.startsWith("http")) return coverImage;
-    return `https://uat.gatewayabroadeducations.com/api/uploads/${coverImage}`;
+    return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
 };
 
 export default function ArticleClient({ article }) {

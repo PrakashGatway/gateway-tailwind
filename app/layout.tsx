@@ -386,7 +386,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           />
         </noscript>
         <ClientLayout>{children}</ClientLayout>
-      </body>
+     </body>
     </html>
   );
 }

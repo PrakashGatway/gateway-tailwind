@@ -75,7 +75,7 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
         {/* Description - Conditionally rendered */}
         {showDescription && (
           <div
-            className="text-gray-600 text-sm line-clamp-3"
+            className="text-gray-600 text-sm line-clamp-2"
             dangerouslySetInnerHTML={sanitizedData(blog.blogDescription)}
           />
         )}

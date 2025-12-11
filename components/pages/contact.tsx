@@ -81,7 +81,7 @@ function Contact() {
                         <h1 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
                             Contact <span className="text-gradient">Us</span>
                         </h1>
-                        <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                        <p className=" text-gray-600 leading-relaxed max-w-3xl mx-auto">
                             Ready to start your study abroad journey? Get in touch with our expert counselors today.
                         </p>
                     </div>
@@ -99,7 +99,7 @@ function Contact() {
                                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                                     We're Here, <span className="text-red-600">Let's Talk</span>
                                 </h1>
-                                <p className="text-gray-600 text-lg leading-relaxed">
+                                <p className="text-gray-600  leading-relaxed">
                                     {pageTitle || `No matter what's bothering you, Our experienced counsellors of the top study abroad destinations are here to solve your every doubt regarding studying abroad. Call us at any time or stop by one of our branches to see us.`}
                                 </p>
                             </div>
@@ -125,7 +125,7 @@ function Contact() {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Get in touch</h2>
-                        <p className="text-gray-600 text-lg max-w-4xl mx-auto">
+                        <p className="text-gray-600 max-w-4xl mx-auto">
                             {description || `We believe in being the best ally to our students. When we say, "quality education is a right and not a luxury," we mean it in every sense. No matter what's bothering you, Our experienced counsellors of the top study abroad destinations are here to solve your every doubt regarding studying abroad. Call us at any time or stop by one of our branches to see us.`}
                         </p>
                     </div>
@@ -325,7 +325,7 @@ function Contact() {
                         <div className="lg:w-3/4">
                             <div className="text-center lg:text-left">
                                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Get in touch</h2>
-                                <p className="text-gray-600 text-lg mb-8">
+                                <p className="text-gray-600 mb-8">
                                     Please fill the below form to schedule a one to one counselling session<br />
                                     with our experts.
                                 </p>

@@ -31,56 +31,7 @@ const Course = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  // Keen Slider for testimonials
-const [sliderRef, instanceRef] = useKeenSlider({
-  loop: true,
-  slides: {
-    perView: 1,
-    spacing: 24, // Adequate spacing between slides
-  },
-  breakpoints: {
-    '(min-width: 768px)': {
-      slides: {
-        perView: 2,
-        spacing: 32, // More spacing for larger screens
-      },
-    },
-  },
-  drag: true,
-}, [
-  (slider) => {
-    let interval;
-    let mouseOver = false;
-    
-    function startAutoplay() {
-      interval = setInterval(() => {
-        if (!mouseOver && slider) {
-          slider.next();
-        }
-      }, 4000);
-    }
-    
-    function stopAutoplay() {
-      clearInterval(interval);
-    }
-    
-    startAutoplay();
-    
-    slider.container.addEventListener('mouseover', () => {
-      mouseOver = true;
-      stopAutoplay();
-    });
-    
-    slider.container.addEventListener('mouseout', () => {
-      mouseOver = false;
-      startAutoplay();
-    });
-    
-    slider.on('destroyed', () => {
-      stopAutoplay();
-    });
-  }
-]);
+
 
   const {
     register: registerContact,
@@ -108,16 +59,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
     }
   };
 
-  const getAllTestimonial = async (value) => {
-    try {
-      const response = await PageServices.getTestimonialByCat(value);
-      if (response.status === 'success') {
-        setTestimonial(response.data.testimonial || []);
-      }
-    } catch (error) {
-      console.error('Error fetching testimonial data:', error);
-    }
-  };
+
 
   const handlepUpdate = async (data) => {
     const { name, email, mobile, city, message } = data;
@@ -185,14 +127,104 @@ const [sliderRef, instanceRef] = useKeenSlider({
     fetchData();
   }, [course, router]);
 
+  const getAllTestimonial = async (value) => {
+  try {
+    const response = await PageServices.getTestimonialByCat(value);
+    if (response.status === 'success') {
+      // Direct set करो, कुछ duplicate नहीं
+      setTestimonial(response.data.testimonial || []);
+    }
+  } catch (error) {
+    console.error('Error fetching testimonial data:', error);
+  }
+};
+
+ // Keen Slider for testimonials - SIMPLE VERSION
+const [sliderRef, instanceRef] = useKeenSlider({
+  loop: true, // ✅ YEH HI KAAM KAREGA
+  slides: {
+    perView: 1,
+    spacing: 24,
+  },
+  breakpoints: {
+    '(min-width: 768px)': {
+      slides: {
+        perView: 2,
+        spacing: 32,
+      },
+    },
+  },
+  drag: true,
+});
+
+// Autoplay useEffect
+useEffect(() => {
+  // अगर testimonial नहीं हैं या केवल 1 है तो autoplay नहीं चलाएँ
+  if (!instanceRef.current || testimonials.length <= 1) return;
+
+  let interval;
+  const sliderContainer = sliderRef.current;
+  let mouseOver = false;
+
+  // Autoplay start function
+  const startAutoplay = () => {
+    interval = setInterval(() => {
+      if (!mouseOver && instanceRef.current) {
+        instanceRef.current.next();
+      }
+    }, 3000); // 3 seconds
+  };
+
+  // Autoplay stop function
+  const stopAutoplay = () => {
+    if (interval) {
+      clearInterval(interval);
+      interval = null;
+    }
+  };
+
+  // Start autoplay initially
+  startAutoplay();
+
+  // Mouse events
+  if (sliderContainer) {
+    const handleMouseOver = () => {
+      mouseOver = true;
+      stopAutoplay();
+    };
+
+    const handleMouseOut = () => {
+      mouseOver = false;
+      startAutoplay();
+    };
+
+    sliderContainer.addEventListener('mouseover', handleMouseOver);
+    sliderContainer.addEventListener('mouseout', handleMouseOut);
+
+    // Cleanup
+    return () => {
+      stopAutoplay();
+      sliderContainer.removeEventListener('mouseover', handleMouseOver);
+      sliderContainer.removeEventListener('mouseout', handleMouseOut);
+    };
+  }
+
+  return () => {
+    stopAutoplay();
+  };
+}, [instanceRef, sliderRef, testimonials.length]); // Dependencies
+
+
+
+
+
   useEffect(() => {
-    if (testimonialsData?.data?.testimonial) {
-      setTestimonial(testimonialsData.data.testimonial);
-    }
-    if (slider?.data?.media) {
-      setSliderData(slider.data.media);
-    }
-  }, [testimonialsData, slider]);
+     getAllTestimonial('testimonial')
+  // Only keep slider data
+  if (slider?.data?.media) {
+    setSliderData(slider.data.media);
+  }
+}, []);
 
   function first(data1) {
     const split = data1.split(':');
@@ -204,13 +236,13 @@ const [sliderRef, instanceRef] = useKeenSlider({
     return split[1];
   }
 
-  const handlePrev = useCallback(() => {
-    instanceRef.current?.prev();
-  }, [instanceRef]);
+ const handlePrev = useCallback(() => {
+  instanceRef.current?.prev();
+}, [instanceRef]);
 
-  const handleNext = useCallback(() => {
-    instanceRef.current?.next();
-  }, [instanceRef]);
+const handleNext = useCallback(() => {
+  instanceRef.current?.next();
+}, [instanceRef]);
 
 
   return (
@@ -328,7 +360,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">What is {courseName}?</h2>
-              <p className="text-gray-600 text-lg leading-relaxed">{description}</p>
+              <p className="text-gray-600  leading-relaxed">{description}</p>
             </div>
           </div>
 
@@ -440,7 +472,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Countries Accepting {courseName} Scores
               </h2>
-              <p className="text-gray-600 text-lg mb-6">
+              <p className="text-gray-600 mb-6">
                 {courseName} is accepted in 160 countries around the world.
               </p>
               <h6 className="text-lg font-semibold mb-4">
@@ -541,7 +573,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
                                         </h6>
                                         <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
                                             {[1, 2, 3, 4, 5].map((star) => (
-                                                <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
+                                                <li key={star} className="text-amber-400  box-border caret-transparent">
                                                     <Star className="w-[18px] h-[18px] fill-amber-400" />
                                                 </li>
                                             ))}
@@ -770,7 +802,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently asked questions</h2>
-            <p className="text-gray-600 text-lg">Can't find the answer you are looking for?</p>
+            <p className="text-gray-600 ">Can't find the answer you are looking for?</p>
           </div>
 
           <div className="max-w-7xl mx-auto">
@@ -781,7 +813,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
                   value={`item-${index}`}
                   className="bg-white rounded-lg border border-gray-200 px-6"
                 >
-                  <AccordionTrigger className="text-lg font-semibold py-4 hover:no-underline">
+                  <AccordionTrigger className=" font-semibold py-4 hover:no-underline">
                     {f.title}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-700 pb-4 text-sm">
@@ -804,7 +836,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
             <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold text-[#D71635] mb-4 lg:leading-[37px]">
               Avail A Complementary Counselling Session
             </h2>
-            <p className="text-base sm:text-lg lg:text-[18px] text-[#666276] mb-4 sm:mb-6">
+            <p className="text-base  lg:text-[18px] text-[#666276] mb-4 sm:mb-6">
               Join thousand of instructors and earn money hassle free!
             </p>
             <Link

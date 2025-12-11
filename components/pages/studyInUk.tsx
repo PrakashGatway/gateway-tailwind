@@ -25,28 +25,77 @@ const StudyInUk = ({ content, country }: any) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  // Keen Slider configuration for blog
-  const [sliderRef, instanceRef] = useKeenSlider({
-    initial: 0,
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
-    },
-    created() {
-      setLoaded(true);
-    },
-    breakpoints: {
-      "(min-width: 640px)": {
-        slides: { perView: 2, spacing: 16 },
+ // Component ke start me, useKeenSlider ke baad:
+
+// Component ke top level me
+const [autoPlay, setAutoPlay] = useState(true);
+
+// Auto slide functionality
+useEffect(() => {
+  if (!autoPlay || !instanceRef.current || blogData.length <= 1) return;
+
+  const interval = setInterval(() => {
+    const totalSlides = instanceRef.current.track.details.slides.length;
+    const nextSlide = (currentSlide + 1) % totalSlides;
+    
+    instanceRef.current.moveToIdx(nextSlide);
+    setCurrentSlide(nextSlide);
+  }, 3000); // 3 seconds
+
+  return () => clearInterval(interval);
+}, [currentSlide, autoPlay, blogData.length]);
+
+// Mouse hover pe pause karne ke liye
+const handleMouseEnter = () => setAutoPlay(false);
+const handleMouseLeave = () => setAutoPlay(true);
+
+// Slider configuration update karein
+const [sliderRef, instanceRef] = useKeenSlider({
+  initial: 0,
+  loop: true,
+  slideChanged(slider) {
+    setCurrentSlide(slider.track.details.rel);
+  },
+  created() {
+    setLoaded(true);
+  },
+  breakpoints: {
+    "(min-width: 640px)": {
+      slides: { 
+        perView: 2, 
+        spacing: 16,
+        origin: 'center'
       },
-      "(min-width: 768px)": {
-        slides: { perView: 3, spacing: 20 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 24 },
+    },
+    "(min-width: 768px)": {
+      slides: { 
+        perView: 3, 
+        spacing: 20,
+        origin: 'center'
       },
     },
-    slides: { perView: 1, spacing: 12 },
-  });
+    "(min-width: 1024px)": {
+      slides: { 
+        perView: 3, 
+        spacing: 24,
+        origin: 'center'
+      },
+    },
+  },
+  slides: { 
+    perView: 1, 
+    spacing: 12,
+    origin: 'center'
+  },
+  drag: true,
+  rubberband: true,
+  mode: "snap",
+});
+
+
+
+
+
 
   const fetchBlogs = useCallback(async (page = 1, category = country.toUpperCase(), search = '') => {
     try {
@@ -273,72 +322,91 @@ const StudyInUk = ({ content, country }: any) => {
         </section>
       <CardStackGridSection video={video} />
 
-      {/* Blog Section with Keen Slider */}
-      <section className="py-14 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
-            <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
-            <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold "> <Link href="/blog" className="site-btn ng-[] whitespace-nowrap ">Go to blog</Link></button>
-           
-          </div>
+     {/* Blog Section with Auto Slider */}
+<section className="py-14 lg:py-20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
+      <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
+      <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
+        <Link href="/blog" className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
+      </button>
+    </div>
 
-          <div className="blog-section-inner">
-            <div ref={sliderRef} className="keen-slider">
-              {blogData && blogData.map((blog, index) => (
-                <div
-                  className="keen-slider__slide cursor-pointer p-2 lg:p-3"
-                  key={index}
-                  onClick={() => router.push(`/blog-description/${blog.Slug}`)}
-                >
-                  <div className="blog-card h-full">
-                    <div className="card h-full border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                      <div className="card-img-top aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                          alt="blog-img"
-                          className="w-full h-full object-fill  transition-transform duration-300"
-                          width={600}
-                          height={470}
-                          onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-                        />
-                      </div>
-                      <div className="card-body p-4 lg:p-6">
-                        <h5 className="card-title text-lg lg:text-xl font-semibold mb-3 line-clamp-2">
-                          <Link href={`/blog-description/${blog.Slug}`} className="hover:text-red-600 transition-colors duration-300">
-                            {blog.blogTitle}
-                          </Link>
-                        </h5>
-                      </div>
+    <div className="blog-section-inner">
+      {/* Keen Slider Container with Auto Play */}
+      {blogData.length > 0 ? (
+        <>
+          <div 
+            ref={sliderRef} 
+            className="keen-slider relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {blogData.map((blog, index) => (
+              <div
+                className="keen-slider__slide cursor-pointer p-2 lg:p-3"
+                key={index}
+                onClick={() => router.push(`/blog-description/${blog.Slug}`)}
+              >
+                <div className="blog-card h-full  hover:text-red-600 transition-colors hover:border-red-600 duration-300">
+                  <div className="card h-full  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white transform hover:translate-x hover:border-red-600">
+                    <div className="card-img-top aspect-[4/3] overflow-hidden ">
+                      <Image
+                        src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
+                        alt="blog-img"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        width={400}
+                        height={300}
+                        onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
+                      />
+                    </div>
+                    <div className="card-body p-4 lg:p-6">
+                      <h5 className="card-title text-lg lg:text-xl font-semibold mb-3 line-clamp-2 min-h-[56px]">
+                        <Link href={`/blog-description/${blog.Slug}`} className="hover:text-red-600 transition-colors duration-300 text-gray-800">
+                          {blog.blogTitle}
+                        </Link>
+                      </h5>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Navigation Dots */}
-            {loaded && instanceRef.current && (() => {
-  const slidesLength = instanceRef.current?.track?.details?.slides?.length;
-  return slidesLength && slidesLength > 1 ? (
-    <div className="flex justify-center mt-8 lg:mt-12 space-x-2">
-      {[...Array(slidesLength)].map((_, idx) => (
-        <button
-          key={idx}
-          className={`w-3 h-3 rounded-full transition-all duration-300 ${
-            currentSlide === idx
-              ? "bg-red-600 scale-125"
-              : "bg-gray-300 hover:bg-gray-400"
-          }`}
-          onClick={() => {
-            instanceRef.current?.moveToIdx(idx);
-          }}
-        />
-      ))}
-    </div>
-  ) : null;
-})()}
+              </div>
+            ))}
           </div>
+
+          {/* Navigation Dots with Auto Play Indicator */}
+          {loaded && instanceRef.current && blogData.length > 1 && (
+            <div className="flex flex-col items-center mt-8 lg:mt-12">
+              
+              
+              {/* Navigation Dots */}
+              <div className="flex justify-center space-x-2">
+                {Array.from({ length: instanceRef.current.track.details.slides.length }).map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      currentSlide === idx
+                        ? "bg-red-600 scale-125"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    onClick={() => {
+                      instanceRef.current?.moveToIdx(idx);
+                      setCurrentSlide(idx);
+                    }}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-gray-500">No blog posts available.</p>
         </div>
-      </section>
+      )}
+    </div>
+  </div>
+</section>
     </>
   );
 };

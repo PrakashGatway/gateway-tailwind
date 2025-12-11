@@ -253,13 +253,9 @@ html {
   animation: slideInUp 0.8s ease-out forwards;
 }
 
-.animate-bounce-slow {
-  animation: bounce 2s infinite;
-}
 
-.animate-pulse-slow {
-  animation: pulse 3s ease-in-out infinite;
-}
+
+
 
 .animate-float {
   animation: float 6s ease-in-out infinite;

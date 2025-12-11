@@ -77,7 +77,7 @@ export default function CareerPage() {
             <h1 className="text-3xl lg:text-[2.6rem] font-bold text-gray-900 mb-6">
               Join Our <span className="text-gradient">Team</span>
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className=" text-gray-600 leading-relaxed">
               Be part of a dynamic team that helps students achieve their study abroad dreams. Explore exciting career
               opportunities with Gateway Abroad Education.
             </p>
@@ -104,7 +104,7 @@ export default function CareerPage() {
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                   Culture of Success at <br />Gateway Abroad
                 </h2>
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify">
+                <p className="text-gray-700 text-base  leading-relaxed text-justify">
                   {pageTitle ? pageTitle : "We support the empowerment of everyone in our community. Join us if you enjoy exploring and want to learn more about schooling outside of India. We are seeking people who are ready to make a move to promote high-quality education. We are a group of driven and career-oriented people that are eager to develop by cooperating in a welcoming and goal- oriented environment. Gateway Abroad is spread across eight branches in India. Join us right away if you're seeking for a dynamic and welcoming environment that supports your growth."}
                 </p>
               </div>
@@ -119,10 +119,10 @@ export default function CareerPage() {
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                   Working with Gateway Abroad
                 </h2>
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify mb-4">
+                <p className="text-gray-700 text-base  leading-relaxed text-justify mb-4">
                   {description ? description : "In a relatively short period of time, Gateway Abroad has assembled such a strong team. Staff members that are committed and diligent have made this possible. We make an effort to encourage and reward personnel on a regular basis. After all, what good is labour without praise? We seek people who can contribute to our team with innovative ideas and effectively interact with clients."}
                 </p>
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify">
+                <p className="text-gray-700 text-base  leading-relaxed text-justify">
                   Join us immediately if you're looking for opportunities to improve your talents and have excellent communication skills.
                 </p>
               </div>
@@ -308,7 +308,7 @@ export default function CareerPage() {
               <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px]">
                 Avail A Complementary Counselling Session
               </h2>
-              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+              <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
                 Join thousand of instructors and earn money hassle free!
               </p>
               <a 

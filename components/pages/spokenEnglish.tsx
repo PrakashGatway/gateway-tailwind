@@ -436,7 +436,7 @@ function SpokenEnglish() {
                                             <li className="relative text-white font-medium box-border caret-transparent text-justify mb-2.5 pl-[30px] before:accent-auto before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-size-[100%] before:box-border before:caret-transparent before:text-white before:block before:text-base before:not-italic before:normal-nums before:font-medium before:h-5 before:tracking-[normal] before:leading-[normal] before:list-outside before:list-none before:pointer-events-auto before:absolute before:text-justify before:indent-[0px] before:normal-case before:visible before:w-5 before:border-separate before:left-0 before:font-noto_sans">
                                                 Get the best of both worlds with our hybrid courses - the flexibility of online learning combined with personalized support.
                                             </li>
-                                            <li className="relative text-white font-medium box-border caret-transparent text-justify mb-2.5 pl-[30px] before:accent-auto before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-size-[100%] before:box-border before:caret-transparent before:text-white before:block before:text-base before:not-italic before:normal-nums before:font-medium before:h-5 before:tracking-[normal] before:leading-[normal] before:list-outside before:list-none before:pointer-events-auto before:absolute before:text-justify before:indent-[0px] before:normal-case before:visible before:w-5 before:border-separate before:left-0 before:font-noto_sans">
+                                            <li className="relative text-white test-sm box-border caret-transparent text-justify mb-2.5 pl-[30px] before:accent-auto before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-size-[100%] before:box-border before:caret-transparent before:text-white before:block before:text-base before:not-italic before:normal-nums before:font-medium before:h-5 before:tracking-[normal] before:leading-[normal] before:list-outside before:list-none before:pointer-events-auto before:absolute before:text-justify before:indent-[0px] before:normal-case before:visible before:w-5 before:border-separate before:left-0 before:font-noto_sans">
                                                 Do you crave the structure of a classroom but also enjoy online learning flexibility? Our hybrid classes offer the perfect solution!
                                             </li>
                                         </ul>
@@ -463,7 +463,7 @@ function SpokenEnglish() {
               <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
                 Avail A Complementary Counselling Session
               </h2>
-              <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+              <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
                 Join thousand of instructors and earn money hassle free!
               </p>
               <a 

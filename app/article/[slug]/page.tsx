@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
         const article = data?.data;
 
         const title =
-            article?.title || "Blog - Gateway Abroad | Study Abroad Tips & Updates";
+            article?.title || "Gateway Abroad Education | Study Abroad Tips & Updates";
         const description =
             article?.description ||
             "Expert study abroad & test prep guidance from Gateway Abroad.";

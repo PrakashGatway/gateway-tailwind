@@ -1,7 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
 
+
+
 const HeroSection = ({ type, title, description, image }: any) => {
+
+  const handleGetStarted = () => {
+    
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
+
+
   return (
     <section className="hero-gradient pt-12 py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
       {/* Animated background elements */}
@@ -41,8 +51,8 @@ const HeroSection = ({ type, title, description, image }: any) => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 animate-stagger-4">
-                <Link href="/contact" className="btn-primary inline-block text-center group">
-                  <span className="relative z-10">Get Started Today</span>
+                <Link href="" className="btn-primary inline-block text-center group">
+                  <span className="relative z-10" onClick={handleGetStarted}>Get Started Today</span>
                 </Link>
                 <Link href="/about" className="btn-secondary text-center group">
                   Learn More

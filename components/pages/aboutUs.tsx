@@ -101,7 +101,7 @@ function About() {
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 pb-3 md:pb-4">
                       Who Are We?
                     </h2>
-                    <p className="text-gray-700 text-base sm:text-lg leading-6 sm:leading-7 text-justify">
+                    <p className="text-gray-700 text-base  leading-6 sm:leading-7 text-justify">
                       {pageTitle || 'Gateway Abroad is run by a team of British education consultants who have themselves been students in various UK universities for a number of years. We are connected to a large network of overseas students and staff currently studying or working in universities throughout the UK. Through this network and through our in-house experience, we are able to find the best solution for each student, depending on specific requirements.'}
                     </p>
                   </div>
@@ -120,7 +120,7 @@ function About() {
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 pb-3 md:pb-4">
                       What Will We Do for You?
                     </h2>
-                    <p className="text-gray-700 text-base sm:text-lg leading-6 sm:leading-7 text-justify">
+                    <p className="text-gray-700 text-base  leading-6 sm:leading-7 text-justify">
                       {description || 'Gateway Abroad will be your direct window to British further education. Selecting a university for postgraduate studies in an unfamiliar country can be a daunting task. Gateway Abroad will help you to find the right university, based on your individual requirements. Once a pre-selection is made, we can contact the institutions and make all enquiries and admissions arrangements on your behalf.'}
                     </p>
                   </div>
