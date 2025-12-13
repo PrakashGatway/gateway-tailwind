@@ -32,7 +32,7 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: false,
+    removeConsole: true,
   },
 
   compress: true,

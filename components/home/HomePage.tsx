@@ -470,163 +470,163 @@ function Index() {
 
 
 
- {/* Student Info Section - AUTO HEIGHT */}
-<section
-  className="pt-6 relative"
-  style={{
-    background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
-  }}
->
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
-      
-      {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
-      <div className="w-full lg:w-1/2 order-2 lg:order-1 ">
-        <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center lg:text-left mb-6 leading-[30px] md:leading-[35px]">
-          Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span className="font-semibold">GMAT</span>, <span className="font-semibold">GRE</span>, <span className="font-semibold">SAT</span>, <span className="font-semibold">TOEFL</span>, <span className="font-semibold">IELTS</span>, and <span className="font-semibold">PTE</span>.
-        </h3>
+      {/* Student Info Section - AUTO HEIGHT */}
+      <section
+        className="pt-6 relative"
+        style={{
+          background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 l py-6 lg:px-8">
+          <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
 
-        {studentData.length > 0 && (
-          <div className="relative">
-            <div ref={studentInfoRef} className="keen-slider">
-              {studentData.map((s, index) => (
-                <div key={index} className="keen-slider__slide">
-                  <div className="relative">
-                    {/* Student Image - Responsive */}
-                    <div className="flex justify-center">
-                      <div className="relative">
-                        <Image
-                          src={`${constant.REACT_APP_URL}/api/uploads/${s.image}`}
-                          alt={s.name}
-                          width={300}
-                          height={300}
-                          className="rounded-full w-full max-w-[250px] md:max-w-[300px] h-auto aspect-square object-cover"
-                        />
-                      </div>
-                    </div>
+            {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
+            <div className="w-full lg:w-1/2 order-2 lg:order-1 ">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center lg:text-left mb-6 ">
+                Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span className="font-semibold">GMAT</span>, <span className="font-semibold">GRE</span>, <span className="font-semibold">SAT</span>, <span className="font-semibold">TOEFL</span>, <span className="font-semibold">IELTS</span>, and <span className="font-semibold">PTE</span>.
+              </h3>
 
-                    {/* Name and Score side by side - Responsive */}
-                    <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] flex items-center justify-center w-full">
-                      <div className="flex items-center w-[90%] md:w-[75%] lg:w-[68%] h-[70px] md:h-[84px]">
-                        <div className='w-[60%] bg-gray-300 h-full flex items-center justify-center'>
-                          <h5 className="font-bold text-gray-900 text-base md:text-lg lg:text-xl px-2 text-center">{s.name}</h5>
+              {studentData.length > 0 && (
+                <div className="relative max-h-[320px]">
+                  <div ref={studentInfoRef} className="keen-slider">
+                    {studentData.map((s, index) => (
+                      <div key={index} className="keen-slider__slide">
+                        <div className="relative">
+                          {/* Student Image - Responsive */}
+                          <div className="flex justify-center">
+                            <div className="relative">
+                              <Image
+                                src={`${constant.REACT_APP_URL}/api/uploads/${s.image}`}
+                                alt={s.name}
+                                width={300}
+                                height={300}
+                                className="rounded-full w-full max-w-[250px] md:max-w-[300px] aspect-square object-cover"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Name and Score side by side - Responsive */}
+                          <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] flex items-center justify-center w-full">
+                            <div className="flex items-center w-[90%] md:w-[75%] lg:w-[68%] h-[70px] md:h-[84px]">
+                              <div className='w-[60%] bg-gray-300 h-full flex items-center justify-center'>
+                                <h5 className="font-bold text-gray-900 text-base md:text-lg lg:text-xl px-2 text-center">{s.name}</h5>
+                              </div>
+                              <div className="text-center bg-[#9e0072] py-2 md:py-[10px] px-3 md:px-[20px] h-full flex flex-col items-center justify-center">
+                                <p className="text-xs md:text-sm text-white">{s.courseName} Score</p>
+                                <h5 className="text-lg md:text-xl lg:text-2xl font-bold text-white mt-1">{s.rank}</h5>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Content below - Responsive */}
+                          <div className="mt-[280px] md:mt-[340px] lg:mt-[380px] mb-8">
+                            <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base lg:text-lg">
+                              {s.content}
+                            </p>
+                          </div>
                         </div>
-                        <div className="text-center bg-[#9e0072] py-2 md:py-[10px] px-3 md:px-[20px] h-full flex flex-col items-center justify-center">
-                          <p className="text-xs md:text-sm text-white">{s.courseName} Score</p>
-                          <h5 className="text-lg md:text-xl lg:text-2xl font-bold text-white mt-1">{s.rank}</h5>
-                        </div>
                       </div>
-                    </div>
-
-                    {/* Content below - Responsive */}
-                    <div className="mt-[280px] md:mt-[340px] lg:mt-[380px] mb-8">
-                      <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base lg:text-lg">
-                        {s.content}
-                      </p>
-                    </div>
+                    ))}
                   </div>
                 </div>
-              ))}
+              )}
             </div>
+
+            {/* Register Form Column - MOBILE: TOP, DESKTOP: RIGHT SIDE */}
+            <div className="w-full lg:w-1/2 order-1 lg:order-2 flex justify-center lg:justify-start items-start">
+              <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 w-full max-w-[400px] lg:max-w-[85%]">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center uppercase mb-4 md:mb-6">
+                  Register Now
+                </h3>
+                <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-3 md:space-y-4">
+
+                  <div>
+                    <input
+                      type="text"
+                      {...registerRegister("name", { required: "Name is required" })}
+                      className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
+                      placeholder="Name"
+                    />
+                    {registerErrors.name && (
+                      <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.name.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <input
+                      type="email"
+                      {...registerRegister("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Invalid email address"
+                        }
+                      })}
+                      className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
+                      placeholder="Email"
+                    />
+                    {registerErrors.email && (
+                      <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      {...registerRegister("mobile", {
+                        required: "Phone is required",
+                        pattern: {
+                          value: /^\d{10,15}$/,
+                          message: "Invalid phone number"
+                        }
+                      })}
+                      className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
+                      placeholder="Phone"
+                    />
+                    {registerErrors.mobile && (
+                      <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.mobile.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <select
+                      {...registerRegister("studyDestination", { required: "Test Preparation is required" })}
+                      className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 appearance-none"
+                    >
+                      <option value="">Test Preparation</option>
+                      <option value='GMAT'>GMAT</option>
+                      <option value='IELTS'>IELTS</option>
+                      <option value="TOEFL">TOEFL</option>
+                      <option value="GRE">GRE</option>
+                      <option value="PTE">PTE</option>
+                      <option value="SAT">SAT</option>
+                    </select>
+                    {registerErrors.studyDestination && (
+                      <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.studyDestination.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <textarea
+                      {...registerRegister("query")}
+                      className="w-full min-h-[80px] md:min-h-[100px] text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 resize-none"
+                      placeholder="Message"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white py-3 md:py-3.5 px-4 rounded-lg font-semibold text-sm md:text-base transition-colors duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    SUBMIT
+                  </button>
+                </form>
+              </div>
+            </div>
+
           </div>
-        )}
-      </div>
-
-      {/* Register Form Column - MOBILE: TOP, DESKTOP: RIGHT SIDE */}
-      <div className="w-full lg:w-1/2 order-1 lg:order-2 flex justify-center lg:justify-start items-start mt-0 lg:mt-[150px]">
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 border border-gray-200 w-full max-w-[400px] lg:max-w-[85%]">
-          <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center uppercase mb-4 md:mb-6">
-            Register Now
-          </h3>
-          <form onSubmit={handleSubmitRegister(handleUpdate)} className="space-y-3 md:space-y-4">
-            
-            <div>
-              <input
-                type="text"
-                {...registerRegister("name", { required: "Name is required" })}
-                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
-                placeholder="Name"
-              />
-              {registerErrors.name && (
-                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.name.message}</p>
-              )}
-            </div>
-
-            <div>
-              <input
-                type="email"
-                {...registerRegister("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Invalid email address"
-                  }
-                })}
-                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
-                placeholder="Email"
-              />
-              {registerErrors.email && (
-                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.email.message}</p>
-              )}
-            </div>
-
-            <div>
-              <input
-                type="text"
-                {...registerRegister("mobile", {
-                  required: "Phone is required",
-                  pattern: {
-                    value: /^\d{10,15}$/,
-                    message: "Invalid phone number"
-                  }
-                })}
-                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300"
-                placeholder="Phone"
-              />
-              {registerErrors.mobile && (
-                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.mobile.message}</p>
-              )}
-            </div>
-
-            <div>
-              <select
-                {...registerRegister("studyDestination", { required: "Test Preparation is required" })}
-                className="w-full h-10 md:h-11 text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 appearance-none"
-              >
-                <option value="">Test Preparation</option>
-                <option value='GMAT'>GMAT</option>
-                <option value='IELTS'>IELTS</option>
-                <option value="TOEFL">TOEFL</option>
-                <option value="GRE">GRE</option>
-                <option value="PTE">PTE</option>
-                <option value="SAT">SAT</option>
-              </select>
-              {registerErrors.studyDestination && (
-                <p className="text-red-500 text-xs mt-1 md:mt-1.5">{registerErrors.studyDestination.message}</p>
-              )}
-            </div>
-
-            <div>
-              <textarea
-                {...registerRegister("query")}
-                className="w-full min-h-[80px] md:min-h-[100px] text-sm md:text-base rounded-lg border border-gray-300 focus:border-red-500 py-2 md:py-2.5 px-4 text-gray-900 focus:outline-none focus:ring-1 focus:ring-red-300 resize-none"
-                placeholder="Message"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-3 md:py-3.5 px-4 rounded-lg font-semibold text-sm md:text-base transition-colors duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 active:translate-y-0"
-            >
-              SUBMIT
-            </button>
-          </form>
         </div>
-      </div>
-      
-    </div>
-  </div>
-</section>
+      </section>
 
 
 

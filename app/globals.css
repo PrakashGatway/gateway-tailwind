@@ -2,22 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  margin: 0;
-  padding: 0;
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap");
+
+html,
+body,* {
+  font-family: "Noto Sans", "Inter", system-ui, -apple-system, sans-serif !important;
 }
 
-a{
-  text-decoration: none!important;
+* {
+  margin: 0;
+  padding: 0;
+  /* font-family: "Noto Sans", Arial, Helvetica, sans-serif !important; */
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+a {
+  text-decoration: none !important;
 }
 
 /* For bullet lists */
 .descp ul {
   list-style: disc !important;
 }
-.blog_inside ul{
+
+.blog_inside ul {
   list-style: disc !important;
 }
+
 /* For numbered lists */
 .descp ol {
   list-style: decimal !important;
@@ -30,15 +43,17 @@ a{
 }
 
 @media (min-width: 1200px) {
+
   .container,
   .container-lg,
   .container-xl {
-    max-width: 1140px!important;
+    max-width: 1140px !important;
   }
 }
 
 .bootstrap-wrapper * {
-  all: revert; /* resets Tailwind styles */
+  all: revert;
+  /* resets Tailwind styles */
 }
 
 :root {
@@ -110,8 +125,8 @@ body {
 
 /* Smooth scrolling */
 html {
-  scroll-behavior: smooth!important;
-  -webkit-scroll-behavior:smooth!important
+  scroll-behavior: smooth !important;
+  -webkit-scroll-behavior: smooth !important
 }
 
 /* Custom animations */
@@ -120,6 +135,7 @@ html {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -131,6 +147,7 @@ html {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -142,6 +159,7 @@ html {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -153,6 +171,7 @@ html {
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -164,6 +183,7 @@ html {
     transform: translateY(100%);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -171,6 +191,7 @@ html {
 }
 
 @keyframes bounce {
+
   0%,
   20%,
   53%,
@@ -178,13 +199,16 @@ html {
   100% {
     transform: translate3d(0, 0, 0);
   }
+
   40%,
   43% {
     transform: translate3d(0, -30px, 0);
   }
+
   70% {
     transform: translate3d(0, -15px, 0);
   }
+
   90% {
     transform: translate3d(0, -4px, 0);
   }
@@ -194,9 +218,11 @@ html {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
@@ -206,9 +232,11 @@ html {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -218,6 +246,7 @@ html {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -227,6 +256,7 @@ html {
   0% {
     background-position: -468px 0;
   }
+
   100% {
     background-position: 468px 0;
   }
@@ -275,18 +305,23 @@ html {
 .animate-stagger-1 {
   animation-delay: 0.1s;
 }
+
 .animate-stagger-2 {
   animation-delay: 0.2s;
 }
+
 .animate-stagger-3 {
   animation-delay: 0.3s;
 }
+
 .animate-stagger-4 {
   animation-delay: 0.4s;
 }
+
 .animate-stagger-5 {
   animation-delay: 0.5s;
 }
+
 .animate-stagger-6 {
   animation-delay: 0.6s;
 }
@@ -296,9 +331,11 @@ html {
   background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fef3c7 100%);
   position: relative;
 }
+
 .header-gradient {
   background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fef3c7 100%);
 }
+
 [data-theme="dark"] .hero-gradient {
   background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1f2937 100%);
 }
@@ -319,11 +356,12 @@ html {
 }
 
 .text-gradient {
-  background:#D41833;
+  background: #D41833;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 .swal-zindex {
   z-index: 9999999 !important;
 }

@@ -1,22 +1,7 @@
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-// import "@/public/css/style.css";
-// import "@/public/css/responsive.css";
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import ClientLayout from "@/components/home/mainLayout";
-import { Noto_Sans } from 'next/font/google';
-
-const inter = Inter({ subsets: ["latin"] });
-const notoSans = Noto_Sans({
-  weight: ['400', '500', '700'], // Specify the weights you need
-  style: ['normal'], // Add 'italic' if you need it
-  subsets: ['latin'], // Specify the character subsets you need
-  display: 'swap', // Optional, but 'swap' is good practice for performance
-});
 
 export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
@@ -29,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+        {/* <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" /> */}
         <meta name="google-site-verification" content="TupPl-3FF3IFmClspLl1nNOTl9IjjES7HRWUZi5qJyQ" />
         <script
           type="application/ld+json"
@@ -376,7 +361,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           `}
         </Script>
       </head>
-      <body suppressHydrationWarning className={`${notoSans.className} ${inter.className}`}>
+      <body suppressHydrationWarning>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KBCB5JV7"

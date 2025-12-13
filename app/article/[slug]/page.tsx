@@ -1,6 +1,5 @@
 import ArticleClient from "@/components/pages/ArticleDetails";
 
-
 // export const revalidate = 21600;
 
 // export async function generateStaticParams() {
@@ -38,20 +37,21 @@ export async function generateMetadata({ params }) {
         const article = data?.data;
 
         const title =
-            article?.title || "Gateway Abroad Education | Study Abroad Tips & Updates";
+            article?.title || "Article - Gateway Abroad | Study Abroad Tips & Updates";
         const description =
             article?.description ||
             "Expert study abroad & test prep guidance from Gateway Abroad.";
+        const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
         const ogImage =
-            article?.image
-                ? `https://uat.gatewayabroadeducations.com/uploads/${article.image}`
+            article?.coverImage
+                ? `https://uat.gatewayabroadeducations.com/api/uploads/${article.coverImage}`
                 : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
 
         return {
             metadataBase: new URL("https://www.gatewayabroadeducations.com"),
             title,
             description,
-            keywords:
+            keywords: keyword ||
                 "study abroad, IELTS, GMAT, GRE, TOEFL, PTE, SAT, Gateway Abroad, blog",
             openGraph: {
                 title,

@@ -163,7 +163,7 @@ export default function ArticleClient({ article }) {
                     <div className="flex flex-col lg:flex-row gap-8">
                         {/* Main Content */}
                         <div className="lg:w-8/12">
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                            <div className="sm:bg-white rounded-lg sm:shadow-sm sm:border sm:border-gray-200 overflow-hidden">
                                 {/* Article Image */}
                                 <div className="mb-6">
                                     <img
@@ -174,7 +174,7 @@ export default function ArticleClient({ article }) {
                                 </div>
 
                                 {/* Article Content */}
-                                <div className="px-6 pb-8">
+                                <div className="sm:px-6 pb-8">
                                     <div 
                                         className="prose prose-lg max-w-none font-noto-sans"
                                         dangerouslySetInnerHTML={sanitizeContent(decodeURIComponent(escape(atob(article.content))))}
