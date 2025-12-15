@@ -176,7 +176,7 @@ export default function ArticleClient({ article }) {
                                 {/* Article Content */}
                                 <div className="sm:px-6 pb-8">
                                     <div 
-                                        className="prose prose-lg max-w-none font-noto-sans"
+                                        className="prose prose-lg max-w-none blogs"
                                         dangerouslySetInnerHTML={sanitizeContent(decodeURIComponent(escape(atob(article.content))))}
                                     />
 

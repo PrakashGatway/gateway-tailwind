@@ -46,6 +46,9 @@ export async function generateMetadata({ params }) {
         type: "article",
         site_name: "Gateway Abroad Education",
       },
+      robots: {
+        maxImagePreview: "large",
+      },
       twitter: {
         card: "summary_large_image",
         title: title,

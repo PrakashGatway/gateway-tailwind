@@ -230,8 +230,7 @@ const onSubmitContact = (data) => {
                   </div>
                   <div className="mb-6">
                     <p className="text-zinc-800 text-[15px] leading-5 text-justify my-[25px]">
-                      Gateway Abroad Education (an educational consultant) has been counselling and assisting students to study in the UK, IRELAND, AUSTRALIA, the USA, CANADA, NEW ZEALAND, SINGAPORE, and other countries for 16+ years.
-                    </p>
+                     Gateway Abroad Education has been a trusted Study abroad consultants for over 16 years, helping students pursue higher studies in countries like the UK, Ireland, Australia, the USA, Canada, New Zealand, and Singapore</p>
                   </div>
                   <div>
                     <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
@@ -424,7 +423,7 @@ const onSubmitContact = (data) => {
         {/* Copyright */}
         <div className="text-white border-b-gray-200 border-l-gray-200 border-r-gray-200 text-center px-5 py-6 border-t-white border-t border-solid">
           <p className="leading-[normal] mb-4">
-            Copyrights © {new Date().getFullYear()} All Rights Reserved by Gateway Abroad.
+            Copyrights © {new Date().getFullYear()} All Rights Reserved by Gateway Abroad education.
           </p>
         </div>
       </footer>

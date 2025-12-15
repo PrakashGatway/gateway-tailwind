@@ -58,12 +58,14 @@ export async function generateMetadata({ params }) {
                 description,
                 images: [ogImage],
             },
+            robots: {
+                maxImagePreview: "large",
+            },
             alternates: {
                 canonical: `https://www.gatewayabroadeducations.com/article/${slug}`,
             },
         };
     } catch (error) {
-        console.error("⚠️ Metadata generation error:", error);
         return {
             title: "Article Post | Gateway Abroad",
             description:

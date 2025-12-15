@@ -13,9 +13,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         {/* <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" /> */}
         <meta name="google-site-verification" content="TupPl-3FF3IFmClspLl1nNOTl9IjjES7HRWUZi5qJyQ" />
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -360,6 +360,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             gtag('config', 'AW-11490727253');
           `}
         </Script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
       </head>
       <body suppressHydrationWarning>
         <noscript>
