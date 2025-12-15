@@ -40,9 +40,9 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <GlobalProvider>
         <LoaderWrapper>
           {!shouldHideLayout && (
-            // <Suspense fallback={<LayoutFallback />}>
+            <Suspense fallback={<LayoutFallback />}>
               <Header />
-            // </Suspense>
+            </Suspense>
           )}
           <main>{children}</main>
           {!shouldHideLayout && (
