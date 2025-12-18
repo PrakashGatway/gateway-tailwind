@@ -22,7 +22,7 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
-    const response = await axios.get(`http://143.110.241.174:3001/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+    const response = await axios.get(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
 
     const seoData = response?.data?.data?.blog;
 
@@ -54,6 +54,9 @@ export async function generateMetadata({ params }) {
         title: title,
         description: description,
         images: [ogImage],
+      },
+      alternates: {
+        canonical: `https://www.gatewayabroadeducations.com/blog-description/${slug}`,
       }
     };
 
@@ -79,6 +82,9 @@ export async function generateMetadata({ params }) {
         title: fallbackTitle,
         description: fallbackDescription,
         images: [fallbackImage],
+      },
+      alternates: {
+        canonical: `https://www.gatewayabroadeducations.com/blog-description/${slug}`,
       }
     };
   }

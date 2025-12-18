@@ -351,7 +351,7 @@ const handleNext = useCallback(() => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <Image
-                src={courseData.image3 ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image3}` : '/placeholder-image.jpg'}
+                src={courseData.image3 ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image3}` : '/placeholder.jpg'}
                 alt={`${courseName} Overview`}
                 width={500}
                 height={400}
