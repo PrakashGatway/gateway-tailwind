@@ -106,13 +106,35 @@ export default function SingleBlogPage({ data }) {
         <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
-            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-              <Link href="/" className="hover:text-[#E12827] transition-colors">Home</Link>
-              <span>›</span>
-              <Link href="/blog" className="hover:text-[#E12827] transition-colors">Blog</Link>
-              <span>›</span>
-              <span className="text-gray-900 font-medium truncate">{singleBlogData?.blogTitle}</span>
-            </nav>
+             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                        <Link 
+                            href="/" 
+                            style={{ 
+                                pointerEvents: 'auto', 
+                                cursor: 'pointer',
+                                position: 'relative',
+                                zIndex: 9999 
+                            }}
+                            className="hover:text-[#E12827] transition-colors"
+                        >
+                            Home
+                        </Link>
+                        <span>›</span>
+                        <Link 
+                            href="/blog"
+                            style={{ 
+                                pointerEvents: 'auto', 
+                                cursor: 'pointer',
+                                position: 'relative',
+                                zIndex: 9999 
+                            }}
+                            className="hover:text-[#E12827] transition-colors"
+                        >
+                            Blog
+                        </Link>
+                        <span>›</span>
+                        <span className="text-gray-900 font-medium truncate">{singleBlogData?.blogTitle}</span>
+                    </nav>
 
             {/* Blog Title */}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -132,6 +154,10 @@ export default function SingleBlogPage({ data }) {
                   </span>
                 </div>
               )}
+
+              <div>
+                            <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
+                        </div>
             </div>
           </div>
         </section>
@@ -184,8 +210,10 @@ export default function SingleBlogPage({ data }) {
                     {/* Share Section */}
                     <div className="mt-8 pt-6 border-t border-gray-200">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">Share this post:</h4>
-                      <div className="flex space-x-3">
-                        <Link
+                      <div className="flex space-x-3 justify-between">
+
+                        <div className='flex space-x-3' >
+                          <Link
                           target='_blank'
                           href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
                           className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
@@ -213,6 +241,11 @@ export default function SingleBlogPage({ data }) {
                         >
                           <i className="fa fa-envelope"></i>
                         </Link>
+                        </div>
+                        
+                         <div>
+                            <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold '>~ By Admin</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -223,26 +256,7 @@ export default function SingleBlogPage({ data }) {
                   <h4 className="text-xl font-bold text-gray-900 mb-2">Leave a Reply</h4>
                   <p className="text-gray-600 mb-6">Your email address will not be published.</p>
                   <form className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Your Name *"
-                          className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email *"
-                          className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors"
-                          required
-                        />
-                      </div>
-                    </div>
+                    
                     <div>
                       <textarea
                         placeholder="Your Comment *"

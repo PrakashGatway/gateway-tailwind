@@ -27,7 +27,7 @@ const fetchArticles = async ({ page, limit, category, search }: {
 
 const BlogCardSkeleton = () => (
   <div className="w-full">
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
+    <div className="bg-white rounded-xl  overflow-hidden hover:shadow-xl transition-all duration-300 border-bottom border-gray-100">
       <div className="w-full h-48 bg-gray-200 animate-pulse rounded-t-xl" />
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
@@ -349,14 +349,15 @@ const Blog = () => {
                   onClick={() => router.push(`/article/${article.slug}`)}
                   className="group cursor-pointer"
                 >
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 group-hover:scale-[1.02]">
-                    <div className="relative h-48 overflow-hidden">
+                  <div className="bg-white rounded-2xl pb-6 overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 ">
+                    <div className="relative h-52 overflow-hidden">
                       <Image
                         src={getCoverImageUrl(article.coverImage)}
                         alt={article.title}
                         fill
+                        className="object-cover object-top transition-transform duration-300"
                         onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+               
                       />
                     </div>
                     <div className="p-4 pt-2 pb-2">
@@ -367,6 +368,7 @@ const Blog = () => {
                             alt="calendar"
                             width={16}
                             height={16}
+                          
                           />
                           <span>{formatDate(article.createdAt)}</span>
                         </div>

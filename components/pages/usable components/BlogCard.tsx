@@ -5,7 +5,7 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
   // If loading, return skeleton
   if (loading) {
     return (
-      <div className="animate-pulse bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+      <div className="animate-pulse bg-white rounded-xl  overflow-hidden">
         {/* Image Skeleton */}
         <div className="bg-gray-300 h-48"></div>
         
@@ -42,16 +42,16 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl cursor-pointer  transition-all duration-300 transform hover:translate-x hover:border-red-600 hover:shadow-lg border border-gray-200 overflow-hidden"
+      className="bg-white rounded-2xl cursor-pointer pb-2  transition-all duration-300 transform hover:translate-x hover:border-red-600 hover:shadow-lg overflow-hidden"
     >
       {/* Image Section */}
-      <div className="relative h-[236px] ">
+      <div className="relative h-52 overflow-hidden">
         <Image
           src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
           alt={blog.blogTitle}
           onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
           fill
-          className="object-fill rounded-2xl"
+          className="object-cover object-top"
         />
       </div>
 
@@ -75,17 +75,12 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
         {/* Description - Conditionally rendered */}
         {showDescription && (
           <div
-            className="text-gray-600 text-sm line-clamp-2"
+            className="text-gray-600 line-clamp-2"
             dangerouslySetInnerHTML={sanitizedData(blog.blogDescription)}
           />
         )}
 
-        {/* Read More Link */}
-        <div className={`${showDescription ? 'pt-3 border-t border-gray-100' : 'pt-2'}`}>
-          <span className="text-red-600 text-sm font-medium hover:text-red-700 transition-colors">
-            Read More →
-          </span>
-        </div>
+       
       </div>
     </div>
   );
