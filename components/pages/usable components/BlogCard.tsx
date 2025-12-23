@@ -42,7 +42,7 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl cursor-pointer pb-2  transition-all duration-300 transform hover:translate-x hover:border-red-600 hover:shadow-lg overflow-hidden"
+      className="bg-white rounded-2xl cursor-pointer pb-2  transition-all duration-300 transform hover:translate-x hover:border-red-600  overflow-hidden"
     >
       {/* Image Section */}
       <div className="relative h-52 overflow-hidden">

@@ -15,20 +15,20 @@ const HeroSection = ({ type, title, description, image }: any) => {
   return (
     <section className="hero-gradient pt-12 py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
       {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
+      {/* <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
         <div className="absolute top-32 left-16 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-1"></div>
         <div className="absolute top-44 left-12 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-2"></div>
         <div className="absolute top-56 left-18 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-3"></div>
-        <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div> */}
+        <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div>
 
         <div className="absolute top-20 right-20 w-20 h-20 border-2 border-red-300 rounded-full animate-rotate-slow"></div>
         <div className="absolute bottom-40 left-20 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[30px] border-b-red-300 animate-float"></div>
 
-        {/* Additional floating elements */}
+        
         <div className="absolute top-1/4 right-1/4 w-6 h-6 bg-pink-400 rounded-full animate-float animate-stagger-2"></div>
         <div className="absolute bottom-1/3 right-1/3 w-8 h-8 bg-yellow-400 rounded-full animate-bounce-slow animate-stagger-3"></div>
-      </div>
+      </div> */}
 
       {/* Content container with responsive padding */}
       <div className="w-full px-6 sm:px-[4rem] lg:px-10"> {/* Add responsive padding here */}

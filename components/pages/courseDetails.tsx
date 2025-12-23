@@ -249,11 +249,7 @@ const handleNext = useCallback(() => {
     <div>
   {/* Hero Section with responsive fixes */}
 <section className="hero-gradient min-h-screen py-12 md:py-20 relative overflow-hidden">
-  <div className="absolute inset-0">
-    <div className="absolute top-20 left-10 w-4 h-4 bg-blue-500 rounded-full animate-bounce-slow"></div>
-    <div className="absolute top-40 right-20 w-6 h-6 bg-green-500 rounded-full animate-float"></div>
-    <div className="absolute bottom-20 left-1/4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse-slow"></div>
-  </div>
+ 
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
@@ -280,9 +276,7 @@ const handleNext = useCallback(() => {
           className="rounded-2xl shadow-xl w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]"
           priority
         />
-        <div className="absolute -top-4 -right-4 bg-gradient-to-r from-blue-500 to-green-500 text-white p-2 md:p-3 rounded-full">
-          <Star className="h-4 w-4 md:h-6 md:w-6" />
-        </div>
+       
       </div>
       
     </div>

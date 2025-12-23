@@ -114,11 +114,7 @@ function SpokenEnglish() {
         <div>
             {/* Hero Section */}
             <section className="hero-gradient py-16 md:py-20 relative overflow-hidden">
-                <div className="absolute inset-0">
-                    <div className="absolute top-60 left-10 w-4 h-4 bg-blue-500 rounded-full animate-bounce-slow"></div>
-                    <div className="absolute top-80 right-20 w-6 h-6 bg-green-500 rounded-full animate-float"></div>
-                    <div className="absolute bottom-20 left-1/4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse-slow"></div>
-                </div>
+               
 
                 <div className="max-w-7xl mx-auto px-4 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-8 items-center">
@@ -149,12 +145,7 @@ function SpokenEnglish() {
                                 height={400}
                                 className="w-full object-cover pl-[60px]"
                             />
-                            <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-green-500 text-white p-2 rounded-full">
-                                <Star className="h-5 w-5" />
-                            </div>
-                            <div className="absolute -bottom-2 -left-2 bg-gradient-to-r from-blue-500 to-green-500 text-white p-2 rounded-full">
-                                <Star className="h-5 w-5" />
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

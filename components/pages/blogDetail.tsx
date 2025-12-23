@@ -155,6 +155,7 @@ export default function SingleBlogPage({ data }) {
                 </div>
               )}
 
+
               <div>
                             <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
                         </div>
