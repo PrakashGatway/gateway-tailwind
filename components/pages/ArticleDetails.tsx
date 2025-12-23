@@ -85,12 +85,12 @@ useEffect(() => {
         currentH2 = h2Item;
     });
 
-    // Process h3 elements and assign to nearest h2
+
     h3Elements.forEach((h3, h3Index) => {
         const h3Id = `h3-${h3Index}-${Date.now()}`;
         h3.id = h3Id;
         
-        // Find the closest h2 parent for this h3
+        
         let parentH2 = null;
         let element = h3.previousElementSibling;
         
@@ -180,14 +180,14 @@ useEffect(() => {
             threshold: 0.1
         });
 
-        // Observe all heading elements in the actual DOM
+        
         headings.forEach(heading => {
             const element = document.getElementById(heading.id);
             if (element) {
                 observerRef.current.observe(element);
             }
             
-            // Also observe h3 children
+        
             heading.children?.forEach(child => {
                 const childElement = document.getElementById(child.id);
                 if (childElement) {
@@ -204,17 +204,17 @@ useEffect(() => {
     }, [headings]);
 
     const scrollToHeading = useCallback((id, text) => {
-        // Try to find element by ID first
+        
         let element = document.getElementById(id);
         
-        // If not found by ID, try to find by text content
+    
         if (!element) {
             const headingElements = Array.from(document.querySelectorAll('h2, h3'));
             element = headingElements.find(el => 
                 el.textContent.trim() === text.trim()
             );
             
-            // If found by text, set the ID for future reference
+    
             if (element && !element.id) {
                 element.id = id;
             }
@@ -229,12 +229,12 @@ useEffect(() => {
                 behavior: 'smooth'
             });
             
-            // Update active ID after a short delay
+        
             setTimeout(() => {
                 setActiveId(element.id);
             }, 100);
         } else {
-            // Fallback: try to scroll after a short delay (in case content isn't fully rendered)
+    
             setTimeout(() => {
                 const fallbackElement = document.getElementById(id) || 
                     Array.from(document.querySelectorAll('h2, h3')).find(el => 
@@ -261,13 +261,13 @@ useEffect(() => {
 
    const toggleSection = (id) => {
     setExpandedSections(prev => {
-        // अगर पहले से expand है तो collapse करें
+    
         if (prev[id]) {
             const newState = { ...prev };
             delete newState[id];
             return newState;
         } 
-        // नया expand करें (पुराने को collapse करें)
+       
         else {
             return { [id]: true };
         }
@@ -292,7 +292,7 @@ useEffect(() => {
                     }));
                 }
             }
-            // अगर active heading H2 है, तो उसे expand करें
+         
             else if (activeHeading.level === 2 && !expandedSections[activeId]) {
                 setExpandedSections(prev => ({
                     ...prev,
@@ -597,7 +597,7 @@ export default function ArticleClient({ article }) {
                     h3.id = `h3-dom-${index}-${Date.now()}`;
                 }
             });
-        }, 1000); // Increased delay to ensure content is fully rendered
+        }, 1000); 
 
         return () => clearTimeout(timeoutId);
     }, [processedContent]);
@@ -1150,7 +1150,7 @@ export default function ArticleClient({ article }) {
                                 {/* Latest Articles */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="text-red-600">📰</span>
+                                       
                                         Latest Articles
                                     </h5>
                                     <div className="space-y-3">
@@ -1206,7 +1206,7 @@ export default function ArticleClient({ article }) {
                                 {/* Categories */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="text-red-600">📂</span>
+                                      
                                         Categories
                                     </h5>
                                     <div className="flex flex-wrap gap-2">
@@ -1225,7 +1225,7 @@ export default function ArticleClient({ article }) {
                                 {/* Tags Cloud */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <span className="text-red-600">🏷️</span>
+                                    
                                         Tags
                                     </h5>
                                     <div className="flex flex-wrap gap-2">

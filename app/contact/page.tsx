@@ -1,4 +1,5 @@
 import Contact from "@/components/pages/contact";
+import Script from "next/script";
 
 export async function generateMetadata() {
   const seoData = {
@@ -39,8 +40,38 @@ export async function generateMetadata() {
 
 function ContactPage() {
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Career",
+        "item": "https://www.gatewayabroadeducations.com/career"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact Us",
+        "item": "https://www.gatewayabroadeducations.com/contact"
+      }
+    ]
+  };
+
   return (
-    <Contact/>
+    <>
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      <Contact />
+
+    </>
   );
 }
 

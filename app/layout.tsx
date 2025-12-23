@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" /> */}
         <meta name="google-site-verification" content="TupPl-3FF3IFmClspLl1nNOTl9IjjES7HRWUZi5qJyQ" />
         
-        <script
+        {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               }]
             })
           }}
-        />
+        /> */}
 
         <Script
           id="facebook-pixel"
@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           />
         </noscript>
 
-        <script
+        {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -334,7 +334,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 }]
             })
           }}
-        />
+        /> */}
 
         <Script id="gtm-script" strategy="afterInteractive">
           {`
