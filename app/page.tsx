@@ -1,4 +1,5 @@
 import Index from "@/components/home/HomePage"
+import Script from "next/script";
 
 
 export async function generateMetadata() {
@@ -40,9 +41,58 @@ export async function generateMetadata() {
 }
 
 export default function Home() {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Gateway Abroad Education",
+    "image":
+      "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
+    "@id": "https://www.gatewayabroadeducations.com/",
+    "url": "https://www.gatewayabroadeducations.com/",
+    "telephone": "08302092630",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress":
+        "105, First Floor, Geetanjali Tower, Ajmer Road, Civil Lines, Jaipur, Rajasthan 302006",
+      "addressLocality": "Jaipur",
+      "addressRegion": "Rajasthan",
+      "postalCode": "302006",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://www.facebook.com/Gatewayabroadjeducation1/",
+      "https://www.instagram.com/gatewayabroadeducation",
+      "https://www.linkedin.com/company/gateway-abroad-jaipur1"
+    ]
+  };
+
   return (
     <>
+      {/* Local Business Schema */}
+      <Script
+        id="local-business-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+
       <Index />
     </>
-  )
+  );
 }
+

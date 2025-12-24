@@ -18,7 +18,7 @@ const notoSans = Noto_Sans({
 
 const sanitizeContent = (content) => {
     if (!content) return { __html: '' };
-    
+
     try {
         return { __html: content };
     } catch (error) {
@@ -41,6 +41,8 @@ const getCoverImageUrl = (coverImage) => {
     return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
 };
 
+
+
 // TOC component within same file
 const TableOfContents = ({ content, className = "" }) => {
     const [headings, setHeadings] = useState([]);
@@ -49,96 +51,99 @@ const TableOfContents = ({ content, className = "" }) => {
     const observerRef = useRef(null);
     const contentProcessedRef = useRef(false);
 
- 
-useEffect(() => {
-    if (!content || contentProcessedRef.current) return;
-
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-
-    // Get all h2 and h3 elements
-    const h2Elements = Array.from(tempDiv.querySelectorAll('h2'));
-    const h3Elements = Array.from(tempDiv.querySelectorAll('h3'));
-    
-    if (h2Elements.length === 0 && h3Elements.length === 0) {
-        setHeadings([]);
-        contentProcessedRef.current = true;
-        return;
-    }
-
-    const tocItems = [];
-    let currentH2 = null;
-
-    // Process h2 elements
-    h2Elements.forEach((h2, h2Index) => {
-        const h2Id = `h2-${h2Index}-${Date.now()}`;
-        h2.id = h2Id;
-        
-        const h2Item = {
-            id: h2Id,
-            text: h2.textContent || `Section ${h2Index + 1}`,
-            level: 2,
-            children: []
-        };
-        
-        tocItems.push(h2Item);
-        currentH2 = h2Item;
-    });
 
 
-    h3Elements.forEach((h3, h3Index) => {
-        const h3Id = `h3-${h3Index}-${Date.now()}`;
-        h3.id = h3Id;
-        
-        
-        let parentH2 = null;
-        let element = h3.previousElementSibling;
-        
-        while (element) {
-            if (element.tagName === 'H2') {
-                parentH2 = tocItems.find(item => 
-                    item.text === element.textContent && item.level === 2
-                );
-                break;
+
+    useEffect(() => {
+        if (!content || contentProcessedRef.current) return;
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+
+        // Get all h2 and h3 elements
+        const h2Elements = Array.from(tempDiv.querySelectorAll('h2'));
+        const h3Elements = Array.from(tempDiv.querySelectorAll('h3'));
+
+        if (h2Elements.length === 0 && h3Elements.length === 0) {
+            setHeadings([]);
+            contentProcessedRef.current = true;
+            return;
+        }
+
+        const tocItems = [];
+        let currentH2 = null;
+
+        // Process h2 elements
+        h2Elements.forEach((h2, h2Index) => {
+            const h2Id = `h2-${h2Index}-${Date.now()}`;
+            h2.id = h2Id;
+
+            const h2Item = {
+                id: h2Id,
+                text: h2.textContent || `Section ${h2Index + 1}`,
+                level: 2,
+                children: []
+            };
+
+            tocItems.push(h2Item);
+            currentH2 = h2Item;
+        });
+
+
+        h3Elements.forEach((h3, h3Index) => {
+            const h3Id = `h3-${h3Index}-${Date.now()}`;
+            h3.id = h3Id;
+
+
+            let parentH2 = null;
+            let element = h3.previousElementSibling;
+
+            while (element) {
+                if (element.tagName === 'H2') {
+                    parentH2 = tocItems.find(item =>
+                        item.text === element.textContent && item.level === 2
+                    );
+                    break;
+                }
+                element = element.previousElementSibling;
             }
-            element = element.previousElementSibling;
-        }
-        
-        // If no parent h2 found, use last h2 or create independent entry
-        if (!parentH2 && tocItems.length > 0) {
-            parentH2 = tocItems[tocItems.length - 1];
-        }
-        
-        if (parentH2) {
-            parentH2.children.push({
-                id: h3Id,
-                text: h3.textContent || `Subsection ${h3Index + 1}`,
-                level: 3
-            });
-        } else {
-            // Independent h3
-            tocItems.push({
-                id: h3Id,
-                text: h3.textContent || `Section ${h3Index + 1}`,
-                level: 3,
-                children: [],
-                isIndependent: true
-            });
-        }
-    });
 
-    setHeadings(tocItems);
+            // If no parent h2 found, use last h2 or create independent entry
+            if (!parentH2 && tocItems.length > 0) {
+                parentH2 = tocItems[tocItems.length - 1];
+            }
 
-  
-    const initialExpanded = {};
-    
-    
-    setExpandedSections(initialExpanded);
+            if (parentH2) {
+                parentH2.children.push({
+                    id: h3Id,
+                    text: h3.textContent || `Subsection ${h3Index + 1}`,
+                    level: 3
+                });
+            } else {
+                // Independent h3
+                tocItems.push({
+                    id: h3Id,
+                    text: h3.textContent || `Section ${h3Index + 1}`,
+                    level: 3,
+                    children: [],
+                    isIndependent: true
+                });
+            }
+        });
 
-    contentProcessedRef.current = true;
-    
-    return () => tempDiv.remove();
-}, [content]);
+        setHeadings(tocItems);
+
+
+        const initialExpanded = {};
+
+
+        setExpandedSections(initialExpanded);
+
+        contentProcessedRef.current = true;
+
+        return () => tempDiv.remove();
+    }, [content]);
+
 
     useEffect(() => {
         if (headings.length === 0) return;
@@ -149,10 +154,10 @@ useEffect(() => {
             headings.forEach((heading, index) => {
                 // Find heading in actual DOM by text content
                 const headingElements = Array.from(document.querySelectorAll('h2, h3'));
-                const matchingElement = headingElements.find(el => 
+                const matchingElement = headingElements.find(el =>
                     el.textContent.trim() === heading.text.trim()
                 );
-                
+
                 if (matchingElement && !matchingElement.id) {
                     matchingElement.id = heading.id;
                 }
@@ -180,14 +185,14 @@ useEffect(() => {
             threshold: 0.1
         });
 
-        
+
         headings.forEach(heading => {
             const element = document.getElementById(heading.id);
             if (element) {
                 observerRef.current.observe(element);
             }
-            
-        
+
+
             heading.children?.forEach(child => {
                 const childElement = document.getElementById(child.id);
                 if (childElement) {
@@ -204,52 +209,52 @@ useEffect(() => {
     }, [headings]);
 
     const scrollToHeading = useCallback((id, text) => {
-        
+
         let element = document.getElementById(id);
-        
-    
+
+
         if (!element) {
             const headingElements = Array.from(document.querySelectorAll('h2, h3'));
-            element = headingElements.find(el => 
+            element = headingElements.find(el =>
                 el.textContent.trim() === text.trim()
             );
-            
-    
+
+
             if (element && !element.id) {
                 element.id = id;
             }
         }
-        
+
         if (element) {
             const offset = 120;
             const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-            
+
             window.scrollTo({
                 top: elementTop - offset,
                 behavior: 'smooth'
             });
-            
-        
+
+
             setTimeout(() => {
                 setActiveId(element.id);
             }, 100);
         } else {
-    
+
             setTimeout(() => {
-                const fallbackElement = document.getElementById(id) || 
-                    Array.from(document.querySelectorAll('h2, h3')).find(el => 
+                const fallbackElement = document.getElementById(id) ||
+                    Array.from(document.querySelectorAll('h2, h3')).find(el =>
                         el.textContent.trim() === text.trim()
                     );
-                
+
                 if (fallbackElement) {
                     const offset = 120;
                     const elementTop = fallbackElement.getBoundingClientRect().top + window.pageYOffset;
-                    
+
                     window.scrollTo({
                         top: elementTop - offset,
                         behavior: 'smooth'
                     });
-                    
+
                     if (!fallbackElement.id) {
                         fallbackElement.id = id;
                     }
@@ -259,210 +264,202 @@ useEffect(() => {
         }
     }, []);
 
-   const toggleSection = (id) => {
-    setExpandedSections(prev => {
-    
-        if (prev[id]) {
-            const newState = { ...prev };
-            delete newState[id];
-            return newState;
-        } 
-       
-        else {
-            return { [id]: true };
-        }
-    });
-};
+    const toggleSection = (id) => {
+        setExpandedSections(prev => {
+
+            if (prev[id]) {
+                const newState = { ...prev };
+                delete newState[id];
+                return newState;
+            }
+
+            else {
+                return { [id]: true };
+            }
+        });
+    };
 
 
-useEffect(() => {
-    if (activeId) {
-   
-        const activeHeading = headings.find(h => h.id === activeId);
-        if (activeHeading) {
-        
-            if (activeHeading.level === 3) {
-                const parentH2 = headings.find(h => 
-                    h.level === 2 && h.children.some(child => child.id === activeId)
-                );
-                if (parentH2 && !expandedSections[parentH2.id]) {
+    useEffect(() => {
+        if (activeId) {
+
+            const activeHeading = headings.find(h => h.id === activeId);
+            if (activeHeading) {
+
+                if (activeHeading.level === 3) {
+                    const parentH2 = headings.find(h =>
+                        h.level === 2 && h.children.some(child => child.id === activeId)
+                    );
+                    if (parentH2 && !expandedSections[parentH2.id]) {
+                        setExpandedSections(prev => ({
+                            ...prev,
+                            [parentH2.id]: true
+                        }));
+                    }
+                }
+
+                else if (activeHeading.level === 2 && !expandedSections[activeId]) {
                     setExpandedSections(prev => ({
                         ...prev,
-                        [parentH2.id]: true
+                        [activeId]: true
                     }));
                 }
             }
-         
-            else if (activeHeading.level === 2 && !expandedSections[activeId]) {
-                setExpandedSections(prev => ({
-                    ...prev,
-                    [activeId]: true
-                }));
-            }
         }
-    }
-}, [activeId, headings]);
+    }, [activeId, headings]);
 
-      return (
+    return (
         <div className={`toc-wrapper bg-[#edf6ff] rounded-xl shadow-sm border border-gray-200 p-2 ${className}`}>
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                    
+
                     <div className="min-w-0 flex-1">
                         <h3 className="text-lg font-bold text-gray-900">Table of Contents</h3>
-                        
+
                     </div>
                 </div>
-                
+
             </div>
 
             {/* 🔥 FIXED: No button inside button */}
             <div className="toc-content overflow-y-auto overflow-x-hidden max-h-[400px]">
-    <div className="space-y-1 w-full">
-        {(() => {
-            let h2Count = 0;
-            
-            return headings.map((heading) => {
-                // Reset H2 counter
-                if (heading.level === 2) {
-                    h2Count++;
-                }
-                
-                // Independent H3 के लिए parent खोजें
-                const parentH2 = headings.find(h => 
-                    h.level === 2 && h.children.some(child => child.id === heading.id)
-                );
-                const parentH2Index = parentH2 
-                    ? headings.filter(h => h.level === 2).findIndex(h => h.id === parentH2.id) + 1 
-                    : null;
+                <div className="space-y-1 w-full">
+                    {(() => {
+                        let h2Count = 0;
 
-                return (
-                    <div key={heading.id} className="toc-item w-full">
-                        {heading.level === 2 ? (
-                            <>
-                                <div className="w-full">
-                                    <button
-                                        onClick={() => scrollToHeading(heading.id, heading.text)}
-                                        className={`w-full text-left p\ rounded-lg transition-all duration-200 flex items-start justify-between group ${
-                                            activeId === heading.id
-                                                ? 'bg-red-50 border border-red-100 text-red-700'
-                                                : 'hover:bg-gray-50 text-gray-700'
-                                        }`}
-                                        style={{ maxWidth: '100%' }}
-                                    >
-                                        <div className="flex items-start gap-3 flex-1 min-w-0">
-                                            <div className={`w-8 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${
-                                                activeId === heading.id 
-                                                    ? 'bg-red-600 text-white' 
-                                                    : 'bg-gray-100 text-gray-600'
-                                            }`}>
-                                                {h2Count}
-                                            </div>
-                                            <span className={`font-medium text-left break-words whitespace-normal ${
-                                                activeId === heading.id ? 'text-red-800' : 'text-gray-800'
-                                            }`}>
-                                                {heading.text}
-                                            </span>
-                                        </div>
-                                        
-                                     
-                                        {heading.children.length > 0 && (
-                                            <span
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleSection(heading.id);
-                                                }}
-                                                className="p-1.5 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0 ml-2 mt-0.5 cursor-pointer"
-                                                role="button"
-                                                tabIndex={0}
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter' || e.key === ' ') {
-                                                        e.preventDefault();
-                                                        toggleSection(heading.id);
-                                                    }
-                                                }}
-                                                aria-label={expandedSections[heading.id] ? 'Collapse section' : 'Expand section'}
-                                            >
-                                                <svg 
-                                                    className={`w-4 h-4 text-gray-500 transform transition-transform ${
-                                                        expandedSections[heading.id] ? 'rotate-180' : ''
-                                                    }`} 
-                                                    fill="none" 
-                                                    stroke="currentColor" 
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </span>
-                                        )}
-                                    </button>
-                                </div>
-                                
-                                {/* H3 Children - ONLY SHOWN WHEN EXPANDED */}
-                                {heading.children.length > 0 && expandedSections[heading.id] && (
-                                    <div className="ml-10 mt-1 space-y-1 border-l border-gray-200 pl-4">
-                                        {heading.children.map((child, childIndex) => (
-                                            <div key={child.id} className="w-full">
+                        return headings.map((heading) => {
+                            // Reset H2 counter
+                            if (heading.level === 2) {
+                                h2Count++;
+                            }
+
+                            // Independent H3 के लिए parent खोजें
+                            const parentH2 = headings.find(h =>
+                                h.level === 2 && h.children.some(child => child.id === heading.id)
+                            );
+                            const parentH2Index = parentH2
+                                ? headings.filter(h => h.level === 2).findIndex(h => h.id === parentH2.id) + 1
+                                : null;
+
+                            return (
+                                <div key={heading.id} className="toc-item w-full">
+                                    {heading.level === 2 ? (
+                                        <>
+                                            <div className="w-full">
                                                 <button
-                                                    onClick={() => scrollToHeading(child.id, child.text)}
-                                                    className={`w-full text-left  rounded-lg transition-all duration-200 flex items-start gap-3 group ${
-                                                        activeId === child.id
-                                                            ? 'bg-red-50 text-red-700'
-                                                            : 'hover:bg-gray-50 text-gray-600'
-                                                    }`}
+                                                    onClick={() => scrollToHeading(heading.id, heading.text)}
+                                                    className={`w-full text-left p\ rounded-lg transition-all duration-200 flex items-start justify-between group ${activeId === heading.id
+                                                        ? 'bg-red-50 border border-red-100 text-red-700'
+                                                        : 'hover:bg-gray-50 text-gray-700'
+                                                        }`}
                                                     style={{ maxWidth: '100%' }}
                                                 >
-                                                    <div className={`w-8 h-5 rounded flex items-center justify-center text-xs flex-shrink-0 mt-0.5 ${
-                                                        activeId === child.id 
-                                                            ? 'bg-red-200 text-red-700' 
-                                                            : 'bg-gray-100 text-gray-500'
-                                                    }`}>
-                                                        {h2Count}.{childIndex + 1}
+                                                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                                                        <div className={`w-8 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${activeId === heading.id
+                                                            ? 'bg-red-600 text-white'
+                                                            : 'bg-gray-100 text-gray-600'
+                                                            }`}>
+                                                            {h2Count}
+                                                        </div>
+                                                        <span className={`font-medium text-left break-words whitespace-normal ${activeId === heading.id ? 'text-red-800' : 'text-gray-800'
+                                                            }`}>
+                                                            {heading.text}
+                                                        </span>
                                                     </div>
-                                                    <span className="text-sm text-left break-words whitespace-normal flex-1">
-                                                        {child.text}
+
+
+                                                    {heading.children.length > 0 && (
+                                                        <span
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                toggleSection(heading.id);
+                                                            }}
+                                                            className="p-1.5 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0 ml-2 mt-0.5 cursor-pointer"
+                                                            role="button"
+                                                            tabIndex={0}
+                                                            onKeyDown={(e) => {
+                                                                if (e.key === 'Enter' || e.key === ' ') {
+                                                                    e.preventDefault();
+                                                                    toggleSection(heading.id);
+                                                                }
+                                                            }}
+                                                            aria-label={expandedSections[heading.id] ? 'Collapse section' : 'Expand section'}
+                                                        >
+                                                            <svg
+                                                                className={`w-4 h-4 text-gray-500 transform transition-transform ${expandedSections[heading.id] ? 'rotate-180' : ''
+                                                                    }`}
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                            </svg>
+                                                        </span>
+                                                    )}
+                                                </button>
+                                            </div>
+
+                                            {/* H3 Children - ONLY SHOWN WHEN EXPANDED */}
+                                            {heading.children.length > 0 && expandedSections[heading.id] && (
+                                                <div className="ml-10 mt-1 space-y-1 border-l border-gray-200 pl-4">
+                                                    {heading.children.map((child, childIndex) => (
+                                                        <div key={child.id} className="w-full">
+                                                            <button
+                                                                onClick={() => scrollToHeading(child.id, child.text)}
+                                                                className={`w-full text-left  rounded-lg transition-all duration-200 flex items-start gap-3 group ${activeId === child.id
+                                                                    ? 'bg-red-50 text-red-700'
+                                                                    : 'hover:bg-gray-50 text-gray-600'
+                                                                    }`}
+                                                                style={{ maxWidth: '100%' }}
+                                                            >
+                                                                <div className={`w-8 h-5 rounded flex items-center justify-center text-xs flex-shrink-0 mt-0.5 ${activeId === child.id
+                                                                    ? 'bg-red-200 text-red-700'
+                                                                    : 'bg-gray-100 text-gray-500'
+                                                                    }`}>
+                                                                    {h2Count}.{childIndex + 1}
+                                                                </div>
+                                                                <span className="text-sm text-left break-words whitespace-normal flex-1">
+                                                                    {child.text}
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </>
+                                    ) : (
+                                        // Independent H3 (जो किसी H2 के child नहीं हैं)
+                                        !parentH2 && (
+                                            <div className="w-full">
+                                                <button
+                                                    onClick={() => scrollToHeading(heading.id, heading.text)}
+                                                    className={`w-full text-left p-3 rounded-lg transition-all duration-200 flex items-start gap-3 group ${activeId === heading.id
+                                                        ? 'bg-red-50 border border-red-100 text-red-700'
+                                                        : 'hover:bg-gray-50 text-gray-700'
+                                                        }`}
+                                                    style={{ maxWidth: '100%' }}
+                                                >
+                                                    <div className={`w-6 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${activeId === heading.id
+                                                        ? 'bg-red-600 text-white'
+                                                        : 'bg-gray-100 text-gray-600'
+                                                        }`}>
+                                                        H3
+                                                    </div>
+                                                    <span className="font-medium text-left break-words whitespace-normal flex-1">
+                                                        {heading.text}
                                                     </span>
                                                 </button>
                                             </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            // Independent H3 (जो किसी H2 के child नहीं हैं)
-                            !parentH2 && (
-                                <div className="w-full">
-                                    <button
-                                        onClick={() => scrollToHeading(heading.id, heading.text)}
-                                        className={`w-full text-left p-3 rounded-lg transition-all duration-200 flex items-start gap-3 group ${
-                                            activeId === heading.id
-                                                ? 'bg-red-50 border border-red-100 text-red-700'
-                                                : 'hover:bg-gray-50 text-gray-700'
-                                        }`}
-                                        style={{ maxWidth: '100%' }}
-                                    >
-                                        <div className={`w-6 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${
-                                            activeId === heading.id 
-                                                ? 'bg-red-600 text-white' 
-                                                : 'bg-gray-100 text-gray-600'
-                                        }`}>
-                                            H3
-                                        </div>
-                                        <span className="font-medium text-left break-words whitespace-normal flex-1">
-                                            {heading.text}
-                                        </span>
-                                    </button>
+                                        )
+                                    )}
                                 </div>
-                            )
-                        )}
-                    </div>
-                );
-            });
-        })()}
-    </div>
-</div>
+                            );
+                        });
+                    })()}
+                </div>
+            </div>
 
-           
+
 
             {/* 🔥 Keep the CSS for no horizontal scroll */}
             <style jsx>{`
@@ -516,10 +513,10 @@ useEffect(() => {
 // MODIFIED: Add this function to process content with IDs
 const processContentWithIds = (htmlContent) => {
     if (!htmlContent) return htmlContent;
-    
+
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
-    
+
     // Add IDs to h2 elements
     const h2Elements = tempDiv.querySelectorAll('h2');
     h2Elements.forEach((h2, index) => {
@@ -527,7 +524,7 @@ const processContentWithIds = (htmlContent) => {
             h2.id = `h2-${index}-${Date.now()}`;
         }
     });
-    
+
     // Add IDs to h3 elements
     const h3Elements = tempDiv.querySelectorAll('h3');
     h3Elements.forEach((h3, index) => {
@@ -535,7 +532,7 @@ const processContentWithIds = (htmlContent) => {
             h3.id = `h3-${index}-${Date.now()}`;
         }
     });
-    
+
     return tempDiv.innerHTML;
 };
 
@@ -545,7 +542,7 @@ export default function ArticleClient({ article }) {
     const [loading, setLoading] = useState(true);
     const [decodedContent, setDecodedContent] = useState('');
     const [processedContent, setProcessedContent] = useState('');
-    
+
     // Comment related states
     const [comments, setComments] = useState([]);
     const [commentForm, setCommentForm] = useState({
@@ -558,6 +555,30 @@ export default function ArticleClient({ article }) {
     const [showReplies, setShowReplies] = useState({});
 
     const { user, drawer, setDrawer } = useGlobal();
+    const viewCountUpdatedRef = useRef(false);
+
+    useEffect(() => {
+        if (!article?._id) return;
+
+        const startTime = Date.now();
+        console.log("⏱️ Article mounted, timer started");
+
+        return () => {
+            const endTime = Date.now();
+            const readDuration = Math.floor((endTime - startTime) / 1000); // seconds
+
+            if (readDuration > 0) {
+                console.log("📤 Sending final read duration:", readDuration);
+
+                axiosInstance.post(`/web/blog/log/${article._id}`, {
+                    readDuration,
+                }).catch((error) => {
+                    console.error("❌ Failed to send read duration:", error);
+                });
+            }
+        };
+    }, [article?._id]);
+
 
     // Decode and process content with IDs
     useEffect(() => {
@@ -565,7 +586,7 @@ export default function ArticleClient({ article }) {
             try {
                 const decoded = decodeURIComponent(escape(atob(article.content)));
                 setDecodedContent(decoded);
-                
+
                 // Process content to add IDs to headings
                 const processed = processContentWithIds(decoded);
                 setProcessedContent(processed);
@@ -590,14 +611,14 @@ export default function ArticleClient({ article }) {
                     h2.id = `h2-dom-${index}-${Date.now()}`;
                 }
             });
-            
+
             const h3Elements = document.querySelectorAll('.blogs h3');
             h3Elements.forEach((h3, index) => {
                 if (!h3.id) {
                     h3.id = `h3-dom-${index}-${Date.now()}`;
                 }
             });
-        }, 1000); 
+        }, 1000);
 
         return () => clearTimeout(timeoutId);
     }, [processedContent]);
@@ -709,7 +730,7 @@ export default function ArticleClient({ article }) {
                 content: commentForm.content,
                 parentCommentId: commentForm.parentCommentId
             });
-            
+
             if (response) {
                 setCommentForm({
                     name: '',
@@ -797,26 +818,26 @@ export default function ArticleClient({ article }) {
                 <div className="max-w-7xl relative mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
                     {/* Breadcrumb */}
                     <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-                        <Link 
-                            href="/" 
-                            style={{ 
-                                pointerEvents: 'auto', 
+                        <Link
+                            href="/"
+                            style={{
+                                pointerEvents: 'auto',
                                 cursor: 'pointer',
                                 position: 'relative',
-                                zIndex: 9999 
+                                zIndex: 9999
                             }}
                             className="hover:text-[#E12827] transition-colors"
                         >
                             Home
                         </Link>
                         <span>›</span>
-                        <Link 
+                        <Link
                             href="/article"
-                            style={{ 
-                                pointerEvents: 'auto', 
+                            style={{
+                                pointerEvents: 'auto',
                                 cursor: 'pointer',
                                 position: 'relative',
-                                zIndex: 9999 
+                                zIndex: 9999
                             }}
                             className="hover:text-[#E12827] transition-colors"
                         >
@@ -848,11 +869,26 @@ export default function ArticleClient({ article }) {
                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View - {article.viewCount}</span>
                         </div>
                         <div>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime/60)} min</span>
+                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
                         </div>
-                        <div className='ml-auto'>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
-                        </div>
+           <div className='ml-auto'>
+                         <span className='
+  bg-gradient-to-r from-[#E12827] to-[#FF6B6B]
+  text-white
+  px-5 py-2
+  rounded-full
+  text-sm font-bold
+  shadow-lg
+  hover:shadow-xl
+  hover:from-[#FF6B6B]
+  hover:to-[#E12827]
+  transition-all duration-300
+  transform hover:-translate-y-0.5
+  tracking-wide
+'>
+                            Author • Admin
+                        </span>
+           </div>
                     </div>
                 </div>
             </section>
@@ -876,7 +912,7 @@ export default function ArticleClient({ article }) {
                                 {/* Table of Contents */}
                                 {decodedContent && (
                                     <div className="px-6 pb-6 border-b border-gray-100">
-                                        <TableOfContents 
+                                        <TableOfContents
                                             content={decodedContent}
                                             className="shadow-lg"
                                         />
@@ -885,7 +921,7 @@ export default function ArticleClient({ article }) {
 
                                 {/* Article Content - USE processedContent with IDs */}
                                 <div className="sm:px-6 pb-8 pt-6">
-                                    <div 
+                                    <div
                                         className="prose prose-lg max-w-none blogs"
                                         dangerouslySetInnerHTML={sanitizeContent(processedContent || decodedContent)}
                                     />
@@ -1109,7 +1145,7 @@ export default function ArticleClient({ article }) {
                                                 </div>
                                             ))
                                         )}
-                                        
+
                                         {comments.length > 5 && (
                                             <div className="text-center pt-4 border-t border-gray-200">
                                                 <button
@@ -1150,7 +1186,7 @@ export default function ArticleClient({ article }) {
                                 {/* Latest Articles */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                       
+
                                         Latest Articles
                                     </h5>
                                     <div className="space-y-3">
@@ -1206,7 +1242,7 @@ export default function ArticleClient({ article }) {
                                 {/* Categories */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                      
+
                                         Categories
                                     </h5>
                                     <div className="flex flex-wrap gap-2">
@@ -1225,7 +1261,7 @@ export default function ArticleClient({ article }) {
                                 {/* Tags Cloud */}
                                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                    
+
                                         Tags
                                     </h5>
                                     <div className="flex flex-wrap gap-2">

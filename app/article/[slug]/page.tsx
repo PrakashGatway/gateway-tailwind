@@ -26,8 +26,6 @@ import Script from "next/script";
 export async function generateMetadata({ params }) {
     
     const { slug } = await params;
-
-
     try {
         const res = await fetch(
             `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
@@ -47,7 +45,7 @@ export async function generateMetadata({ params }) {
         const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
         const ogImage =
             article?.coverImage
-                ? `https://uat.gatewayabroadeducations.com/api/uploads/${article.coverImage}`
+                ? `https://uat.gatewayabroadeducations.com/uploads/${article.coverImage}`
                 : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
 
         return {

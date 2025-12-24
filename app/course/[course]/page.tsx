@@ -1,5 +1,6 @@
 import Course from "@/components/pages/courseDetails";
 import { Metadata } from 'next';
+import Script from "next/script";
 
 const seoData = {
   default: {
@@ -127,6 +128,93 @@ const seoData = {
   }
 };
 
+
+const getCourseSchema = (course: string) => {
+  const courseUpper = course?.toUpperCase();
+  const courseLower = course?.toLowerCase();
+
+  const courseConfig: any = {
+    IELTS: {
+      name: "IELTS Coaching Class",
+      image:
+        "https://api.gatewayabroadeducations.com/api/uploads/1712810045348-33756158_8085941%202.png",
+      ratingCount: "6289",
+      description:
+        "Gateway Abroad Education offers expert IELTS coaching in Jaipur with certified trainers, mock tests, and proven strategies to help students score 7+ bands."
+    },
+    GMAT: {
+      name: "GMAT Coaching Class",
+      image:
+        "https://api.gatewayabroadeducations.com/api/uploads/1722690849056-Add%20a%20subheading.png",
+      ratingCount: "5019",
+      description:
+        "Gateway Abroad Education is a leading GMAT coaching institute in Jaipur, providing expert faculty, structured study plans, live classes, and strategies for achieving 700+ GMAT scores."
+    },
+    GRE: {
+      name: "GRE Coaching Class",
+      image: "/img/ga-logo.svg",
+      ratingCount: "4120",
+      description:
+        "Top GRE coaching in Jaipur with expert mentors, quant & verbal bootcamps, and full-length mock tests."
+    }
+  };
+
+  const data = courseConfig[courseUpper] || {
+    name: "Coaching Course",
+    image: "/img/ga-logo.svg",
+    ratingCount: "1000",
+    description:
+      "Gateway Abroad Education offers expert coaching for international exams."
+  };
+
+  return {
+    breadcrumb: {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.gatewayabroadeducations.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": data.name,
+          "item": `https://www.gatewayabroadeducations.com/course/${courseLower}`
+        }
+      ]
+    },
+
+    product: {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": data.name,
+      "image": data.image,
+      "description": data.description,
+      "brand": {
+        "@type": "Brand",
+        "name": "Gateway Abroad Education"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "url": `https://www.gatewayabroadeducations.com/course/${courseLower}`,
+        "priceCurrency": "INR",
+        "lowPrice": "0"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": data.ratingCount
+      }
+    }
+  };
+};
+
+
 export async function generateMetadata({ params }:any) {
   const { course } = await params;
 
@@ -158,9 +246,32 @@ export async function generateMetadata({ params }:any) {
   };
 }
 
-const CoursePage = () => {
+const CoursePage = ({ params }: any) => {
+  const { course } =  params;
+  const schema = getCourseSchema(course);
+
+  console.log(params.course)
+
   return (
-    <Course />
+    <>
+      {/* Breadcrumb Schema */}
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema.breadcrumb),
+        }}
+      />
+
+      {/* Product Schema */}
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema.product),
+        }}
+      />
+
+      <Course />
+    </>
   );
 };
 
