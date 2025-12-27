@@ -187,30 +187,33 @@ const getCourseSchema = (course: string) => {
       ]
     },
 
-    product: {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": data.name,
-      "image": data.image,
-      "description": data.description,
-      "brand": {
-        "@type": "Brand",
-        "name": "Gateway Abroad Education"
-      },
-      "offers": {
-        "@type": "AggregateOffer",
-        "url": `https://www.gatewayabroadeducations.com/course/${courseLower}`,
-        "priceCurrency": "INR",
-        "lowPrice": "0"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "bestRating": "5",
-        "worstRating": "1",
-        "ratingCount": data.ratingCount
-      }
-    }
+   product: {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": data.name,
+  "image": data.image,
+  "description": data.description,
+  "brand": {
+    "@type": "Brand",
+    "name": "Gateway Abroad Education"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": `https://www.gatewayabroadeducations.com/course/${courseLower}`,
+    "priceCurrency": "INR",
+    "lowPrice": "5000",
+    "highPrice": "19000",
+    "offerCount": "20"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": data.ratingCount
+  }
+}
+
   };
 };
 

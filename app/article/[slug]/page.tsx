@@ -144,6 +144,8 @@ export default async function BlogPostPage({ params }) {
     "datePublished": "2025-11-26"
   };
 
+  
+
 
     const res = await fetch(
         `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
