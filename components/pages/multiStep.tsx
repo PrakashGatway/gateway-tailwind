@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ChevronRight, ChevronLeft, Check, User, MapPin, Calendar, GraduationCap } from "lucide-react"
 import PageServices from "@/services/PageServices"
 import Swal from 'sweetalert2'
+import axiosInstance from "@/services/axiosInstance"
 
 const steps = ["course", "country", "intake", "details"]
 const courses = ["UG", "PG", "PHD"]
@@ -33,25 +34,54 @@ export default function EnhancedMultiStepForm() {
   const onBack = () => setStep((prev) => prev - 1)
 
   const onSubmit = async (data: any) => {
-    const formatData = {
-      name: data.name,
+  try {
+    const payload = {
+      fullName: data.name,            
       email: data.email,
-      phone: data.mobile,
-      program: data.course,
-      grade: null,
-      city: data.city,
-      perferedCountry: data.country,
-      study: data.intake,
+      phone: String(data.mobile),
+      source: "website",
+      coursePreference: data.course || "studyPreference",
+
+      countryOfResidence: data.city,
+
+      extraDetails: {
+        preferredCountry: data.country,
+        intake: data.intake,
+        program: data.course,
+        grade: null,
+        type: "study-preference",
+      },
+    };
+
+    const response = await axiosInstance.post("/leads", payload);
+
+    if (response?.data?.success) {
+      Swal.fire({
+        title: "Thank You",
+        text: response.data.message || "Your preferences have been submitted successfully.",
+        icon: "success",
+      });
+
+      reset();
+      setStep(0);
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong. Please try again.",
+        icon: "error",
+      });
     }
-    let response = await PageServices.newPreferences(formatData)
+  } catch (error) {
+    console.error("Study preference lead error:", error);
+
     Swal.fire({
-      title: "Thank You",
-      text: response.message,
-      icon: "success"
+      title: "Error",
+      text: "An error occurred. Please try again later.",
+      icon: "error",
     });
-    reset()
-    setStep(0)
   }
+};
+
 
   return (
     <section className="relative bg-white py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">

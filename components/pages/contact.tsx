@@ -6,6 +6,7 @@ import useAsync from '@/hooks/useAsync';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useGlobal } from '@/hooks/AppStateContext';
+import axiosInstance from '@/services/axiosInstance';
 
 function Contact() {
     const router = useRouter();
@@ -37,37 +38,49 @@ function Contact() {
         }
     }, [data, contactData, faq]);
 
+
+
+
     const handleUpdate = async (e) => {
         e.preventDefault();
+
         if (!name || !email || !mobile || !city || !message) {
-            alert('All fields are required');
+            alert("All fields are required");
             return;
         }
 
         try {
-            const createJob = await PageServices.createForme({
-                name,
+            const payload = {
+                fullName: name,
                 email,
-                mobileNo: mobile,
-                city,
-                message,
-                type: 'contact'
-            });
+                phone: String(mobile),
+                source: "website",
+                coursePreference: "unfilled",
+                city: city,
+                extraDetails: {
+                    message
+                },
+            };
 
-            if (createJob.status === 'success') {
-                setName('');
-                setEmail('');
-                setMobile('');
-                setCity('');
-                setMessage('');
-                router.push('/thank-you');
+            const response = await axiosInstance.post("/leads", payload);
+
+            if (response?.data?.success) {
+                setName("");
+                setEmail("");
+                setMobile("");
+                setCity("");
+                setMessage("");
+
+                router.push("/thank-you");
             } else {
-                alert('Something went wrong');
+                alert("Something went wrong");
             }
         } catch (error) {
-            console.error("Something went wrong", error);
+            console.error("Lead submission error:", error);
+            alert("An error occurred. Please try again.");
         }
     };
+
 
     const nationalOffices = officeData.filter((office) => office.officeType === 'National');
     const internationalOffices = officeData.filter((office) => office.officeType === 'InterNational');
@@ -372,11 +385,20 @@ function Contact() {
                                             type="text"
                                             name="phone"
                                             value={mobile}
-                                            onChange={(e) => setMobile(e.target.value)}
-                                            className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                                            onChange={(e) => {
+                                                const value = e.target.value.replace(/\D/g, ""); // 
+                                                if (value.length <= 10) {
+                                                    setMobile(value);
+                                                }
+                                            }}
+                                            maxLength={10}
+                                            inputMode="numeric"
+                                            pattern="[0-9]{10}"
+                                            className="w-full h-10 rounded-[10px] border-2 border-gray-400 focus:border-red-500 py-2 px-4 text-gray-900 transition-colors"
                                             placeholder="Mobile No."
                                             required
                                         />
+
                                     </div>
                                     <div>
                                         <input

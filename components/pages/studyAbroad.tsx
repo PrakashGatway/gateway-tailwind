@@ -50,21 +50,7 @@ const StudyAbroadPage = ({ content }: any) => {
         <>
             {/* HERO */}
             <section className="hero-gradient pt-10 py-12 pb-0 lg:pb-10 flex items-center relative overflow-hidden">
-                {/* Animated background elements */}
-                <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
-                    <div className="absolute top-32 left-16 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-1"></div>
-                    <div className="absolute top-44 left-12 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-2"></div>
-                    <div className="absolute top-56 left-18 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-3"></div>
-                    <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div>
-
-                    <div className="absolute top-20 right-20 w-20 h-20 border-2 border-red-300 rounded-full animate-rotate-slow"></div>
-                    <div className="absolute bottom-40 left-20 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[30px] border-b-red-300 animate-float"></div>
-
-                    {/* Additional floating elements */}
-                    <div className="absolute top-1/4 right-1/4 w-6 h-6 bg-pink-400 rounded-full animate-float animate-stagger-2"></div>
-                    <div className="absolute bottom-1/3 right-1/3 w-8 h-8 bg-yellow-400 rounded-full animate-bounce-slow animate-stagger-3"></div>
-                </div>
+               
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -112,10 +98,8 @@ const StudyAbroadPage = ({ content }: any) => {
                                 />
                             </div>
 
-                            {/* Background circle with pulse animation */}
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 sm:w-72 lg:w-96 h-64 sm:h-72 lg:h-96 bg-white bg-opacity-20 rounded-full animate-pulse-slow -z-10"></div>
+                          
 
-                            <div className="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 w-6 sm:w-8 h-6 sm:h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full animate-bounce-slow"></div>
                             <div className="absolute lg:-bottom-8 -bottom-12 lg:-left-4 -left-2 z-10 border-2 border-red-600 bg-white shadow-3xl rounded-xl p-3 sm:p-4">
                                 <h3 className="text-lg sm:text-xl m-0 font-bold text-center">99.99%</h3>
                                 <p className="text-xs sm:text-sm m-0 text-center">Success Rate</p>

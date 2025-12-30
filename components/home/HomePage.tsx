@@ -377,53 +377,79 @@ function Index() {
     }
   });
 
-  const handleUpdate2 = async (data) => { // 'data' now contains validated form values
+  const handleUpdate2 = async (data) => {
     const {
-      name, lastName, email, mobile, whatsappNo, age, city,
-      occupation, adress, howDidyouKnow, qualifications, query
+      name,
+      lastName,
+      email,
+      mobile,
+      whatsappNo,
+      age,
+      city,
+      occupation,
+      adress,
+      howDidyouKnow,
+      qualifications,
+      query,
     } = data;
+
     try {
-      const createJob = await PageServices.createForme({
-        name,
-        email,
-        mobileNo: mobile,
-        lastName,
-        whatsappNo,
-        city,
-        age,
-        occupation,
-        adress, // Keep typo for consistency
-        howDidyouKnow,
-        qualification: qualifications,
-        message: query,
-        type: 'partner'
+
+      const response = await axiosInstance.post("/leads", {
+
+        fullName: `${name} ${lastName}`,city, email, phone: mobile, source: "website", coursePreference: "partnerForm", extraDetails: {
+
+          whatsappNo,
+          age,
+          occupation,
+          adress,
+          qualification: qualifications,
+          message: query,
+          type: "partner",
+        }
+
       });
 
-      if (createJob.status === 'success') {
+
+      if (response?.data?.success || response?.status === 200) {
         resetPartnerForm();
+
+
         const modalEl = document.getElementById("partnerModal");
-        modalEl.classList.remove("show");
-        modalEl.style.display = "none";
-        modalEl.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("modal-open");
-        const backdrop = document.querySelector(".modal-backdrop");
-        if (backdrop) backdrop.remove();// ✅ safer method
+        if (modalEl?.open) modalEl.close();
+
+
+        document.body.style.overflow = "auto";
+
+
         Swal.fire({
           title: "Success",
-          text: 'thanks for your submission!',
+          text: "Thanks for your submission!",
           icon: "success",
           customClass: {
-            popup: "swal-zindex"
-          }
+            popup: "swal-zindex",
+          },
         });
       } else {
-        alert('Something went wrong');
+        Swal.fire({
+          title: "Error",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error("Error submitting partner form:", error);
-      alert('An error occurred. Please try again.'); // Provide user feedback
+
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred. Please try again later.",
+        icon: "error",
+      });
     }
   };
+
+
+
 
   return (
     <>
@@ -1182,19 +1208,22 @@ function Index() {
       </section>
 
       {/* Partner Modal */}
-      <dialog id="partnerModal" className="modal modal-bottom sm:modal-middle">
+      <dialog id="partnerModal" className="modal modal modal-bottom sm:modal-middle
+    backdrop:bg-black/50
+    backdrop:backdrop-blur-sm
+    px-3 sm:px-6 mx-auto p-4 rounded-[10px] modal-bottom sm:modal-middle">
         <div className="modal-box max-w-4xl">
           <div className="modal-header mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">Become A Partner</h3>
+            <h3 className="text-2xl font-bold text-gray-900">Partner</h3>
             <form method="dialog">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
           </div>
 
-          <div className="modal-body max-h-[70vh] overflow-y-auto">
+          <div className="modal-body max-h-[70vh] px-2 overflow-y-auto">
             <div className="get-in-touch-form">
               <form onSubmit={handleSubmitPartner(handleUpdate2)} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
                   {/* First Name */}
                   <div>
                     <input
@@ -1333,7 +1362,7 @@ function Index() {
                     className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 ${partnerErrors.howDidyouKnow ? 'border-red-500' : 'border-gray-300'
                       }`}
                   >
-                    <option value="">How did you come to know about Gateway Abroad?</option>
+                    <option value="">did you come to know about Gateway Abroad?</option>
                     <option value='google'>Google Ad</option>
                     <option value='facebook'>Facebook Ad</option>
                     <option value='email'>Email Campaign</option>
@@ -1383,7 +1412,7 @@ function Index() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-300 transform hover:scale-105 shadow-lg"
+                  className="w-full bg-purple-600  text-white py-3 px-6 rounded-lg font-semibold "
                 >
                   SUBMIT
                 </button>

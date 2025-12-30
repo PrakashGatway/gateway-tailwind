@@ -128,18 +128,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
     <>
       {/* Hero Section */}
       <section className="hero-gradient pt-12 py-1 md:py-12 flex items-center relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
-          <div className="absolute top-32 left-16 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-1"></div>
-          <div className="absolute top-44 left-12 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-2"></div>
-          <div className="absolute top-56 left-18 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-3"></div>
-          <div className="absolute top-68 left-14 w-2 h-2 bg-red-500 rounded-full animate-pulse-slow animate-stagger-4"></div>
-
-          <div className="absolute top-20 right-20 w-20 h-20 border-2 border-red-300 rounded-full animate-rotate-slow"></div>
-          <div className="absolute bottom-40 left-20 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-b-[30px] border-b-red-300 animate-float"></div>
-
-          <div className="absolute top-1/4 right-1/4 w-6 h-6 bg-pink-400 rounded-full animate-float animate-stagger-2"></div>
-        </div>
+      
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 lg:gap-12 items-center">
@@ -270,7 +259,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
           {/* Desktop Image */}
           <Image
             src={content?.pageContent?.roadmapImage ? `${baseUrl}/uploads/${content?.pageContent?.roadmapImage}` : "/anime/road.svg"}
-            alt={getContentByType('form-section')?.title}
+            alt={getContentByType('form-section')?.title||"image"}
             className="hidden md:block w-full h-auto"
             width={600}
             height={470}

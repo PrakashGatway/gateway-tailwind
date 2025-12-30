@@ -114,7 +114,7 @@ function SpokenEnglish() {
         <div>
             {/* Hero Section */}
             <section className="hero-gradient py-16 md:py-20 relative overflow-hidden">
-               
+
 
                 <div className="max-w-7xl mx-auto px-4 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-8 items-center">
@@ -129,12 +129,17 @@ function SpokenEnglish() {
                                 {spokenEnglishDetails?.SubTitle || ''}
                                 <div dangerouslySetInnerHTML={sanitizedData()} />
                             </div>
-                            <Link
-                                href="/contact"
+                            <button
+                                onClick={() => {
+                                    if (typeof window !== "undefined") {
+                                        window.dispatchEvent(new Event("openFooterModal"));
+                                    }
+                                }}
                                 className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300 inline-block"
                             >
                                 Enroll Now
-                            </Link>
+                            </button>
+
                         </div>
 
                         <div className="relative">
@@ -145,51 +150,51 @@ function SpokenEnglish() {
                                 height={400}
                                 className="w-full object-cover pl-[60px]"
                             />
-                           
+
                         </div>
                     </div>
                 </div>
             </section>
 
-  {/* Why Choose Section */}
-<section className="py-12 bg-gray-50">
-    <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 pb-[30px]">
-            Why Choose Gateway Abroad for Spoken English Classes?
-        </h2>
+            {/* Why Choose Section */}
+            <section className="py-12 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4">
+                    <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 pb-[30px]">
+                        Why Choose Gateway Abroad for Spoken English Classes?
+                    </h2>
 
-        <div className="flex flex-wrap justify-center gap-4">
-            {spokenEnglishDetails?.WhyChoose?.map((data, index) => (
-                <div
-                    key={index}
-                    className="bg-[#f3f4f6] rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300 shadow-[0_4px_6px_rgba(0,0,0,0.18)] w-full md:max-w-[400px] lg:max-w-[400px]"
-                >
-                    <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0">
-                            <div className="w-[60px] h-[60px] bg-[#d71635] rounded-full flex items-center justify-center">
-                                <Image
-                                    src="/img/mic.png"
-                                    alt="Icon"
-                                    width={30}
-                                    height={24}
-                                    className="rounded-full object-cover"
-                                />
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {spokenEnglishDetails?.WhyChoose?.map((data, index) => (
+                            <div
+                                key={index}
+                                className="bg-[#f3f4f6] rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-300 shadow-[0_4px_6px_rgba(0,0,0,0.18)] w-full md:max-w-[400px] lg:max-w-[400px]"
+                            >
+                                <div className="flex items-start gap-4">
+                                    <div className="flex-shrink-0">
+                                        <div className="w-[60px] h-[60px] bg-[#d71635] rounded-full flex items-center justify-center">
+                                            <Image
+                                                src="/img/mic.png"
+                                                alt="Icon"
+                                                width={30}
+                                                height={24}
+                                                className="rounded-full object-cover"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900 text-lg mb-2">{data.title}</h3>
+                                        <p className="text-gray-600 text-sm leading-relaxed">
+                                            {typeof data.content === 'string'
+                                                ? data.content
+                                                : data.content?.toString() || 'No description available.'}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-gray-900 text-lg mb-2">{data.title}</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">
-                                {typeof data.content === 'string'
-                                    ? data.content
-                                    : data.content?.toString() || 'No description available.'}
-                            </p>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            ))}
-        </div>
-    </div>
-</section>
+            </section>
 
             {/* Testimonials Section */}
             <section className="py-12 bg-gray-300 relative">
@@ -442,43 +447,43 @@ function SpokenEnglish() {
                 </div>
             </section>
 
-              {/* ====== Counselling Session Section ====== */}
-<section className="py-12 md:py-16 bg-white">
-  <div className="container mx-auto px-4 max-w-7xl">
-    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
-      {/* Content container with specific padding */}
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
-          <div className="w-full lg:w-[48%]">
-            <div className="text-center lg:text-left pl-[17px]">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
-                Avail A Complementary Counselling Session
-              </h2>
-              <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
-                Join thousand of instructors and earn money hassle free!
-              </p>
-              <a 
-                href="/contact" 
-                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
-              >
-                Contact us
-              </a>
-            </div>
-          </div>
-          <div className="w-full lg:w-[38%]">
-            <div className="flex justify-center">
-              <img
-                src="img/counselling-session.svg"
-                alt="Counselling Session"
-                className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            {/* ====== Counselling Session Section ====== */}
+            <section className="py-12 md:py-16 bg-white">
+                <div className="container mx-auto px-4 max-w-7xl">
+                    <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+                        {/* Content container with specific padding */}
+                        <div className="px-4 sm:px-6 lg:px-8">
+                            <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+                                <div className="w-full lg:w-[48%]">
+                                    <div className="text-center lg:text-left pl-[17px]">
+                                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
+                                            Avail A Complementary Counselling Session
+                                        </h2>
+                                        <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                                            Join thousand of instructors and earn money hassle free!
+                                        </p>
+                                        <a
+                                            href="/contact"
+                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                                        >
+                                            Contact us
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="w-full lg:w-[38%]">
+                                    <div className="flex justify-center">
+                                        <img
+                                            src="img/counselling-session.svg"
+                                            alt="Counselling Session"
+                                            className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
