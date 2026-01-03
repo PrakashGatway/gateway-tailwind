@@ -49,12 +49,28 @@ function Contact() {
             return;
         }
 
+         const rawSource =
+    new URLSearchParams(window.location.search)
+      .get("utm_source")
+      ?.toLowerCase() || "website";
+
+
+  let finalSource = "website";
+
+  if (["google", "googleads", "adwords"].includes(rawSource)) {
+    finalSource = "googleAds";
+  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+    finalSource = "facebook";
+  } else if (rawSource === "facebook") {
+    finalSource = "facebook";
+  }
+
         try {
             const payload = {
                 fullName: name,
                 email,
                 phone: String(mobile),
-                source: "website",
+                source: rawSource,
                 coursePreference: "unfilled",
                 city: city,
                 extraDetails: {

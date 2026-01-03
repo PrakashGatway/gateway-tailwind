@@ -89,21 +89,27 @@ const handleSubmit = async (formData) => {
   try {
     setLoading(true);
 
-    let src = 'website' as any;
+    const rawSource =
+    new URLSearchParams(window.location.search)
+      .get("utm_source")
+      ?.toLowerCase() || "website";
 
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const from = params.get("src")
-      if (from == 'facebook') {
-        src = 'facebook';
-      }
-    }
+
+  let finalSource = "website";
+
+  if (["google", "googleads", "adwords"].includes(rawSource)) {
+    finalSource = "googleAds";
+  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+    finalSource = "facebook";
+  } else if (rawSource === "facebook") {
+    finalSource = "facebook";
+  }
 
     let response = await axiosInstance.post('/leads', {
       fullName: name, 
       email, 
       phone: mobile, 
-      source: src || "website", 
+      source: rawSource, 
       coursePreference: "unfilled", 
       countryOfResidence: city, 
       extraDetails: {

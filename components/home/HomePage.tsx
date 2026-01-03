@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import {  useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
@@ -31,6 +31,7 @@ function Index() {
   // Keen Slider for student info - UPDATED with autoplay
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
 
 
   const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider(
@@ -324,32 +325,54 @@ function Index() {
     }
   });
 
-  const handleUpdate = async (data) => { // 'data' now contains validated form values
+
+ 
+
+
+
+  const handleUpdate = async (data) => {
     const { name, email, mobile, studyDestination, query } = data;
+
+    const rawSource =
+    new URLSearchParams(window.location.search)
+      .get("utm_source")
+      ?.toLowerCase() || "website";
+
+
+  let finalSource = "website";
+
+  if (["google", "googleads", "adwords"].includes(rawSource)) {
+    finalSource = "googleAds";
+  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+    finalSource = "facebook";
+  } else if (rawSource === "facebook") {
+    finalSource = "facebook";
+  }
+
     try {
       setLoading(true);
-      let response = await axiosInstance.post('/leads', {
-        fullName: name, email, phone: mobile, source: "website", coursePreference: studyDestination, extraDetails: {
-          query
-        }
-      })
+
+      let response = await axiosInstance.post("/leads", {
+        fullName: name,
+        email,
+        phone: mobile,
+
+        // 🔥 UTM SOURCE HERE
+        source: rawSource, // instagram | facebook | google | website
+
+        coursePreference: studyDestination,
+        extraDetails: {
+          message: query,
+        
+        },
+      });
+
       if (response.data.success) {
         resetRegisterForm();
-        router.push('/thank-you');
-        // Swal.fire({
-        //   title: "Success",
-        //   text: "Thanks for registering!",
-        //   icon: "success",
-        //   customClass: {
-        //     popup: "swal-zindex"
-        //   }
-        // });
-      } else {
-        alert('Something went wrong');
+        router.push("/thank-you");
       }
     } catch (error) {
-      console.error("Error submitting register form:", error);
-      alert('An error occurred. Please try again.'); // Provide user feedback
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -378,75 +401,93 @@ function Index() {
   });
 
   const handleUpdate2 = async (data) => {
-    const {
-      name,
-      lastName,
+  const {
+    name,
+    lastName,
+    email,
+    mobile,
+    whatsappNo,
+    age,
+    city,
+    occupation,
+    adress,
+    howDidyouKnow,
+    qualifications,
+    query,
+  } = data;
+
+
+  const rawSource =
+    new URLSearchParams(window.location.search)
+      .get("utm_source")
+      ?.toLowerCase() || "website";
+
+
+  let finalSource = "website";
+
+  if (["google", "googleads", "adwords"].includes(rawSource)) {
+    finalSource = "googleAds";
+  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+    finalSource = "facebook";
+  } else if (rawSource === "facebook") {
+    finalSource = "facebook";
+  }
+
+  try {
+    const response = await axiosInstance.post("/leads", {
+      fullName: `${name} ${lastName}`,
       email,
-      mobile,
-      whatsappNo,
-      age,
+      phone: mobile,
       city,
-      occupation,
-      adress,
-      howDidyouKnow,
-      qualifications,
-      query,
-    } = data;
 
-    try {
+ 
+      source: finalSource,
 
-      const response = await axiosInstance.post("/leads", {
+      coursePreference: "partnerForm",
 
-        fullName: `${name} ${lastName}`,city, email, phone: mobile, source: "website", coursePreference: "partnerForm", extraDetails: {
+      extraDetails: {
+        whatsappNo,
+        age,
+        occupation,
+        adress,
+        qualification: qualifications,
+        message: query,
+        howDidyouKnow,
+        utmSource: rawSource,
+        type: "partner",
+      },
+    });
 
-          whatsappNo,
-          age,
-          occupation,
-          adress,
-          qualification: qualifications,
-          message: query,
-          type: "partner",
-        }
+    if (response?.data?.success || response?.status === 200) {
+      resetPartnerForm();
 
-      });
-
-
-      if (response?.data?.success || response?.status === 200) {
-        resetPartnerForm();
-
-
-        const modalEl = document.getElementById("partnerModal");
-        if (modalEl?.open) modalEl.close();
-
-
-        document.body.style.overflow = "auto";
-
-
-        Swal.fire({
-          title: "Success",
-          text: "Thanks for your submission!",
-          icon: "success",
-          customClass: {
-            popup: "swal-zindex",
-          },
-        });
-      } else {
-        Swal.fire({
-          title: "Error",
-          text: "Something went wrong. Please try again.",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.error("Error submitting partner form:", error);
+      const modalEl = document.getElementById("partnerModal");
+      if (modalEl?.open) modalEl.close();
+      document.body.style.overflow = "auto";
 
       Swal.fire({
+        title: "Success",
+        text: "Thanks for your submission!",
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
         title: "Error",
-        text: "An error occurred. Please try again later.",
+        text: "Something went wrong. Please try again.",
         icon: "error",
       });
     }
-  };
+  } catch (error) {
+    console.error("Partner form error:", error);
+    Swal.fire({
+      title: "Error",
+      text: "An error occurred. Please try again later.",
+      icon: "error",
+    });
+  }
+};
+
+
 
 
 

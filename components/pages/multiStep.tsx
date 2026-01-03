@@ -34,15 +34,34 @@ export default function EnhancedMultiStepForm() {
   const onBack = () => setStep((prev) => prev - 1)
 
   const onSubmit = async (data: any) => {
+
+
+     const rawSource =
+    new URLSearchParams(window.location.search)
+      .get("utm_source")
+      ?.toLowerCase() || "website";
+
+
+  let finalSource = "website";
+
+  if (["google", "googleads", "adwords"].includes(rawSource)) {
+    finalSource = "googleAds";
+  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+    finalSource = "facebook";
+  } else if (rawSource === "facebook") {
+    finalSource = "facebook";
+  }
+
+
   try {
     const payload = {
       fullName: data.name,            
       email: data.email,
       phone: String(data.mobile),
-      source: "website",
+      source: rawSource,
       coursePreference: data.course || "studyPreference",
 
-      countryOfResidence: data.city,
+      city: data.city,
 
       extraDetails: {
         preferredCountry: data.country,
@@ -52,6 +71,7 @@ export default function EnhancedMultiStepForm() {
         type: "study-preference",
       },
     };
+     
 
     const response = await axiosInstance.post("/leads", payload);
 
