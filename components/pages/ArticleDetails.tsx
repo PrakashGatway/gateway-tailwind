@@ -632,43 +632,42 @@ export default function ArticleClient({ article }) {
     }, []);
 
     // Track reading time
-    useEffect(() => {
-        if (!article?._id) return;
+    // useEffect(() => {
+    //     if (!article?._id) return;
 
-        let startTime = Date.now();
-        let isVisible = true;
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                isVisible = false;
-            } else {
-                isVisible = true;
-                startTime = Date.now() - totalPausedTime;
-            }
-        };
+    //     let startTime = Date.now();
+    //     let isVisible = true;
+    //     const handleVisibilityChange = () => {
+    //         if (document.hidden) {
+    //             isVisible = false;
+    //         } else {
+    //             isVisible = true;
+    //             startTime = Date.now() - totalPausedTime;
+    //         }
+    //     };
 
-        document.addEventListener('visibilitychange', handleVisibilityChange);
+    //     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-        let totalPausedTime = 0;
-        let lastPauseTime = null;
+    //     let totalPausedTime = 0;
+    //     let lastPauseTime = null;
 
-        const interval = setInterval(() => {
-            if (isVisible) {
-                const currentDuration = Math.floor((Date.now() - startTime - totalPausedTime) / 1000);
-                if (currentDuration > 0) {
-                    axiosInstance.post(`/web/blog/log/${article._id}`, {
-                        readDuration: currentDuration,
-                    }).catch(console.error);
-                }
-            }
-        }, 30000);
+    //     const interval = setInterval(() => {
+    //         if (isVisible) {
+    //             const currentDuration = Math.floor((Date.now() - startTime - totalPausedTime) / 1000);
+    //             if (currentDuration > 0) {
+    //                 axiosInstance.post(`/web/blog/log/${article._id}`, {
+    //                     readDuration: currentDuration,
+    //                 }).catch(console.error);
+    //             }
+    //         }
+    //     }, 30000);
 
-        return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-            clearInterval(interval);
-        };
-    }, [article?._id]);
+    //     return () => {
+    //         document.removeEventListener('visibilitychange', handleVisibilityChange);
+    //         clearInterval(interval);
+    //     };
+    // }, [article?._id]);
 
-    // Fetch latest articles
     useEffect(() => {
         const fetchLatestArticles = async () => {
             try {
@@ -871,8 +870,8 @@ export default function ArticleClient({ article }) {
                         <div>
                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
                         </div>
-           <div className='ml-auto'>
-                         <span className='
+                        <div className='ml-auto'>
+                            <span className='
   bg-gradient-to-r from-[#E12827] to-[#FF6B6B]
   text-white
   px-5 py-2
@@ -886,9 +885,9 @@ export default function ArticleClient({ article }) {
   transform hover:-translate-y-0.5
   tracking-wide
 '>
-                            Author • Admin
-                        </span>
-           </div>
+                                Author • Admin
+                            </span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -921,10 +920,12 @@ export default function ArticleClient({ article }) {
 
                                 {/* Article Content - USE processedContent with IDs */}
                                 <div className="sm:px-6 pb-8 pt-6">
-                                    <div
-                                        className="prose prose-lg max-w-none blogs"
-                                        dangerouslySetInnerHTML={sanitizeContent(processedContent || decodedContent)}
-                                    />
+                                    <div className="html-reset">
+                                        <div
+                                            dangerouslySetInnerHTML={sanitizeContent(processedContent || decodedContent)}
+                                        />
+                                    </div>
+
 
                                     {/* Share Section */}
                                     <div className="mt-8 pt-6 border-t border-gray-200">

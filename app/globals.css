@@ -15,6 +15,17 @@ body,
   font-family: "Noto Sans", "Inter", system-ui, -apple-system, sans-serif !important;
 }
 
+.html-reset {
+  all: initial;              /* 🔥 resets EVERYTHING */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #111;
+}
+
+.html-reset * {
+  all: revert;               /* allow browser defaults */
+}
+
+
 * {
   margin: 0;
   padding: 0;

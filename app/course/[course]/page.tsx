@@ -12,7 +12,7 @@ const seoData = {
       url: "https://www.gatewayabroadeducations.com",
       title: "Gateway Abroad Education, Study Abroad and Test Preparation",
       description: "Planning to study abroad from India? Gateway Abroad offers expert test prep, visa support & admissions for Canada, UK, USA, Germany & more.",
-      image: "/img/og-default.jpg",
+      image: "/img/ga-logo.jpg",
       site_name: "Gateway Abroad Education"
     },
     twitter: {
@@ -31,7 +31,7 @@ const seoData = {
       og: {
         title: "Top IELTS Coaching in Jaipur | 7+ Band Guarantee | IELTS",
         description: "Ace IELTS coaching in Jaipur's #1 institute! Expert trainers, personalized study plans with mock tests. Score 7+ bands for UK/US visas. Free demo class.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/1712599856913-images%20(2).png"
       },
       twitter: {
         card: "summary_large_image",
@@ -48,7 +48,7 @@ const seoData = {
       og: {
         title: "GMAT Coaching in Jaipur | Focus Edition | 700+ Score Strategies",
         description: "Master GMAT coaching in Jaipur! 99th percentile trainers, adaptive DI section strategies, and 700+ score techniques. 40+ hours of live problem-solving.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/1722690849056-gmat.jpg"
       },
       twitter: {
         card: "summary_large_image",
@@ -65,7 +65,7 @@ const seoData = {
       og: {
         title: "Best GRE Coaching in Jaipur | Get 320+ Score | GRE Prep",
         description: "320+ GRE scores guaranteed! Jaipur's top coaching for shorter GRE format. Quant/verbal bootcamps, AWA templates & 10 full-length mocks.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(3).png"
       },
       twitter: {
         card: "summary_large_image",
@@ -82,7 +82,7 @@ const seoData = {
       og: {
         title: "Digital SAT Coaching in Jaipur | 1500+ Score | Adaptive Test",
         description: "Conquer the Digital SAT coaching in jaipur for adaptive testing, Desmos calculator mastery & 1500+ strategies. 5 full Bluebook simulations.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(4).png"
       },
       twitter: {
         card: "summary_large_image",
@@ -99,7 +99,7 @@ const seoData = {
       og: {
         title: "PTE Academic Coaching Jaipur | PTE classes | PTE good score",
         description: "Get PTE 80+ in 15 days! AI-based evaluation, speaking templates & accent training at Jaipur's top institute. 97% first-attempt success rate. Free practice test.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(2).png"
       },
       twitter: {
         card: "summary_large_image",
@@ -116,7 +116,7 @@ const seoData = {
       og: {
         title: "TOEFL Coaching in Jaipur | US University Focus | TOEFL iBT Institute",
         description: "TOEFL 100+ for USA dreams! Integrated skills training, academic vocabulary & note-taking strategies. TOEFL coaching in jaipur with only ETS-certified trainers.",
-        image: "/img/ga-logo.svg"
+        image: "https://api.gatewayabroadeducations.com/api/uploads/1712599042549-toefl2023%20(1).png"
       },
       twitter: {
         card: "summary_large_image",
@@ -162,7 +162,7 @@ const getCourseSchema = (course: string) => {
   const data = courseConfig[courseUpper] || {
     name: "Coaching Course",
     image: "/img/ga-logo.svg",
-    ratingCount: "1000",
+    ratingCount: "9554",
     description:
       "Gateway Abroad Education offers expert coaching for international exams."
   };
@@ -241,7 +241,7 @@ export async function generateMetadata({ params }:any) {
       card: courseData.twitter?.card || 'summary_large_image',
       title: courseData.twitter?.title || courseData.title,
       description: courseData.twitter?.description || courseData.description,
-      images: [courseData.twitter?.image],
+      images: [courseData.og?.image],
     },
     alternates: {
       canonical: courseData.canonical,
@@ -252,8 +252,6 @@ export async function generateMetadata({ params }:any) {
 const CoursePage = ({ params }: any) => {
   const { course } =  params;
   const schema = getCourseSchema(course);
-
-  console.log(params.course)
 
   return (
     <>

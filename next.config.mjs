@@ -61,6 +61,10 @@ const nextConfig = {
         source: "/study-in-:country",   // pattern for incoming requests
         destination: "/study-in/:country", // actual Next.js page
       },
+    {
+      source: "/gallary",   // pattern for incoming requests
+      destination: "/gallery", // actual Next.js page
+    }
     ];
   },
 }

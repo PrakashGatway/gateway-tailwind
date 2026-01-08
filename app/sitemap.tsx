@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPagesByType("country_page"),
   ]);
 
-  const StaticURL = ['/about', '/spoken-english', '/gallary', '/course/TOEFL', '/study-abroad' ,'/course/IELTS', '/course/GRE', '/course/SAT', '/course/PTE', '/course/GMAT', '/blog', '/career', '/contact', '/study-abroad', '/study-in-uk', '/course/duolingo']
+  const StaticURL = ['/about', '/spoken-english', '/gallery', '/course/TOEFL', '/study-abroad' ,'/course/IELTS', '/course/GRE', '/course/SAT', '/course/PTE', '/course/GMAT', '/blog', '/career', '/contact', '/study-abroad', '/study-in-uk', '/course/duolingo']
 
   const staticRoutes: MetadataRoute.Sitemap = StaticURL.map((item: any) => ({
     url: `${baseUrl}${item.toLowerCase()}`,

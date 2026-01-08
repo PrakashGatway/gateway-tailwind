@@ -567,7 +567,7 @@ const Header = () => {
               </Link>
 
               <Link
-                href="/gallary"
+                href="/gallery"
                 className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
                 onClick={() => setIsMenuOpen(false)}
               >
