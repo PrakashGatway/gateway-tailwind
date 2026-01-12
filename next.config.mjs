@@ -64,6 +64,10 @@ const nextConfig = {
     {
       source: "/gallary",   // pattern for incoming requests
       destination: "/gallery", // actual Next.js page
+    },
+        {
+      source: "/blog-description",   // pattern for incoming requests
+      destination: "/blog", // actual Next.js page
     }
     ];
   },
