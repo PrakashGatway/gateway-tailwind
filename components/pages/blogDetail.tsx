@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import PageServices from '@/services/PageServices';
 import { constant } from '@/constant/index.constant';
 import DOMPurify from 'dompurify';
@@ -21,10 +21,9 @@ const sanitizeContent = (content) => {
   return { __html: DOMPurify.sanitize(content) };
 };
 
-export default function SingleBlogPage({ data }) {
-  const router = useRouter();
-  const params = useParams();
-  const { slug: id } = params;
+export default function SingleBlogPage({ data, slug:id }) {
+  // const router = useRouter();
+  // const { slug: id } = params;
 
   const [blogData, setBlogData] = useState([]);
   const [singleBlogData, setSingleBlogData] = useState({});
@@ -73,11 +72,11 @@ export default function SingleBlogPage({ data }) {
         setSimilarBlogs(similar);
       } else {
         console.error("Failed to fetch current blog data");
-        router.push('/blog');
+        // router.push('/blog');
       }
     } catch (error) {
       console.error("Error fetching blog data:", error);
-      router.push('/blog');
+      // router.push('/blog');
     } finally {
       setLoading(false);
     }
@@ -106,35 +105,35 @@ export default function SingleBlogPage({ data }) {
         <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
-             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-                        <Link 
-                            href="/" 
-                            style={{ 
-                                pointerEvents: 'auto', 
-                                cursor: 'pointer',
-                                position: 'relative',
-                                zIndex: 9999 
-                            }}
-                            className="hover:text-[#E12827] transition-colors"
-                        >
-                            Home
-                        </Link>
-                        <span>›</span>
-                        <Link 
-                            href="/blog"
-                            style={{ 
-                                pointerEvents: 'auto', 
-                                cursor: 'pointer',
-                                position: 'relative',
-                                zIndex: 9999 
-                            }}
-                            className="hover:text-[#E12827] transition-colors"
-                        >
-                            Blog
-                        </Link>
-                        <span>›</span>
-                        <span className="text-gray-900 font-medium truncate">{singleBlogData?.blogTitle}</span>
-                    </nav>
+            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+              <Link
+                href="/"
+                style={{
+                  pointerEvents: 'auto',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  zIndex: 9999
+                }}
+                className="hover:text-[#E12827] transition-colors"
+              >
+                Home
+              </Link>
+              <span>›</span>
+              <Link
+                href="/blog"
+                style={{
+                  pointerEvents: 'auto',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  zIndex: 9999
+                }}
+                className="hover:text-[#E12827] transition-colors"
+              >
+                Blog
+              </Link>
+              <span>›</span>
+              <span className="text-gray-900 font-medium truncate">{singleBlogData?.blogTitle}</span>
+            </nav>
 
             {/* Blog Title */}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -157,8 +156,8 @@ export default function SingleBlogPage({ data }) {
 
 
               <div>
-                            <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
-                        </div>
+                <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
+              </div>
             </div>
           </div>
         </section>
@@ -215,37 +214,37 @@ export default function SingleBlogPage({ data }) {
 
                         <div className='flex space-x-3' >
                           <Link
-                          target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
-                          className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
-                        >
-                          <i className="fa fa-facebook"></i>
-                        </Link>
-                        <Link
-                          target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
-                          className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
-                        >
-                          <i className="fa fa-twitter"></i>
-                        </Link>
-                        <Link
-                          target='_blank'
-                          href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
-                          className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
-                        >
-                          <i className="fa fa-linkedin"></i>
-                        </Link>
-                        <Link
-                          target='_blank'
-                          href={`mailto:?subject=${encodeURIComponent(singleBlogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
-                          className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
-                        >
-                          <i className="fa fa-envelope"></i>
-                        </Link>
+                            target='_blank'
+                            href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
+                          >
+                            <i className="fa fa-facebook"></i>
+                          </Link>
+                          <Link
+                            target='_blank'
+                            href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
+                          >
+                            <i className="fa fa-twitter"></i>
+                          </Link>
+                          <Link
+                            target='_blank'
+                            href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
+                          >
+                            <i className="fa fa-linkedin"></i>
+                          </Link>
+                          <Link
+                            target='_blank'
+                            href={`mailto:?subject=${encodeURIComponent(singleBlogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
+                          >
+                            <i className="fa fa-envelope"></i>
+                          </Link>
                         </div>
-                        
-                         <div>
-                            <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold '>~ By Admin</span>
+
+                        <div>
+                          <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold '>~ By Admin</span>
                         </div>
                       </div>
                     </div>
@@ -257,7 +256,7 @@ export default function SingleBlogPage({ data }) {
                   <h4 className="text-xl font-bold text-gray-900 mb-2">Leave a Reply</h4>
                   <p className="text-gray-600 mb-6">Your email address will not be published.</p>
                   <form className="space-y-4">
-                    
+
                     <div>
                       <textarea
                         placeholder="Your Comment *"
@@ -411,8 +410,8 @@ export default function SingleBlogPage({ data }) {
                       <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276] font-normal">
                         Want some help figuring out what kind of prep service is right for you?
                       </p>
-                      <a 
-                        href="/contact" 
+                      <a
+                        href="/contact"
                         className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                       >
                         Help and Support

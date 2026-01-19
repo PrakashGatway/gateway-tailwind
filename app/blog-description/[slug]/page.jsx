@@ -1,6 +1,4 @@
 import SingleBlogPage from "@/components/pages/blogDetail";
-import axios from "axios";
-export const dynamic = "force-dynamic";
 
 // export async function generateStaticParams() {
 //   try {
@@ -22,9 +20,16 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
-    const response = await axios.get(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
-
-    const seoData = response?.data?.data?.blog;
+    // const response = await axios.get(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+    // const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
+    // const data = await res.json();
+    const res = await fetch(
+      `https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`,
+      { next: { revalidate: 3600 } }
+    );
+    const data = await res.json();
+    const seoData = data?.data?.blog;
+    // const seoData = response?.data?.data?.blog;
 
     const defaultTitle = "Blog - Gateway Abroad | Study Abroad Tips & Updates";
     const defaultDescription = "Stay updated with the latest study abroad news, visa updates, test prep tips, and student success stories from Gateway Abroad.";
@@ -47,8 +52,16 @@ export async function generateMetadata({ params }) {
         site_name: "Gateway Abroad Education",
       },
       robots: {
+        index: true,
+        follow: true,
         maxImagePreview: "large",
+        googleBot: {
+          index: true,
+          follow: true,
+          maxImagePreview: "large",
+        },
       },
+
       twitter: {
         card: "summary_large_image",
         title: title,
@@ -95,5 +108,5 @@ export default async function SingleBlog({ params }) {
   const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
   const data = await res.json();
 
-  return <SingleBlogPage data={data?.data?.blog} />;
+  return <SingleBlogPage data={data?.data?.blog} slug={slug} />;
 }
