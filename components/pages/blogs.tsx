@@ -10,24 +10,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/loader";
 import BlogCard from "./usable components/BlogCard";
 
-// Add props interface
-interface AllBlogsProps {
-  initialData?: {
-    blogs: any[];
-    totalPages: number;
-    currentPage: number;
-    selectedCategory: string;
-    searchQuery: string;
-  };
-}
 
-const Blog = ({ initialData }: AllBlogsProps) => {
+const Blog = ({ initialData, searchParams }: any) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  const categoryParam = searchParams.get("category") || "All";
-  const pageParam = Number(searchParams.get("page") || 1);
-  const searchParam = searchParams.get("search") || "";
+  const categoryParam = searchParams?.category || "All";
+  const pageParam = Number(searchParams?.page || 1);
+  const searchParam = searchParams?.search || "";
 
   const blogsPerPage = 12;
 
@@ -111,15 +101,17 @@ const Blog = ({ initialData }: AllBlogsProps) => {
 
   // Fetch blogs when params change
   useEffect(() => {
-    const page = Number(searchParams.get("page")) || 1;
-    const category = searchParams.get("category") || "All";
-    const search = searchParams.get("search") || "";
-    
+
+    const category = searchParams?.category || "All";
+    const page = Number(searchParams?.page || 1);
+    const search = searchParams?.search || "";
+
+
     // Only fetch if different from initial data
-    if (!initialData || 
-        page !== initialData.currentPage || 
-        category !== initialData.selectedCategory || 
-        search !== initialData.searchQuery) {
+    if (!initialData ||
+      page !== initialData.currentPage ||
+      category !== initialData.selectedCategory ||
+      search !== initialData.searchQuery) {
       setCurrentPage(page);
       setSelectedCategory(category);
       setSearchQuery(search);
@@ -184,7 +176,7 @@ const Blog = ({ initialData }: AllBlogsProps) => {
         >
           &laquo;
         </button>
-        
+
         {pages.map((page, i) =>
           page === "..." ? (
             <span key={i} className="px-3 py-1">...</span>
@@ -198,7 +190,7 @@ const Blog = ({ initialData }: AllBlogsProps) => {
             </button>
           )
         )}
-        
+
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
@@ -237,7 +229,7 @@ const Blog = ({ initialData }: AllBlogsProps) => {
                   onKeyDown={handleSearchKeyDown}
                   placeholder="What are you looking for?"
                 />
-                <button 
+                <button
                   onClick={handleSearchClick}
                   className="absolute top-[9px] right-[9px] bg-red-600 hover:bg-red-700 text-white text-base px-8 py-[14px] rounded-[30px] font-medium transition-colors border-none"
                 >
@@ -331,10 +323,10 @@ const Blog = ({ initialData }: AllBlogsProps) => {
 };
 
 // Update export with props
-export default function AllBlogs({ initialData }: AllBlogsProps) {
+export default function AllBlogs({ initialData, searchParams }: any) {
   return (
     <Suspense fallback={<Loader />}>
-      <Blog initialData={initialData} />
+      <Blog initialData={initialData} searchParams={searchParams} />
     </Suspense>
   );
 }

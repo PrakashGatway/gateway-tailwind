@@ -40,10 +40,12 @@ export async function generateMetadata() {
   };
 }
 
-function BlogsPage() {
+async function BlogsPage({searchParams}:any) {
+  const params = await searchParams;
   return (
-    <AllBlogs />
+    <AllBlogs searchParams={params}/>
   );
 }
+
 
 export default BlogsPage;
