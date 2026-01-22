@@ -1,102 +1,25 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
-import PageServices from '@/services/PageServices';
 import { constant } from '@/constant/index.constant';
-import DOMPurify from 'dompurify';
-import Loader from '../loader';
-import { Noto_Sans } from 'next/font/google';
 
-// Configure Noto Sans font
-const notoSans = Noto_Sans({
-  weight: ['400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-});
+export default function SingleBlogPage({ 
+  blogData,  
+  similarBlogs, 
+  adjacentBlogs,
+  sanitizedContent,
+  slug 
+}:any) {
 
-// const sanitizeContet = (content) => {
-//   return {
-//     __html: DOMPurify.sanitize(content, {
-//       FORBID_ATTR: ["style", "class"],
-//     })
-//   };
-// };
-
-
-export default function SingleBlogPage({ data, slug: id }) {
-  // const router = useRouter();
-  // const { slug: id } = params;
-
-  const [blogData, setBlogData] = useState([]);
-  const [singleBlogData, setSingleBlogData] = useState({});
-  const [similarBlogs, setSimilarBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getAdjacentBlogs = () => {
-    const allBlogs = [...(Array.isArray(blogData) ? blogData : []), singleBlogData]
-      .filter(blog => blog && blog.Slug)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    const currentIndex = allBlogs.findIndex(blog => blog.Slug === id);
-    return {
-      prevBlog: allBlogs[currentIndex + 1] || null,
-      nextBlog: allBlogs[currentIndex - 1] || null
-    };
-  };
-  const { prevBlog, nextBlog } = getAdjacentBlogs();
-
-  useEffect(() => {
-    setSingleBlogData(data);
-    if (id) {
-      fetchData();
-    }
-  }, [id]);
-
-  const fetchData = async () => {
-    if (!id) return;
-
-    try {
-      setLoading(true);
-      const [allBlogsResponse] = await Promise.all([
-        PageServices.getBlogData({ page: 1, category: 'All' }),
-      ]);
-
-      if (allBlogsResponse?.status === 'success') {
-        const currentBlog = data;
-        const allBlogs = allBlogsResponse?.data?.blog || [];
-        const filteredBlogs = allBlogs.filter(x => x.Slug !== currentBlog?.Slug);
-        setBlogData(filteredBlogs);
-
-        const currentCategory = currentBlog?.category;
-        const similar = filteredBlogs
-          .filter(blog => blog.category === currentCategory)
-          .slice(0, 3);
-        setSimilarBlogs(similar);
-      } else {
-        console.error("Failed to fetch current blog data");
-        // router.push('/blog');
-      }
-    } catch (error) {
-      console.error("Error fetching blog data:", error);
-      // router.push('/blog');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (!singleBlogData || !singleBlogData.Slug) {
+  const { prevBlog, nextBlog } = adjacentBlogs || {};
+  
+  if (!blogData || !blogData.Slug) {
     return (
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center ${notoSans.className}`}>
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center`}>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Blog Post Not Found</h1>
         <p className="text-gray-600 mb-6">The requested blog post could not be found.</p>
-        <Link href="/blog" className="bg-[#E12827] text-white px-6 py-3 rounded-md hover:bg-[#c82322] transition duration-200">
+        <Link 
+          href="/blog" 
+          className="bg-[#E12827] text-white px-6 py-3 rounded-md hover:bg-[#c82322] transition duration-200"
+        >
           Back to Blog
         </Link>
       </div>
@@ -105,7 +28,7 @@ export default function SingleBlogPage({ data, slug: id }) {
 
   return (
     <>
-      <div className={notoSans.className}>
+      <div>
         {/* Hero Section with New Design */}
         <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
@@ -113,12 +36,6 @@ export default function SingleBlogPage({ data, slug: id }) {
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
               <Link
                 href="/"
-                style={{
-                  pointerEvents: 'auto',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  zIndex: 9999
-                }}
                 className="hover:text-[#E12827] transition-colors"
               >
                 Home
@@ -126,42 +43,34 @@ export default function SingleBlogPage({ data, slug: id }) {
               <span>›</span>
               <Link
                 href="/blog"
-                style={{
-                  pointerEvents: 'auto',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  zIndex: 9999
-                }}
                 className="hover:text-[#E12827] transition-colors"
               >
                 Blog
               </Link>
               <span>›</span>
-              <span className="text-gray-900 font-medium truncate">{singleBlogData?.blogTitle}</span>
+              <span className="text-gray-900 font-medium truncate">{blogData?.blogTitle}</span>
             </nav>
 
             {/* Blog Title */}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-              {singleBlogData?.blogTitle}
+              {blogData?.blogTitle}
             </h1>
 
             {/* Blog Meta Information */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
                 <span>📅</span>
-                <span>{new Date(singleBlogData?.createdAt).toLocaleDateString()}</span>
+                <span>{new Date(blogData?.createdAt).toLocaleDateString()}</span>
               </div>
-              {singleBlogData?.category && (
+              {blogData?.category && (
                 <div className="flex items-center space-x-2">
                   <span className="bg-[#E12827] bg-opacity-10 text-[#E12827] px-3 py-1 rounded-full text-xs font-medium">
-                    {singleBlogData.category}
+                    {blogData.category}
                   </span>
                 </div>
               )}
-
-
               <div>
-                <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
+                <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
               </div>
             </div>
           </div>
@@ -178,16 +87,17 @@ export default function SingleBlogPage({ data, slug: id }) {
                   <div className="mb-6">
                     <img
                       className="w-full h-auto"
-                      src={`${constant.REACT_APP_URL}/api/uploads/${singleBlogData.image}`}
-                      alt={singleBlogData?.blogTitle || 'Blog Image'}
+                      src={`${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
+                      alt={blogData?.blogTitle || 'Blog Image'}
+                      loading="lazy"
                     />
                   </div>
 
                   {/* Blog Content */}
                   <div className="px-6 pb-8">
                     <div
-                      className={`prose prose-lg max-w-none ${notoSans.className}`}
-                      dangerouslySetInnerHTML={{ __html: singleBlogData?.blogDescription || '' }}
+                      className="prose prose-lg max-w-none"
+                      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                     />
 
                     {/* Blog Navigation */}
@@ -216,40 +126,41 @@ export default function SingleBlogPage({ data, slug: id }) {
                     <div className="mt-8 pt-6 border-t border-gray-200">
                       <h4 className="text-lg font-semibold text-gray-900 mb-4">Share this post:</h4>
                       <div className="flex space-x-3 justify-between">
-
-                        <div className='flex space-x-3' >
-                          <Link
+                        <div className='flex space-x-3'>
+                          <a
                             target='_blank'
-                            href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            rel="noopener noreferrer"
+                            href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
                           >
                             <i className="fa fa-facebook"></i>
-                          </Link>
-                          <Link
+                          </a>
+                          <a
                             target='_blank'
-                            href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            rel="noopener noreferrer"
+                            href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
                           >
                             <i className="fa fa-twitter"></i>
-                          </Link>
-                          <Link
+                          </a>
+                          <a
                             target='_blank'
-                            href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                            rel="noopener noreferrer"
+                            href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
                           >
                             <i className="fa fa-linkedin"></i>
-                          </Link>
-                          <Link
-                            target='_blank'
-                            href={`mailto:?subject=${encodeURIComponent(singleBlogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${singleBlogData.Slug}`)}`}
+                          </a>
+                          <a
+                            href={`mailto:?subject=${encodeURIComponent(blogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
                           >
                             <i className="fa fa-envelope"></i>
-                          </Link>
+                          </a>
                         </div>
 
                         <div>
-                          <span className=' text-[#E12827] px-3 py-1 rounded-full text-sm font-bold '>~ By Admin</span>
+                          <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>~ By Admin</span>
                         </div>
                       </div>
                     </div>
@@ -261,7 +172,6 @@ export default function SingleBlogPage({ data, slug: id }) {
                   <h4 className="text-xl font-bold text-gray-900 mb-2">Leave a Reply</h4>
                   <p className="text-gray-600 mb-6">Your email address will not be published.</p>
                   <form className="space-y-4">
-
                     <div>
                       <textarea
                         placeholder="Your Comment *"
@@ -302,7 +212,7 @@ export default function SingleBlogPage({ data, slug: id }) {
                   </div>
 
                   {/* Similar Blogs */}
-                  {similarBlogs.length > 0 && (
+                  {similarBlogs && similarBlogs.length > 0 && (
                     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                       <h5 className="text-lg font-bold text-gray-900 mb-4">Similar Blogs</h5>
                       <div className="space-y-3">
@@ -314,13 +224,14 @@ export default function SingleBlogPage({ data, slug: id }) {
                           >
                             <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">
                               <img
-                                className="w-full h-full object-fill  transition duration-300"
+                                className="w-full h-full object-fill transition duration-300"
                                 src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
                                 alt={blog?.blogTitle || 'Similar Blog Image'}
+                                loading="lazy"
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h6 className="font-semibold text-sm text-gray-900 group-hover:text-[#E12827] transition duration-200 leading-tight line-clamp-2 mb-1">
+                              <h6 className="">
                                 {blog.blogTitle}
                               </h6>
                               <p className="text-xs text-gray-500 font-normal">
@@ -334,10 +245,10 @@ export default function SingleBlogPage({ data, slug: id }) {
                   )}
 
                   {/* Latest Posts */}
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                  {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <h5 className="text-lg font-bold text-gray-900 mb-4">Latest Post</h5>
                     <div className="space-y-3">
-                      {Array.isArray(blogData) && blogData.slice(0, 4).map((blog) => (
+                      {similarBlogs && similarBlogs.slice(0, 4).map((blog) => (
                         <Link
                           key={blog.Slug}
                           href={`/blog-description/${blog.Slug}`}
@@ -345,9 +256,10 @@ export default function SingleBlogPage({ data, slug: id }) {
                         >
                           <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">
                             <img
-                              className="w-full h-full object-fill  transition duration-300"
+                              className="w-full h-full object-fill transition duration-300"
                               src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
                               alt={blog?.blogTitle || 'Latest Post Image'}
+                              loading="lazy"
                             />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -361,7 +273,7 @@ export default function SingleBlogPage({ data, slug: id }) {
                         </Link>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Categories */}
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -404,7 +316,6 @@ export default function SingleBlogPage({ data, slug: id }) {
         <section className="py-12 md:py-16 bg-white">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
-              {/* Content container with specific padding */}
               <div className="px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
                   <div className="w-full lg:w-[48%]">
@@ -429,6 +340,7 @@ export default function SingleBlogPage({ data, slug: id }) {
                         src="/img/help-support-img.svg"
                         alt="Study Abroad Help"
                         className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                        loading="lazy"
                       />
                     </div>
                   </div>
