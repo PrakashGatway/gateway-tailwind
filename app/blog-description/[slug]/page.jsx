@@ -1,21 +1,23 @@
 import SingleBlogPage from "@/components/pages/blogDetail";
 
-// export async function generateStaticParams() {
-//   try {
-//     const res = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?all=true")
-//     const data = await res.json();
+export async function generateStaticParams() {
+  try {
+    const res = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?all=true", {
+      next: { revalidate: 21600 }
+    })
+    const data = await res.json();
 
-//     const blogs = data?.data?.blogs || [];
-//     return blogs
-//       .filter((b) => typeof b?.Slug === "string" && b.Slug.trim() !== "")
-//       .map((b) => ({
-//         slug: b.Slug,
-//       }));
-//   } catch (error) {
-//     console.error("Error generating static params:", error);
-//     return [];
-//   }
-// }
+    const blogs = data?.data?.blog;
+    return blogs
+      .filter((b) => typeof b?.Slug === "string" && b.Slug.trim() !== "")
+      .map((b) => ({
+        slug: b.Slug,
+      }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }) {
     // const data = await res.json();
     const res = await fetch(
       `https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 21600 } }
     );
     const data = await res.json();
     const seoData = data?.data?.blog;
@@ -103,10 +105,75 @@ export async function generateMetadata({ params }) {
   }
 }
 
+function sanitizeContent(html) {
+  if (typeof window === "undefined") return html;
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+
+  const allowedTags = [
+    "p",
+    "br",
+    "strong",
+    "b",
+    "em",
+    "i",
+    "u",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "ul",
+    "ol",
+    "li",
+    "a",
+    "img",
+    "blockquote",
+    "pre",
+    "code",
+    "span"
+  ];
+
+  const walk = (node) => {
+    [...node.children].forEach((child) => {
+      // ❌ Remove disallowed tags completely
+      if (!allowedTags.includes(child.tagName.toLowerCase())) {
+        child.replaceWith(...child.childNodes);
+        return;
+      }
+
+      // ❌ Remove all styling & editor garbage
+      [...child.attributes].forEach((attr) => {
+        if (
+          attr.name !== "href" &&
+          attr.name !== "src" &&
+          attr.name !== "alt"
+        ) {
+          child.removeAttribute(attr.name);
+        }
+      });
+
+      walk(child);
+    });
+  };
+
+  walk(doc.body);
+
+  // return doc.body.innerHTML.trim();
+  return {
+    __html: DOMPurify.sanitize(doc.body.innerHTML.trim(), {
+      FORBID_ATTR: ["style", "class"],
+    })
+  };
+}
+
 export default async function SingleBlog({ params }) {
   const { slug } = await params;
   const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { next: { revalidate: 3600 } });
   const data = await res.json();
+  const blogData = data?.data?.blog;
 
-  return <SingleBlogPage data={data?.data?.blog} slug={slug} />;
+  return <SingleBlogPage data={{ ...blogData, blogDescription: sanitizeContent(blogData?.blogDescription) }} slug={slug} />;
 }

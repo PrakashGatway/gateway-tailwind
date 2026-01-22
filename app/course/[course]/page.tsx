@@ -152,7 +152,7 @@ const getCourseSchema = (course: string) => {
     },
     GRE: {
       name: "GRE Coaching Class",
-      image: "/img/ga-logo.svg",
+      image: "https://api.gatewayabroadeducations.com/api/uploads/1707468162388-33756158_8085941%205.png",
       ratingCount: "4120",
       description:
         "Top GRE coaching in Jaipur with expert mentors, quant & verbal bootcamps, and full-length mock tests."

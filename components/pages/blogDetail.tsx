@@ -17,11 +17,16 @@ const notoSans = Noto_Sans({
   display: 'swap',
 });
 
-const sanitizeContent = (content) => {
-  return { __html: DOMPurify.sanitize(content) };
-};
+// const sanitizeContet = (content) => {
+//   return {
+//     __html: DOMPurify.sanitize(content, {
+//       FORBID_ATTR: ["style", "class"],
+//     })
+//   };
+// };
 
-export default function SingleBlogPage({ data, slug:id }) {
+
+export default function SingleBlogPage({ data, slug: id }) {
   // const router = useRouter();
   // const { slug: id } = params;
 
@@ -182,7 +187,7 @@ export default function SingleBlogPage({ data, slug:id }) {
                   <div className="px-6 pb-8">
                     <div
                       className={`prose prose-lg max-w-none ${notoSans.className}`}
-                      dangerouslySetInnerHTML={sanitizeContent(singleBlogData?.blogDescription || '')}
+                      dangerouslySetInnerHTML={{ __html: singleBlogData?.blogDescription || '' }}
                     />
 
                     {/* Blog Navigation */}

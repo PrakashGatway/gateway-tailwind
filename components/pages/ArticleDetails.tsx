@@ -584,7 +584,7 @@ export default function ArticleClient({ article }) {
     useEffect(() => {
         if (article?.content) {
             try {
-                const decoded = decodeURIComponent(escape(atob(article.content)));
+                const decoded = article?.content
                 setDecodedContent(decoded);
 
                 // Process content to add IDs to headings

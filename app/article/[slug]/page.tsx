@@ -3,91 +3,91 @@ import Script from "next/script";
 
 // export const revalidate = 21600;
 
-// export async function generateStaticParams() {
-//     try {
-//         const res = await fetch("https://uat.gatewayabroadeducations.com/api/v1/web/blog?limit=1000", {
-//             next: { revalidate: 21600 },
-//         });
-//         if (!res.ok) {
-//             console.error("❌ Failed to fetch blog slugs for static generation");
-//             return [];
-//         }
-//         const data = await res.json();
-//         const blogs = data?.data || [];
-//         return blogs.map((blog) => ({
-//             slug: blog.slug,
-//         }));
-//     } catch (error) {
-//         console.error("⚠️ Error generating static params:", error);
-//         return [];
-//     }
-// }
-
-export async function generateMetadata({ params }) {
-    
-    const { slug } = await params;
+export async function generateStaticParams() {
     try {
-        const res = await fetch(
-            `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
-            { next: { revalidate: 21600 } }
-        );
-
-        if (!res.ok) throw new Error(`Failed to fetch metadata: ${res.status}`);
-
+        const res = await fetch("https://uat.gatewayabroadeducations.com/api/v1/web/blog?limit=1000", {
+            next: { revalidate: 21600 },
+        });
+        if (!res.ok) {
+            console.error("❌ Failed to fetch blog slugs for static generation");
+            return [];
+        }
         const data = await res.json();
-        const article = data?.data;
-
-        const title =
-            article?.title || "Article - Gateway Abroad | Study Abroad Tips & Updates";
-        const description =
-            article?.description ||
-            "Expert study abroad & test prep guidance from Gateway Abroad.";
-        const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
-        const ogImage =
-            article?.coverImage
-                ? `https://uat.gatewayabroadeducations.com/uploads/${article.coverImage}`
-                : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
-
-        return {
-            metadataBase: new URL("https://www.gatewayabroadeducations.com"),
-            title,
-            description,
-            keywords: keyword ||
-                "study abroad, IELTS, GMAT, GRE, TOEFL, PTE, SAT, Gateway Abroad, blog",
-            openGraph: {
-                title,
-                description,
-                images: [ogImage],
-            },
-            robots: {
-                maxImagePreview: "large",
-            },
-            alternates: {
-                canonical: `https://www.gatewayabroadeducations.com/article/${slug}`,
-            },
-        };
+        const blogs = data?.data || [];
+        return blogs.map((blog) => ({
+            slug: blog.slug,
+        }));
     } catch (error) {
-        return {
-            title: "Article Post | Gateway Abroad",
-            description:
-                "Get expert advice on IELTS, GMAT, GRE, study abroad, and more.",
-            keywords:
-                "study abroad, IELTS, GMAT, GRE, TOEFL, PTE, SAT, Gateway Abroad",
-        };
+        console.error("⚠️ Error generating static params:", error);
+        return [];
     }
 }
 
+export async function generateMetadata({ params }) {
+
+  const { slug } = await params;
+  try {
+    const res = await fetch(
+      `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
+      { next: { revalidate: 21600 } }
+    );
+
+    if (!res.ok) throw new Error(`Failed to fetch metadata: ${res.status}`);
+
+    const data = await res.json();
+    const article = data?.data;
+
+    const title =
+      article?.title || "Article - Gateway Abroad | Study Abroad Tips & Updates";
+    const description =
+      article?.description ||
+      "Expert study abroad & test prep guidance from Gateway Abroad.";
+    const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
+    const ogImage =
+      article?.coverImage
+        ? `https://uat.gatewayabroadeducations.com/uploads/${article.coverImage}`
+        : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
+
+    return {
+      metadataBase: new URL("https://www.gatewayabroadeducations.com"),
+      title,
+      description,
+      keywords: keyword ||
+        "study abroad, IELTS, GMAT, GRE, TOEFL, PTE, SAT, Gateway Abroad, blog",
+      openGraph: {
+        title,
+        description,
+        images: [ogImage],
+      },
+      robots: {
+        maxImagePreview: "large",
+      },
+      alternates: {
+        canonical: `https://www.gatewayabroadeducations.com/article/${slug}`,
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Article Post | Gateway Abroad",
+      description:
+        "Get expert advice on IELTS, GMAT, GRE, study abroad, and more.",
+      keywords:
+        "study abroad, IELTS, GMAT, GRE, TOEFL, PTE, SAT, Gateway Abroad",
+    };
+  }
+}
+
 export default async function BlogPostPage({ params }) {
-    const { slug } = await params;
+  const { slug } = await params;
 
-        const slugdata = slug.includes("polysyllabic")
+  const slugdata = slug.includes("polysyllabic")
 
-        const isDiphthong = slug.includes("diphthong");
+  const isDiphthong = slug.includes("diphthong");
 
-        console.log(isDiphthong)
-    console.log(slugdata)
+  console.log(isDiphthong)
+  console.log(slugdata)
 
-     const blogSchema = {
+  const blogSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": {
@@ -144,27 +144,27 @@ export default async function BlogPostPage({ params }) {
     "datePublished": "2025-11-26"
   };
 
-  
 
 
-    const res = await fetch(
-        `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
-        { next: { revalidate: 21600 } }
-    );
 
-    if (!res.ok) {
-        console.error(`❌ Failed to fetch blog: ${slug}`);
-        return null;
-    }
+  const res = await fetch(
+    `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
+    { next: { revalidate: 21600 } }
+  );
 
-    const data = await res.json();
-    const article = data?.data;
+  if (!res.ok) {
+    console.error(`❌ Failed to fetch blog: ${slug}`);
+    return null;
+  }
 
-    return (
+  const data = await res.json();
+  const article = data?.data;
 
-        <>
+  return (
 
-        {slugdata && (
+    <>
+
+      {slugdata && (
         <Script
           id="blogposting-schema"
           type="application/ld+json"
@@ -175,7 +175,7 @@ export default async function BlogPostPage({ params }) {
         />
       )}
 
-       {isDiphthong && (
+      {isDiphthong && (
         <Script
           id="diphthong-schema"
           type="application/ld+json"
@@ -185,16 +185,13 @@ export default async function BlogPostPage({ params }) {
           }}
         />
       )}
-        
 
+      <ArticleClient
+        article={{ ...article, content: decodeURIComponent(escape(atob(article.content))) }}
+        similarArticles={[]} // You can later add fetch logic here
+        latestArticles={[]}
+      />
+    </>
 
-        <ArticleClient
-            article={article}
-            similarArticles={[]} // You can later add fetch logic here
-            latestArticles={[]}
-        />
-        
-        </>
-        
-    );
+  );
 }
