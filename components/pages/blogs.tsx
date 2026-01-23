@@ -1,4 +1,3 @@
-// components/pages/blogs.tsx
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -11,7 +10,8 @@ import Loader from "@/components/loader";
 import BlogCard from "./usable components/BlogCard";
 
 
-const Blog = ({ initialData, searchParams }: any) => {
+export default function AllBlogs({ initialData, searchParams }: any) {
+
   const router = useRouter();
   // const searchParams = useSearchParams();
 
@@ -22,7 +22,7 @@ const Blog = ({ initialData, searchParams }: any) => {
   const blogsPerPage = 12;
 
   // Initialize with SSR data if available
-  const [blogs, setBlogs] = useState<any[]>(initialData?.blogs || []);
+  const [blogs, setBlogs] = useState<any[]>(initialData?.blog || []);
   const [totalPages, setTotalPages] = useState(initialData?.totalPages || 1);
   const [currentPage, setCurrentPage] = useState(initialData?.currentPage || pageParam);
   const [selectedCategory, setSelectedCategory] = useState(initialData?.selectedCategory || categoryParam);
@@ -72,6 +72,7 @@ const Blog = ({ initialData, searchParams }: any) => {
   const fetchBlogs = useCallback(
     async (page: number, category: string, search: string) => {
       try {
+        console.log("function called to fetch blogs");
         setLoading(true);
         const res = await PageServices.getBlogData({
           page,
@@ -101,13 +102,9 @@ const Blog = ({ initialData, searchParams }: any) => {
 
   // Fetch blogs when params change
   useEffect(() => {
-
     const category = searchParams?.category || "All";
     const page = Number(searchParams?.page || 1);
     const search = searchParams?.search || "";
-
-
-    // Only fetch if different from initial data
     if (!initialData ||
       page !== initialData.currentPage ||
       category !== initialData.selectedCategory ||
@@ -115,9 +112,9 @@ const Blog = ({ initialData, searchParams }: any) => {
       setCurrentPage(page);
       setSelectedCategory(category);
       setSearchQuery(search);
-      fetchBlogs(page, category, search);
+      // fetchBlogs(page, category, search);
     }
-  }, [searchParams, fetchBlogs, initialData]);
+  }, [searchParams, initialData]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -305,7 +302,7 @@ const Blog = ({ initialData, searchParams }: any) => {
               ? Array.from({ length: 6 }).map((_, index) => (
                 <BlogCard key={index} loading={true} />
               ))
-              : blogs.map((blog) => (
+              : initialData?.data?.blog?.map((blog) => (
                 <BlogCard
                   key={blog.Slug}
                   blog={blog}
@@ -321,12 +318,3 @@ const Blog = ({ initialData, searchParams }: any) => {
     </>
   );
 };
-
-// Update export with props
-export default function AllBlogs({ initialData, searchParams }: any) {
-  return (
-    <Suspense fallback={<Loader />}>
-      <Blog initialData={initialData} searchParams={searchParams} />
-    </Suspense>
-  );
-}

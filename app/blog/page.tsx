@@ -1,4 +1,5 @@
 import AllBlogs from "@/components/pages/blogs";
+import PageServices from "@/services/PageServices";
 export async function generateMetadata() {
   const seoData = {
     title: "Blog - Gateway Abroad | Study Abroad Tips & Updates",
@@ -40,10 +41,18 @@ export async function generateMetadata() {
   };
 }
 
-async function BlogsPage({searchParams}:any) {
+async function BlogsPage({ searchParams }: any) {
   const params = await searchParams;
+
+  const initialData = await PageServices.getBlogData({
+    page: Number(params?.page || 1),
+    category: params?.category || 'All',
+    search: params?.search || '',
+    limit: 12
+  }); 
+
   return (
-    <AllBlogs searchParams={params}/>
+    <AllBlogs searchParams={params} initialData={initialData} />
   );
 }
 

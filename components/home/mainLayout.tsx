@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
 import Loader from "../loader";
+import GlobalDataProvider from "@/hooks/GlobalData";
 
 
 const Header = lazy(() => import("@/components/header"));
@@ -37,21 +38,21 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   return (
     <ThemeProvider defaultTheme="light" storageKey="gateway-theme">
-      <GlobalProvider>
-        <LoaderWrapper>
-          {!shouldHideLayout && (
-            <Suspense fallback={<LayoutFallback />}>
-              <Header />
-            </Suspense>
-          )}
-          <main>{children}</main>
-          {!shouldHideLayout && (
-             <Suspense fallback={<LayoutFallback />}>
-              <Footer />
-            </Suspense>
-          )}
-        </LoaderWrapper>
-      </GlobalProvider>
+        <GlobalProvider>
+          <LoaderWrapper>
+            {!shouldHideLayout && (
+              <Suspense fallback={<LayoutFallback />}>
+                <Header />
+              </Suspense>
+            )}
+            <main>{children}</main>
+            {!shouldHideLayout && (
+              <Suspense fallback={<LayoutFallback />}>
+                <Footer />
+              </Suspense>
+            )}
+          </LoaderWrapper>
+        </GlobalProvider>
     </ThemeProvider>
   );
 }

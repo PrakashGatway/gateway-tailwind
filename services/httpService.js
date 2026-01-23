@@ -5,18 +5,17 @@ const instance = axios.create({
   baseURL: constant.REACT_APP_API_BASE_URL,
   timeout: 50000,
   headers: {
-    
   },
 });
 
 // Add a request interceptor
-instance.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  }
-  return config;
-});
+// instance.interceptors.request.use(function (config) {
+//   const token = localStorage.getItem('token');
+//   if (token) {
+//     config.headers['Authorization'] = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 const responseBody = (response) => response.data;
 
