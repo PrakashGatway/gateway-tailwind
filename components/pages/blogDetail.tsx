@@ -30,7 +30,7 @@ export default function SingleBlogPage({
     <>
       <div>
         {/* Hero Section with New Design */}
-        <section className="hero-gradient py-8">
+        {blogData.Slug != "preparing-for-toefl-speaking-section" && <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
@@ -74,10 +74,10 @@ export default function SingleBlogPage({
               </div>
             </div>
           </div>
-        </section>
+        </section>}
 
         {/* Blog Content Section */}
-        <section className="py-12 bg-gray-50">
+        <section  className={`py-12 bg-gray-50 ${blogData.Slug == "preparing-for-toefl-speaking-section" ? 'pt-24' : ''}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content */}

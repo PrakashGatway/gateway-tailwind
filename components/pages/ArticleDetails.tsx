@@ -1327,9 +1327,9 @@
 "use client";
 import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
-import { useEffect, useState } from 'react';
-import axiosInstance from '@/services/axiosInstance';
-import { useGlobal } from '@/hooks/AppStateContext';
+// import { useEffect, useState } from 'react';
+// import axiosInstance from '@/services/axiosInstance';
+// import { useGlobal } from '@/hooks/AppStateContext';
 
 const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -1418,7 +1418,7 @@ function TableOfContents({ headings = [] }) {
                     })()}
                 </div>
             </div>
-            <style jsx>{`
+            {/* <style jsx>{`
         :global(h2[id], h3[id]) {
           scroll-margin-top: 140px;
         }
@@ -1427,7 +1427,7 @@ function TableOfContents({ headings = [] }) {
           border-color: #fecaca;
           color: #dc2626;
         }
-      `}</style>
+      `}</style> */}
         </div>
     );
 }
@@ -1441,115 +1441,115 @@ export default function ArticleClient({
     comments: commentsProp = [],
     slug
 }: any) {
-    const [comments, setComments] = useState(commentsProp);
-    const [commentForm, setCommentForm] = useState({
-        name: '',
-        email: '',
-        content: '',
-        parentCommentId: null
-    });
-    const [replyingTo, setReplyingTo] = useState(null);
-    const [showReplies, setShowReplies] = useState({});
-    const [loading, setLoading] = useState(false);
+    // const [comments, setComments] = useState(commentsProp);
+    // const [commentForm, setCommentForm] = useState({
+    //     name: '',
+    //     email: '',
+    //     content: '',
+    //     parentCommentId: null
+    // });
+    // const [replyingTo, setReplyingTo] = useState(null);
+    // const [showReplies, setShowReplies] = useState({});
+    // const [loading, setLoading] = useState(false);
 
-    const {user, setDrawer} = useGlobal();
+    // const {user, setDrawer} = useGlobal();
 
-        const fetchComments = async () => {
-        try {
-            setLoading(true);
-            const response = await axiosInstance.get(`/web/comments/${article._id}`);
+        // const fetchComments = async () => {
+        // try {
+        //     setLoading(true);
+        //     const response = await axiosInstance.get(`/web/comments/${article._id}`);
 
-            if (response.data.success) {
-                setComments(response.data.data.comments || []);
-            }
-        } catch (error) {
-            console.error('Error fetching comments:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+        //     if (response.data.success) {
+        //         setComments(response.data.data.comments || []);
+        //     }
+        // } catch (error) {
+        //     console.error('Error fetching comments:', error);
+        // } finally {
+        //     setLoading(false);
+        // }
+    // };
 
-    useEffect(() => {
-        if (article?._id) {
-            fetchComments();
-        }
-    }, [article?._id]);
+    // useEffect(() => {
+    //     if (article?._id) {
+    //         fetchComments();
+    //     }
+    // }, [article?._id]);
 
     // Handle comment submit
-    const handleCommentSubmit = async (e) => {
-        e.preventDefault();
-        if (!user) {
-            setDrawer(true);
-            return;
-        }
+    // const handleCommentSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (!user) {
+    //         setDrawer(true);
+    //         return;
+    //     }
 
-        try {
-            const response = await axiosInstance.post('/web/comments/create', {
-                articleId: article._id,
-                content: commentForm.content,
-                parentCommentId: commentForm.parentCommentId
-            });
+    //     try {
+    //         const response = await axiosInstance.post('/web/comments/create', {
+    //             articleId: article._id,
+    //             content: commentForm.content,
+    //             parentCommentId: commentForm.parentCommentId
+    //         });
 
-            if (response) {
-                setCommentForm({
-                    name: '',
-                    email: '',
-                    content: '',
-                    parentCommentId: null
-                });
-                setReplyingTo(null);
-                fetchComments();
-                alert('Comment posted successfully! It will appear after admin approval.');
-            }
-        } catch (error) {
-            console.error('Error posting comment:', error);
-            alert('Error posting comment');
-        }
-    };
+    //         if (response) {
+    //             setCommentForm({
+    //                 name: '',
+    //                 email: '',
+    //                 content: '',
+    //                 parentCommentId: null
+    //             });
+    //             setReplyingTo(null);
+    //             fetchComments();
+    //             alert('Comment posted successfully! It will appear after admin approval.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error posting comment:', error);
+    //         alert('Error posting comment');
+    //     }
+    // };
 
-    const handleReply = (commentId, authorName) => {
-        setReplyingTo(commentId);
-        setCommentForm(prev => ({
-            ...prev,
-            content: `@${authorName} `,
-            parentCommentId: commentId
-        }));
-        document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
-    };
+    // const handleReply = (commentId, authorName) => {
+    //     setReplyingTo(commentId);
+    //     setCommentForm(prev => ({
+    //         ...prev,
+    //         content: `@${authorName} `,
+    //         parentCommentId: commentId
+    //     }));
+    //     document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
+    // };
 
-    const handleCancelReply = () => {
-        setReplyingTo(null);
-        setCommentForm(prev => ({
-            ...prev,
-            content: '',
-            parentCommentId: null
-        }));
-    };
+    // const handleCancelReply = () => {
+    //     setReplyingTo(null);
+    //     setCommentForm(prev => ({
+    //         ...prev,
+    //         content: '',
+    //         parentCommentId: null
+    //     }));
+    // };
 
-    const handleLike = async (commentId) => {
-        try {
-            await axiosInstance.post(`/web/${commentId}/like`);
-            fetchComments();
-        } catch (error) {
-            console.error('Error liking comment:', error);
-        }
-    };
+    // const handleLike = async (commentId) => {
+    //     try {
+    //         await axiosInstance.post(`/web/${commentId}/like`);
+    //         fetchComments();
+    //     } catch (error) {
+    //         console.error('Error liking comment:', error);
+    //     }
+    // };
 
-    const handleDislike = async (commentId) => {
-        try {
-            await axiosInstance.post(`/web/${commentId}/dislike`);
-            fetchComments();
-        } catch (error) {
-            console.error('Error disliking comment:', error);
-        }
-    };
+    // const handleDislike = async (commentId) => {
+    //     try {
+    //         await axiosInstance.post(`/web/${commentId}/dislike`);
+    //         fetchComments();
+    //     } catch (error) {
+    //         console.error('Error disliking comment:', error);
+    //     }
+    // };
 
-    const toggleReplies = (commentId) => {
-        setShowReplies(prev => ({
-            ...prev,
-            [commentId]: !prev[commentId]
-        }));
-    };
+    // const toggleReplies = (commentId) => {
+    //     setShowReplies(prev => ({
+    //         ...prev,
+    //         [commentId]: !prev[commentId]
+    //     }));
+    // };
 
 
     if (!article || !article.slug) {
@@ -1720,7 +1720,7 @@ export default function ArticleClient({
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
+                            {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-2xl font-bold text-gray-900">
                                         Comments ({comments.length})
@@ -1735,7 +1735,6 @@ export default function ArticleClient({
                                     )}
                                 </div>
 
-                                {/* Comment Form */}
                                 <div id="comment-form" className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
                                     <h4 className="text-lg font-bold text-gray-900 mb-2">
                                         {replyingTo ? 'Reply to Comment' : 'Leave a Comment'}
@@ -1769,7 +1768,6 @@ export default function ArticleClient({
                                     </form>
                                 </div>
 
-                                {/* Comments List */}
                                 {loading ? (
                                     <div className="flex justify-center py-8">
                                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
@@ -1830,7 +1828,6 @@ export default function ArticleClient({
                                                             </div>
                                                             <p className="text-gray-700 mb-3">{comment.content}</p>
 
-                                                            {/* Replies Section */}
                                                             {comment.nestedReplies && comment.nestedReplies.length > 0 && (
                                                                 <div className="mt-4 space-y-3 border-l-2 border-gray-100 pl-4">
                                                                     {(showReplies[comment._id]
@@ -1877,7 +1874,6 @@ export default function ArticleClient({
                                                                         </div>
                                                                     ))}
 
-                                                                    {/* Toggle Replies Button */}
                                                                     {comment.nestedReplies.length > 2 && (
                                                                         <button
                                                                             onClick={() => toggleReplies(comment._id)}
@@ -1909,7 +1905,7 @@ export default function ArticleClient({
                                         )}
                                     </div>
                                 )}
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Sidebar */}
