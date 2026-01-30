@@ -124,6 +124,11 @@ const [sliderRef, instanceRef] = useKeenSlider({
     }
   }, [member, videoStudednt]);
 
+  const handleGetStarted = () => {
+    
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -175,7 +180,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
 
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
                 <Link href="#" data-bs-toggle="modal" data-bs-target="#getintouchModel" className="btn-primary inline-block text-center group">
-                  <span className="relative z-10">Get Started Today</span>
+                  <span onClick={handleGetStarted} className="relative z-10">Get Started Today</span>
                 </Link>
               </div>
             </div>

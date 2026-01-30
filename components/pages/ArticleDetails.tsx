@@ -1454,19 +1454,19 @@ export default function ArticleClient({
 
     // const {user, setDrawer} = useGlobal();
 
-        // const fetchComments = async () => {
-        // try {
-        //     setLoading(true);
-        //     const response = await axiosInstance.get(`/web/comments/${article._id}`);
+    // const fetchComments = async () => {
+    // try {
+    //     setLoading(true);
+    //     const response = await axiosInstance.get(`/web/comments/${article._id}`);
 
-        //     if (response.data.success) {
-        //         setComments(response.data.data.comments || []);
-        //     }
-        // } catch (error) {
-        //     console.error('Error fetching comments:', error);
-        // } finally {
-        //     setLoading(false);
-        // }
+    //     if (response.data.success) {
+    //         setComments(response.data.data.comments || []);
+    //     }
+    // } catch (error) {
+    //     console.error('Error fetching comments:', error);
+    // } finally {
+    //     setLoading(false);
+    // }
     // };
 
     // useEffect(() => {
@@ -1670,11 +1670,20 @@ export default function ArticleClient({
 
                                 {/* Article Content */}
                                 <div className="sm:px-6 pb-8 pt-6">
-                                    <div className="html-reset">
-                                        <div
-                                            dangerouslySetInnerHTML={{ __html: processedContent || decodedContent }}
-                                        />
-                                    </div>
+                                    <div
+                                        className="article-content"
+                                        dangerouslySetInnerHTML={{
+                                            __html: processedContent || decodedContent,
+                                        }}
+                                    />
+
+                                    <style>{`
+  .article-content img {
+    max-width: 100%;
+    height: auto;
+  }
+`}</style>
+
 
                                     {/* Share Section */}
                                     <div className="mt-8 pt-6 border-t border-gray-200">

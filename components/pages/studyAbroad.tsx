@@ -45,6 +45,10 @@ const StudyAbroadPage = ({ content }: any) => {
     useEffect(() => {
         getAllfaqData()
     }, [])
+   const handleGetStarted = () => {
+    
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
 
     return (
         <>
@@ -73,7 +77,7 @@ const StudyAbroadPage = ({ content }: any) => {
 
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-stagger-4">
                                 <Link href="/contact" className="btn-primary inline-block text-center group px-6 py-3 sm:px-8 sm:py-4">
-                                    <span className="relative z-10">Get Started Today</span>
+                                    <span className="relative z-10" onClick={ handleGetStarted}>Get Started Today</span>
                                 </Link>
                                 <Link href="/about" className="btn-secondary text-center group px-6 py-3 sm:px-8 sm:py-4">
                                     Learn More

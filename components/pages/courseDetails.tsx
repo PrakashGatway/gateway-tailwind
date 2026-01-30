@@ -244,6 +244,11 @@ const handleNext = useCallback(() => {
   instanceRef.current?.next();
 }, [instanceRef]);
 
+const handleGetStarted = () => {
+    
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
 
   return (
     <div>
@@ -261,9 +266,9 @@ const handleNext = useCallback(() => {
           {courseData.textFild2}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <Link href="/contact" className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-lg font-semibold transition-colors duration-300 text-center whitespace-nowrap">
+          <div onClick={handleGetStarted} className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-lg font-semibold transition-colors duration-300 text-center whitespace-nowrap">
             Enroll Now
-          </Link>
+          </div>
         </div>
       </div>
 

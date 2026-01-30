@@ -34,6 +34,26 @@ export default function AllBlogs({ initialData, searchParams }: any) {
   const [showRight, setShowRight] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const visibleBlogs = initialData?.data?.blog || []
+
+  const latestFiveSlugs = visibleBlogs
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5)
+    .map((b) => b.Slug)
+
+
+
+  const handleBlogClick = (blog) => {
+    if (latestFiveSlugs.includes(blog.Slug)) {
+      router.push(`/blogs/detail/${blog.Slug}`)
+    } else {
+      router.push(`/blog-description/${blog.Slug}`)
+    }
+  }
+
+
+
   // Update URL params to include search
   const updateUrlParams = (page: number, category: string, search: string = "") => {
     const params = new URLSearchParams();
@@ -302,14 +322,15 @@ export default function AllBlogs({ initialData, searchParams }: any) {
               ? Array.from({ length: 6 }).map((_, index) => (
                 <BlogCard key={index} loading={true} />
               ))
-              : initialData?.data?.blog?.map((blog) => (
+              : visibleBlogs.map((blog) => (
                 <BlogCard
                   key={blog.Slug}
                   blog={blog}
-                  onClick={() => router.push(`/blog-description/${blog.Slug}`)}
+                  onClick={() => handleBlogClick(blog)}
                 />
               ))}
           </div>
+
 
           {/* Pagination */}
           {totalPages > 1 && renderPagination()}

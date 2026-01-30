@@ -1,5 +1,8 @@
+"use client"
+
 import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
+import { usePathname } from 'next/navigation';
 
 export default function SingleBlogPage({ 
   blogData,  
@@ -26,11 +29,13 @@ export default function SingleBlogPage({
     );
   }
 
+  const pathname = usePathname()
+
   return (
     <>
       <div>
         {/* Hero Section with New Design */}
-        {blogData.Slug != "preparing-for-toefl-speaking-section" && <section className="hero-gradient py-8">
+        {pathname === "/blogs/detail"  && <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
@@ -77,7 +82,7 @@ export default function SingleBlogPage({
         </section>}
 
         {/* Blog Content Section */}
-        <section  className={`py-12 bg-gray-50 ${blogData.Slug == "preparing-for-toefl-speaking-section" ? 'pt-24' : ''}`}>
+        <section  className={`py-12 bg-gray-50 mt-20`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content */}
@@ -219,7 +224,7 @@ export default function SingleBlogPage({
                         {similarBlogs.map((blog) => (
                           <Link
                             key={blog.Slug}
-                            href={`/blog-description/${blog.Slug}`}
+                            href={`/blogs/detail/${blog.Slug}`}
                             className="flex items-start space-x-3 p-3 rounded-lg border border-gray-100 hover:border-[#E12827] hover:bg-red-50 transition-all duration-200 group"
                           >
                             <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">

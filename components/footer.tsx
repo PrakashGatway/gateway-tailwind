@@ -284,7 +284,10 @@ export const Footer = () => {
                       { href: "/article", text: "Articles" },
                       { href: "/career", text: "Career" },
                       { href: "/contact", text: "Contact Us" },
-                      { href: "/gallery", text: "Gallery" }
+                      { href: "/gallery", text: "Gallery" },
+                      { href: "/blogs", text: "Blogs" },
+
+
                     ].map((link, index) => (
                       <li
                         key={index}

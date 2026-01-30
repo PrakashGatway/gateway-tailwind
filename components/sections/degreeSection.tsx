@@ -238,7 +238,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
                             <Users className="w-4 h-4" />
                             <span className="text-sm font-medium">{program?.studentCount || "500+ students"}</span>
                           </div>
-                          <button onClick={() => Router.push(`/blog-description/${program?.slug}`)} className="btn-primary py-2">
+                          <button onClick={() => Router.push(`${program?.slug}`)} className="btn-primary py-2">
                             Learn More
                           </button>
                         </div>

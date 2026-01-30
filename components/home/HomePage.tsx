@@ -17,6 +17,8 @@ import StudentRankSection from './StudentSlider';
 import Image from 'next/image';
 import BlogCard from '../pages/usable components/BlogCard';
 import axiosInstance from '@/services/axiosInstance';
+import BlogNew from '../blognew';
+import { error } from 'console';
 
 function Index() {
   const router = useRouter();
@@ -31,6 +33,8 @@ function Index() {
   // Keen Slider for student info - UPDATED with autoplay
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
+
 
 
 
@@ -285,14 +289,43 @@ function Index() {
   );
 
 
-  const fetchBlogs = useCallback(async (page = 1, category = 'All', search = '') => {
-    try {
-      const res = await PageServices.getBlogData({ page, limit: 5, category, search });
-      setBlogData(res.data.blog || []);
-    } catch (err) {
-      console.error('Error fetching blogs:', err);
-    }
-  }, []);
+ const [slide, setSlide] = useState(0)
+
+const visibleCards = 3
+const cardWidth = 360 // adjust if card size changes
+
+const maxSlide = Math.max(blogData.length - visibleCards, 0)
+
+
+useEffect(() => {
+  if (blogData.length <= visibleCards) return
+
+  const interval = setInterval(() => {
+    setSlide(prev =>
+      prev >= maxSlide ? 0 : prev + 1
+    )
+  }, 2000) // 4 seconds
+
+  return () => clearInterval(interval)
+}, [blogData, maxSlide])
+
+
+
+ const fetchBlogs = async () => {
+  try {
+    const res = await PageServices.getBlogData({
+      page: 1,
+      limit: 5,
+    })
+
+    setBlogData(res.data.blog)
+    
+
+  } catch (error) {
+    console.log("API ERROR 👉", error)
+  }
+}
+
 
   useEffect(() => {
     fetchBlogs();
@@ -1175,38 +1208,25 @@ function Index() {
             </Link>
           </div>
 
-          {blogData.length > 0 && (
-            <div className="relative ">
-              <div ref={blogRef} className="keen-slider">
-                {blogData.map((blog) => (
-                  <div key={blog.id} className="keen-slider__slide">
-                    <BlogCard
-                      blog={blog}
-                      showDescription={true} // Add this prop to hide description
-                      onClick={() => router.push(`/blog-description/${blog.Slug}`)}
-                    />
-                  </div>
-                ))}
-              </div>
 
-              {/* Blog Slider Navigation */}
-              {blogData.length > 3 && (
-                <div className="flex items-center justify-center mt-8 space-x-4">
-                  {/* Dots Indicator */}
-                  <div className="flex space-x-2">
-                    {[...Array(Math.ceil(blogData.length / 3))].map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => blogInstanceRef.current?.moveToIdx(idx * 3)}
-                        className={`w-2 h-2 rounded-full transition-all ${currentBlogSlide === idx ? 'bg-red-600 w-6' : 'bg-gray-300 hover:bg-gray-400'
-                          }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+         {blogData.length > 0 && (
+  <div className="overflow-hidden">
+
+    <div
+      className="flex transition-transform duration-700 ease-in-out"
+      style={{
+        transform: `translateX(-${slide * cardWidth}px)`
+      }}
+    >
+      <BlogNew blog={blogData} layout="slider" />
+
+    </div>
+
+  </div>
+)}
+
+
+
         </div>
       </section>
 
