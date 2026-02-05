@@ -1,5 +1,6 @@
 import SingleBlogPage from "@/components/pages/blogDetail";
 import DOMPurify from 'isomorphic-dompurify';
+import { redirect } from "next/navigation";
 
 export async function generateStaticParams() {
   try {
@@ -110,8 +111,35 @@ function sanitizeContent(html) {
   return cleanHtml;
 }
 
+
+export const dynamic = "force-dynamic";
+
+
 export default async function SingleBlog({ params }) {
   const { slug } = await params;
+
+  
+    const latestBlogsRes = await fetch(
+  "https://api.gatewayabroadeducations.com/api/v1/blog?all=true",
+  { next: { revalidate: 3600 } }
+);
+
+const latestBlogsData = await latestBlogsRes.json();
+
+const allBlogsForLatest = latestBlogsData?.data?.blog || [];
+
+const latestFiveSlugs = allBlogsForLatest
+  .slice()
+  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  .slice(0, 5)
+  .map((b) => b.Slug);
+
+
+  if (latestFiveSlugs.includes(slug)) {
+  redirect(`/blogs/detail/${slug}`);
+}
+
+
   
   try {
     // Fetch current blog data
@@ -125,6 +153,10 @@ export default async function SingleBlog({ params }) {
     
     const data = await res.json();
     const blogData = data?.data?.blog;
+
+
+
+  
     
     if (!blogData) {
       throw new Error('Blog data not found');

@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import PageServices from "@/services/PageServices";
 import { constant } from "@/constant/index.constant";
@@ -51,6 +51,12 @@ export default function AllBlogs({ initialData, searchParams }: any) {
       router.push(`/blog-description/${blog.Slug}`)
     }
   }
+
+ 
+
+
+
+
 
 
 
