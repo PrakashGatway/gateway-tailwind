@@ -285,7 +285,7 @@ export const Footer = () => {
                       { href: "/career", text: "Career" },
                       { href: "/contact", text: "Contact Us" },
                       { href: "/gallery", text: "Gallery" },
-                      { href: "/blogs", text: "Blogs" },
+                     
 
 
                     ].map((link, index) => (

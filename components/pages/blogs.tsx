@@ -46,10 +46,8 @@ export default function AllBlogs({ initialData, searchParams }: any) {
 
   const handleBlogClick = (blog) => {
     if (latestFiveSlugs.includes(blog.Slug)) {
-      router.push(`/blogs/detail/${blog.Slug}`)
-    } else {
       router.push(`/blog-description/${blog.Slug}`)
-    }
+    } 
   }
 
  

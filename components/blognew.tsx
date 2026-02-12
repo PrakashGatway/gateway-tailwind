@@ -61,7 +61,7 @@ export default function BlogNew({ blog = [], layout = "grid" }) {
               </div>
 
               {/* Title */}
-              <Link href={`/blogs/detail/${item.Slug}`}>
+              <Link href={`/blog-description/${item.Slug}`}>
                 <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
                   {item.blogTitle}
                 </h3>

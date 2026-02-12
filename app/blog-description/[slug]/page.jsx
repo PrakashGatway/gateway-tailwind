@@ -119,25 +119,7 @@ export default async function SingleBlog({ params }) {
   const { slug } = await params;
 
   
-    const latestBlogsRes = await fetch(
-  "https://api.gatewayabroadeducations.com/api/v1/blog?all=true",
-  { next: { revalidate: 3600 } }
-);
 
-const latestBlogsData = await latestBlogsRes.json();
-
-const allBlogsForLatest = latestBlogsData?.data?.blog || [];
-
-const latestFiveSlugs = allBlogsForLatest
-  .slice()
-  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-  .slice(0, 5)
-  .map((b) => b.Slug);
-
-
-  if (latestFiveSlugs.includes(slug)) {
-  redirect(`/blogs/detail/${slug}`);
-}
 
 
   

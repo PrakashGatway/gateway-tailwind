@@ -13,7 +13,7 @@ export default function CardStackGridSection({ video: cards }) {
   const cardDimensionsRef = useRef({ width: 0, height: 0, gap: 20 });
   const [gridPositions, setGridPositions] = useState([]);
   const [containerHeight, setContainerHeight] = useState('auto'); // State for dynamic height
-
+  
   // Determine number of columns and estimate card dimensions
   useEffect(() => {
     const updateLayout = () => {
