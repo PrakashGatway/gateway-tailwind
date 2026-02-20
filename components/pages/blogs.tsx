@@ -22,7 +22,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
   const blogsPerPage = 12;
 
   // Initialize with SSR data if available
-  const [blogs, setBlogs] = useState<any[]>(initialData?.blog || []);
+  const [blogs, setBlogs] = useState<any[]>(initialData?.data?.blog || []);
   const [totalPages, setTotalPages] = useState(initialData?.totalPages || 1);
   const [currentPage, setCurrentPage] = useState(initialData?.currentPage || pageParam);
   const [selectedCategory, setSelectedCategory] = useState(initialData?.selectedCategory || categoryParam);
@@ -34,21 +34,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
   const [showRight, setShowRight] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const visibleBlogs = initialData?.data?.blog || []
 
-  const latestFiveSlugs = visibleBlogs
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 5)
-    .map((b) => b.Slug)
-
-
-
-  const handleBlogClick = (blog) => {
-    if (latestFiveSlugs.includes(blog.Slug)) {
-      router.push(`/blog-description/${blog.Slug}`)
-    } 
-  }
 
  
 
@@ -322,18 +308,20 @@ export default function AllBlogs({ initialData, searchParams }: any) {
 
           {/* Blog Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                <BlogCard key={index} loading={true} />
-              ))
-              : visibleBlogs.map((blog) => (
-                <BlogCard
-                  key={blog.Slug}
-                  blog={blog}
-                  onClick={() => handleBlogClick(blog)}
-                />
-              ))}
-          </div>
+  {loading
+    ? Array.from({ length: 6 }).map((_, index) => (
+        <BlogCard key={index} loading />
+      ))
+    : blogs.map((blog) => (
+        <BlogCard
+          key={blog.Slug}
+          blog={blog}
+          onClick={() =>
+            router.push(`/blog-description/${blog.Slug}`)
+          }
+        />
+      ))}
+</div>
 
 
           {/* Pagination */}

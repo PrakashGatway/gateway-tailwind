@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "@/components/home/mainLayout";
 
+
 export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
   description: "Discover the best consultant for studying abroad..."
