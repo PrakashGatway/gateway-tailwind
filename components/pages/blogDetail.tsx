@@ -116,6 +116,10 @@ export default function SingleBlogPage({
       text-align: left;
       vertical-align: top;
     }
+      .blog-html * a {
+    text-decoration: underline;
+    color : blue
+}
 
     .blog-html th {
       background: #f3f4f6;

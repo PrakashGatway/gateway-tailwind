@@ -1670,8 +1670,89 @@ export default function ArticleClient({
 
                                 {/* Article Content */}
                                 <div className="sm:px-6 pb-8 pt-6">
+
+                                     <style>{`
+    .blog-html table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 15px;
+    }
+
+    .blog-html th,
+    .blog-html td {
+      border: 1px solid #e5e7eb;
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .blog-html th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .blog-html tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .blog-html h2 {
+      font-size: 26px;
+      margin: 28px 0 12px;
+      font-weight: 700;
+    }
+
+    .blog-html h3 {
+      font-size: 20px;
+      margin: 22px 0 10px;
+      font-weight: 600;
+    }
+
+    .blog-html h4 {
+      font-size: 18px;
+      margin: 18px 0 8px;
+      font-weight: 600;
+    }
+
+    .blog-html p {
+      margin: 12px 0;
+      line-height: 1.8;
+    }
+
+    .blog-html ul {
+      margin-left: 22px;
+      list-style: disc;
+    }
+
+    .blog-html ol {
+      margin-left: 22px;
+      list-style: decimal;
+    }
+
+    .blog-html li {
+      margin: 6px 0;
+    }
+
+    .blog-html figure.table {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+      
+    .blog-html * a {
+    text-decoration: underline;
+    color : blue
+}
+    
+
+    .blog-html strong {
+      font-weight: 600;
+    }
+      html {
+      scroll-behavior: smooth;
+    }
+  `}</style>
                                     <div
-                                        className="article-content"
+                                        className="article-content blog-html"
                                         dangerouslySetInnerHTML={{
                                             __html: processedContent || decodedContent,
                                         }}
