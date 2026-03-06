@@ -20,12 +20,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { constant } from "@/constant/index.constant";
 import { useGlobal } from "@/hooks/AppStateContext";
 import { useSearchParams, useRouter } from "next/navigation";
+import axiosInstance from "@/services/axiosInstance";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+
+   const [countryPage, setCountyPage] = useState([]);
+
+  const destinationRef = useRef(null);
 
   const studyAbroadRef = useRef(null);
   const testPrepRef = useRef(null);
@@ -39,6 +44,25 @@ const Header = () => {
 
   // Gateway Abroad contact number
   const contactNumber = "+91-8302092630";
+
+
+   async function getPageData(type, setState) {
+    const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
+      console.log('API Response for', type, ':', response.data); 
+    if (response.data?.data) {
+      setState(response.data.data);
+    }
+  }
+
+  // 👇 useEffect to fetch data
+  useEffect(() => {
+    getPageData('country_page', setCountyPage);
+  }, []);
+
+  // 👇 click handler
+  // const handleClick = (menu) => {
+  //   setOpenMenu(openMenu === menu ? null : menu);
+  // };
 
   // Set mounted state to avoid hydration errors
   useEffect(() => {
@@ -79,25 +103,28 @@ const Header = () => {
 
   // Close dropdowns on outside click
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        studyAbroadRef.current &&
-        !studyAbroadRef.current.contains(event.target)
-      ) {
-        setOpenMenu((prev) => (prev === "studyAbroad" ? null : prev));
-      }
-      if (testPrepRef.current && !testPrepRef.current.contains(event.target)) {
-        setOpenMenu((prev) => (prev === "testPrep" ? null : prev));
-      }
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setOpenMenu((prev) => (prev === "userMenu" ? null : prev));
-      }
+  function handleClickOutside(event) {
+    if (
+      studyAbroadRef.current &&
+      !studyAbroadRef.current.contains(event.target)
+    ) {
+      setOpenMenu((prev) => (prev === "studyAbroad" ? null : prev));
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    if (testPrepRef.current && !testPrepRef.current.contains(event.target)) {
+      setOpenMenu((prev) => (prev === "testPrep" ? null : prev));
+    }
+    if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+      setOpenMenu((prev) => (prev === "userMenu" ? null : prev));
+    }
+    if (destinationRef.current && !destinationRef.current.contains(event.target)) { // 👈 Fixed this line
+      setOpenMenu((prev) => (prev === "destination" ? null : prev));
+    }
+  }
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -168,6 +195,76 @@ const Header = () => {
             >
               Spoken English
             </Link>
+
+
+             <div
+    className="relative"
+    ref={destinationRef}
+    onMouseEnter={() => setOpenMenu("destination")}
+    onMouseLeave={() => setOpenMenu(null)}
+  >
+    <button
+      onClick={() => handleClick("destination")}
+      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+    >
+      Destination
+      <ChevronDown
+        className={`ml-1 h-4 w-4 transition-transform duration-300 ${
+          openMenu === "destination" ? "rotate-180" : ""
+        }`}
+      />
+    </button>
+
+    <AnimatePresence>
+      {openMenu === "destination" && (
+        <motion.div
+          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          className="absolute top-full left-0 mt-2 w-[600px] bg-gradient-to-br from-[#f8f9fa] via-[#f1f3f5] to-[#e9ecef] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f3460] rounded-xl shadow-2xl py-4 px-4 z-50 border border-gray-100 dark:border-gray-700"
+        >
+          <div className="grid grid-cols-3 gap-2">
+            {countryPage.map((country, index) => {
+               const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+              return(
+              
+              <Link
+                key={index}
+                href={`/study-in-${slug}`}
+                className="flex items-center space-x-3 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+              >
+                {true && (
+                  <Image
+                    alt={country.slug || country.name || "country"}
+                    src={`https://png.pngtree.com/png-clipart/20250618/original/pngtree-pin-location-map-vector-png-image_19738260.png`}
+                    width={40}
+                    height={40}
+                    className=" object-cover w-10 h-10 opacity-0.5"
+                  />
+                )}
+                <div className="my-auto">
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+                  Study In  {country?.slug}
+                  </h3>
+                 
+                </div>
+              </Link>
+            )
+            }
+            )}
+            
+            {countryPage.length === 0 && (
+              <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                No countries available
+              </div>
+            )}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+
 
             {/* Test Prep Dropdown */}
             <div

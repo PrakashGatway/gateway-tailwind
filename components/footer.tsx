@@ -80,7 +80,7 @@ export const Footer = () => {
 
   useEffect(() => {
     getPageData('city_page', setCityPage);
-    getPageData('country_page', setCountyPage);
+    // getPageData('country_page', setCountyPage);
   }, []);
 
   // handleUpdate function को थोड़ा modify करें
@@ -195,7 +195,7 @@ export const Footer = () => {
 
         {pathname.includes("study-abroad")}
 
-        <div className="container-6xl w-[80%] pt-[30px] mx-auto">
+        {/* <div className="container-6xl w-[80%] pt-[30px] mx-auto">
           <h4 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full mb-3 ">
             🌍 Choose Your Destination
           </h4>
@@ -214,7 +214,7 @@ export const Footer = () => {
               );
             })}
           </div>
-        </div>
+        </div> */}
         {<LocationAvailability cities={cityPage} />}
 
         {/* Footer Content */}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function LocationAvailability({ cities }) {
   return (
-    <section className="pb-8 w-[80%] mx-auto">
+    <section className="py-8 w-[80%] mx-auto">
       <div className="container-sm">
         <div className="row">
           <div className="col-12">
