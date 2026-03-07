@@ -11,7 +11,7 @@ import { constant } from '@/constant/index.constant.js';
 import HeroSection from '../hero-section';
 import AboutSection from '../about-section';
 import TestPreparation from '../TestPreparationSection';
-import { useGlobal } from '@/hooks/AppStateContext';
+// import { useGlobal } from '@/hooks/AppStateContext';
 import Swal from 'sweetalert2';
 import StudentRankSection from './StudentSlider';
 import Image from 'next/image';
@@ -20,7 +20,7 @@ import axiosInstance from '@/services/axiosInstance';
 import BlogNew from '../blognew';
 import { error } from 'console';
 
-function Index() {
+function Index({homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 }:any) {
   const router = useRouter();
   const [blogData, setBlogData] = useState([]);
   const [video, setVideo] = useState([]);
@@ -28,15 +28,11 @@ function Index() {
   const [studentData, setStudentData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const { homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 } = useGlobal();
+  // const { homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 } = useGlobal();
 
   // Keen Slider for student info - UPDATED with autoplay
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
-
-
-
-
 
   const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider(
     {
@@ -93,27 +89,27 @@ function Index() {
   );
 
   // Keen Slider for student rank
-  const [studentRankRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 2,
-      spacing: 16,
-    },
-    breakpoints: {
-      '(min-width: 640px)': {
-        slides: {
-          perView: 3,
-          spacing: 20,
-        },
-      },
-      '(min-width: 1024px)': {
-        slides: {
-          perView: 4,
-          spacing: 24,
-        },
-      },
-    },
-  });
+  // const [studentRankRef] = useKeenSlider({
+  //   loop: true,
+  //   slides: {
+  //     perView: 2,
+  //     spacing: 16,
+  //   },
+  //   breakpoints: {
+  //     '(min-width: 640px)': {
+  //       slides: {
+  //         perView: 3,
+  //         spacing: 20,
+  //       },
+  //     },
+  //     '(min-width: 1024px)': {
+  //       slides: {
+  //         perView: 4,
+  //         spacing: 24,
+  //       },
+  //     },
+  //   },
+  // });
 
   // Keen Slider for testimonials
   const [testimonialRef, testimonialInstanceRef] = useKeenSlider(
@@ -226,67 +222,67 @@ function Index() {
 
   // Keen Slider for blogs with navigation
   const [currentBlogSlide, setCurrentBlogSlide] = useState(0);
-  const [blogRef, blogInstanceRef] = useKeenSlider(
-    {
-      loop: true,
-      slides: {
-        perView: 1,
-        spacing: 16,
-      },
-      breakpoints: {
-        '(min-width: 640px)': {
-          slides: {
-            perView: 2,
-            spacing: 20,
-          },
-        },
-        '(min-width: 1024px)': {
-          slides: {
-            perView: 3,
-            spacing: 24,
-          },
-        },
-      },
-      slideChanged(slider) {
-        setCurrentBlogSlide(slider.track.details.rel);
-      },
-    },
-    // Add the autoplay plugin
-    [
-      (slider) => {
-        let timeout;
-        let mouseOver = false;
+  // const [blogRef, blogInstanceRef] = useKeenSlider(
+  //   {
+  //     loop: true,
+  //     slides: {
+  //       perView: 1,
+  //       spacing: 16,
+  //     },
+  //     breakpoints: {
+  //       '(min-width: 640px)': {
+  //         slides: {
+  //           perView: 2,
+  //           spacing: 20,
+  //         },
+  //       },
+  //       '(min-width: 1024px)': {
+  //         slides: {
+  //           perView: 3,
+  //           spacing: 24,
+  //         },
+  //       },
+  //     },
+  //     slideChanged(slider) {
+  //       setCurrentBlogSlide(slider.track.details.rel);
+  //     },
+  //   },
+  //   // Add the autoplay plugin
+  //   [
+  //     (slider) => {
+  //       let timeout;
+  //       let mouseOver = false;
 
-        function clearNextTimeout() {
-          if (timeout) {
-            clearTimeout(timeout);
-          }
-        }
+  //       function clearNextTimeout() {
+  //         if (timeout) {
+  //           clearTimeout(timeout);
+  //         }
+  //       }
 
-        function nextTimeout() {
-          if (mouseOver) return;
-          timeout = setTimeout(() => {
-            slider.next();
-          }, 10000); // 4 seconds as per your comment
-        }
+  //       function nextTimeout() {
+  //         if (mouseOver) return;
+  //         timeout = setTimeout(() => {
+  //           slider.next();
+  //         }, 10000); // 4 seconds as per your comment
+  //       }
 
-        slider.on("created", () => {
-          slider.container.addEventListener("mouseover", () => {
-            mouseOver = true;
-            clearNextTimeout();
-          });
-          slider.container.addEventListener("mouseout", () => {
-            mouseOver = false;
-            nextTimeout();
-          });
-          nextTimeout();
-        });
-        slider.on("dragStarted", clearNextTimeout);
-        slider.on("animationEnded", nextTimeout);
-        slider.on("updated", nextTimeout);
-      },
-    ]
-  );
+  //       slider.on("created", () => {
+  //         slider.container.addEventListener("mouseover", () => {
+  //           mouseOver = true;
+  //           clearNextTimeout();
+  //         });
+  //         slider.container.addEventListener("mouseout", () => {
+  //           mouseOver = false;
+  //           nextTimeout();
+  //         });
+  //         nextTimeout();
+  //       });
+  //       slider.on("dragStarted", clearNextTimeout);
+  //       slider.on("animationEnded", nextTimeout);
+  //       slider.on("updated", nextTimeout);
+  //     },
+  //   ]
+  // );
 
 
  const [slide, setSlide] = useState(0)

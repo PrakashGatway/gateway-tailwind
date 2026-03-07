@@ -8,10 +8,10 @@ import Image from 'next/image';
 import { useGlobal } from '@/hooks/AppStateContext';
 import axiosInstance from '@/services/axiosInstance';
 
-function Contact() {
+function Contact({contactPage: data, contactSettings: contactData, faqData: faq}:any) {
     const router = useRouter();
 
-    const { contactPage: data, contactSettings: contactData, faqData: faq } = useGlobal();
+    // const { contactPage: data, contactSettings: contactData, faqData: faq } = useGlobal();
 
     const [contact, setContact] = useState({});
     const [pageTitle, setPageTitle] = useState('');

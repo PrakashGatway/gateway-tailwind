@@ -1,5 +1,8 @@
 import Contact from "@/components/pages/contact";
+import PageServices from "@/services/PageServices";
 import Script from "next/script";
+
+export const revalidate = 21600; // revalidate every 6 hours
 
 export async function generateMetadata() {
   const seoData = {
@@ -38,7 +41,19 @@ export async function generateMetadata() {
   };
 }
 
-function ContactPage() {
+
+
+async function ContactPage() {
+
+  const [
+    contactPage,
+    contactSettings,
+    faqData
+  ] = await Promise.all([
+    PageServices.getContactPageById().then(res => res?.data || null).catch(() => null),
+    PageServices.getSettingData().then(res => res?.data || null).catch(() => null),
+    PageServices.getOffice().then(res => res?.data || null).catch(() => null)
+  ]);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -69,7 +84,7 @@ function ContactPage() {
           __html: JSON.stringify(breadcrumbSchema),
         }}
       />
-      <Contact />
+      <Contact contactPage={contactPage} contactSettings={contactSettings} faqData={faqData} />
 
     </>
   );

@@ -6,7 +6,7 @@ import Component from "@/components/pages/partnerSlider";
 import Image from "next/image";
 import Link from "next/link";
 import CounterUp from "@/components/CounterUp";
-import { useGlobal } from "@/hooks/AppStateContext";
+// import { useGlobal } from "@/hooks/AppStateContext";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
@@ -16,81 +16,81 @@ import { constant } from "@/constant/index.constant";
 import { DynamicIcon } from "../sections/processRoad";
 import { baseUrl } from "@/services/axiosInstance";
 
-const StudyInUk = ({ content, country }: any) => {
+const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoStudednt }: any) => {
   const [form, setform] = useState([]);
-  const { teamMembers: member, youtubeVideo: videoStudednt, } = useGlobal();
+  // const { teamMembers: member, youtubeVideo: videoStudednt, } = useGlobal();
   const [blogData, setBlogData] = useState([]);
   const router = useRouter();
   const [video, setVideo] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
- // Component ke start me, useKeenSlider ke baad:
+  // Component ke start me, useKeenSlider ke baad:
 
-// Component ke top level me
-const [autoPlay, setAutoPlay] = useState(true);
+  // Component ke top level me
+  const [autoPlay, setAutoPlay] = useState(true);
 
-// Auto slide functionality
-useEffect(() => {
-  if (!autoPlay || !instanceRef.current || blogData.length <= 1) return;
+  // Auto slide functionality
+  useEffect(() => {
+    if (!autoPlay || !instanceRef.current || blogData.length <= 1) return;
 
-  const interval = setInterval(() => {
-    const totalSlides = instanceRef.current.track.details.slides.length;
-    const nextSlide = (currentSlide + 1) % totalSlides;
-    
-    instanceRef.current.moveToIdx(nextSlide);
-    setCurrentSlide(nextSlide);
-  }, 3000); // 3 seconds
+    const interval = setInterval(() => {
+      const totalSlides = instanceRef.current.track.details.slides.length;
+      const nextSlide = (currentSlide + 1) % totalSlides;
 
-  return () => clearInterval(interval);
-}, [currentSlide, autoPlay, blogData.length]);
+      instanceRef.current.moveToIdx(nextSlide);
+      setCurrentSlide(nextSlide);
+    }, 3000); // 3 seconds
 
-// Mouse hover pe pause karne ke liye
-const handleMouseEnter = () => setAutoPlay(false);
-const handleMouseLeave = () => setAutoPlay(true);
+    return () => clearInterval(interval);
+  }, [currentSlide, autoPlay, blogData.length]);
 
-// Slider configuration update karein
-const [sliderRef, instanceRef] = useKeenSlider({
-  initial: 0,
-  loop: true,
-  slideChanged(slider) {
-    setCurrentSlide(slider.track.details.rel);
-  },
-  created() {
-    setLoaded(true);
-  },
-  breakpoints: {
-    "(min-width: 640px)": {
-      slides: { 
-        perView: 2, 
-        spacing: 16,
-        origin: 'center'
+  // Mouse hover pe pause karne ke liye
+  const handleMouseEnter = () => setAutoPlay(false);
+  const handleMouseLeave = () => setAutoPlay(true);
+
+  // Slider configuration update karein
+  const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0,
+    loop: true,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoaded(true);
+    },
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: {
+          perView: 2,
+          spacing: 16,
+          origin: 'center'
+        },
+      },
+      "(min-width: 768px)": {
+        slides: {
+          perView: 3,
+          spacing: 20,
+          origin: 'center'
+        },
+      },
+      "(min-width: 1024px)": {
+        slides: {
+          perView: 3,
+          spacing: 24,
+          origin: 'center'
+        },
       },
     },
-    "(min-width: 768px)": {
-      slides: { 
-        perView: 3, 
-        spacing: 20,
-        origin: 'center'
-      },
+    slides: {
+      perView: 1,
+      spacing: 12,
+      origin: 'center'
     },
-    "(min-width: 1024px)": {
-      slides: { 
-        perView: 3, 
-        spacing: 24,
-        origin: 'center'
-      },
-    },
-  },
-  slides: { 
-    perView: 1, 
-    spacing: 12,
-    origin: 'center'
-  },
-  drag: true,
-  rubberband: true,
-  mode: "snap",
-});
+    drag: true,
+    rubberband: true,
+    mode: "snap",
+  });
 
 
 
@@ -125,7 +125,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
   }, [member, videoStudednt]);
 
   const handleGetStarted = () => {
-    
+
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
@@ -133,7 +133,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
     <>
       {/* Hero Section */}
       <section className="hero-gradient pt-12 py-1 md:py-12 flex items-center relative overflow-hidden">
-      
+
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 lg:gap-12 items-center">
@@ -264,7 +264,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
           {/* Desktop Image */}
           <Image
             src={content?.pageContent?.roadmapImage ? `${baseUrl}/uploads/${content?.pageContent?.roadmapImage}` : "/anime/road.svg"}
-            alt={getContentByType('form-section')?.title||"image"}
+            alt={getContentByType('form-section')?.title || "image"}
             className="hidden md:block w-full h-auto"
             width={600}
             height={470}
@@ -285,122 +285,121 @@ const [sliderRef, instanceRef] = useKeenSlider({
 
       <Component />
 
-       {/* Team Members Section */}
-        <section className="py-12 md:py-20 bg-gray-50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8 md:mb-12 pb-3 md:pb-4 inline-block">
-              People behind Gateway Abroad
-            </h2>
-            <div className="pt-6 md:pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-items-center">
-                {form.map((m) => (
-                  <div key={m._id} className="bg-[#fcedf0] rounded-xl shadow-lg overflow-hidden border border-gray-200 w-full max-w-[550px]">
-                    {/* Header */}
-                    <div className="bg-red-600 px-4 sm:px-6 py-3 sm:py-4 text-center">
-                      <h4 className="text-lg sm:text-xl font-bold text-white">{m.name}</h4>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-4 sm:p-6">
-                      <div className="h-48 sm:h-[260px] overflow-y-auto pe-3 sm:pe-[15px]">
-                        <p className="text-[#666276] text-justify text-sm sm:text-base font-medium leading-5 sm:leading-6">
-                          {m.content}
-                        </p>
-                      </div>
-                    </div>
+      {/* Team Members Section */}
+      <section className="py-12 md:py-20 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8 md:mb-12 pb-3 md:pb-4 inline-block">
+            People behind Gateway Abroad
+          </h2>
+          <div className="pt-6 md:pt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-items-center">
+              {form.map((m) => (
+                <div key={m._id} className="bg-[#fcedf0] rounded-xl shadow-lg overflow-hidden border border-gray-200 w-full max-w-[550px]">
+                  {/* Header */}
+                  <div className="bg-red-600 px-4 sm:px-6 py-3 sm:py-4 text-center">
+                    <h4 className="text-lg sm:text-xl font-bold text-white">{m.name}</h4>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      <CardStackGridSection video={video} />
 
-     {/* Blog Section with Auto Slider */}
-<section className="py-14 lg:py-20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
-      <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
-      <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
-        <Link href="/blog" className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
-      </button>
-    </div>
-
-    <div className="blog-section-inner">
-      {/* Keen Slider Container with Auto Play */}
-      {blogData.length > 0 ? (
-        <>
-          <div 
-            ref={sliderRef} 
-            className="keen-slider relative"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {blogData.map((blog, index) => (
-              <div
-                className="keen-slider__slide cursor-pointer p-2 lg:p-3"
-                key={index}
-                onClick={() => router.push(`/blog-description/${blog.Slug}`)}
-              >
-                <div className="blog-card h-full  hover:text-red-600 transition-colors hover:border-red-600 duration-300">
-                  <div className="card h-full  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white transform hover:translate-x hover:border-red-600">
-                    <div className="card-img-top aspect-[4/3] overflow-hidden ">
-                      <Image
-                        src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                        alt="blog-img"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        width={400}
-                        height={300}
-                        onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-                      />
-                    </div>
-                    <div className="card-body p-4 lg:p-6">
-                      <h5 className="card-title text-lg lg:text-xl font-semibold mb-3 line-clamp-2 min-h-[56px]">
-                        <Link href={`/blog-description/${blog.Slug}`} className="hover:text-red-600 transition-colors duration-300 text-gray-800">
-                          {blog.blogTitle}
-                        </Link>
-                      </h5>
+                  {/* Content */}
+                  <div className="p-4 sm:p-6">
+                    <div className="h-48 sm:h-[260px] overflow-y-auto pe-3 sm:pe-[15px]">
+                      <p className="text-[#666276] text-justify text-sm sm:text-base font-medium leading-5 sm:leading-6">
+                        {m.content}
+                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <CardStackGridSection video={video} />
+
+      {/* Blog Section with Auto Slider */}
+      <section className="py-14 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
+            <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
+            <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
+              <Link href="/blog" className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
+            </button>
           </div>
 
-          {/* Navigation Dots with Auto Play Indicator */}
-          {loaded && instanceRef.current && blogData.length > 1 && (
-            <div className="flex flex-col items-center mt-8 lg:mt-12">
-              
-              
-              {/* Navigation Dots */}
-              <div className="flex justify-center space-x-2">
-                {Array.from({ length: instanceRef.current.track.details.slides.length }).map((_, idx) => (
-                  <button
-                    key={idx}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      currentSlide === idx
-                        ? "bg-red-600 scale-125"
-                        : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                    onClick={() => {
-                      instanceRef.current?.moveToIdx(idx);
-                      setCurrentSlide(idx);
-                    }}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
+          <div className="blog-section-inner">
+            {/* Keen Slider Container with Auto Play */}
+            {blogData.length > 0 ? (
+              <>
+                <div
+                  ref={sliderRef}
+                  className="keen-slider relative"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {blogData.map((blog, index) => (
+                    <div
+                      className="keen-slider__slide cursor-pointer p-2 lg:p-3"
+                      key={index}
+                      onClick={() => router.push(`/blog-description/${blog.Slug}`)}
+                    >
+                      <div className="blog-card h-full  hover:text-red-600 transition-colors hover:border-red-600 duration-300">
+                        <div className="card h-full  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white transform hover:translate-x hover:border-red-600">
+                          <div className="card-img-top aspect-[4/3] overflow-hidden ">
+                            <Image
+                              src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
+                              alt="blog-img"
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                              width={400}
+                              height={300}
+                              onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
+                            />
+                          </div>
+                          <div className="card-body p-4 lg:p-6">
+                            <h5 className="card-title text-lg lg:text-xl font-semibold mb-3 line-clamp-2 min-h-[56px]">
+                              <Link href={`/blog-description/${blog.Slug}`} className="hover:text-red-600 transition-colors duration-300 text-gray-800">
+                                {blog.blogTitle}
+                              </Link>
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Navigation Dots with Auto Play Indicator */}
+                {loaded && instanceRef.current && blogData.length > 1 && (
+                  <div className="flex flex-col items-center mt-8 lg:mt-12">
+
+
+                    {/* Navigation Dots */}
+                    <div className="flex justify-center space-x-2">
+                      {Array.from({ length: instanceRef.current.track.details.slides.length }).map((_, idx) => (
+                        <button
+                          key={idx}
+                          className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === idx
+                              ? "bg-red-600 scale-125"
+                              : "bg-gray-300 hover:bg-gray-400"
+                            }`}
+                          onClick={() => {
+                            instanceRef.current?.moveToIdx(idx);
+                            setCurrentSlide(idx);
+                          }}
+                          aria-label={`Go to slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-500">No blog posts available.</p>
               </div>
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-500">No blog posts available.</p>
+            )}
+          </div>
         </div>
-      )}
-    </div>
-  </div>
-</section>
+      </section>
     </>
   );
 };

@@ -1,4 +1,8 @@
 import CareerPage from "@/components/pages/career";
+import PageServices from "@/services/PageServices";
+
+
+export const revalidate = 21600; // revalidate every 6 hours
 
 export async function generateMetadata() {
   const seoData = {
@@ -37,10 +41,17 @@ export async function generateMetadata() {
   };
 }
 
-function Career() {
+async function Career() {
+  const [
+    careerPage,
+    jobFormData
+  ] = await Promise.all([
+    PageServices.getCareerPageById().then(res => res?.data || null).catch(() => null),
+    PageServices.getJobData().then(res => res?.data || null).catch(() => null)
+  ]);
 
   return (
-    <CareerPage />
+    <CareerPage careerPage={careerPage} jobFormData={jobFormData} />
   );
 }
 

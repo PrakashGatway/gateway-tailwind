@@ -1,4 +1,5 @@
 import Index from "@/components/home/HomePage"
+import PageServices from "@/services/PageServices";
 import Script from "next/script";
 
 
@@ -40,7 +41,9 @@ export async function generateMetadata() {
   };
 }
 
-export default function Home() {
+export const revalidate = 21600; // revalidate every 6 hours
+
+export default async function Home() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -79,9 +82,27 @@ export default function Home() {
     ]
   };
 
+  const [
+    aboutPage,
+    homePage,
+    course,
+    testimonials,
+    youtubeVideo,
+    studentSlider,
+    studentHome,
+  ] = await Promise.all([
+    PageServices.getAboutPageById().then(res => res?.data || null).catch(() => null),
+    PageServices.getHomePageDetails().then(res => res?.data || null).catch(() => null),
+    PageServices.getCourse().then(res => res?.data || null).catch(() => null),
+    PageServices.getTestimonial().then(res => res?.data || null).catch(() => null),
+    PageServices.getYoutubeVideo().then(res => res?.data || null).catch(() => null),
+    PageServices.getStudentSlider().then(res => res?.data || null).catch(() => null),
+    PageServices.getStudentHome().then(res => res?.data || null).catch(() => null)
+  ]);
+
+
   return (
     <>
-      {/* Local Business Schema */}
       <Script
         id="local-business-schema"
         type="application/ld+json"
@@ -91,7 +112,13 @@ export default function Home() {
         }}
       />
 
-      <Index />
+      <Index aboutPage={aboutPage}
+        homePage={homePage}
+        course={course}
+        testimonials={testimonials}
+        youtubeVideo={youtubeVideo}
+        studentSlider={studentSlider}
+        studentHome={studentHome} />
     </>
   );
 }

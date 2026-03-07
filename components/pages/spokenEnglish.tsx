@@ -11,15 +11,15 @@ import { constant } from '@/constant/index.constant';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Image from 'next/image';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useGlobal } from '@/hooks/AppStateContext';
+// import { useGlobal } from '@/hooks/AppStateContext';
 
-function SpokenEnglish() {
+function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
     const router = useRouter();
     const [testimonials, setTestimonial] = useState([]);
     const [faqData, setFaqData] = useState([]);
     const [activeTab, setActiveTab] = useState<string | null>(null);
 
-    const { spokenEnglish: spokenEnglishDetails } = useGlobal();
+    // const { spokenEnglish: spokenEnglishDetails } = useGlobal();
 
     // Keen Slider config — always 2 per view
     const [sliderRef, instanceRef] = useKeenSlider({

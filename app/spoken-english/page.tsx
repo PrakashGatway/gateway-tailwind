@@ -1,4 +1,5 @@
 import SpokenEnglish from "@/components/pages/spokenEnglish";
+import PageServices from "@/services/PageServices";
 
 export async function generateMetadata() {
   const seoData = {
@@ -37,9 +38,15 @@ export async function generateMetadata() {
   };
 }
 
-function Spoken() {
+async function Spoken() {
+  const [
+    spokenEnglish,
+  ] = await Promise.all([
+    PageServices.getSpokenEnglishDetails().then(res => res?.data || null).catch(() => null),
+  ]);
+
   return (
-    <SpokenEnglish />
+    <SpokenEnglish spokenEnglish={spokenEnglish} />
   );
 }
 

@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
 import Loader from "../loader";
-import GlobalDataProvider from "@/hooks/GlobalData";
 
 
 const Header = lazy(() => import("@/components/header"));

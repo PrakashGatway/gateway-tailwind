@@ -1,4 +1,5 @@
 import About from "@/components/pages/aboutUs";
+import PageServices from "@/services/PageServices";
 
 export async function generateMetadata() {
   const seoData = {
@@ -37,10 +38,19 @@ export async function generateMetadata() {
   };
 }
 
-function AboutPage() {
+export const revalidate = 21600; // revalidate every 6 hours
 
+
+async function AboutPage() {
+  const [
+    aboutPage,
+    teamMembers
+  ] = await Promise.all([
+    PageServices.getAboutPageById().then(res => res?.data || null).catch(() => null),
+    PageServices.getMember().then(res => res?.data || null).catch(() => null)
+  ]);
   return (
-    <About />
+    <About aboutPage={aboutPage} teamMembers={teamMembers} />
   );
 }
 

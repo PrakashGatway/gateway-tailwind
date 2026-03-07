@@ -2,11 +2,11 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
-import { useGlobal } from "@/hooks/AppStateContext";
+// import { useGlobal } from "@/hooks/AppStateContext";
 import Image from "next/image";
 
-export default function CareerPage() {
-  const {careerPage:data,jobFormData} = useGlobal();
+export default function CareerPage({careerPage:data,jobFormData}:any) {
+  // const {careerPage:data,jobFormData} = useGlobal();
 
   const [jobData, setJobData] = useState([]);
   const [pageTitle, setPageTitle] = useState("");
