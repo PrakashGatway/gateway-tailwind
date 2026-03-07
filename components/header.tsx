@@ -28,7 +28,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-   const [countryPage, setCountyPage] = useState([]);
+  const [countryPage, setCountyPage] = useState([]);
 
   const destinationRef = useRef(null);
 
@@ -38,7 +38,7 @@ const Header = () => {
 
   const { user, course, logout, drawer, setDrawer } = useGlobal();
   const [CourseData, setCourseData] = useState([]);
-  
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -46,9 +46,9 @@ const Header = () => {
   const contactNumber = "+91-8302092630";
 
 
-   async function getPageData(type, setState) {
+  async function getPageData(type, setState) {
     const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
-      console.log('API Response for', type, ':', response.data); 
+    console.log('API Response for', type, ':', response.data);
     if (response.data?.data) {
       setState(response.data.data);
     }
@@ -90,12 +90,12 @@ const Header = () => {
     const loginParam = searchParams?.get('login');
     if (loginParam === 'true' && !drawer && !user?.email) {
       setDrawer(true);
-      
+
       // Remove login=true from URL without page refresh
       const url = new URL(window.location.href);
       url.searchParams.delete('login');
       const newUrl = url.pathname + url.search;
-      
+
       // Use replaceState to update URL without reload
       window.history.replaceState(null, '', newUrl);
     }
@@ -103,28 +103,28 @@ const Header = () => {
 
   // Close dropdowns on outside click
   useEffect(() => {
-  function handleClickOutside(event) {
-    if (
-      studyAbroadRef.current &&
-      !studyAbroadRef.current.contains(event.target)
-    ) {
-      setOpenMenu((prev) => (prev === "studyAbroad" ? null : prev));
+    function handleClickOutside(event) {
+      if (
+        studyAbroadRef.current &&
+        !studyAbroadRef.current.contains(event.target)
+      ) {
+        setOpenMenu((prev) => (prev === "studyAbroad" ? null : prev));
+      }
+      if (testPrepRef.current && !testPrepRef.current.contains(event.target)) {
+        setOpenMenu((prev) => (prev === "testPrep" ? null : prev));
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setOpenMenu((prev) => (prev === "userMenu" ? null : prev));
+      }
+      if (destinationRef.current && !destinationRef.current.contains(event.target)) { // 👈 Fixed this line
+        setOpenMenu((prev) => (prev === "destination" ? null : prev));
+      }
     }
-    if (testPrepRef.current && !testPrepRef.current.contains(event.target)) {
-      setOpenMenu((prev) => (prev === "testPrep" ? null : prev));
-    }
-    if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-      setOpenMenu((prev) => (prev === "userMenu" ? null : prev));
-    }
-    if (destinationRef.current && !destinationRef.current.contains(event.target)) { // 👈 Fixed this line
-      setOpenMenu((prev) => (prev === "destination" ? null : prev));
-    }
-  }
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -149,121 +149,119 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed w-full top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isMenuOpen
-          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-2.5"
-          : "header-gradient dark:bg-slate-900/20 backdrop-blur-sm py-3 sm:py-2"
-      }`}
+      className={`fixed w-full top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || isMenuOpen
+        ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-2.5"
+        : "header-gradient dark:bg-slate-900/20 backdrop-blur-sm py-3 sm:py-2"
+        }`}
     >
       <div className="mx-auto px-2 lg:p-0 sm:px-4 max-w-7xl container-sm">
         <div className="flex items-center justify-between h-16">
-        
-{/* Logo */}
-<Link
-  href="/"
-  className="flex items-center space-x-2 sm:space-x-3 group flex-shrink-0"
->
-  <Image
-    src="/images/logo.svg"
-    alt="Company Logo"
-    width={120}
-    height={30}
-    className="w-[130px] sm:w-[200px] h-8 sm:h-[60px] object-contain transition-all duration-300 group-hover:scale-105"
-    priority
-  />
-</Link>
+
+          {/* Logo */}
+          <Link
+            href="/"
+            className="flex items-center space-x-2 sm:space-x-3 group flex-shrink-0"
+          >
+            <Image
+              src="/images/logo.svg"
+              alt="Company Logo"
+              width={120}
+              height={30}
+              className="w-[130px] sm:w-[200px] h-8 sm:h-[60px] object-contain transition-all duration-300 group-hover:scale-105"
+              priority
+            />
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+          <nav className="hidden lg:flex items-center space-x-4">
             <Link
               href="/"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               Home
             </Link>
 
             <Link
               href="/about"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               About Us
             </Link>
 
             <Link
               href="/spoken-english"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               Spoken English
             </Link>
 
 
-             <div
-    className="relative"
-    ref={destinationRef}
-    onMouseEnter={() => setOpenMenu("destination")}
-    onMouseLeave={() => setOpenMenu(null)}
-  >
-    <button
-      onClick={() => handleClick("destination")}
-      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
-    >
-      Destination
-      <ChevronDown
-        className={`ml-1 h-4 w-4 transition-transform duration-300 ${
-          openMenu === "destination" ? "rotate-180" : ""
-        }`}
-      />
-    </button>
-
-    <AnimatePresence>
-      {openMenu === "destination" && (
-        <motion.div
-          initial={{ opacity: 0, y: -10, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="absolute top-full left-0 mt-2 w-[600px] bg-gradient-to-br from-[#f8f9fa] via-[#f1f3f5] to-[#e9ecef] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f3460] rounded-xl shadow-2xl py-4 px-4 z-50 border border-gray-100 dark:border-gray-700"
-        >
-          <div className="grid grid-cols-3 gap-2">
-            {countryPage.map((country, index) => {
-               const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
-              return(
-              
-              <Link
-                key={index}
-                href={`/study-in-${slug}`}
-                className="flex items-center space-x-3 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+            <div
+              className="relative"
+              ref={destinationRef}
+              onMouseEnter={() => setOpenMenu("destination")}
+              onMouseLeave={() => setOpenMenu(null)}
+            >
+              <button
+                onClick={() => handleClick("destination")}
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
               >
-                {true && (
-                  <Image
-                    alt={country.slug || country.name || "country"}
-                    src={`https://png.pngtree.com/png-clipart/20250618/original/pngtree-pin-location-map-vector-png-image_19738260.png`}
-                    width={40}
-                    height={40}
-                    className=" object-cover w-10 h-10 opacity-0.5"
-                  />
+                Destination
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${openMenu === "destination" ? "rotate-180" : ""
+                    }`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {openMenu === "destination" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    className="absolute top-full left-0 mt-2 w-[600px] bg-gradient-to-br from-[#f8f9fa] via-[#f1f3f5] to-[#e9ecef] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f3460] rounded-xl shadow-2xl py-4 px-4 z-50 border border-gray-100 dark:border-gray-700"
+                  >
+                    <div className="grid grid-cols-3 gap-2">
+                      {countryPage.map((country, index) => {
+                        const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+                        return (
+
+                          <Link
+                            key={index}
+                            href={`/study-in-${slug}`}
+                            className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+                          >
+                            {true && (
+                              <Image
+                                alt={country.slug || country.name || "country"}
+                                src={`https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg`}
+                                width={40}
+                                height={40}
+                                className=" object-cover w-5 h-5 rounded-full shadow-lg"
+                              />
+                            )}
+                            <div className="my-auto">
+                              <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+                                Study In  {country?.slug}
+                              </h3>
+
+                            </div>
+                          </Link>
+                        )
+                      }
+                      )}
+
+                      {countryPage.length === 0 && (
+                        <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                          No countries available
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
                 )}
-                <div className="my-auto">
-                  <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
-                  Study In  {country?.slug}
-                  </h3>
-                 
-                </div>
-              </Link>
-            )
-            }
-            )}
-            
-            {countryPage.length === 0 && (
-              <div className="text-center py-4 text-gray-500 dark:text-gray-400">
-                No countries available
-              </div>
-            )}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
+              </AnimatePresence>
+            </div>
 
 
             {/* Test Prep Dropdown */}
@@ -275,13 +273,12 @@ const Header = () => {
             >
               <button
                 onClick={() => handleClick("testPrep")}
-                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
               >
                 Test Preparation
                 <ChevronDown
-                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${
-                    openMenu === "testPrep" ? "rotate-180" : ""
-                  }`}
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${openMenu === "testPrep" ? "rotate-180" : ""
+                    }`}
                 />
               </button>
 
@@ -326,49 +323,49 @@ const Header = () => {
 
             <Link
               href="/blog"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               Blogs
             </Link>
 
             <Link
               href="/career"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               Career
             </Link>
 
             <Link
               href="/contact"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm xl:text-base"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               Contact Us
             </Link>
 
-           
-            
+
+
           </nav>
-          
-          
+
+
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-3">
-              
-{/* Contact Number Box */}
-<div className="relative group mt-3 sm:mt-4">
-  <div className="flex items-center space-x-1 px-2 py-1 bg-[#fbbf24] border border-black rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#d61635] hover:text-white">
-    <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-black" />
-    <Link 
-      href={`tel:${contactNumber}`}
-      className="text-black hover:text-white font-bold text-[10px] sm:text-[15px] truncate max-w-[80px] sm:max-w-[120px]"
-    >
-      {contactNumber}
-    </Link>
-  </div>
-  <h5 className="text-[8px] sm:text-[12px] font-bold text-[#d61635] pl-1 sm:pl-2 mt-0.5">
-    connect with expert
-  </h5>
-</div>
+
+            {/* Contact Number Box */}
+            <div className="relative group mt-3 sm:mt-4">
+              <div className="flex items-center space-x-1 px-2 py-1 bg-[#fbbf24] border border-black rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-[#d61635] hover:text-white">
+                <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-black" />
+                <Link
+                  href={`tel:${contactNumber}`}
+                  className="text-black hover:text-white font-bold text-[10px] sm:text-[15px] truncate max-w-[80px] sm:max-w-[120px]"
+                >
+                  {contactNumber}
+                </Link>
+              </div>
+              <h5 className="text-[8px] sm:text-[12px] font-bold text-[#d61635] pl-1 sm:pl-2 mt-0.5">
+                connect with expert
+              </h5>
+            </div>
 
 
             {user?.email ? (
@@ -390,9 +387,8 @@ const Header = () => {
                     className="rounded-full border-2 border-gray-200 dark:border-gray-700 group-hover:border-[#E83A3A] dark:group-hover:border-[#FF6B6B] transition-all duration-300"
                   />
                   <ChevronDown
-                    className={`hidden lg:block h-4 w-4 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${
-                      openMenu === "userMenu" ? "rotate-180" : ""
-                    }`}
+                    className={`hidden lg:block h-4 w-4 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openMenu === "userMenu" ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -503,23 +499,20 @@ const Header = () => {
               <div className="relative w-6 h-6 flex items-center justify-center">
                 {/* Top Bar */}
                 <span
-                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${
-                    isMenuOpen ? "rotate-45" : "-translate-y-2"
-                  }`}
+                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "rotate-45" : "-translate-y-2"
+                    }`}
                 ></span>
 
                 {/* Middle Bar */}
                 <span
-                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${
-                    isMenuOpen ? "opacity-0" : "opacity-100"
-                  }`}
+                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"
+                    }`}
                 ></span>
 
                 {/* Bottom Bar */}
                 <span
-                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${
-                    isMenuOpen ? "-rotate-45" : "translate-y-2"
-                  }`}
+                  className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "-rotate-45" : "translate-y-2"
+                    }`}
                 ></span>
               </div>
             </button>
@@ -528,11 +521,10 @@ const Header = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden transition-all duration-500 overflow-y-auto ${
-            isMenuOpen
-              ? "max-h-96 opacity-100"
-              : "max-h-0 opacity-0 pointer-events-none"
-          }`}
+          className={`lg:hidden transition-all duration-500 overflow-y-auto ${isMenuOpen
+            ? "max-h-96 opacity-100"
+            : "max-h-0 opacity-0 pointer-events-none"
+            }`}
           style={{ maxHeight: isMenuOpen ? "calc(100vh - 80px)" : "0" }}
         >
           <style jsx>{`
@@ -597,6 +589,73 @@ const Header = () => {
                 <Languages className="h-5 w-5" />
                 <span>Spoken English</span>
               </Link>
+              <div className="relative">
+                <button
+                  onClick={() => handleClick("destinationsMobile")}
+                  className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
+                >
+                  <div className="flex items-center space-x-3">
+                    <FileText className="h-5 w-5" />
+                    <span>Destinations</span>
+                  </div>
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ${openMenu === "testPrepMobile" ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {openMenu === "destinationsMobile" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden pl-8"
+                    >
+                      <div className="space-y-1 py-2">
+                       <div className="grid grid-cols-2 gap-2">
+                      {countryPage.map((country, index) => {
+                        const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+                        return (
+
+                          <Link
+                            key={index}
+                            href={`/study-in-${slug}`}
+                            className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+                          >
+                            {true && (
+                              <Image
+                                alt={country.slug || country.name || "country"}
+                                src={`https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg`}
+                                width={40}
+                                height={40}
+                                className=" object-cover w-5 h-5 rounded-full shadow-lg"
+                              />
+                            )}
+                            <div className="my-auto">
+                              <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+                                Study In  {country?.slug}
+                              </h3>
+
+                            </div>
+                          </Link>
+                        )
+                      }
+                      )}
+
+                      {countryPage.length === 0 && (
+                        <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                          No countries available
+                        </div>
+                      )}
+                    </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
 
               {/* Test Prep Mobile Dropdown */}
               <div className="relative">
@@ -609,9 +668,8 @@ const Header = () => {
                     <span>Test Preparation</span>
                   </div>
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-300 ${
-                      openMenu === "testPrepMobile" ? "rotate-180" : ""
-                    }`}
+                    className={`h-4 w-4 transition-transform duration-300 ${openMenu === "testPrepMobile" ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -682,10 +740,10 @@ const Header = () => {
               </Link>
 
               {/* Mobile Contact Number Box */}
-              <div className="mx-2 my-3">
-                <Link 
+              <div className="my-3">
+                <Link
                   href={`tel:${contactNumber}`}
-                  className="flex items-center justify-center space-x-2 px-4 py-3 bg-[#fbbf24] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-white/20"
+                  className="flex btn-primary !m-0 items-center justify-center px-4 py-2 !bg-[#fbbf24] rounded-lg shadow-lg transition-all duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Phone className="h-5 w-5 text-white" />
@@ -746,7 +804,7 @@ const Header = () => {
 
               {!user?.email && (
                 <button
-                  className="btn-primary flex items-center !py-0 justify-center "
+                  className="btn-primary flex items-center !py-2 justify-center "
                   onClick={() => setDrawer(!drawer)}
                 >
                   <User className="h-5 w-5" />
