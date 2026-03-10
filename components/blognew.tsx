@@ -3,20 +3,24 @@
 import Image from "next/image"
 import Link from "next/link"
 
+export const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+}
+
+export const sanitizedData = (data) => {
+  return { __html: data }
+}
+
 export default function BlogNew({ blog = [], layout = "grid" }) {
   // date format
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    })
-  }
+
 
   // sanitize html
-  const sanitizedData = (data) => {
-    return { __html: data }
-  }
+
 
   // ✅ layout control
   const wrapperClass =
@@ -32,11 +36,10 @@ export default function BlogNew({ blog = [], layout = "grid" }) {
         .map((item, index) => (
           <div
             key={index}
-            className={`${
-              layout === "slider"
-                ? "min-w-[360px] max-w-[360px]"
-                : ""
-            } border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
+            className={`${layout === "slider"
+              ? "min-w-[360px] max-w-[360px]"
+              : ""
+              } border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
           >
             {/* Image */}
             <div className="relative h-52">

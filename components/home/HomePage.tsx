@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import {  useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
@@ -20,7 +20,7 @@ import axiosInstance from '@/services/axiosInstance';
 import BlogNew from '../blognew';
 import { error } from 'console';
 
-function Index({homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 }:any) {
+function Index({ homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 }: any) {
   const router = useRouter();
   const [blogData, setBlogData] = useState([]);
   const [video, setVideo] = useState([]);
@@ -285,42 +285,42 @@ function Index({homePage: homePageDetails, course: CourseData, aboutPage: aboutP
   // );
 
 
- const [slide, setSlide] = useState(0)
+  const [slide, setSlide] = useState(0)
 
-const visibleCards = 3
-const cardWidth = 360 // adjust if card size changes
+  const visibleCards = 3
+  const cardWidth = 360 // adjust if card size changes
 
-const maxSlide = Math.max(blogData.length - visibleCards, 0)
-
-
-useEffect(() => {
-  if (blogData.length <= visibleCards) return
-
-  const interval = setInterval(() => {
-    setSlide(prev =>
-      prev >= maxSlide ? 0 : prev + 1
-    )
-  }, 2000) // 4 seconds
-
-  return () => clearInterval(interval)
-}, [blogData, maxSlide])
+  const maxSlide = Math.max(blogData.length - visibleCards, 0)
 
 
+  useEffect(() => {
+    if (blogData.length <= visibleCards) return
 
- const fetchBlogs = async () => {
-  try {
-    const res = await PageServices.getBlogData({
-      page: 1,
-      limit: 5,
-    })
+    const interval = setInterval(() => {
+      setSlide(prev =>
+        prev >= maxSlide ? 0 : prev + 1
+      )
+    }, 2000) // 4 seconds
 
-    setBlogData(res.data.blog)
-    
+    return () => clearInterval(interval)
+  }, [blogData, maxSlide])
 
-  } catch (error) {
-    console.log("API ERROR 👉", error)
+
+
+  const fetchBlogs = async () => {
+    try {
+      const res = await PageServices.getBlogData({
+        page: 1,
+        limit: 5,
+      })
+
+      setBlogData(res.data.blog)
+
+
+    } catch (error) {
+      console.log("API ERROR 👉", error)
+    }
   }
-}
 
 
   useEffect(() => {
@@ -355,7 +355,7 @@ useEffect(() => {
   });
 
 
- 
+
 
 
 
@@ -363,20 +363,20 @@ useEffect(() => {
     const { name, email, mobile, studyDestination, query } = data;
 
     const rawSource =
-    new URLSearchParams(window.location.search)
-      .get("utm_source")
-      ?.toLowerCase() || "website";
+      new URLSearchParams(window.location.search)
+        .get("utm_source")
+        ?.toLowerCase() || "website";
 
 
-  let finalSource = "website";
+    let finalSource = "website";
 
-  if (["google", "googleads", "adwords"].includes(rawSource)) {
-    finalSource = "googleAds";
-  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
-    finalSource = "facebook";
-  } else if (rawSource === "facebook") {
-    finalSource = "facebook";
-  }
+    if (["google", "googleads", "adwords"].includes(rawSource)) {
+      finalSource = "googleAds";
+    } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+      finalSource = "facebook";
+    } else if (rawSource === "facebook") {
+      finalSource = "facebook";
+    }
 
     try {
       setLoading(true);
@@ -392,7 +392,7 @@ useEffect(() => {
         coursePreference: studyDestination,
         extraDetails: {
           message: query,
-        
+
         },
       });
 
@@ -430,91 +430,91 @@ useEffect(() => {
   });
 
   const handleUpdate2 = async (data) => {
-  const {
-    name,
-    lastName,
-    email,
-    mobile,
-    whatsappNo,
-    age,
-    city,
-    occupation,
-    adress,
-    howDidyouKnow,
-    qualifications,
-    query,
-  } = data;
-
-
-  const rawSource =
-    new URLSearchParams(window.location.search)
-      .get("utm_source")
-      ?.toLowerCase() || "website";
-
-
-  let finalSource = "website";
-
-  if (["google", "googleads", "adwords"].includes(rawSource)) {
-    finalSource = "googleAds";
-  } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
-    finalSource = "facebook";
-  } else if (rawSource === "facebook") {
-    finalSource = "facebook";
-  }
-
-  try {
-    const response = await axiosInstance.post("/leads", {
-      fullName: `${name} ${lastName}`,
+    const {
+      name,
+      lastName,
       email,
-      phone: mobile,
+      mobile,
+      whatsappNo,
+      age,
       city,
+      occupation,
+      adress,
+      howDidyouKnow,
+      qualifications,
+      query,
+    } = data;
 
- 
-      source: finalSource,
 
-      coursePreference: "partnerForm",
+    const rawSource =
+      new URLSearchParams(window.location.search)
+        .get("utm_source")
+        ?.toLowerCase() || "website";
 
-      extraDetails: {
-        whatsappNo,
-        age,
-        occupation,
-        adress,
-        qualification: qualifications,
-        message: query,
-        howDidyouKnow,
-        utmSource: rawSource,
-        type: "partner",
-      },
-    });
 
-    if (response?.data?.success || response?.status === 200) {
-      resetPartnerForm();
+    let finalSource = "website";
 
-      const modalEl = document.getElementById("partnerModal");
-      if (modalEl?.open) modalEl.close();
-      document.body.style.overflow = "auto";
+    if (["google", "googleads", "adwords"].includes(rawSource)) {
+      finalSource = "googleAds";
+    } else if (["meta", "instagram", "ig", "facebookads"].includes(rawSource)) {
+      finalSource = "facebook";
+    } else if (rawSource === "facebook") {
+      finalSource = "facebook";
+    }
 
-      Swal.fire({
-        title: "Success",
-        text: "Thanks for your submission!",
-        icon: "success",
+    try {
+      const response = await axiosInstance.post("/leads", {
+        fullName: `${name} ${lastName}`,
+        email,
+        phone: mobile,
+        city,
+
+
+        source: finalSource,
+
+        coursePreference: "partnerForm",
+
+        extraDetails: {
+          whatsappNo,
+          age,
+          occupation,
+          adress,
+          qualification: qualifications,
+          message: query,
+          howDidyouKnow,
+          utmSource: rawSource,
+          type: "partner",
+        },
       });
-    } else {
+
+      if (response?.data?.success || response?.status === 200) {
+        resetPartnerForm();
+
+        const modalEl = document.getElementById("partnerModal");
+        if (modalEl?.open) modalEl.close();
+        document.body.style.overflow = "auto";
+
+        Swal.fire({
+          title: "Success",
+          text: "Thanks for your submission!",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Partner form error:", error);
       Swal.fire({
         title: "Error",
-        text: "Something went wrong. Please try again.",
+        text: "An error occurred. Please try again later.",
         icon: "error",
       });
     }
-  } catch (error) {
-    console.error("Partner form error:", error);
-    Swal.fire({
-      title: "Error",
-      text: "An error occurred. Please try again later.",
-      icon: "error",
-    });
-  }
-};
+  };
 
 
 
@@ -1205,21 +1205,21 @@ useEffect(() => {
           </div>
 
 
-         {blogData.length > 0 && (
-  <div className="overflow-hidden">
+          {blogData.length > 0 && (
+            <div className="overflow-hidden">
 
-    <div
-      className="flex transition-transform duration-700 ease-in-out"
-      style={{
-        transform: `translateX(-${slide * cardWidth}px)`
-      }}
-    >
-      <BlogNew blog={blogData} layout="slider" />
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{
+                  transform: `translateX(-${slide * cardWidth}px)`
+                }}
+              >
+                <BlogNew blog={blogData} layout="slider" />
 
-    </div>
+              </div>
 
-  </div>
-)}
+            </div>
+          )}
 
 
 

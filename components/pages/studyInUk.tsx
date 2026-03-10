@@ -2,7 +2,7 @@
 
 import MultiStepForm from "@/components/pages/multiStep";
 import CardStackGridSection from "@/components/pages/cardStack";
-import Component from "@/components/pages/partnerSlider";
+import Component, { SingleSlider } from "@/components/pages/partnerSlider";
 import Image from "next/image";
 import Link from "next/link";
 import CounterUp from "@/components/CounterUp";
@@ -13,9 +13,28 @@ import "keen-slider/keen-slider.min.css";
 import { useRouter } from "next/navigation";
 import PageServices from "@/services/PageServices";
 import { constant } from "@/constant/index.constant";
-import { DynamicIcon } from "../sections/processRoad";
+import ProcessRoadmap, { DynamicIcon } from "../sections/processRoad";
 import { baseUrl } from "@/services/axiosInstance";
+import { Select } from "../ui/select";
+import ContactForm from "./UkForm";
+import WhyStudyUK, { GatewayAbroadProcess, HorizontalStackCards, ScrollStackIntakes, TopUKUniversities, UKScholarships, UKStudyCosts, UKUniversityIntakes } from "../ukpageComponent/whyStudyin";
+import BlogNew, { formatDate, sanitizedData } from "../blognew";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import { Star } from "lucide-react";
 
+export const highlightText = (text) => {
+  const parts = text.split("||");
+
+  return parts.map((part, index) =>
+    index % 2 === 1 ? (
+      <span key={index} className="text-red-600 font-bold">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
 const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoStudednt }: any) => {
   const [form, setform] = useState([]);
   // const { teamMembers: member, youtubeVideo: videoStudednt, } = useGlobal();
@@ -24,11 +43,13 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
   const [video, setVideo] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [faqData, setFaqData] = useState([]);
 
   // Component ke start me, useKeenSlider ke baad:
 
   // Component ke top level me
   const [autoPlay, setAutoPlay] = useState(true);
+  const [testimonials, setTestimonial] = useState([]);
 
   // Auto slide functionality
   useEffect(() => {
@@ -44,6 +65,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
 
     return () => clearInterval(interval);
   }, [currentSlide, autoPlay, blogData.length]);
+
 
   // Mouse hover pe pause karne ke liye
   const handleMouseEnter = () => setAutoPlay(false);
@@ -77,7 +99,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       "(min-width: 1024px)": {
         slides: {
           perView: 3,
-          spacing: 24,
+          spacing: 12,
           origin: 'center'
         },
       },
@@ -92,11 +114,6 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     mode: "snap",
   });
 
-
-
-
-
-
   const fetchBlogs = useCallback(async (page = 1, category = country.toUpperCase(), search = '') => {
     try {
       const res = await PageServices.getBlogData({ page, limit: 3, category, search });
@@ -106,10 +123,41 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     }
   }, [country]);
 
+  const getAllTestimonial = async (value: string) => {
+    try {
+      const response = await PageServices.getTestimonialByCat(value);
+      if (response.status === 'success') {
+        setTestimonial(response.data.testimonial || []);
+      }
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    }
+  };
+
+  useEffect(() => {
+    getAllTestimonial("spokenEnglish");
+  }, []);
+
   function getContentByType(type) {
     const item = content && content.sections.find(obj => obj.type === type);
     return item ? item.content : undefined;
   }
+
+  const getAllfaqData = async (value: string) => {
+    try {
+      const response = await PageServices.getAllFaqForFront(value);
+      if (response.status === 'success') {
+        setFaqData(response.data.faq || []);
+      }
+    } catch (error) {
+      console.error('Error fetching FAQ data:', error);
+    }
+  };
+
+  useEffect(() => {
+    getAllfaqData("spokenEnglish");
+  }, []);
+
 
   useEffect(() => {
     fetchBlogs();
@@ -129,19 +177,22 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
+
+
+
   return (
     <>
       {/* Hero Section */}
-      <section className="hero-gradient pt-12 py-1 md:py-12 flex items-center relative overflow-hidden">
+      <section className="bg-pink-100 pt-8 py-1 flex items-center relative overflow-hidden">
 
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="space-y-4 w-full ">
+        <div className="max-w-7xl mx-auto px-4 py-24 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+
+            <div className="space-y-4 w-full items-start lg:w-[62%]">
               <div className="">
-                <h1 className="text-3xl lg:text-5xl xl:text-[2.6rem] font-bold text-black leading-tight">
-                  {content?.title}
+                <h1 className="text-3xl lg:text-5xl xl:text-[2.6rem] font-bold text-black !leading-[1.3]">
+                  {highlightText(content?.title) || content?.title}
                 </h1>
                 <p
                   className="text-base lg:text-lg leading-relaxed mt-4"
@@ -153,28 +204,50 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                   {content?.subTitle || "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities."}
                 </p>
               </div>
+              <div className="flex flex-wrap gap-2">
 
-              <div className="flex gap-2 md:gap-4 pt-4 overflow-x-auto md:overflow-visible">
+                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+
+                  <p className="font-semibold">🏛️ Russell</p>
+                </div>
+
+                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                  <p className="text-lg">🏛️</p>
+                  <p className="font-semibold">Russell Group Universities</p>
+                </div>
+
+                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                  <p className="text-lg">🏛️</p>
+                  <p className="font-semibold">Russell Group Universities</p>
+                </div>
+
+                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                  <p className="text-lg">🏛️</p>
+                  <p className="font-semibold">Russell Group Universities</p>
+                </div>
+
+              </div>
+              <div className="flex gap-2 md:gap-4 pt-4 flex-wrap">
                 {/* Stats Cards */}
-                <div className="bg-pink-300 rounded-[28px] px-4 py-3 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     {<CounterUp end={getContentByType('hero')?.students} />}<span className="text-red-600">+</span>
                   </h3>
-                  <p className="text-black font-semibold text-xs sm:text-sm mb-0">Students Placed</p>
+                  <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
                 </div>
 
-                <div className="bg-pink-300 rounded-[28px] px-4 py-3 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     <CounterUp end={getContentByType('hero')?.university} /><span className="text-red-600">+</span>
                   </h3>
-                  <p className="text-black font-semibold text-xs sm:text-sm mb-0">Universities</p>
+                  <p className="text-black font-semibold text-xs mb-0">Universities</p>
                 </div>
 
-                <div className="bg-pink-300 rounded-[28px] px-4 py-3 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     <CounterUp end={getContentByType('hero')?.cities} /><span className="text-red-600">+</span>
                   </h3>
-                  <p className="text-black font-semibold text-xs sm:text-sm mb-0">Cities</p>
+                  <p className="text-black font-semibold text-xs mb-0">Cities</p>
                 </div>
               </div>
 
@@ -186,19 +259,20 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
             </div>
 
             {/* Right Illustration */}
-            <div className="relative animate-fadeInRight mx-auto w-full">
-              <div className="relative z-10 mx-auto">
+            <div className="relative animate-fadeInRight w-full lg:w-[38%]">
+              <ContactForm />
+
+              {/* <div className="relative z-10 mx-auto">
                 <Image
                   src={content?.pageContent?.heroImage ? `${baseUrl}/uploads/${content?.pageContent?.heroImage}` : '/anime/map.png'}
                   alt="Study Abroad Illustration"
                   width={600}
                   height={470}
                   onError={(e) => (e.currentTarget.src = "/anime/bg01.png")}
-                  className="drop-shadow-2xl mx-auto"
+                  className=" mx-auto"
                   priority
                 />
-              </div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 lg:w-96 lg:h-96 bg-white bg-opacity-30 rounded-full animate-pulse-slow -z-10"></div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -210,113 +284,122 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
           </div>
         </div>
       </section>
+      <SingleSlider />
 
+      <WhyStudyUK />
       <MultiStepForm />
-
       {/* Why Choose Us Section */}
-      <section className="py-14 bg-[#FAFBFF]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="heading text-2xl font-bold text-center d-block mb-4">
-              {getContentByType('WhyChooseUs')?.title}
-            </h2>
-            <p className="sub-heading !text-base max-w-3xl mx-auto">
-              {getContentByType('WhyChooseUs')?.subTittle || "We provide comprehensive support to make your UK education dreams a reality with personalized guidance and expert assistance."}
-            </p>
-          </div>
+      <TopUKUniversities />
+      <UKStudyCosts />
+      <GatewayAbroadProcess />
+      <UKScholarships />
+      <ProcessRoadmap content={getContentByType('roadmap')} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {getContentByType('WhyChooseUs')?.Cards?.map((reason, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-4 p-4 lg:p-6 border border-gray-300 shadow rounded-2xl bg-white backdrop-blur-[2px] hover:border-black transition-all duration-300 relative overflow-hidden group hover:shadow-2xl hover:shadow-blue-200/20 animate-slide-up"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="text-left flex-1">
-                  <div className="sub-heading mb-2 !text-black">
-                    {reason.name}
-                  </div>
-                  <div className="descp !text-left !text-gray-800 !text-sm drop-shadow-sm">
-                    {reason.content}
-                  </div>
-                </div>
-
-                <div className="flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20 opacity-90 pointer-events-none transition-transform duration-300 group-hover:scale-105">
-                  <DynamicIcon name={reason.icon} color="red" className="w-12 h-12" />
-                </div>
-
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-200/5 to-pink-200/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Roadmap Section */}
-      <section className="py-14 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="heading text-2xl font-bold  text-center d-block pb-8 lg:pb-10">
-              {getContentByType('form-section')?.title || "The Roadmap With Gateway Abroad"}
-            </h2>
-          </div>
-
-          {/* Desktop Image */}
+      <section className="py-12 bg-gray-300 relative">
+        <div className="absolute inset-0 z-0">
           <Image
-            src={content?.pageContent?.roadmapImage ? `${baseUrl}/uploads/${content?.pageContent?.roadmapImage}` : "/anime/road.svg"}
-            alt={getContentByType('form-section')?.title || "image"}
-            className="hidden md:block w-full h-auto"
-            width={600}
-            height={470}
-            onError={(e) => (e.currentTarget.src = "/anime/road.svg")}
-          />
-
-          {/* Mobile Image */}
-          <Image
-            src={content?.pageContent?.mobileRoadMap ? `${baseUrl}/uploads/${content?.pageContent?.mobileRoadMap}` : "/anime/mobileRoad.png"}
-            alt="Study in UK Roadmap - Mobile"
-            className="block md:hidden w-full h-auto"
-            width={600}
-            height={470}
-            onError={(e) => (e.currentTarget.src = "/anime/mobileRoad.png")}
+            src="/img/gmat-testimonials-bg.svg"
+            alt="Background"
+            fill
+            className="object-cover"
+            quality={75}
           />
         </div>
-      </section>
-
-      <Component />
-
-      {/* Team Members Section */}
-      <section className="py-12 md:py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8 md:mb-12 pb-3 md:pb-4 inline-block">
-            People behind Gateway Abroad
+        <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
+            What Our Achievers Say
           </h2>
-          <div className="pt-6 md:pt-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-items-center">
-              {form.map((m) => (
-                <div key={m._id} className="bg-[#fcedf0] rounded-xl shadow-lg overflow-hidden border border-gray-200 w-full max-w-[550px]">
-                  {/* Header */}
-                  <div className="bg-red-600 px-4 sm:px-6 py-3 sm:py-4 text-center">
-                    <h4 className="text-lg sm:text-xl font-bold text-white">{m.name}</h4>
-                  </div>
 
-                  {/* Content */}
-                  <div className="p-4 sm:p-6">
-                    <div className="h-48 sm:h-[260px] overflow-y-auto pe-3 sm:pe-[15px]">
-                      <p className="text-[#666276] text-justify text-sm sm:text-base font-medium leading-5 sm:leading-6">
-                        {m.content}
-                      </p>
+          {testimonials.length === 0 ? (
+            <div className="text-center text-gray-500 py-8">Loading testimonials...</div>
+          ) : (
+            <div className="relative group">
+              <div ref={sliderRef} className="keen-slider">
+                {testimonials.map((test, idx) => (
+                  <div key={idx} className="keen-slider__slide p-2 pb-6">
+                    <div className="relative bg-white box-border caret-transparent z-0 ml-[30px] rounded-3xl md:ml-[50px] shadow-lg before:accent-auto before:border-b-gray-200 before:box-border before:caret-transparent before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-0 before:left-[-35px] before:tracking-[normal] before:leading-6 before:list-outside before:list-disc before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-0 before:z-[-1] before:border-t-white before:border-t-[25px] before:border-x-transparent before:border-x-[50px] before:border-separate before:border-solid before:top-0 before:font-noto_sans before:md:left-[-50px] before:md:border-t-[55px] before:md:border-x-[80px]">
+                      <div className="box-border caret-transparent pt-5 px-5 md:pt-[35px] md:px-[30px]">
+                        <div className="items-center box-border caret-transparent flex justify-between">
+                          <h6 className="text-gray-700 text-lg font-bold box-border caret-transparent leading-[21.6px] mb-2">
+                            {test.name}
+                          </h6>
+                          <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
+                                <Star className="w-[18px] h-[18px] fill-amber-400" />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                          {test.content}
+                        </p>
+                      </div>
+                      <div className="bg-red-600 box-border caret-transparent px-5 py-3.5 rounded-b-3xl md:px-[30px]"></div>
                     </div>
                   </div>
+                ))}
+              </div>
+
+              {/* Navigation buttons — only show if more than 1 testimonial */}
+              {/* {testimonials.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={handlePrev}
+                                        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-gray-200 z-10"
+                                    >
+                                        <ChevronLeft className="h-6 w-6 text-gray-600" />
+                                    </button>
+                                    <button
+                                        onClick={handleNext}
+                                        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-gray-200 z-10"
+                                    >
+                                        <ChevronRight className="h-6 w-6 text-gray-600" />
+                                    </button>
+                                </>
+                            )} */}
+            </div>
+          )}
+        </div>
+      </section>
+      {/* <CardStackGridSection video={video} /> */}
+            <section className="py-12 md:py-16 bg-white">
+        <div className=" mx-auto px-4 max-w-7xl">
+          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full">
+            {/* Content container with specific padding */}
+            <div className="px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
+                <div className="w-full lg:w-[75%]">
+                  <div className="text-center lg:text-left pl-[17px]">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
+                      Avail A Complementary Counselling Session
+                    </h2>
+                    <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                      Join thousand of instructors and earn money hassle free!
+                    </p>
+                    <a
+                      href="/contact"
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                    >
+                      Contact us
+                    </a>
+                  </div>
                 </div>
-              ))}
+                <div className="w-full lg:w-[38%]">
+                  <div className="flex justify-center">
+                    <img
+                      src="img/counselling-session.svg"
+                      alt="Counselling Session"
+                      className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <CardStackGridSection video={video} />
-
-      {/* Blog Section with Auto Slider */}
       <section className="py-14 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
@@ -342,61 +425,83 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                       key={index}
                       onClick={() => router.push(`/blog-description/${blog.Slug}`)}
                     >
-                      <div className="blog-card h-full  hover:text-red-600 transition-colors hover:border-red-600 duration-300">
-                        <div className="card h-full  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white transform hover:translate-x hover:border-red-600">
-                          <div className="card-img-top aspect-[4/3] overflow-hidden ">
-                            <Image
-                              src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                              alt="blog-img"
-                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                              width={400}
-                              height={300}
-                              onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-                            />
+                      <div
+                        key={index}
+                        className={`min-w-[360px] max-w-[360px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
+                      >
+                        {/* Image */}
+                        <div className="relative h-52">
+                          <Image
+                            src={
+                              blog.image
+                                ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+                                : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg"
+                            }
+                            alt={blog.blogTitle}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-4">
+                          {/* Date */}
+                          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                            <span>{formatDate(blog.createdAt)}</span>
                           </div>
-                          <div className="card-body p-4 lg:p-6">
-                            <h5 className="card-title text-lg lg:text-xl font-semibold mb-3 line-clamp-2 min-h-[56px]">
-                              <Link href={`/blog-description/${blog.Slug}`} className="hover:text-red-600 transition-colors duration-300 text-gray-800">
-                                {blog.blogTitle}
-                              </Link>
-                            </h5>
-                          </div>
+
+                          {/* Title */}
+                          <Link href={`/blog-description/${blog.Slug}`}>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
+                              {blog.blogTitle}
+                            </h3>
+                          </Link>
+
+                          {/* Description */}
+                          <div
+                            className="text-gray-600 text-sm line-clamp-2"
+                            dangerouslySetInnerHTML={sanitizedData(blog.blogDescription)}
+                          />
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-
-                {/* Navigation Dots with Auto Play Indicator */}
-                {loaded && instanceRef.current && blogData.length > 1 && (
-                  <div className="flex flex-col items-center mt-8 lg:mt-12">
-
-
-                    {/* Navigation Dots */}
-                    <div className="flex justify-center space-x-2">
-                      {Array.from({ length: instanceRef.current.track.details.slides.length }).map((_, idx) => (
-                        <button
-                          key={idx}
-                          className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === idx
-                              ? "bg-red-600 scale-125"
-                              : "bg-gray-300 hover:bg-gray-400"
-                            }`}
-                          onClick={() => {
-                            instanceRef.current?.moveToIdx(idx);
-                            setCurrentSlide(idx);
-                          }}
-                          aria-label={`Go to slide ${idx + 1}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
               </>
             ) : (
               <div className="text-center py-12">
                 <p className="text-gray-500">No blog posts available.</p>
               </div>
             )}
+          </div>
+        </div>
+      </section>
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              Frequently asked questions
+            </h2>
+            <p className="text-gray-600">Can't find the answer you are looking for?</p>
+          </div>
+          <div className="max-w-7xl mx-auto">
+            <Accordion type="single" collapsible className="w-full space-y-3">
+              {faqData.map((f: any, index: number) => (
+                <AccordionItem
+                  value={`item-${index}`}
+                  key={index}
+                  className="border border-gray-200 rounded-lg px-4"
+                >
+                  <AccordionTrigger className="text-left py-3 hover:no-underline font-medium">
+                    {f.title}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-700 pb-3 text-sm">
+                    {f.content}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>

@@ -107,16 +107,30 @@ export default function Component() {
   return (
     <div className="flex flex-col items-center justify-center bg-[#FAFBFF] py-12">
       <div className="w-full px-4">
-          <div className="text-center mb-16">
-            <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
-              Our Partner Universities
-            </h2>
-            </div>
+        <div className="text-center mb-16">
+          <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
+            Our Partner Universities
+          </h2>
+        </div>
         <div className="space-y-2">
           <SliderRow logos={dummyLogos.slice(0, 10)} direction="right" speed={30} />
           <SliderRow logos={dummyLogos.slice(10, 20)} direction="left" speed={35} />
           <SliderRow logos={dummyLogos.slice(15, 23)} direction="right" speed={28} />
           <SliderRow logos={dummyLogos.slice(0, 15)} direction="left" speed={32} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+export function SingleSlider() {
+  return (
+    <div className="flex flex-col items-center justify-center bg-[#FAFBFF] py-2">
+      <div className="w-full px-2">
+        
+        <div className="space-y-2">
+          <SliderRow logos={dummyLogos.slice(0, 20)} direction="right" speed={30} />
         </div>
       </div>
     </div>

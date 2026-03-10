@@ -19,7 +19,7 @@ const Course = () => {
   const params = useParams();
   const { course } = params;
 
-  const { data: testimonialsData } = useAsync(PageServices.getTestimonial);
+  // const { data: testimonialsData } = useAsync(PageServices.getTestimonial);
   const { data: slider } = useAsync(PageServices.getStudent);
 
   const [courseName, setCourseName] = useState('');

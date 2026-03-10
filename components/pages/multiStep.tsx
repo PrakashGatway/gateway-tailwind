@@ -105,21 +105,21 @@ export default function EnhancedMultiStepForm() {
 
   return (
     <section className="relative bg-white py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <h6 className="text-xl sm:text-2xl lg:text-2xl !text-black mx-auto font-semibold !text-center mb-8 sm:mb-12 lg:mb-16 pb-4 sm:pb-6">
+        <h6 className="text-xl sm:text-2xl lg:text-2xl !text-black mx-auto font-semibold !text-center mb-8">
           Let's calculate your chances of getting into your dream University
         </h6>
 
         {/* Main Form Container */}
-        <div className="bg-pink-100 relative mx-auto w-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/30 overflow-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 sm:gap-8 items-center">
+        <div className="bg-pink-100 relative mx-auto w-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/30 overflow-hidden px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 sm:gap-4 items-center">
             
             {/* Form Section - Full width on mobile/tablet, 4 cols on desktop */}
             <div className="lg:col-span-4">
               
               {/* Progress Steps */}
-              <div className="mb-6 sm:mb-8">
+              <div className="mb-4">
                 <div className="flex justify-center">
                   {steps.map((_, index) => {
                     const Icon = stepIcons[index]
@@ -412,11 +412,11 @@ export default function EnhancedMultiStepForm() {
 
               <motion.img
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                animate={{ opacity: 1, scale: 1.3 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
                 src="/anime/formsid.png"
                 alt="University Illustration"
-                className="w-full max-w-[300px] xl:max-w-[360px] h-auto object-contain drop-shadow-xl relative z-10"
+                className="w-full max-w-[300px] s xl:max-w-[360px] h-auto object-contain drop-shadow-xl relative z-10"
               />
             </div>
 
