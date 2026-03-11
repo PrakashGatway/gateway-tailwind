@@ -48,7 +48,6 @@ const Header = () => {
 
   async function getPageData(type, setState) {
     const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
-    console.log('API Response for', type, ':', response.data);
     if (response.data?.data) {
       setState(response.data.data);
     }
@@ -133,19 +132,6 @@ const Header = () => {
   };
 
   // Don't render anything during SSR to avoid hydration mismatch
-  if (!isMounted) {
-    return (
-      <header className="fixed w-full top-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-2">
-        <div className="mx-auto px-2 lg:p-0 sm:px-4 container-sm">
-          <div className="flex items-center justify-between h-16">
-            {/* Simple logo placeholder during SSR */}
-            <div className="w-32 h-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-            <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
-          </div>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <header
@@ -186,13 +172,6 @@ const Header = () => {
               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
             >
               About Us
-            </Link>
-
-            <Link
-              href="/spoken-english"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
-            >
-              Spoken English
             </Link>
 
 
@@ -309,12 +288,38 @@ const Header = () => {
                             <h3 className="text-sm font-bold text-gray-600 p-0 m-0 dark:text-white">
                               {course.pageName}
                             </h3>
-                            <p className="text-xs m-0 p-0 text-gray-600 dark:text-gray-400">
+                            <p className="text-xs m-0 p-0 text-gray-600 line-clamp-1 dark:text-gray-400">
                               {course.textFild}
                             </p>
                           </div>
                         </Link>
                       ))}
+                      <Link
+                        href="/spoken-english"
+                        className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+                      >
+                        <Image
+                          alt="course logo"
+                          src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy5TnSFRcyIuhZTSckFhutSF5UJCXvJSJt6w&s`}
+                          width={60}
+                          height={0}
+                          className="rounded-full border-2 border-gray-200 dark:border-gray-600"
+                        />
+                        <div className="my-auto">
+                          <h3 className="text-sm font-bold text-gray-600 p-0 m-0 dark:text-white">
+                            {"Spoken English"}
+                          </h3>
+                          <p className="text-xs m-0 p-0 text-gray-600 dark:text-gray-400">
+                            {"Spoken English"}
+                          </p>
+                        </div>
+                      </Link>
+                      {/* <Link
+                        href="/spoken-english"
+                        className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+                      >
+                        Spoken English
+                      </Link> */}
                     </div>
                   </motion.div>
                 )}
@@ -357,7 +362,7 @@ const Header = () => {
                 <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-black" />
                 <Link
                   href={`tel:${contactNumber}`}
-                  className="text-black hover:text-white font-bold text-[10px] sm:text-[15px] truncate max-w-[80px] sm:max-w-[120px]"
+                  className="text-black hover:text-white font-bold text-[10px] sm:text-[14px] truncate max-w-[80px] sm:max-w-[130px]"
                 >
                   {contactNumber}
                 </Link>
@@ -614,42 +619,46 @@ const Header = () => {
                       className="overflow-hidden pl-8"
                     >
                       <div className="space-y-1 py-2">
-                       <div className="grid grid-cols-2 gap-2">
-                      {countryPage.map((country, index) => {
-                        const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
-                        return (
+                        <div className="grid grid-cols-2 gap-2">
+                          {countryPage.map((country, index) => {
+                            const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+                            return (
 
-                          <Link
-                            key={index}
-                            href={`/study-in-${slug}`}
-                            className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
-                          >
-                            {true && (
-                              <Image
-                                alt={country.slug || country.name || "country"}
-                                src={`https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg`}
-                                width={40}
-                                height={40}
-                                className=" object-cover w-5 h-5 rounded-full shadow-lg"
-                              />
-                            )}
-                            <div className="my-auto">
-                              <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
-                                Study In  {country?.slug}
-                              </h3>
+                              <Link
+                                key={index}
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setOpenMenu(null);
+                                }}
+                                href={`/study-in-${slug}`}
+                                className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+                              >
+                                {true && (
+                                  <Image
+                                    alt={country.slug || country.name || "country"}
+                                    src={`https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg`}
+                                    width={40}
+                                    height={40}
+                                    className=" object-cover w-5 h-5 rounded-full shadow-lg"
+                                  />
+                                )}
+                                <div className="my-auto">
+                                  <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+                                    Study In  {country?.slug}
+                                  </h3>
 
+                                </div>
+                              </Link>
+                            )
+                          }
+                          )}
+
+                          {countryPage.length === 0 && (
+                            <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                              No countries available
                             </div>
-                          </Link>
-                        )
-                      }
-                      )}
-
-                      {countryPage.length === 0 && (
-                        <div className="text-center py-4 text-gray-500 dark:text-gray-400">
-                          No countries available
+                          )}
                         </div>
-                      )}
-                    </div>
                       </div>
                     </motion.div>
                   )}

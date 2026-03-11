@@ -5,9 +5,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
 import Loader from "../loader";
+import Header from "../header";
 
 
-const Header = lazy(() => import("@/components/header"));
+// const Header = lazy(() => import("@/components/header"));
 const Footer = lazy(() => import("@/components/footer"));
 const AuthDrawer = lazy(() => import("../auth/drawer"));
 
@@ -38,11 +39,11 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider defaultTheme="light" storageKey="gateway-theme">
         <GlobalProvider>
-          <LoaderWrapper>
+          {/* <LoaderWrapper> */}
             {!shouldHideLayout && (
-              <Suspense fallback={<LayoutFallback />}>
+              // <Suspense fallback={<LayoutFallback />}>
                 <Header />
-              </Suspense>
+              // </Suspense>
             )}
             <main>{children}</main>
             {!shouldHideLayout && (
@@ -50,7 +51,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                 <Footer />
               </Suspense>
             )}
-          </LoaderWrapper>
+          {/* </LoaderWrapper> */}
         </GlobalProvider>
     </ThemeProvider>
   );
