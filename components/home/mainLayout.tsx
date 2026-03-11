@@ -38,7 +38,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider defaultTheme="light" storageKey="gateway-theme">
         <GlobalProvider>
-          {/* <LoaderWrapper> */}
+          <LoaderWrapper>
             {!shouldHideLayout && (
               <Suspense fallback={<LayoutFallback />}>
                 <Header />
@@ -50,7 +50,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                 <Footer />
               </Suspense>
             )}
-          {/* </LoaderWrapper> */}
+          </LoaderWrapper>
         </GlobalProvider>
     </ThemeProvider>
   );
