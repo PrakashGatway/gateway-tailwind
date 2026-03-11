@@ -23,10 +23,12 @@ export default function ReadMoreSection({ content }: any) {
               transition={{ duration: 0.3 }}
               className="text-gray-800 overflow-hidden text-md"
             >
+              
               <div
-                className="prose max-w-none" // optional Tailwind typography
+                className="content-html" // optional Tailwind typography
                 dangerouslySetInnerHTML={{ __html: content?.content || "" }}
               />
+              
             </motion.div>
           ) : (
             <motion.div
@@ -38,9 +40,79 @@ export default function ReadMoreSection({ content }: any) {
               className="text-gray-800 overflow-hidden text-md"
             >
               <div
-                className="prose max-w-none" // optional Tailwind typography
-                dangerouslySetInnerHTML={{ __html: content?.content || "" }}
-              />
+  className="content-html"
+  style={{
+    lineHeight: "1.8",
+    fontSize: "16px",
+    color: "#374151",
+  }}
+  dangerouslySetInnerHTML={{ __html: content?.content || "" }}
+/>
+
+<style>{`
+.content-html p {
+  margin: 12px 0;
+}
+
+.content-html h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 28px 0 14px;
+}
+
+.content-html h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+}
+
+.content-html h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
+
+.content-html h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 18px 0 8px;
+}
+
+.content-html ul {
+  list-style: disc;
+  margin-left: 22px;
+}
+
+.content-html ol {
+  list-style: decimal;
+  margin-left: 22px;
+}
+
+.content-html li {
+  margin: 6px 0;
+}
+
+.content-html a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.content-html table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.content-html th,
+.content-html td {
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+}
+
+.content-html th {
+  background: #f3f4f6;
+}
+`}</style>
             </motion.div>
           )}
         </AnimatePresence>

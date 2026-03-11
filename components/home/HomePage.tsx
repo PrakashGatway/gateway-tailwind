@@ -19,6 +19,26 @@ import BlogCard from '../pages/usable components/BlogCard';
 import axiosInstance from '@/services/axiosInstance';
 import BlogNew from '../blognew';
 import { error } from 'console';
+import ContactForm from '../pages/UkForm';
+import { ProcessStep } from '../ukpageComponent/whyStudyin';
+import UniversitySliderClient from '../universityslider';
+
+
+export const highlightText = (text) => {
+  const parts = text.split("||");
+
+  return parts.map((part, index) =>
+    index % 2 === 1 ? (
+      <span key={index} className="text-red-600 font-bold">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
+
+
 
 function Index({ homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2 }: any) {
   const router = useRouter();
@@ -112,6 +132,65 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
   // });
 
   // Keen Slider for testimonials
+
+
+     const [activeStep, setActiveStep] = useState(null);
+
+    const processSteps = [
+        {
+            step: 1,
+            tag: "Free · Week 1",
+            title: "Free Profile Evaluation & Destination University Matching",
+            description: "We assess your academic background, IELTS score (or MOI eligibility), budget, preferred course, and career goals. You receive a personalised Destination university shortlist — within 48 hours, completely free.",
+            icon: "📋",
+            color: "bg-red-500"
+        },
+        {
+            step: 2,
+            tag: "If needed · Month 1–3",
+            title: "IELTS / PTE / Duolingo Coaching",
+            description: "Our certified IELTS coaches help you achieve your target band score with a personalised study plan, weekly mock tests, and focused speaking and writing practice sessions.",
+            icon: "📚",
+            color: "bg-orange-500"
+        },
+        {
+            step: 3,
+            tag: "Month 2–4",
+            title: "SOP, LOR & Application Document Preparation",
+            description: "Our UK-experienced writers craft a compelling Statement of Purpose, guide your referees on LOR content, and prepare your complete application package tailored to each university's requirements.",
+            icon: "📝",
+            color: "bg-amber-500"
+        },
+    
+        {
+            step: 5,
+            tag: "After Offer Letter",
+            title: "Scholarship Applications & Education Loan",
+            description: "We identify every scholarship you're eligible for and complete those applications. We also assist with education loan documentation for SBI, HDFC Credila, Axis, and other lenders — ensuring you get the best rate.",
+            icon: "💰",
+            color: "bg-green-500"
+        },
+        {
+            step: 6,
+            tag: "2–3 Months Before Travel",
+            title: "Student Visa Application (Tier 4 / Student Route)",
+            description: "We prepare your complete visa package — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock visa interview preparation.",
+            icon: "🛂",
+            color: "bg-blue-500"
+        },
+        {
+            step: 7,
+            tag: "Pre-Departure",
+            title: "Pre-Departure Orientation & Post-Arrival Support",
+            description: "Accommodation guidance, forex cards, NHS registration,bank account tips, transport orientation, and connections to Indian student communities at your university — we're with you even after you land.",
+            icon: "✈️",
+            color: "bg-purple-500"
+        }
+    ];
+
+    
+
+
   const [testimonialRef, testimonialInstanceRef] = useKeenSlider(
     {
       loop: true,
@@ -579,7 +658,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
             <div className="w-full lg:w-1/2 order-2 lg:order-1 ">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center lg:text-left mb-6 ">
-                Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute is a leader in preparing students for standardized tests like <span className="font-semibold">GMAT</span>, <span className="font-semibold">GRE</span>, <span className="font-semibold">SAT</span>, <span className="font-semibold">TOEFL</span>, <span className="font-semibold">IELTS</span>, and <span className="font-semibold">PTE</span>.
+                Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute prepares students for international standardized tests, helping them achieve their study abroad goals and secure admission to top universities.
               </h3>
 
               {studentData.length > 0 && (
@@ -602,17 +681,14 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                           </div>
 
                           {/* Name and Score side by side - Responsive */}
-                          <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] flex items-center justify-center w-full">
+                          {/* <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] lg:-left-30 flex items-center justify-center w-full">
                             <div className="flex items-center w-[90%] md:w-[75%] lg:w-[68%] h-[70px] md:h-[84px]">
                               <div className='w-[60%] bg-gray-300 h-full flex items-center justify-center'>
                                 <h5 className="font-bold text-gray-900 text-base md:text-lg lg:text-xl px-2 text-center">{s.name}</h5>
                               </div>
-                              <div className="text-center bg-[#9e0072] py-2 md:py-[10px] px-3 md:px-[20px] h-full flex flex-col items-center justify-center">
-                                <p className="text-xs md:text-sm text-white">{s.courseName} Score</p>
-                                <h5 className="text-lg md:text-xl lg:text-2xl font-bold text-white mt-1">{s.rank}</h5>
-                              </div>
+                           
                             </div>
-                          </div>
+                          </div> */}
 
                           {/* Content below - Responsive */}
                           <div className="mt-[280px] md:mt-[340px] lg:mt-[380px] mb-8">
@@ -729,116 +805,11 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
 
 
-      {/* Student Rank Section */}
-      <section className=" bg-[#d71635] relative">
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
-          <div className="bg-black text-white px-4 p-[10px]  rounded-full absolute h-[65px] w-[150px] top-[-33px] right-[-105px]">
-            <p className="text-base font-semibold text-center pl-[22px] pt-[8px]">Since 2009</p>
-          </div>
-        </div>
-
-        <div className="mx-auto ml-20 overflow-hidden">
-          <div className="flex group">
-            {/* First set for seamless loop */}
-            <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
-              {sliderData.map((s, index) => (
-                <div
-                  key={`first-${index}`}
-                  className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
-                >
-                  {/* Right border for partition */}
-                  <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
-
-                  <p className="text-sm text-[#FFD8D8]">{s.name}</p>
-                  <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Duplicate set for seamless loop */}
-            <div className="flex items-center animate-infinite-scroll group-hover:animation-paused">
-              {sliderData.map((s, index) => (
-                <div
-                  key={`second-${index}`}
-                  className="flex-shrink-0 text-center text-white inline-block relative pr-8 my-[10px]"
-                >
-                  {/* Right border for partition */}
-                  <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-white"></div>
-
-                  <p className="text-sm text-[#FFD8D8]">{s.name}</p>
-                  <p className="text-white font-semibold">{s.courseName} {s.rank}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Add animation styles */}
-          <style jsx>{`
-    @keyframes infinite-scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-    .animate-infinite-scroll {
-      animation: infinite-scroll 60s linear infinite;
-      flex-shrink: 0;
-      min-width: 100%;
-    }
-    .group:hover .animate-infinite-scroll {
-      animation-play-state: paused;
-    }
-  `}</style>
-        </div>
-      </section>
+    
 
       {/* Marquee Section */}
-      <section className="bg-[#d9d9d9] overflow-hidden">
-        <div className="flex group">
-          {/* First set for seamless loop */}
-          <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
-            {sliderData.map((s, index) => (
-              <div key={`first-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
-                {/* Right border for partition */}
-                <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[20px] w-[1px] bg-black"></div>
-                {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Duplicate set for seamless loop */}
-          <div className="flex items-center animate-infinite-scroll-reverse group-hover:animation-paused">
-            {sliderData.map((s, index) => (
-              <div key={`second-${index}`} className="flex-shrink-0 text-black font-medium inline-block relative pr-8 py-[10px]">
-                {/* Right border for partition */}
-                <div className="absolute right-4 top-[55%] transform -translate-y-1/2 h-[42px] w-[1px] bg-black"></div>
-                {s.name} {s.courseName} <span className="text-black font-bold">{s.rank}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Add animation styles */}
-        <style jsx>{`
-    @keyframes infinite-scroll-reverse {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(0);
-      }
-    }
-    .animate-infinite-scroll-reverse {
-      animation: infinite-scroll-reverse 80s linear infinite;
-      flex-shrink: 0;
-      min-width: 100%;
-    }
-    .group:hover .animate-infinite-scroll-reverse {
-      animation-play-state: paused;
-    }
-  `}</style>
+      <section className="bg-white">
+        <UniversitySliderClient/>
       </section>
 
       {/* Test Preparation Section */}
@@ -853,260 +824,98 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section>
 
-      {/* Working Process Section */}
-      <section className="py-12 md:py-20 bg-[#FAFBFF]">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-4">
-            Our Working Process
-          </h2>
-          <p className="text-gray-600 text-center mb-[50px] max-w-3xl mx-auto">
-            A platform that takes care of everything beforehand. Gateway Abroad sources, vets, matches and manages all the talents.
-          </p>
-
-          {/* Desktop Process */}
-          <div className="hidden lg:block">
-            <div className="flex flex-wrap -mx-6">
-              {/* Left Column */}
-              <div className="w-1/3 px-6 mt-[90px]">
-                <div className="text-right space-y-20">
-                  <div className="relative">
-                    <div className=" items-center justify-end space-x-4 mb-4">
-                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
-                        <Image
-                          src="/img/vetting2.svg"
-                          alt="Teach"
-                          width={100}
-                          height={40}
-                          className='ml-[560px] mb-[41px]'
-                        />
-                      </div>
-                      <div className="text-right">
-                        <h3 className="text-[#00817d] text-xl font-semibold mb-2">Teach</h3>
-                        <p className="text-gray-600 text-sm leading-5">
-                          Guiding individuals through a comprehensive process aimed at clearing the fundamentals of the students.
-                        </p>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className=" items-center justify-end space-x-4 mb-4">
-                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
-                        <Image
-                          src="/img/vetting4.svg"
-                          alt="Feedback & Mock"
-                          width={100}
-                          height={40}
-                          className='ml-[560px] mb-[41px]'
-                        />
-                      </div>
-                      <div className="text-right mt-[20px]">
-                        <h3 className="text-[#7e5c6a] text-xl font-semibold mb-2">Feedback & Mock</h3>
-                        <p className="text-gray-600 text-sm leading-5">
-                          Regularly engage in mock exams and feedback sessions to familiarize yourself with the exam environment, improve time management, and identify areas that need further attention.
-                        </p>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <div className=" items-center justify-end space-x-4 mb-4">
-                      <div className="w-[7rem] h-16 flex items-center justify-center flex-shrink-0 ">
-                        <Image
-                          src="/img/vetting6.svg"
-                          alt="Feedback & Mock"
-                          width={100}
-                          height={40}
-                          className='ml-[560px] mb-[41px]'
-                        />
-                      </div>
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Center Column - Process Image */}
-              <div className="w-1/3 px-6 flex items-center justify-center">
-                <div className="relative">
-                  <Image
-                    src="/img/vaetting-process-number.svg"
-                    alt="Process Steps"
-                    width={300}
-                    height={400}
-                    className="mx-auto"
-                  />
-                </div>
-              </div>
-
-              {/* Right Column */}
-              <div className="w-1/3 px-6 mb-[40px]">
-                <div className="space-y-20">
-                  <div className="relative">
-                    <div className=" items-center space-x-4 mb-4">
-                      <div className="w-[7rem] h-16   flex items-center justify-center flex-shrink-0">
-                        <Image
-                          src="/img/vetting1.svg"
-                          alt="Counsell"
-                          width={80}
-                          height={40}
-                          className='mb-[80px]'
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-[#ffa515] text-xl font-semibold mb-2">Counsell</h3>
-                        <p className="text-gray-600 text-sm leading-5">
-                          It involves providing personalized advice to aid students in selecting the most suitable exam for their desired countries.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className=" items-center space-x-4 mb-4">
-                      <div className="w-[7rem] h-16   flex items-center justify-center flex-shrink-0">
-                        <Image
-                          src="/img/vetting3.svg"
-                          alt="Practice"
-                          width={100}
-                          height={40}
-                          className='mb-[40px]'
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-[#ff5e5b] text-xl font-semibold mb-2">Practice</h3>
-                        <p className="text-gray-600 text-sm leading-5">
-                          Engaging in regular and focused practice not only enhances one's understanding of the material but also hones skills, refines problem-solving abilities, and builds confidence.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className=" items-center space-x-4 mb-4">
-                      <div className="w-[7rem] h-16  flex items-center justify-center flex-shrink-0">
-                        <Image
-                          src="/img/vetting5.svg"
-                          alt="Book Test Date"
-                          width={100}
-                          height={40}
-                          className='mb-[80px]'
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-[#ff824b] text-xl font-semibold mb-2">Book Test Date</h3>
-                        <p className="text-gray-600 text-sm leading-5">
-                          Test date booking facility offered by Gateway Abroad.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Process */}
-          <div className="lg:hidden space-y-8">
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/img/vetting1.svg"
-                    alt="Counsell"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div>
-                  <h3 className="text-[#ffa515] text-lg font-semibold mb-1">Counsell</h3>
-                  <p className="text-gray-600 text-sm">
-                    It involves providing personalized advice to aid students in selecting the most suitable exam for their desired countries.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/img/vetting2.svg"
-                    alt="Teach"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div>
-                  <h3 className="text-[#00817d] text-lg font-semibold mb-1">Teach</h3>
-                  <p className="text-gray-600 text-sm">
-                    Guiding individuals through a comprehensive process aimed at clearing the fundamentals of the students.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/img/vetting3.svg"
-                    alt="Practice"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div>
-                  <h3 className="text-[#ff5e5b] text-lg font-semibold mb-1">Practice</h3>
-                  <p className="text-gray-600 text-sm">
-                    Engaging in regular and focused practice not only enhances one's understanding of the material but also hones skills, refines problem-solving abilities, and builds confidence.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/img/vetting4.svg"
-                    alt="Feedback & Mock"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div>
-                  <h3 className="text-[#7e5c6a] text-lg font-semibold mb-1">Feedback & Mock</h3>
-                  <p className="text-gray-600 text-sm">
-                    Regularly engage in mock exams and feedback sessions to familiarize yourself with the exam environment, improve time management, and identify areas that need further attention.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/img/vetting5.svg"
-                    alt="Book Test Date"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div>
-                  <h3 className="text-[#ff824b] text-lg font-semibold mb-1">Book Test Date</h3>
-                  <p className="text-gray-600 text-sm">
-                    Test date booking facility offered by Gateway Abroad.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="py-14 bg-pink-100 px-5" id="process">
+                 <div className="max-w-7xl mx-auto">
+                     <div className="flex flex-col lg:flex-row gap-10">
+     
+                         {/* Left Column: Process Timeline */}
+                         <div className="w-full lg:w-[67%]">
+     
+                             {/* Header */}
+                             <div className="mb-8">
+     
+                                 <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                                     {highlightText("How Gateway Abroad Helps || To Achieve Your Dream Destination || — End to End")}
+                                 </h2>
+     
+                                 <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+                                     From your first free consultation to your flight to the Destination — we manage every step with precision and care.
+                                 </p>
+                             </div>
+     
+                          
+     
+                             {/* Timeline */}
+                             <div className="relative">
+                                 {/* Vertical Line */}
+                                 <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-[#012169] to-red-500 hidden lg:block" />
+     
+                                 <div className="space-y-2">
+                                     {processSteps.map((item, index) => (
+                                         <ProcessStep
+                                             key={item.step}
+                                             item={item}
+                                             index={index}
+                                             activeStep={activeStep}
+                                             setActiveStep={setActiveStep}
+                                         />
+                                        
+                                     ))}
+                                 </div>
+                             </div>
+     
+                         </div>
+     
+                         {/* Right Column: Sticky Sidebar */}
+                         <div className="w-full lg:w-[33%]">
+                             <div className="sticky top-24 space-y-4">
+     
+     
+                                 <ContactForm />
+     
+     
+                                 {/* Contact Info Card */}
+                                 <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">
+                                     <p className="text-gray-600 text-xs uppercase font-bold mb-2">
+                                         Call / WhatsApp
+                                     </p>
+                                     <a
+                                         href="tel:+918302092630"
+                                         className="text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
+                                     >
+                                         +91 8302092630
+                                     </a>
+                                 </div>
+     
+                                 {/* Quick Stats */}
+                                 <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
+                                     <h4 className="font-bold text-gray-800 mb-3 text-sm">Why Choose Gateway Abroad?</h4>
+                                     <ul className="space-y-2 text-sm text-gray-600">
+                                         <li className="flex items-center gap-2">
+                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                                             16+ Years Experience
+                                         </li>
+                                         <li className="flex items-center gap-2">
+                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                                             500+ Students Placed in UK
+                                         </li>
+                                         <li className="flex items-center gap-2">
+                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                                             96% Visa Success Rate
+                                         </li>
+                                         <li className="flex items-center gap-2">
+                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                                             Russell Group Specialists
+                                         </li>
+                                     </ul>
+                                 </div>
+     
+                             </div>
+                         </div>
+     
+                     </div>
+                 </div>
+             </section>
 
       {/* YouTube Testimonials Section */}
       <section className="py-12 md:py-20 bg-gray-50">

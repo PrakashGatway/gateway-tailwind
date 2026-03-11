@@ -675,7 +675,7 @@ export function GatewayAbroadProcess() {
 }
 
 // Individual Process Step Component
-function ProcessStep({ item, index, activeStep, setActiveStep }) {
+export function ProcessStep({ item, index, activeStep, setActiveStep }) {
     const isActive = activeStep === index;
 
     return (

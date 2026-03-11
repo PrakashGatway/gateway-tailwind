@@ -78,47 +78,47 @@ export const constant = {
         }
     ],
     TEST_PREPARATION: [
-        {
-            text1: 'Experienced and',
-            text2: 'qualified coaches',
-            imageName: 'coaching-services-img1.svg'
-        },
-        {
-            text1: 'Personalized',
-            text2: 'attention',
-            imageName: 'coaching-services-img2.svg'
-        },
-        {
-            text1: 'Proven track record',
-            text2: 'of success',
-            imageName: 'coaching-services-img3.svg'
-        },
-        {
-            text1: 'Comprehensive study',
-            text2: 'materials',
-            imageName: 'coaching-services-img4.svg'
-        },
-        {
-            text1: 'Flexible scheduling',
-            text2: '',
-            imageName: 'coaching-services-img5.svg'
-        },
-        {
-            text1: 'Positive student',
-            text2: 'testimonials',
-            imageName: 'coaching-services-img6.svg'
-        },
-        {
-            text1: 'Regular progress',
-            text2: 'tracking',
-            imageName: 'coaching-services-img7.svg'
-        },
-        {
-            text1: 'Affordable fees',
-            text2: '',
-            imageName: 'coaching-services-img8.svg'
-        }
-    ],
+  {
+    text1: 'University & Course',
+    text2: 'Selection',
+    imageName: 'coaching-services-img1.svg'
+  },
+  {
+    text1: 'Admission Application',
+    text2: 'Assistance',
+    imageName: 'coaching-services-img2.svg'
+  },
+  {
+    text1: 'SOP & LOR',
+    text2: 'Guidance',
+    imageName: 'coaching-services-img3.svg'
+  },
+  {
+    text1: 'Scholarship',
+    text2: 'Assistance',
+    imageName: 'coaching-services-img4.svg'
+  },
+  {
+    text1: 'Student Visa',
+    text2: 'Support',
+    imageName: 'coaching-services-img5.svg'
+  },
+  {
+    text1: 'Test Preparation',
+    text2: 'Guidance',
+    imageName: 'coaching-services-img6.svg'
+  },
+  {
+    text1: 'Accommodation',
+    text2: 'Assistance',
+    imageName: 'coaching-services-img7.svg'
+  },
+  {
+    text1: 'Pre-Departure',
+    text2: 'Guidance',
+    imageName: 'coaching-services-img8.svg'
+  }
+],
     ADMIN_SIDE_BAR: [
         {
             "title": "Visit Site",
