@@ -618,7 +618,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-900 mb-12">
-            Best in the Industry Coaching Services
+            Best Study Abroad Services
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
             {constant.TEST_PREPARATION.map((x) => (
@@ -960,7 +960,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
-            What Our Test Preparation Achievers Say
+            Success Stories from Our Study Abroad Students
           </h2>
 
           {(!testimonials?.testimonial || testimonials.testimonial.length === 0) ? (

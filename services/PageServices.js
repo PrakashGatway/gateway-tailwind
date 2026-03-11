@@ -212,7 +212,7 @@ const PageServices = {
 
 
     getTestimonial: async () => {
-        return await requests.get(`/testimonial/`)
+        return await requests.get(`/testimonial?type=GMAT`)
     },
 
     getTestimonialByCat: async (value) => {
