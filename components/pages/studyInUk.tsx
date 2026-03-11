@@ -204,46 +204,42 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                   {content?.subTitle || "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities."}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 text-sm">
 
-                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-
-                  <p className="font-semibold">🏛️ Russell</p>
+                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                  <p className="font-semibold"> Russell</p>
                 </div>
 
-                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="text-lg">🏛️</p>
+                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
                   <p className="font-semibold">Russell Group Universities</p>
                 </div>
 
-                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="text-lg">🏛️</p>
+                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
                   <p className="font-semibold">Russell Group Universities</p>
                 </div>
 
-                <div className="px-4 py-1.5 flex gap-1 rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="text-lg">🏛️</p>
+                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
                   <p className="font-semibold">Russell Group Universities</p>
                 </div>
 
               </div>
-              <div className="flex gap-2 md:gap-4 pt-4 flex-wrap">
+              <div className=" grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 pt-4 flex-wrap">
                 {/* Stats Cards */}
-                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     {<CounterUp end={getContentByType('hero')?.students} />}<span className="text-red-600">+</span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
                 </div>
 
-                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     <CounterUp end={getContentByType('hero')?.university} /><span className="text-red-600">+</span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Universities</p>
                 </div>
 
-                <div className="bg-pink-300 rounded-[28px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     <CounterUp end={getContentByType('hero')?.cities} /><span className="text-red-600">+</span>
                   </h3>
@@ -291,6 +287,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       {/* Why Choose Us Section */}
       <TopUKUniversities />
       <UKStudyCosts />
+      <UKUniversityIntakes />
       <GatewayAbroadProcess />
       <UKScholarships />
       <ProcessRoadmap content={getContentByType('roadmap')} />
@@ -364,13 +361,13 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
         </div>
       </section>
       {/* <CardStackGridSection video={video} /> */}
-            <section className="py-12 md:py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className=" mx-auto px-4 max-w-7xl">
           <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full">
             {/* Content container with specific padding */}
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
-                <div className="w-full lg:w-[75%]">
+                <div className="w-full lg:w-[75%] pt-6">
                   <div className="text-center lg:text-left pl-[17px]">
                     <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
                       Avail A Complementary Counselling Session
@@ -400,7 +397,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
           </div>
         </div>
       </section>
-      <section className="py-14 lg:py-20">
+      <section className="py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
             <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
