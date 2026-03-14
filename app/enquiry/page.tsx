@@ -251,7 +251,7 @@ const transformFormDataToSchema = (data: FormData) => {
       
       console.log("Transformed Data:", JSON.stringify(apiData, null, 2));
 
-      const res = await fetch("http://localhost:5000/api/enquiry", {
+      const res = await fetch("https://api.ooshasglobal.com/api/enquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
