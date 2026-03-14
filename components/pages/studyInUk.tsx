@@ -177,7 +177,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
-
+console.log(content)
 
 
   return (
@@ -282,11 +282,11 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       </section>
       <SingleSlider />
 
-      <WhyStudyUK />
+      <WhyStudyUK content = {content} />
       <MultiStepForm />
       {/* Why Choose Us Section */}
-      <TopUKUniversities />
-      <UKStudyCosts />
+      <TopUKUniversities content = {content} />
+      <UKStudyCosts content= {content} />
       <UKUniversityIntakes />
       <GatewayAbroadProcess />
       <UKScholarships />

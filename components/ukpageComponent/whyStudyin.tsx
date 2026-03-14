@@ -5,57 +5,9 @@ import { useState } from "react";
 import { highlightText } from "../pages/studyInUk";
 import { DynamicIcon } from "../sections/processRoad";
 
-export default function WhyStudyUK() {
-    const reasons = [
-        {
-            icon: "⏱️",
-            title: "1-Year Master's Degrees",
-            description: "UK PG programs take just 12 months vs 2 years in Australia or USA — saving one full year of living costs (₹8–15 lakhs) and getting you into the job market faster.",
-            badge: "Huge Cost Saving"
-        },
-        {
-            icon: "🏛️",
-            title: "World's Best Universities",
-            description: "24 Russell Group universities including Oxford, Cambridge, UCL, Imperial, Manchester and LSE rank consistently in the global top 100. UK has more top-100 universities per capita than any other country.",
-            badge: "Global Ranking"
-        },
-        {
-            icon: "💼",
-            title: "2-Year Post-Study Work Visa",
-            description: "The Graduate Route Visa lets you work in the UK for 2 years (3 years for PhD holders) after graduation — with no job offer required. In 2025, 90,153 Indian nationals received Graduate Route extensions.",
-            badge: "Work Freely"
-        },
-        {
-            icon: "💷",
-            title: "High Earning Potential",
-            description: "UK minimum wage for graduate roles is £12.21/hour (2025). Tech, finance, and healthcare graduates from Russell Group unis average £28,000–£55,000 starting salary.",
-            badge: "Great ROI"
-        },
-        {
-            icon: "🎓",
-            title: "Full Scholarships Available",
-            description: "Chevening (fully funded), GREAT Scholarship (£10,000), Charles Wallace India Trust, Commonwealth Scholarships — UK has more scholarship options for Indian students than almost any other country.",
-            badge: "Free Education"
-        },
-        {
-            icon: "🌍",
-            title: "No IELTS Required at Many Unis",
-            description: "If your bachelor's degree was taught in English, many top UK universities accept a Medium of Instruction (MOI) certificate — no IELTS needed. Universities like Hertfordshire, UCLan, Sunderland and more.",
-            badge: "IELTS Waiver"
-        },
-        {
-            icon: "🇮🇳",
-            title: "Largest Indian Student Community",
-            description: "Over 150,000 Indian students currently study in the UK. Cities like London, Manchester, Birmingham, and Edinburgh have vibrant Indian communities, cultural events, and familiar food options.",
-            badge: "Community"
-        },
-        {
-            icon: "🏥",
-            title: "Free NHS Healthcare",
-            description: "UK students pay the Immigration Health Surcharge (IHS) which grants full access to the National Health Service (NHS) — free doctor visits, prescriptions, and hospital care throughout your stay.",
-            badge: "Health Coverage"
-        }
-    ];
+export default function WhyStudyUK({ content }) {
+
+
 
     return (
         <section className="bg-white pt-20 px-5">
@@ -63,17 +15,18 @@ export default function WhyStudyUK() {
 
                 {/* Title */}
                 <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
-                    {highlightText("Why Study in UK from || India || in 2026? || 10 Compelling Reasons. ||")}
+                    <span>{content.sections[1].content.title?.split("||")[0]}</span>
+                    <span className="text-red-600 font-bold">{content.sections[1].title?.split("||")[1]}</span>
                 </h2>
 
                 {/* Description */}
                 <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl mb-12">
-                    The UK is the world's second most popular study abroad destination, and India has now become its #1 source of international students — surpassing China for the first time. Here's why 95,000+ Indian students chose the UK in 2025.
+                    {content.sections[1].content.subTittle}
                 </p>
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {reasons.map((reason, index) => (
+                    {content.sections[1].content.Cards.map((reason, index) => (
                         <div
                             key={index}
                             className="group relative bg-gradient-to-br from-pink-100 to-amber-50 border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 hover:border-red-200 overflow-hidden"
@@ -86,16 +39,16 @@ export default function WhyStudyUK() {
                             {/* Left accent border */}
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#C8102E] to-[#012169] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl" />
 
-                            <DynamicIcon name={"Landmark"} size={45} className="!stroke-[1.2px]" color="#C8102E" />
+                            <DynamicIcon name={reason.icon} size={45} className="!stroke-[1.2px]" color="#C8102E" />
 
                             {/* Title */}
                             <h3 className="text-lg font-semibold text-gray-700 mt-3 mb-2">
-                                {reason.title}
+                                {reason.name}
                             </h3>
 
                             {/* Description */}
                             <p className="text-sm text-gray-600 leading-relaxed">
-                                {reason.description}
+                                {reason.content}
                             </p>
                         </div>
                     ))}
@@ -106,7 +59,7 @@ export default function WhyStudyUK() {
 }
 
 
-export function TopUKUniversities() {
+export function TopUKUniversities({ content }) {
     const [hoveredCard, setHoveredCard] = useState(null);
 
     const universities = [
@@ -191,17 +144,17 @@ export function TopUKUniversities() {
                 {/* Header */}
                 <div className="mb-10">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
-                        {highlightText("Best || UK || Universities for || Indian || Students 2025–26")}
+                        {content.sections[4].content.title}
                     </h2>
 
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        From Oxford to Manchester, these are the most popular and highly ranked UK universities among Indian applicants — with courses, rankings, and entry requirements for 2025 intake.
+                        {content.sections[4].content.subTittle}
                     </p>
                 </div>
 
                 {/* Universities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {universities.map((uni, index) => (
+                    {content.sections[4].content.Cards.map((uni, index) => (
                         <div
                             key={index}
                             className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 cursor-pointer overflow-hidden
@@ -211,16 +164,17 @@ export function TopUKUniversities() {
                             onMouseLeave={() => setHoveredCard(null)}
                         >
                             <div className="absolute top-0 right-0 bg-red-600 px-3 py-1.5 rounded-bl-2xl text-sm font-medium text-white ">
-                                {uni.rank}
+                                {uni.qsRank}
                             </div>
                             {/* Animated gradient overlay on hover */}
                             <div className={`absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
 
                             {/* QS Rank Tag - Enhanced */}
-                            <div className="relative z-10 flex items-start justify-between mb-1">
+                            <div className="relative z-10  items-start justify-between mb-1">
                                 <h3 className="text-lg sm:text-xl font-bold text-gray-600 mt-1 group-hover:text-red-600 transition-colors duration-300">
-                                    {uni.name}
+                                    {uni?.name}
                                 </h3>
+                                <p className="text-sm">{uni?.description}</p>
                                 {/* <span className="text-3xl filter drop-shadow-lg">{uni.image}</span> */}
                             </div>
 
@@ -232,27 +186,27 @@ export function TopUKUniversities() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {uni.location}
+                                    {uni?.location}
                                 </div>
-                                <p className="text-gray-500 text-sm mt-1"> {uni.established}</p>
+                                <p className="text-gray-500 text-sm mt-1"> {uni?.year}</p>
                             </div>
                             <div className="relative z-10 flex flex-wrap gap-2 mb-5">
-                                {uni.courses.map((course, i) => (
+                                {uni.Courses?.split(",").map((course, i) => (
                                     <span
                                         key={i}
                                         className="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10 hover:bg-[#C9A84C]/20 hover:text-[#C9A84C] hover:border-[#C9A84C]/30 transition-all duration-300"
                                     >
-                                        {course}
+                                        {course.trim()}
                                     </span>
                                 ))}
                             </div>
                             <button
                                 type="submit"
-                                className="px-4 w-full text-sm mx-auto py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-green-700 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                className="px-4 w-full text-center text-sm mx-auto py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-green-700 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                             >
 
-                                
-                                <span>Apply With Gateway Abroad</span>
+
+                                <span className="text-center">{uni.button}</span>
                             </button>
 
                             {/* Corner decoration */}
@@ -279,7 +233,7 @@ export function TopUKUniversities() {
 }
 
 
-export function UKStudyCosts() {
+export function UKStudyCosts({ content }) {
     const tuitionData = [
         { program: "Undergraduate (UG)", gbp: "£10,000 – £26,000", inr: "₹10.5 – 27 Lakhs" },
         { program: "Masters / MS (PG)", gbp: "£12,000 – £35,000", inr: "₹12.5 – 37 Lakhs" },
@@ -319,6 +273,8 @@ export function UKStudyCosts() {
         { name: "Commonwealth", benefit: "Full funding for select courses", tag: "Prestigious" }
     ];
 
+    console.log(content.sections[5])
+
     return (
         <section className="bg-white pt-14 px-5">
             <div className="max-w-7xl mx-auto">
@@ -326,11 +282,12 @@ export function UKStudyCosts() {
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {highlightText("Cost of Studying in || UK || for || Indian Students || 2026–27")}
+                        {content?.sections[5]?.content?.title}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        Understanding tuition fees and living costs before you decide is critical. Here's a complete cost breakdown for Indian students planning to study in UK — by program, city, and level.
+                        {content?.sections[5]?.content?.subTitle}
+
                     </p>
                 </div>
 
@@ -340,71 +297,50 @@ export function UKStudyCosts() {
                     {/* Left Column: Tables */}
                     <div className="lg:col-span-2 space-y-6">
 
-                        {/* Tuition Fees Table */}
-                        <div className="bg-gradient-to-br from-pink-50 to-amber-50 border border-gray-200 rounded-2xl overflow-hidden">
-                            <div className="px-6 py-4 bg-red-600 text-white">
-                                <h3 className="font-bold text-lg flex items-center gap-2">
-                                    <DynamicIcon name="GraduationCap" size={20} color="#fff" />
-                                    Annual Tuition Fees by Program
-                                </h3>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Program</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Annual Tuition (GBP)</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">In INR (Approx.)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100">
-                                        {tuitionData.map((item, index) => (
-                                            <tr key={index} className="hover:bg-red-50/50 transition-colors">
-                                                <td className="px-6 py-4 text-sm font-medium text-gray-800">{item.program}</td>
-                                                <td className="px-6 py-4 text-sm font-bold text-red-600">{item.gbp}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-600">{item.inr}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {content?.sections[5]?.content?.Table?.map((item, i) => (
+                            <>
+                                {/* Tuition Fees Table */}
+                                <div className="bg-gradient-to-br from-pink-50 to-amber-50 border border-gray-200 rounded-2xl overflow-hidden">
+                                    <div className="px-6 py-4 bg-red-600 text-white">
+                                        <h3 className="font-bold text-lg flex items-center gap-2">
+                                            <DynamicIcon name={item?.iconitem||"GraduationCap"} size={20} color="#fff" />
+                                            {item?.tableTitle}
+                                        </h3>
+                                    </div>
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full">
+                                            <thead className="bg-gray-50">
+                                                <tr>
+                                                    {item.tablerow.split("||").map((row, i) => (
+                                                        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">{row}</th>
+                                                    ))}
 
-                        {/* Living Costs Table */}
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-gray-200 rounded-2xl overflow-hidden">
-                            <div className="px-6 py-4 bg-[#012169] text-white">
-                                <h3 className="font-bold text-lg flex items-center gap-2">
-                                    <DynamicIcon name="Home" size={20} color="#fff" />
-                                    Annual Living Costs
-                                </h3>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-amber-700 uppercase tracking-wider">London / yr</th>
-                                            <th className="px-6 py-3 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">Other Cities / yr</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100">
-                                        {livingCosts.map((item, index) => (
-                                            <tr key={index} className={`hover:bg-blue-50/50 transition-colors ${item.isTotal ? 'bg-amber-50/50 font-bold' : ''}`}>
-                                                <td className={`px-6 py-4 text-sm ${item.isTotal ? 'text-gray-900' : 'text-gray-600'}`}>
-                                                    {item.category}
-                                                </td>
-                                                <td className={`px-6 py-4 text-sm ${item.isTotal ? 'text-amber-700' : 'text-gray-700'}`}>
-                                                    {item.london}
-                                                </td>
-                                                <td className={`px-6 py-4 text-sm ${item.isTotal ? 'text-green-700' : 'text-gray-700'}`}>
-                                                    {item.other}
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-100">
+                                                {item?.tablecolumn1?.split("||")?.map((col, index) => (
+                                                    <tr key={index} className="hover:bg-red-50/50 transition-colors">
+                                                        <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                                                            {col}
+                                                        </td>
+                                                        <td className="px-6 py-4 text-sm font-bold text-red-600">
+                                                            {item?.tablecolumn2?.split("||")[index]}
+                                                        </td>
+                                                        <td className="px-6 py-4 text-sm text-gray-600">
+                                                            {item?.tablecolumn3?.split("||")[index]}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div></>
+                        ))}
+
+
+
+
 
                         {/* Cost Insight Card */}
                         {/* <div className="bg-gradient-to-r from-red-50 to-amber-50 border-l-4 border-red-500 rounded-xl p-5">
@@ -494,7 +430,7 @@ export function UKStudyCosts() {
                                 href="#apply"
                                 className="inline-flex items-center gap-2 bg-white text-red-700 font-bold px-4 py-2.5 rounded-full text-sm hover:bg-amber-400 transition-colors"
                             >
-                             Get Free Estimate
+                                Get Free Estimate
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -687,9 +623,9 @@ export function ProcessStep({ item, index, activeStep, setActiveStep }) {
         >
             {/* Step Number Dot */}
             <div className="relative z-10 flex-shrink-0">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive ? item.color + " text-white scale-110" : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive ? item?.color + " text-white scale-110" : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
                     }`}>
-                    {item.icon}
+                    {item?.icon}
                 </div>
             </div>
 
@@ -702,24 +638,24 @@ export function ProcessStep({ item, index, activeStep, setActiveStep }) {
                 {/* Tag */}
                 <span className={` absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl ${isActive ? "text-red-600" : "text-gray-500"
                     }`}>
-                    {item.tag}
+                    {item?.tag}
                 </span>
 
                 {/* Title */}
                 <h4 className={`font-bold text-base lg:text-lg mb-2 transition-colors duration-300 ${isActive ? "text-gray-900" : "text-gray-700 group-hover:text-gray-900"
                     }`}>
-                    {item.title}
+                    {item?.title}
                 </h4>
 
                 {/* Description */}
                 <p className={`text-sm font-medium leading-relaxed transition-colors duration-300 ${isActive ? "text-gray-700" : "text-gray-500"
                     }`}>
-                    {item.description}
+                    {item?.description}
                 </p>
             </div>
 
             {/* Hover Glow Effect */}
-            <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${item.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
+            <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${item?.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
         </div>
     );
 }
