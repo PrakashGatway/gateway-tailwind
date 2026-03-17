@@ -82,7 +82,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
   const fetchBlogs = useCallback(
     async (page: number, category: string, search: string) => {
       try {
-        console.log("function called to fetch blogs");
+        console.log("function called to fetch blogs")
         setLoading(true);
         const res = await PageServices.getBlogData({
           page,
@@ -122,7 +122,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
       setCurrentPage(page);
       setSelectedCategory(category);
       setSearchQuery(search);
-      // fetchBlogs(page, category, search);
+      fetchBlogs(page, category, search);
     }
   }, [searchParams, initialData]);
 

@@ -134,61 +134,61 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
   // Keen Slider for testimonials
 
 
-     const [activeStep, setActiveStep] = useState(null);
+  const [activeStep, setActiveStep] = useState(null);
 
-    const processSteps = [
-        {
-            step: 1,
-            tag: "Free · Week 1",
-            title: "Free Profile Evaluation & Destination University Matching",
-            description: "We assess your academic background, IELTS score (or MOI eligibility), budget, preferred course, and career goals. You receive a personalised Destination university shortlist — within 48 hours, completely free.",
-            icon: "📋",
-            color: "bg-red-500"
-        },
-        {
-            step: 2,
-            tag: "If needed · Month 1–3",
-            title: "IELTS / PTE / Duolingo Coaching",
-            description: "Our certified IELTS coaches help you achieve your target band score with a personalised study plan, weekly mock tests, and focused speaking and writing practice sessions.",
-            icon: "📚",
-            color: "bg-orange-500"
-        },
-        {
-            step: 3,
-            tag: "Month 2–4",
-            title: "SOP, LOR & Application Document Preparation",
-            description: "Our UK-experienced writers craft a compelling Statement of Purpose, guide your referees on LOR content, and prepare your complete application package tailored to each university's requirements.",
-            icon: "📝",
-            color: "bg-amber-500"
-        },
-    
-        {
-            step: 5,
-            tag: "After Offer Letter",
-            title: "Scholarship Applications & Education Loan",
-            description: "We identify every scholarship you're eligible for and complete those applications. We also assist with education loan documentation for SBI, HDFC Credila, Axis, and other lenders — ensuring you get the best rate.",
-            icon: "💰",
-            color: "bg-green-500"
-        },
-        {
-            step: 6,
-            tag: "2–3 Months Before Travel",
-            title: "Student Visa Application (Tier 4 / Student Route)",
-            description: "We prepare your complete visa package — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock visa interview preparation.",
-            icon: "🛂",
-            color: "bg-blue-500"
-        },
-        {
-            step: 7,
-            tag: "Pre-Departure",
-            title: "Pre-Departure Orientation & Post-Arrival Support",
-            description: "Accommodation guidance, forex cards, NHS registration,bank account tips, transport orientation, and connections to Indian student communities at your university — we're with you even after you land.",
-            icon: "✈️",
-            color: "bg-purple-500"
-        }
-    ];
+  const processSteps = [
+    {
+      step: 1,
+      tag: "Free · Week 1",
+      title: "Free Profile Evaluation & Destination University Matching",
+      description: "We assess your academic background, IELTS score (or MOI eligibility), budget, preferred course, and career goals. You receive a personalised Destination university shortlist — within 48 hours, completely free.",
+      icon: "📋",
+      color: "bg-red-500"
+    },
+    {
+      step: 2,
+      tag: "If needed · Month 1–3",
+      title: "IELTS / PTE / Duolingo Coaching",
+      description: "Our certified IELTS coaches help you achieve your target band score with a personalised study plan, weekly mock tests, and focused speaking and writing practice sessions.",
+      icon: "📚",
+      color: "bg-orange-500"
+    },
+    {
+      step: 3,
+      tag: "Month 2–4",
+      title: "SOP, LOR & Application Document Preparation",
+      description: "Our UK-experienced writers craft a compelling Statement of Purpose, guide your referees on LOR content, and prepare your complete application package tailored to each university's requirements.",
+      icon: "📝",
+      color: "bg-amber-500"
+    },
 
-    
+    {
+      step: 5,
+      tag: "After Offer Letter",
+      title: "Scholarship Applications & Education Loan",
+      description: "We identify every scholarship you're eligible for and complete those applications. We also assist with education loan documentation for SBI, HDFC Credila, Axis, and other lenders — ensuring you get the best rate.",
+      icon: "💰",
+      color: "bg-green-500"
+    },
+    {
+      step: 6,
+      tag: "2–3 Months Before Travel",
+      title: "Student Visa Application (Tier 4 / Student Route)",
+      description: "We prepare your complete visa package — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock visa interview preparation.",
+      icon: "🛂",
+      color: "bg-blue-500"
+    },
+    {
+      step: 7,
+      tag: "Pre-Departure",
+      title: "Pre-Departure Orientation & Post-Arrival Support",
+      description: "Accommodation guidance, forex cards, NHS registration,bank account tips, transport orientation, and connections to Indian student communities at your university — we're with you even after you land.",
+      icon: "✈️",
+      color: "bg-purple-500"
+    }
+  ];
+
+
 
 
   const [testimonialRef, testimonialInstanceRef] = useKeenSlider(
@@ -805,11 +805,11 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
 
 
-    
+
 
       {/* Marquee Section */}
       <section className="bg-white">
-        <UniversitySliderClient/>
+        <UniversitySliderClient />
       </section>
 
       {/* Test Preparation Section */}
@@ -825,97 +825,149 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       </section>
 
       <section className="py-14 bg-pink-100 px-5" id="process">
-                 <div className="max-w-7xl mx-auto">
-                     <div className="flex flex-col lg:flex-row gap-10">
-     
-                         {/* Left Column: Process Timeline */}
-                         <div className="w-full lg:w-[67%]">
-     
-                             {/* Header */}
-                             <div className="mb-8">
-     
-                                 <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                                     {highlightText("How Gateway Abroad Helps || To Achieve Your Dream Destination || — End to End")}
-                                 </h2>
-     
-                                 <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                                     From your first free consultation to your flight to the Destination — we manage every step with precision and care.
-                                 </p>
-                             </div>
-     
-                          
-     
-                             {/* Timeline */}
-                             <div className="relative">
-                                 {/* Vertical Line */}
-                                 <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-[#012169] to-red-500 hidden lg:block" />
-     
-                                 <div className="space-y-2">
-                                     {processSteps.map((item, index) => (
-                                         <ProcessStep
-                                             key={item.step}
-                                             item={item}
-                                             index={index}
-                                             activeStep={activeStep}
-                                             setActiveStep={setActiveStep}
-                                         />
-                                        
-                                     ))}
-                                 </div>
-                             </div>
-     
-                         </div>
-     
-                         {/* Right Column: Sticky Sidebar */}
-                         <div className="w-full lg:w-[33%]">
-                             <div className="sticky top-24 space-y-4">
-     
-     
-                                 <ContactForm />
-     
-     
-                                 {/* Contact Info Card */}
-                                 <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">
-                                     <p className="text-gray-600 text-xs uppercase font-bold mb-2">
-                                         Call / WhatsApp
-                                     </p>
-                                     <a
-                                         href="tel:+918302092630"
-                                         className="text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
-                                     >
-                                         +91 8302092630
-                                     </a>
-                                 </div>
-     
-                                 {/* Quick Stats */}
-                                 <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
-                                     <h4 className="font-bold text-gray-800 mb-3 text-sm">Why Choose Gateway Abroad?</h4>
-                                     <ul className="space-y-2 text-sm text-gray-600">
-                                         <li className="flex items-center gap-2">
-                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                                             16+ Years Experience
-                                         </li>
-                                         <li className="flex items-center gap-2">
-                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                                             500+ Students Placed in UK
-                                         </li>
-                                         <li className="flex items-center gap-2">
-                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                                             96% Visa Success Rate
-                                         </li>
-                                         <li className="flex items-center gap-2">
-                                             <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                                             Russell Group Specialists
-                                         </li>
-                                     </ul>
-                                 </div>
-     
-                             </div>
-                         </div>
-     
-                     </div>
-                 </div>
-             </section>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-10">
+
+            {/* Left Column: Process Timeline */}
+            <div className="w-full lg:w-[67%]">
+
+              {/* Header */}
+              <div className="mb-8">
+
+                <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                  {highlightText("How Gateway Abroad Helps || To Achieve Your Dream Destination || — End to End")}
+                </h2>
+
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+                  From your first free consultation to your flight to the Destination — we manage every step with precision and care.
+                </p>
+              </div>
+
+
+
+              {/* Timeline */}
+              <div className="relative">
+                {/* Vertical Line */}
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-[#012169] to-red-500 hidden lg:block" />
+
+                <div className="space-y-2">
+                  {processSteps.map((item, index) => {
+                    const isActive = activeStep === index;
+
+                    return (
+                      <div
+                        key={index}
+                        className={`relative flex gap-4 lg:gap-6 group cursor-pointer transition-all duration-300 ${isActive ? "scale-[1.01]" : ""
+                          }`}
+                        onMouseEnter={() => setActiveStep(index)}
+                        onMouseLeave={() => setActiveStep(null)}
+                      >
+                        {/* Step Number Dot */}
+                        <div className="relative z-10 flex-shrink-0">
+                          <div
+                            className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive
+                                ? item?.color + " text-white scale-110"
+                                : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
+                              }`}
+                          >
+                            {item?.icon}
+                          </div>
+                        </div>
+
+                        {/* Content Card */}
+                        <div
+                          className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${isActive
+                              ? "border-red-300 shadow-lg shadow-red-100/50"
+                              : "border-gray-200 hover:border-red-200 hover:shadow-md"
+                            }`}
+                        >
+                          {/* Tag */}
+                          <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
+                            {item?.tag}
+                          </span>
+
+                          {/* Title */}
+                          <h4
+                            className={`font-bold text-base lg:text-lg mb-2 transition-colors duration-300 ${isActive
+                                ? "text-gray-900"
+                                : "text-gray-700 group-hover:text-gray-900"
+                              }`}
+                          >
+                            {item?.title}
+                          </h4>
+
+                          {/* Description */}
+                          <p
+                            className={`text-sm font-medium leading-relaxed transition-colors duration-300 ${isActive ? "text-gray-700" : "text-gray-500"
+                              }`}
+                          >
+                            {item?.description}
+                          </p>
+                        </div>
+
+                        {/* Hover Glow */}
+                        <div
+                          className={`absolute inset-0 rounded-xl bg-gradient-to-r ${item?.color
+                            }/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: Sticky Sidebar */}
+            <div className="w-full lg:w-[33%]">
+              <div className="sticky top-24 space-y-4">
+
+
+                <ContactForm />
+
+
+                {/* Contact Info Card */}
+                <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">
+                  <p className="text-gray-600 text-xs uppercase font-bold mb-2">
+                    Call / WhatsApp
+                  </p>
+                  <a
+                    href="tel:+918302092630"
+                    className="text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
+                  >
+                    +91 8302092630
+                  </a>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
+                  <h4 className="font-bold text-gray-800 mb-3 text-sm">Why Choose Gateway Abroad?</h4>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      16+ Years Experience
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      500+ Students Placed in UK
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      96% Visa Success Rate
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+                      Russell Group Specialists
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       {/* YouTube Testimonials Section */}
       <section className="py-12 md:py-20 bg-gray-50">

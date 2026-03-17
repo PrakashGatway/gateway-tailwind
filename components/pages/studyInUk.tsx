@@ -177,7 +177,8 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
-console.log(content)
+  console.log(content)
+
 
 
   return (
@@ -287,9 +288,9 @@ console.log(content)
       {/* Why Choose Us Section */}
       <TopUKUniversities content = {content} />
       <UKStudyCosts content= {content} />
-      <UKUniversityIntakes />
-      <GatewayAbroadProcess />
-      <UKScholarships />
+      <UKUniversityIntakes content = {content} />
+      <GatewayAbroadProcess content = {content} />
+      <UKScholarships content = {content}  />
       <ProcessRoadmap content={getContentByType('roadmap')} />
 
       <section className="py-12 bg-gray-300 relative">

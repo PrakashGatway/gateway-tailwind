@@ -247,6 +247,9 @@ export default async function BlogPostPage({ params }) {
     console.error('Error fetching comments:', error);
   }
 
+  console.log(article)
+
+
   // Schema definitions
   const blogSchema = {
     "@context": "https://schema.org",

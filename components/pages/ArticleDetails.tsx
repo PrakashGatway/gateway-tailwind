@@ -1327,9 +1327,12 @@
 "use client";
 import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
+import { useCallback, useEffect, useState } from 'react';
+import axiosInstance from '@/services/axiosInstance';
 // import { useEffect, useState } from 'react';
 // import axiosInstance from '@/services/axiosInstance';
 // import { useGlobal } from '@/hooks/AppStateContext';
+
 
 const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -1441,6 +1444,50 @@ export default function ArticleClient({
     comments: commentsProp = [],
     slug
 }: any) {
+
+    
+const [category,setCategories] = useState([])
+
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const res = await axiosInstance("/web/cat?limit=100");
+      if (res.status !== 200) throw new Error("Failed to fetch categories");
+      setCategories(res.data.data || []);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  console.log(category)
+
+      const [views, setViews] = useState(article.viewCount);
+
+  useEffect(() => {
+    const updateView = async () => {
+      const res = await fetch(
+        `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
+        {
+          cache: "no-store",
+        }
+      );
+
+      const data = await res.json();
+     
+
+      // assuming API returns updated viewCount
+      setViews(data?.data?.viewCount);
+    };
+
+    updateView();
+  }, [slug]);
+
+  
+   
     // const [comments, setComments] = useState(commentsProp);
     // const [commentForm, setCommentForm] = useState({
     //     name: '',
@@ -1614,7 +1661,7 @@ export default function ArticleClient({
                             </div>
                         )}
                         <div>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View - {article.viewCount}</span>
+                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View - {views}</span>
                         </div>
                         {/* <div>
                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
@@ -2071,13 +2118,13 @@ export default function ArticleClient({
                                         Categories
                                     </h5>
                                     <div className="flex flex-wrap gap-2">
-                                        {['Study Abroad', 'Education', 'University', 'Scholarship', 'Visa', 'Career', 'Student Life'].map((category) => (
+                                        {category && category?.map((category,i) => (
                                             <Link
-                                                key={category}
-                                                href={`/article?category=${category}`}
+                                                key={i}
+                                                href={`/article?category=${category?._id}`}
                                                 className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200 text-sm font-medium"
                                             >
-                                                {category}
+                                                {category?.name}
                                             </Link>
                                         ))}
                                     </div>

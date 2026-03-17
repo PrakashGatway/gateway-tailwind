@@ -1,5 +1,7 @@
 // components/sections/WhyStudyUK.jsx
 "use client";
+import Link from "next/link";
+
 
 import { useState } from "react";
 import { highlightText } from "../pages/studyInUk";
@@ -26,7 +28,7 @@ export default function WhyStudyUK({ content }) {
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {content.sections[1].content.Cards.map((reason, index) => (
+                    {content?.sections[1]?.content?.Cards && content?.sections[1]?.content?.Cards?.map((reason, index) => (
                         <div
                             key={index}
                             className="group relative bg-gradient-to-br from-pink-100 to-amber-50 border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 hover:border-red-200 overflow-hidden"
@@ -60,82 +62,17 @@ export default function WhyStudyUK({ content }) {
 
 
 export function TopUKUniversities({ content }) {
+
     const [hoveredCard, setHoveredCard] = useState(null);
 
-    const universities = [
-        {
-            rank: "QS #1",
-            name: "University of Oxford",
-            location: "Oxford, England",
-            established: "Est. 1096",
-            courses: ["PPE", "Law", "Medicine", "Computer Science"],
-            highlight: "World's #1 University",
-            image: "🏛️"
-        },
-        {
-            rank: "QS #2",
-            name: "University of Cambridge",
-            location: "Cambridge, England",
-            established: "Est. 1209",
-            courses: ["Natural Sciences", "Engineering", "Economics"],
-            highlight: "Oldest University",
-            image: "🎓"
-        },
-        {
-            rank: "QS #9",
-            name: "Imperial College London",
-            location: "South Kensington, London",
-            established: "Est. 1907",
-            courses: ["STEM", "Medicine", "Business"],
-            highlight: "STEM Excellence",
-            image: "🔬"
-        },
-        {
-            rank: "QS #22",
-            name: "University College London (UCL)",
-            location: "Bloomsbury, London",
-            established: "Est. 1826",
-            courses: ["Architecture", "Law", "Data Science"],
-            highlight: "Most Diverse",
-            image: "🌍"
-        },
-        {
-            rank: "QS #34",
-            name: "University of Edinburgh",
-            location: "Edinburgh, Scotland",
-            established: "Est. 1583",
-            courses: ["AI", "Informatics", "Business"],
-            highlight: "AI & Tech Hub",
-            image: "🏰"
-        },
-        {
-            rank: "QS #32",
-            name: "King's College London (KCL)",
-            location: "Strand, London",
-            established: "Est. 1829",
-            courses: ["Medicine", "Law", "Nursing"],
-            highlight: "Healthcare Leader",
-            image: "⚕️"
-        },
-        {
-            rank: "QS #52",
-            name: "University of Manchester",
-            location: "Manchester, England",
-            established: "Est. 1824",
-            courses: ["Business", "Engineering", "Life Sciences"],
-            highlight: "Strong Indian Community",
-            image: "🤝"
-        },
-        {
-            rank: "QS #81",
-            name: "University of Birmingham",
-            location: "Birmingham, England",
-            established: "Est. 1900",
-            courses: ["MBA", "Finance", "Engineering"],
-            highlight: "High Acceptance Rate",
-            image: "✨"
-        }
-    ];
+
+    const handleGetStarted = () => {
+
+        window.dispatchEvent(new CustomEvent('openFooterModal'));
+    };
+
+
+
 
     return (
         <section className="bg-pink-100 py-20 px-5 relative overflow-hidden">
@@ -144,20 +81,20 @@ export function TopUKUniversities({ content }) {
                 {/* Header */}
                 <div className="mb-10">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
-                        {content.sections[4].content.title}
+                        {content?.sections[4]?.content?.title}
                     </h2>
 
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        {content.sections[4].content.subTittle}
+                        {content?.sections[4]?.content?.subTittle}
                     </p>
                 </div>
 
                 {/* Universities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {content.sections[4].content.Cards.map((uni, index) => (
+                    {content?.sections[4]?.content?.Cards && content?.sections[4]?.content?.Cards?.map((uni, index) => (
                         <div
                             key={index}
-                            className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 cursor-pointer overflow-hidden
+                            className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 overflow-hidden
                 ${hoveredCard === index ? 'scale-[1.02] shadow-2xl shadow-[#C9A84C]/10 border-[#C9A84C]/40' : 'hover:border-[#C9A84C]/30'}
               `}
                             onMouseEnter={() => setHoveredCard(index)}
@@ -167,7 +104,7 @@ export function TopUKUniversities({ content }) {
                                 {uni.qsRank}
                             </div>
                             {/* Animated gradient overlay on hover */}
-                            <div className={`absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
+                            <div className={`absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none`} />
 
                             {/* QS Rank Tag - Enhanced */}
                             <div className="relative z-10  items-start justify-between mb-1">
@@ -200,17 +137,29 @@ export function TopUKUniversities({ content }) {
                                     </span>
                                 ))}
                             </div>
-                            <button
-                                type="submit"
-                                className="px-4 w-full text-center text-sm mx-auto py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-green-700 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-                            >
+                            <div className="flex gap-3">
+
+                                {/* Apply Button */}
+                                <button
+                                    onClick={handleGetStarted}
+                                    className="px-10 text-center text-sm py-2 rounded-full bg-red-600 text-white font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
+                                >
+                                    Apply
+                                </button>
+
+                                {/* Visit Button */}
+                                <Link
+                                    href={uni?.slug || "#"}
+                                    onClick={!uni?.slug ? handleGetStarted : undefined}
+                                    className="px-10 text-center text-sm py-2 rounded-full bg-[#F7E8FA] text-black font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
+                                >
+                                    Visit
+                                </Link>
+
+                            </div>
 
 
-                                <span className="text-center">{uni.button}</span>
-                            </button>
-
-                            {/* Corner decoration */}
-                            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-[#C9A84C]/30 to-transparent rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
                         </div>
                     ))}
                 </div>
@@ -234,46 +183,10 @@ export function TopUKUniversities({ content }) {
 
 
 export function UKStudyCosts({ content }) {
-    const tuitionData = [
-        { program: "Undergraduate (UG)", gbp: "£10,000 – £26,000", inr: "₹10.5 – 27 Lakhs" },
-        { program: "Masters / MS (PG)", gbp: "£12,000 – £35,000", inr: "₹12.5 – 37 Lakhs" },
-        { program: "MBA (Top Russell Group)", gbp: "£30,000 – £68,000", inr: "₹31 – 71 Lakhs" },
-        { program: "PhD / Research", gbp: "£16,000 – £26,000", inr: "₹17 – 27 Lakhs" },
-        { program: "Foundation Program", gbp: "£10,000 – £18,000", inr: "₹10.5 – 19 Lakhs" }
-    ];
 
-    const livingCosts = [
-        { category: "Accommodation", london: "£8,000–12,000", other: "£4,500–7,500" },
-        { category: "Food & Groceries", london: "£2,400–3,600", other: "£1,800–2,400" },
-        { category: "Transport", london: "£1,200–1,800", other: "£600–1,000" },
-        { category: "Books & Supplies", london: "£500–800", other: "£400–700" },
-        { category: "Total Living Cost", london: "£12,000–15,000", other: "£8,000–11,500", isTotal: true }
-    ];
 
-    const loanOptions = [
-        "SBI Global Ed-Vantage Loan — up to ₹1.5 Crore",
-        "HDFC Credila — up to ₹75 Lakhs, no collateral",
-        "Axis Bank — quick processing, no margin money",
-        "IDFC First Bank — 100% funding available",
-        "Prodigy Finance — for top Russell Group unis"
-    ];
 
-    const partTimeWork = [
-        { label: "Work Hours", value: "20 hrs/week during term time" },
-        { label: "Vacation Work", value: "Full-time during official vacations" },
-        { label: "Minimum Wage", value: "£12.21/hour (2025)" },
-        { label: "Monthly Earnings", value: "£800–1,200/month part-time" },
-        { label: "Covers", value: "Food + transport costs easily" }
-    ];
 
-    const scholarships = [
-        { name: "Chevening", benefit: "Full tuition + living costs", tag: "Fully Funded" },
-        { name: "GREAT Scholarship", benefit: "£10,000 towards tuition", tag: "India" },
-        { name: "University Merit", benefit: "10–30% of fees", tag: "All Unis" },
-        { name: "Commonwealth", benefit: "Full funding for select courses", tag: "Prestigious" }
-    ];
-
-    console.log(content.sections[5])
 
     return (
         <section className="bg-white pt-14 px-5">
@@ -303,7 +216,7 @@ export function UKStudyCosts({ content }) {
                                 <div className="bg-gradient-to-br from-pink-50 to-amber-50 border border-gray-200 rounded-2xl overflow-hidden">
                                     <div className="px-6 py-4 bg-red-600 text-white">
                                         <h3 className="font-bold text-lg flex items-center gap-2">
-                                            <DynamicIcon name={item?.iconitem||"GraduationCap"} size={20} color="#fff" />
+                                            <DynamicIcon name={item?.iconitem || "GraduationCap"} size={20} color="#fff" />
                                             {item?.tableTitle}
                                         </h3>
                                     </div>
@@ -359,22 +272,34 @@ export function UKStudyCosts({ content }) {
                     <div className="space-y-5">
 
                         {/* Education Loans Card */}
-                        <div className="group bg-white border-2 border-red-100 hover:border-red-300 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
-                                    <DynamicIcon name="Landmark" size={20} className="text-red-600" />
+                        {content?.sections[5]?.content?.educationloan?.map((item, i) => {
+                            const loanOptions = item?.educationlist?.split("//") || [];
+
+                            return (
+                                <div
+                                    key={i}
+                                    className="group bg-white border-2 border-red-100 hover:border-red-300 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                                >
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                            <DynamicIcon name="Landmark" size={20} className="text-red-600" />
+                                        </div>
+
+                                        <h4 className="font-bold text-gray-800">{item?.title}</h4>
+                                    </div>
+
+                                    <ul className="space-y-3">
+                                        {loanOptions.map((loan, index) => (
+                                            <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                                                <span className="text-red-500 font-bold mt-0.5">•</span>
+                                                {loan}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <h4 className="font-bold text-gray-800">🏦 Education Loans</h4>
-                            </div>
-                            <ul className="space-y-3">
-                                {loanOptions.map((loan, index) => (
-                                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
-                                        <span className="text-red-500 font-bold mt-0.5">•</span>
-                                        {loan}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                            );
+                        })}
+
 
                         {/* Part-Time Work Card */}
                         {/* <div className="group bg-white border-2 border-amber-100 hover:border-amber-300 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -397,28 +322,46 @@ export function UKStudyCosts({ content }) {
             </div> */}
 
                         {/* Scholarships Card */}
-                        <div className="group bg-white border-2 border-green-100 hover:border-green-300 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                                    <DynamicIcon name="Award" size={20} className="text-green-600" />
-                                </div>
-                                <h4 className="font-bold text-gray-800">🎓 Scholarships</h4>
-                            </div>
-                            <ul className="space-y-3">
-                                {scholarships.map((sch, index) => (
-                                    <li key={index} className="flex items-start gap-2 text-sm">
-                                        <span className="text-green-500 font-bold mt-0.5">★</span>
-                                        <div>
-                                            <span className="font-medium text-gray-800">{sch.name}</span>
-                                            <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full">
-                                                {sch.tag}
-                                            </span>
-                                            <p className="text-gray-600 text-xs mt-0.5">{sch.benefit}</p>
+                        {content?.sections[5]?.content?.scholarship?.map((item, i) => {
+                            const names = item?.scholarshiplist?.split("//") || [];
+                            const tags = item?.scholarshiptag?.split("//") || [];
+                            const benefits = item?.scholarshipsublist?.split("//") || [];
+
+                            return (
+                                <div
+                                    key={i}
+                                    className="group bg-white border-2 border-green-100 hover:border-green-300 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                                >
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                            <DynamicIcon name="Award" size={20} className="text-green-600" />
                                         </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+
+                                        <h4 className="font-bold text-gray-800">🎓 {item?.title}</h4>
+                                    </div>
+
+                                    <ul className="space-y-3">
+                                        {names.map((name, index) => (
+                                            <li key={index} className="flex items-start gap-2 text-sm">
+                                                <span className="text-green-500 font-bold mt-0.5">★</span>
+
+                                                <div>
+                                                    <span className="font-medium text-gray-800">{name}</span>
+
+                                                    <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+                                                        {tags[index]}
+                                                    </span>
+
+                                                    <p className="text-gray-600 text-xs mt-0.5">
+                                                        {benefits[index]}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            );
+                        })}
 
                         {/* Quick CTA Card */}
                         <div className="bg-gradient-to-br from-red-600 to-pink-500 rounded-2xl p-5 text-white">
@@ -445,67 +388,9 @@ export function UKStudyCosts({ content }) {
 }
 
 
-export function GatewayAbroadProcess() {
+export function GatewayAbroadProcess({ content }) {
     const [activeStep, setActiveStep] = useState(null);
 
-    const processSteps = [
-        {
-            step: 1,
-            tag: "Free · Week 1",
-            title: "Free Profile Evaluation & UK University Matching",
-            description: "We assess your academic background, IELTS score (or MOI eligibility), budget, preferred course, and career goals. You receive a personalised UK university shortlist — within 48 hours, completely free.",
-            icon: "📋",
-            color: "bg-red-500"
-        },
-        {
-            step: 2,
-            tag: "If needed · Month 1–3",
-            title: "IELTS / PTE / Duolingo Coaching",
-            description: "Our certified IELTS coaches help you achieve your target band score with a personalised study plan, weekly mock tests, and focused speaking and writing practice sessions.",
-            icon: "📚",
-            color: "bg-orange-500"
-        },
-        {
-            step: 3,
-            tag: "Month 2–4",
-            title: "SOP, LOR & Application Document Preparation",
-            description: "Our UK-experienced writers craft a compelling Statement of Purpose, guide your referees on LOR content, and prepare your complete application package tailored to each university's requirements.",
-            icon: "📝",
-            color: "bg-amber-500"
-        },
-        {
-            step: 4,
-            tag: "Month 3–5",
-            title: "UCAS / University Portal Application Filing",
-            description: "We handle your complete UCAS submission (for UG) or direct university portal applications (for PG), track all deadlines, and communicate with admissions offices on your behalf until the offer is received.",
-            icon: "🖥️",
-            color: "bg-yellow-500"
-        },
-        {
-            step: 5,
-            tag: "After Offer Letter",
-            title: "Scholarship Applications & Education Loan",
-            description: "We identify every scholarship you're eligible for and complete those applications. We also assist with education loan documentation for SBI, HDFC Credila, Axis, and other lenders — ensuring you get the best rate.",
-            icon: "💰",
-            color: "bg-green-500"
-        },
-        {
-            step: 6,
-            tag: "2–3 Months Before Travel",
-            title: "UK Student Visa Application (Tier 4 / Student Route)",
-            description: "We prepare your complete visa package — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock visa interview preparation. Our UK visa success rate is 96%.",
-            icon: "🛂",
-            color: "bg-blue-500"
-        },
-        {
-            step: 7,
-            tag: "Pre-Departure",
-            title: "Pre-Departure Orientation & Post-Arrival Support",
-            description: "Accommodation guidance, forex cards, NHS registration, UK bank account tips, transport orientation, and connections to Indian student communities at your university — we're with you even after you land.",
-            icon: "✈️",
-            color: "bg-purple-500"
-        }
-    ];
 
     return (
         <section className="py-14 bg-pink-100 px-5" id="process">
@@ -519,22 +404,22 @@ export function GatewayAbroadProcess() {
                         <div className="mb-8">
 
                             <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                                {highlightText("How Gateway Abroad Helps || You Study in UK || — End to End")}
+                                {content?.sections[7]?.content?.sectiontitle}
                             </h2>
 
                             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                                From your first free consultation to your flight to the UK — we manage every step with precision and care.
+                                {content?.sections[7]?.content?.sectionsubtitle}
+
                             </p>
                         </div>
 
                         {/* SEO Text Block */}
                         <div className="bg-pink-50 border-l-4 border-red-500 rounded-r-xl p-6 mb-10">
-                            <p className="text-base text-gray-700 leading-relaxed">
-                                <strong className="text-gray-900">Gateway Abroad Education</strong> is one of India's most experienced <strong className="text-gray-900">study in UK consultants</strong>, having guided students from across India into <strong className="text-gray-900">Russell Group universities</strong>, top London institutions, and regional UK universities since 2008.
-                                We provide complete <strong className="text-gray-900">UK study abroad services</strong> including <strong className="text-gray-900">IELTS and PTE coaching</strong>, <strong className="text-gray-900">SOP and LOR writing</strong>
-                                Whether you want to <strong className="text-gray-900">study in UK after 12th</strong>, pursue an <strong className="text-gray-900">MS or MBA in UK</strong>, or do a <strong className="text-gray-900">PhD at a Russell Group university</strong> — Gateway Abroad is your end-to-end UK education partner.
-                                We also specialise in helping students <strong className="text-gray-900">study in UK without IELTS</strong> through MOI certificate pathways at qualifying universities.
-                            </p>
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: content?.sections[7]?.content?.sectioncontent || ""
+                                }}
+                            />
                         </div>
 
                         {/* Timeline */}
@@ -543,15 +428,16 @@ export function GatewayAbroadProcess() {
                             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-[#012169] to-red-500 hidden lg:block" />
 
                             <div className="space-y-2">
-                                {processSteps.map((item, index) => (
-                                    <ProcessStep
-                                        key={item.step}
-                                        item={item}
-                                        index={index}
-                                        activeStep={activeStep}
-                                        setActiveStep={setActiveStep}
-                                    />
-                                ))}
+
+                                <ProcessStep
+
+
+
+                                    activeStep={activeStep}
+                                    setActiveStep={setActiveStep}
+                                    content={content}
+                                />
+
                             </div>
                         </div>
 
@@ -611,52 +497,88 @@ export function GatewayAbroadProcess() {
 }
 
 // Individual Process Step Component
-export function ProcessStep({ item, index, activeStep, setActiveStep }) {
+export function ProcessStep({ index, activeStep, setActiveStep, content }) {
     const isActive = activeStep === index;
 
     return (
-        <div
-            className={`relative flex gap-4 lg:gap-6 group cursor-pointer transition-all duration-300 ${isActive ? "scale-[1.01]" : ""
-                }`}
-            onMouseEnter={() => setActiveStep(index)}
-            onMouseLeave={() => setActiveStep(null)}
-        >
-            {/* Step Number Dot */}
-            <div className="relative z-10 flex-shrink-0">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive ? item?.color + " text-white scale-110" : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
-                    }`}>
-                    {item?.icon}
-                </div>
-            </div>
+        <>
+            {content?.sections[7]?.content?.sectioncard?.map((item, index) => {
 
-            {/* Content Card */}
-            <div className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${isActive
-                ? "border-red-300 shadow-lg shadow-red-100/50"
-                : "border-gray-200 hover:border-red-200 hover:shadow-md"
-                }`}>
+                const colors = [
+                    "bg-red-500",
+                    "bg-orange-500",
+                    "bg-amber-500",
+                    "bg-yellow-500",
+                    "bg-green-500",
+                    "bg-blue-500",
+                    "bg-purple-500"
+                ];
 
-                {/* Tag */}
-                <span className={` absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl ${isActive ? "text-red-600" : "text-gray-500"
-                    }`}>
-                    {item?.tag}
-                </span>
+                const stepData = {
+                    tag: item?.cardbadge,
+                    title: item?.cardtitle,
+                    description: item?.cardsubtitle,
+                    icon: item?.cardicon || "📋",
+                    color: colors[index] || "bg-gray-400"
+                };
 
-                {/* Title */}
-                <h4 className={`font-bold text-base lg:text-lg mb-2 transition-colors duration-300 ${isActive ? "text-gray-900" : "text-gray-700 group-hover:text-gray-900"
-                    }`}>
-                    {item?.title}
-                </h4>
+                const isActive = activeStep === index;
 
-                {/* Description */}
-                <p className={`text-sm font-medium leading-relaxed transition-colors duration-300 ${isActive ? "text-gray-700" : "text-gray-500"
-                    }`}>
-                    {item?.description}
-                </p>
-            </div>
+                return (
+                    <div
+                        key={index}
+                        className={`relative flex gap-4 lg:gap-6 group cursor-pointer transition-all duration-300 ${isActive ? "scale-[1.01]" : ""
+                            }`}
+                        onMouseEnter={() => setActiveStep(index)}
+                        onMouseLeave={() => setActiveStep(null)}
+                    >
 
-            {/* Hover Glow Effect */}
-            <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${item?.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`} />
-        </div>
+                        {/* Step Icon */}
+                        <div className="relative z-10 flex-shrink-0">
+                            <div
+                                className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive
+                                    ? stepData.color + " text-white scale-110"
+                                    : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
+                                    }`}
+                            >
+                                {stepData.icon}
+                            </div>
+                        </div>
+
+                        {/* Content Card */}
+                        <div
+                            className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${isActive
+                                ? "border-red-300 shadow-lg shadow-red-100/50"
+                                : "border-gray-200 hover:border-red-200 hover:shadow-md"
+                                }`}
+                        >
+
+                            {/* Tag */}
+                            <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
+                                {stepData.tag}
+                            </span>
+
+                            {/* Title */}
+                            <h4 className={`font-bold text-base lg:text-lg mb-2 ${isActive ? "text-gray-900" : "text-gray-700 group-hover:text-gray-900"
+                                }`}>
+                                {stepData.title}
+                            </h4>
+
+                            {/* Description */}
+                            <p className={`text-sm font-medium leading-relaxed ${isActive ? "text-gray-700" : "text-gray-500"
+                                }`}>
+                                {stepData.description}
+                            </p>
+                        </div>
+
+                        {/* Hover Glow */}
+                        <div
+                            className={`absolute inset-0 rounded-xl bg-gradient-to-r ${stepData.color
+                                }/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`}
+                        />
+                    </div>
+                );
+            })}</>
     );
 }
 
@@ -664,6 +586,7 @@ import ContactForm from "../pages/UkForm";
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+
 
 export function ScrollStackIntakes() {
     const containerRef = useRef(null);
@@ -925,69 +848,8 @@ function ScrollProgressDot({ index, totalCards, containerRef }) {
 }
 
 
-export function UKScholarships() {
-    const scholarships = [
-        {
-            icon: "🇬🇧",
-            name: "Chevening Scholarship",
-            tag: "Fully Funded",
-            tagColor: "bg-red-600",
-            description: "The UK Government's flagship international scholarship — covers full tuition, living allowance, airfare, and visa costs. For Indian students with 2+ years of work experience applying for a 1-year master's.",
-            amount: "100% Fully Funded",
-            amountColor: "text-red-600",
-            bgColor: "from-red-50 to-amber-50"
-        },
-        {
-            icon: "🏆",
-            name: "GREAT Scholarship",
-            tag: "India",
-            tagColor: "bg-amber-600",
-            description: "A collaboration between the British Council and UK universities. Offers £10,000 towards tuition for Indian students applying to participating UK universities for PG programs.",
-            amount: "£10,000 Award",
-            amountColor: "text-amber-600",
-            bgColor: "from-amber-50 to-yellow-50"
-        },
-        {
-            icon: "🌍",
-            name: "Commonwealth Scholarship",
-            tag: "Prestigious",
-            tagColor: "bg-blue-600",
-            description: "For students from Commonwealth countries including India. Covers tuition, airfare, stipend and living costs for a master's or PhD at a UK university. Competitive and prestigious.",
-            amount: "Full Funding",
-            amountColor: "text-blue-600",
-            bgColor: "from-blue-50 to-indigo-50"
-        },
-        {
-            icon: "🏫",
-            name: "University Merit Scholarships",
-            tag: "All Unis",
-            tagColor: "bg-green-600",
-            description: "Almost every UK university offers merit-based fee waivers of 10–50% for high-achieving international students. Manchester, Birmingham, Edinburgh, and Bristol are particularly generous.",
-            amount: "10–50% Fee Waiver",
-            amountColor: "text-green-600",
-            bgColor: "from-green-50 to-emerald-50"
-        },
-        {
-            icon: "🎓",
-            name: "Charles Wallace India Trust",
-            tag: "Arts & Culture",
-            tagColor: "bg-purple-600",
-            description: "For Indian citizens at early-career stage applying for short-term courses and fellowships at UK institutions in arts, culture, and heritage. Competitive annual selection.",
-            amount: "Partial Funding",
-            amountColor: "text-purple-600",
-            bgColor: "from-purple-50 to-pink-50"
-        },
-        {
-            icon: "🇮🇳",
-            name: "Inlaks Shivdasani Foundation",
-            tag: "Top Unis",
-            tagColor: "bg-red-600",
-            description: "For outstanding young Indians under 30 pursuing master's degrees at top global universities including Russell Group. Covers tuition + living allowance. Very competitive.",
-            amount: "Up to £100,000",
-            amountColor: "text-red-600",
-            bgColor: "from-red-50 to-orange-50"
-        }
-    ];
+export function UKScholarships({ content }) {
+
 
     return (
         <section className="bg-white py-10 px-5">
@@ -996,19 +858,20 @@ export function UKScholarships() {
                 {/* Header */}
                 <div className=" mb-12">
                     <h2 className="text-2xl lg:text-5xl xl:text-[2.4rem] max-w-2xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {highlightText("UK Scholarships for || Indian Students || 2026–27")}
+                        {content?.sections[8]?.content?.sectiontitle}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        UK offers more scholarship opportunities for Indian students than almost any other country. Here are the most sought-after awards — from fully funded government scholarships to university merit grants.
+                        {content?.sections[8]?.content?.sectionsubtitle}
+
                     </p>
                 </div>
 
                 {/* Scholarships Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                    {scholarships.map((sch, index) => (
-                        <ScholarshipCard key={index} scholarship={sch} index={index} />
-                    ))}
+
+                    <ScholarshipCard content={content} />
+
                 </div>
 
             </div>
@@ -1017,125 +880,113 @@ export function UKScholarships() {
 }
 
 // Individual Scholarship Card Component
-function ScholarshipCard({ scholarship, index }) {
+function ScholarshipCard({ content }) {
     return (
-        <div
-            className={`group relative bg-gradient-to-br ${scholarship.bgColor} border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-200/50 hover:border-gray-300 overflow-hidden`}
-            style={{ animationDelay: `${index * 100}ms` }}
-        >
-            {/* Animated Background Gradient on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-orange-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <>
+            {content?.sections[8]?.content?.scholarshipcards?.map((item, index) => {
 
-            {/* Top Badge */}
-            {scholarship.tag && <div className="absolute bg-red-600 text-white text-sm rounded-bl-2xl font-bold px-3 py-2 top-0 right-0 z-10 flex items-start justify-between mb-4">
-                {scholarship.tag}
-            </div>}
+                const icons = ["🇬🇧", "🏆", "🌍", "🏫", "🎓", "🇮🇳"];
 
-            {/* Scholarship Name */}
-            <h3 className="relative z-10 text-lg font-bold text-gray-800 mb-3 group-hover:text-red-600 transition-colors duration-300">
-                {scholarship.name}
-            </h3>
+                const bgColors = [
+                    "from-red-50 to-amber-50",
+                    "from-amber-50 to-yellow-50",
+                    "from-blue-50 to-indigo-50",
+                    "from-green-50 to-emerald-50",
+                    "from-purple-50 to-pink-50",
+                    "from-red-50 to-orange-50"
+                ];
 
-            {/* Description */}
-            <p className="relative z-10 text-sm font-medium text-gray-600 leading-relaxed mb-5 line-clamp-4">
-                {scholarship.description}
-            </p>
+                const amountColors = [
+                    "text-red-600",
+                    "text-amber-600",
+                    "text-blue-600",
+                    "text-green-600",
+                    "text-purple-600",
+                    "text-red-600"
+                ];
 
-            {/* Amount Badge */}
-            <div className="relative z-10 flex items-center justify-between">
-                <span className={`inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm ${scholarship.amountColor} font-bold text-sm px-4 py-2 rounded-full border border-gray-200 shadow-sm`}>
-                    <DynamicIcon name="Coins" size={16} />
-                    {scholarship.amount}
-                </span>
+                const scholarship = {
+                    name: item?.cardtitle,
+                    tag: item?.cardbadge,
+                    description: item?.cardsubtitle,
+                    amount: item?.cardtags,
+                    icon: icons[index] || "🎓",
+                    bgColor: bgColors[index] || "from-gray-50 to-white",
+                    amountColor: amountColors[index] || "text-gray-600"
+                };
 
-                {/* Arrow Icon */}
-                <svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-            </div>
+                const handleGetStarted = () => {
 
-            {/* Decorative Corner */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/30 to-transparent rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    window.dispatchEvent(new CustomEvent('openFooterModal'));
+                };
 
-            {/* Left Accent Border */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl" />
-        </div>
+
+
+
+                return (
+                    <Link
+                        href={item?.slug || "#"}
+                        onClick={!item?.slug ? handleGetStarted : undefined}
+                    >
+                        <div
+                            key={index}
+                            className={`group relative bg-gradient-to-br ${scholarship.bgColor} border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-200/50 hover:border-gray-300 overflow-hidden`}
+                            style={{ animationDelay: `${index * 100}ms` }}
+                        >
+
+                            {/* Hover Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-orange-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                            {/* Tag */}
+                            {scholarship.tag && (
+                                <div className="absolute bg-red-600 text-white text-sm rounded-bl-2xl font-bold px-3 py-2 top-0 right-0 z-10">
+                                    {scholarship.tag}
+                                </div>
+                            )}
+
+                            {/* Name */}
+                            <h3 className="relative z-10 text-lg font-bold text-gray-800 my-3 group-hover:text-red-600 transition-colors duration-300">
+                                {scholarship.name}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="relative z-10 text-sm font-medium text-gray-600 leading-relaxed mb-5 line-clamp-4">
+                                {scholarship.description}
+                            </p>
+
+                            {/* Amount */}
+                            <div className="relative z-10 flex items-center justify-between">
+                                <span className={`inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm ${scholarship.amountColor} font-bold text-sm px-4 py-2 rounded-full border border-gray-200 shadow-sm`}>
+                                    <DynamicIcon name="Coins" size={16} />
+                                    {scholarship.amount}
+                                </span>
+
+                                <svg
+                                    className="w-5 h-5 text-gray-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all duration-300"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+
+                            {/* Decorative Corner */}
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/30 to-transparent rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                            {/* Left Border */}
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 to-amber-500 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl" />
+                        </div>
+                    </Link>
+                );
+            })}</>
     );
 }
 
 
 
-export function UKUniversityIntakes() {
-    const intakes = [
-        {
-            id: "september-2025",
-            title: "September 2025",
-            badge: "🔥 Most Popular",
-            badgeColor: "bg-red-600",
-            applicationWindow: "Oct 2024 – June 2025",
-            status: "Now Ongoing",
-            statusColor: "text-red-600",
-            isPrimary: true,
-            features: [
-                "All programs available including competitive courses",
-                "Maximum scholarship options open",
-                "Largest Indian student cohort joins together",
-                "Best university choices available at this intake",
-                "UCAS deadline: Jan 2025 (Oxford/Cambridge: Oct 2024)",
-                "⚠️ Apply NOW — offers are already being made"
-            ],
-            cta: "Apply for September 2025",
-            ctaBg: "bg-red-600 hover:bg-red-700",
-            universities: ["Oxford", "Cambridge", "Imperial", "UCL", "Edinburgh"]
-        },
-        {
-            id: "january-2026",
-            title: "January 2026",
-            badge: "✅ Applications Open",
-            badgeColor: "bg-green-600",
-            applicationWindow: "July 2025 – October 2025",
-            status: "Coming Soon",
-            statusColor: "text-green-600",
-            isPrimary: false,
-            features: [
-                "Ideal if you missed September 2025 deadline",
-                "Less competition — faster offer turnaround",
-                "Many universities offer MOI waiver at this intake",
-                "Strong for MBA, MS in Business & Data Science",
-                "Perfect for students finishing exams in Nov 2025",
-                "Universities: Hertfordshire, UCLan, Sunderland, Portsmouth"
-            ],
-            cta: "Apply for January 2026",
-            ctaBg: "bg-[#012169] hover:bg-[#01317a]",
-            universities: ["Hertfordshire", "UCLan", "Sunderland", "Portsmouth"]
-        },
-        {
-            id: "september-2026",
-            title: "September 2026",
-            badge: "📅 Early Planning",
-            badgeColor: "bg-blue-600",
-            applicationWindow: "Oct 2025 – June 2026",
-            status: "Future Intake",
-            statusColor: "text-blue-600",
-            isPrimary: false,
-            features: [
-                "Best university selection available",
-                "Early scholarship applications",
-                "Ample preparation time",
-                "Plan your IELTS/PTE accordingly",
-                "Secure your spot early",
-                "All Russell Group universities open"
-            ],
-            cta: "Plan for September 2026",
-            ctaBg: "bg-blue-600 hover:bg-blue-700",
-            universities: ["All UK Unis", "Russell Group", "London Unis"]
-        }
-    ];
+export function UKUniversityIntakes({ content }) {
+
 
     // Determine grid layout based on number of cards
     const getGridClass = (count) => {
@@ -1144,6 +995,7 @@ export function UKUniversityIntakes() {
         return "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
     };
 
+
     return (
         <section className="bg-[#F8F6F2] py-12 px-5">
             <div className="max-w-7xl mx-auto">
@@ -1151,24 +1003,23 @@ export function UKUniversityIntakes() {
                 {/* Header */}
                 <div className=" mb-12">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {highlightText("UK University Intakes — || September 2026 || & || January 2027")}
+                        {content?.sections[6]?.content?.sectiontitle}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-4xl">
-                        UK universities offer two main intakes per year. Choosing the right intake can significantly impact your scholarship chances, visa timeline, and admission competitiveness.
+                        {content?.sections[6]?.content?.sectionsubtitle}
+
                     </p>
                 </div>
 
                 {/* Intake Cards Grid - Dynamic based on count */}
-                <div className={`grid gap-6 lg:gap-8 mb-12 ${getGridClass(intakes.length)}`}>
-                    {intakes.map((intake, index) => (
-                        <IntakeCard
-                            key={intake.id}
-                            intake={intake}
-                            index={index}
-                            totalCards={intakes.length}
-                        />
-                    ))}
+                <div className={`grid gap-6 lg:gap-8 mb-12 ${getGridClass(content?.sections[6]?.content?.intakecards.length)}`}>
+
+                    <IntakeCard
+
+                        content={content}
+                    />
+
                 </div>
 
                 {/* Bottom CTA */}
@@ -1195,98 +1046,94 @@ export function UKUniversityIntakes() {
 }
 
 // Individual Intake Card Component
-function IntakeCard({ intake, index, totalCards }) {
+function IntakeCard({ content }) {
     return (
-        <div
-            className={`group relative bg-white border-2 rounded-2xl p-6 lg:p-8 transition-all duration-500 overflow-hidden hover:-translate-y-2
-        ${intake.isPrimary
-                    ? "border-red-200 hover:border-red-400 hover:shadow-2xl hover:shadow-red-100/50"
-                    : "border-gray-200 hover:border-gray-300 hover:shadow-xl"
-                }
-      `}
-        >
-            <div className={`absolute inset-0 bg-gradient-to-br ${intake.isPrimary ? "from-red-50/80 to-amber-50/50" : "from-gray-50/80 to-white/50"
-                } opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+        <>
+            {content?.sections[6]?.content?.intakecards?.map((item, index) => {
 
-            {/* Top Section: Badge + Status */}
-            <div className="absolute top-0 right-0 bg-red-600 rounded-bl-2xl text-white text-sm font-bold py-2 px-4 z-10 flex items-start justify-between mb-5">
-                {intake.badge}
-            </div>
+                const features = item?.cardlist?.split("//") || [];
+                const universities = item?.cardfeature?.split(",") || [];
 
-            {/* Intake Title */}
-            <h3 className="relative z-10 text-2xl lg:text-3xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors duration-300">
-                {intake.title}
-            </h3>
+                const intake = {
+                    title: item?.cardtitle,
+                    badge: item?.cardtag,
+                    features,
+                    universities,
+                    isPrimary: index === 0
+                };
 
-            {/* Features List */}
-            <ul className="relative z-10 space-y-0 mt-3 mb-3">
-                {intake.features.map((feature, i) => (
-                    <li
-                        key={i}
-                        className={`flex items-start gap-3 text-sm group/li ${feature.includes("⚠️") || feature.includes("NOW")
-                            ? "bg-red-50 -mx-3 px-3 py-2 rounded-lg border-l-2 border-red-500"
-                            : ""
-                            }`}
+                return (
+                    <div
+                        key={index}
+                        className={`group relative bg-white border-2 rounded-2xl p-6 lg:p-8 transition-all duration-500 overflow-hidden hover:-translate-y-2
+            ${intake.isPrimary
+                                ? "border-red-200 hover:border-red-400 hover:shadow-2xl hover:shadow-red-100/50"
+                                : "border-gray-200 hover:border-gray-300 hover:shadow-xl"
+                            }
+            `}
                     >
-                        <span className={`text-lg flex-shrink-0 mt-0.5 transform group-hover/li:scale-110 transition-transform text-gray-400
-                            `}>
-                            {feature.includes("✓") || feature.includes("✅") ? "✓" :
-                                feature.includes("⚠️") ? "⚠️" : "•"}
-                        </span>
-                        <span className={`${feature.includes("⚠️") || feature.includes("NOW")
-                            ? "font-semibold text-red-700"
-                            : "text-gray-600"
-                            }`}>
-                            {feature}
-                        </span>
-                    </li>
-                ))}
-            </ul>
 
-            {/* Featured Universities Pills */}
-            <div className="relative z-10 mb-3">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
-                    <DynamicIcon name="Building" size={12} />
-                    Featured Universities
-                </p>
-                <div className="flex flex-wrap gap-2">
-                    {intake.universities.map((uni, i) => (
-                        <span
-                            key={i}
-                            className="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 hover:bg-red-100 hover:text-red-700 hover:border-red-200 transition-all duration-300 cursor-default"
+                        <div className={`absolute inset-0 bg-gradient-to-br ${intake.isPrimary
+                            ? "from-red-50/80 to-amber-50/50"
+                            : "from-gray-50/80 to-white/50"
+                            } opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+                        {/* Badge */}
+                        <div className="absolute top-0 right-0 bg-red-600 rounded-bl-2xl text-white text-sm font-bold py-2 px-4 z-10">
+                            {intake.badge}
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="relative z-10 text-2xl lg:text-3xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors duration-300">
+                            {intake.title}
+                        </h3>
+
+                        {/* Features */}
+                        <ul className="relative z-10 space-y-0 mt-3 mb-3">
+                            {intake.features.map((feature, i) => (
+                                <li key={i} className="flex items-start gap-3 text-sm">
+                                    <span className="text-lg text-gray-400">•</span>
+                                    <span className="text-gray-600">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {/* Universities */}
+                        <div className="relative z-10 mb-3">
+                            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <DynamicIcon name="Building" size={12} />
+                                Featured Universities
+                            </p>
+
+                            <div className="flex flex-wrap gap-2">
+                                {intake.universities.map((uni, i) => (
+                                    <span
+                                        key={i}
+                                        className="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200"
+                                    >
+                                        {uni}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Button */}
+                        <a
+                            href="#apply"
+                            className="relative z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
                         >
-                            {uni}
-                        </span>
-                    ))}
-                </div>
-            </div>
-            {/* CTA Button */}
-            <a
-                href="#apply"
-                className={`relative z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group/btn`}
-            >
-                <span className="flex items-center justify-center gap-2">
-                    {"Apply Now"}
-                    <svg
-                        className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </span>
-            </a>
+                            Apply Now
+                        </a>
 
-            {/* Card Number Badge */}
-            <div className={`absolute -top-0 -left-0 p-2 px-4 rounded-br-2xl flex items-center justify-center font-bold text-sm shadow-lg ${intake.isPrimary ? "bg-red-600 text-white" : "bg-gray-200 text-gray-500"
-                }`}>
-                {index + 1}
-            </div>
-
-            {/* Decorative Corner */}
-            <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${intake.isPrimary ? "from-red-200/30" : "from-gray-200/30"
-                } to-transparent rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-        </div>
+                        {/* Index */}
+                        <div className={`absolute top-0 left-0 p-2 px-4 rounded-br-2xl flex items-center justify-center font-bold text-sm shadow-lg
+            ${intake.isPrimary ? "bg-red-600 text-white" : "bg-gray-200 text-gray-500"}
+            `}>
+                            {index + 1}
+                        </div>
+                    </div>
+                );
+            })}
+        </>
     );
 }
