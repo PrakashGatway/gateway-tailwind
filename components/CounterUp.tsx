@@ -7,18 +7,23 @@ interface CounterUpProps {
   duration?: number; // in ms
   prefix?: string;
 }
-
-const CounterUp: React.FC<CounterUpProps> = ({ end, suffix = '', prefix = '', duration = 2000 }) => {
+const CounterUp: React.FC<CounterUpProps> = ({
+  end,
+  suffix = '',
+  prefix = '',
+  duration = 2000
+}) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     let startTime: number | null = null;
+
     const animate = (currentTime: number) => {
       if (startTime === null) startTime = currentTime;
+
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Easing function (optional)
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const value = Math.floor(easeOut * end);
 
@@ -34,16 +39,15 @@ const CounterUp: React.FC<CounterUpProps> = ({ end, suffix = '', prefix = '', du
     return () => cancelAnimationFrame(rafId);
   }, [end, duration]);
 
-  // Format large numbers: 50000 → 50K
-  const displayValue = count >= 1000 ? `${(count / 1000).toFixed(0)}K` : count;
+  const displayValue =
+    count >= 1000 ? `${(count / 1000).toFixed(0)}K` : count;
 
   return (
     <span>
       {prefix}
-      {displayValue}
+      {end}
       {suffix}
     </span>
   );
 };
-
 export default CounterUp;

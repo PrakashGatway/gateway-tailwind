@@ -9,6 +9,8 @@ import { DynamicIcon } from "../sections/processRoad";
 
 export default function WhyStudyUK({ content }) {
 
+ 
+
 
 
     return (
@@ -81,17 +83,17 @@ export function TopUKUniversities({ content }) {
                 {/* Header */}
                 <div className="mb-10">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
-                        {content?.sections[4]?.content?.title}
+                        {content?.sections[2]?.content?.title}
                     </h2>
 
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        {content?.sections[4]?.content?.subTittle}
+                        {content?.sections[2]?.content?.subTittle}
                     </p>
                 </div>
 
                 {/* Universities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {content?.sections[4]?.content?.Cards && content?.sections[4]?.content?.Cards?.map((uni, index) => (
+                    {content?.sections[2]?.content?.Cards && content?.sections[2]?.content?.Cards?.map((uni, index) => (
                         <div
                             key={index}
                             className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 overflow-hidden
@@ -128,7 +130,7 @@ export function TopUKUniversities({ content }) {
                                 <p className="text-gray-500 text-sm mt-1"> {uni?.year}</p>
                             </div>
                             <div className="relative z-10 flex flex-wrap gap-2 mb-5">
-                                {uni.Courses?.split(",").map((course, i) => (
+                                {uni?.Courses&& uni?.Courses?.map((course, i) => (
                                     <span
                                         key={i}
                                         className="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10 hover:bg-[#C9A84C]/20 hover:text-[#C9A84C] hover:border-[#C9A84C]/30 transition-all duration-300"
@@ -195,11 +197,11 @@ export function UKStudyCosts({ content }) {
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {content?.sections[5]?.content?.title}
+                        {content?.sections[3]?.content?.title}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        {content?.sections[5]?.content?.subTitle}
+                        {content?.sections[3]?.content?.subTitle}
 
                     </p>
                 </div>
@@ -210,7 +212,7 @@ export function UKStudyCosts({ content }) {
                     {/* Left Column: Tables */}
                     <div className="lg:col-span-2 space-y-6">
 
-                        {content?.sections[5]?.content?.Table?.map((item, i) => (
+                        {content?.sections[3]?.content?.Table?.map((item, i) => (
                             <>
                                 {/* Tuition Fees Table */}
                                 <div className="bg-gradient-to-br from-pink-50 to-amber-50 border border-gray-200 rounded-2xl overflow-hidden">
@@ -272,7 +274,7 @@ export function UKStudyCosts({ content }) {
                     <div className="space-y-5">
 
                         {/* Education Loans Card */}
-                        {content?.sections[5]?.content?.educationloan?.map((item, i) => {
+                        {content?.sections[3]?.content?.educationloan?.map((item, i) => {
                             const loanOptions = item?.educationlist?.split("//") || [];
 
                             return (
@@ -322,7 +324,7 @@ export function UKStudyCosts({ content }) {
             </div> */}
 
                         {/* Scholarships Card */}
-                        {content?.sections[5]?.content?.scholarship?.map((item, i) => {
+                        {content?.sections[3]?.content?.scholarship?.map((item, i) => {
                             const names = item?.scholarshiplist?.split("//") || [];
                             const tags = item?.scholarshiptag?.split("//") || [];
                             const benefits = item?.scholarshipsublist?.split("//") || [];
@@ -404,11 +406,11 @@ export function GatewayAbroadProcess({ content }) {
                         <div className="mb-8">
 
                             <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                                {content?.sections[7]?.content?.sectiontitle}
+                                {content?.sections[5]?.content?.sectiontitle}
                             </h2>
 
                             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                                {content?.sections[7]?.content?.sectionsubtitle}
+                                {content?.sections[5]?.content?.sectionsubtitle}
 
                             </p>
                         </div>
@@ -417,7 +419,7 @@ export function GatewayAbroadProcess({ content }) {
                         <div className="bg-pink-50 border-l-4 border-red-500 rounded-r-xl p-6 mb-10">
                             <p
                                 dangerouslySetInnerHTML={{
-                                    __html: content?.sections[7]?.content?.sectioncontent || ""
+                                    __html: content?.sections[5]?.content?.sectioncontent || ""
                                 }}
                             />
                         </div>
@@ -502,7 +504,7 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
 
     return (
         <>
-            {content?.sections[7]?.content?.sectioncard?.map((item, index) => {
+            {content?.sections[5]?.content?.sectioncard?.map((item, index) => {
 
                 const colors = [
                     "bg-red-500",
@@ -858,11 +860,11 @@ export function UKScholarships({ content }) {
                 {/* Header */}
                 <div className=" mb-12">
                     <h2 className="text-2xl lg:text-5xl xl:text-[2.4rem] max-w-2xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {content?.sections[8]?.content?.sectiontitle}
+                        {content?.sections[6]?.content?.sectiontitle}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        {content?.sections[8]?.content?.sectionsubtitle}
+                        {content?.sections[6]?.content?.sectionsubtitle}
 
                     </p>
                 </div>
@@ -883,7 +885,7 @@ export function UKScholarships({ content }) {
 function ScholarshipCard({ content }) {
     return (
         <>
-            {content?.sections[8]?.content?.scholarshipcards?.map((item, index) => {
+            {content?.sections[6]?.content?.scholarshipcards?.map((item, index) => {
 
                 const icons = ["🇬🇧", "🏆", "🌍", "🏫", "🎓", "🇮🇳"];
 
@@ -1003,17 +1005,17 @@ export function UKUniversityIntakes({ content }) {
                 {/* Header */}
                 <div className=" mb-12">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
-                        {content?.sections[6]?.content?.sectiontitle}
+                        {content?.sections[4]?.content?.sectiontitle}
                     </h2>
 
                     <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-4xl">
-                        {content?.sections[6]?.content?.sectionsubtitle}
+                        {content?.sections[4]?.content?.sectionsubtitle}
 
                     </p>
                 </div>
 
                 {/* Intake Cards Grid - Dynamic based on count */}
-                <div className={`grid gap-6 lg:gap-8 mb-12 ${getGridClass(content?.sections[6]?.content?.intakecards.length)}`}>
+                <div className={`grid gap-6 lg:gap-8 mb-12 ${getGridClass(content?.sections[4]?.content?.intakecards?.length)}`}>
 
                     <IntakeCard
 
@@ -1049,7 +1051,7 @@ export function UKUniversityIntakes({ content }) {
 function IntakeCard({ content }) {
     return (
         <>
-            {content?.sections[6]?.content?.intakecards?.map((item, index) => {
+            {content?.sections[4]?.content?.intakecards?.map((item, index) => {
 
                 const features = item?.cardlist?.split("//") || [];
                 const universities = item?.cardfeature?.split(",") || [];

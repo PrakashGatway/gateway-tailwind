@@ -20,7 +20,56 @@ const ProcessRoadmap = ({ content }: any) => {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  const steps = content?.steps || []
+  const steps = [
+  {
+    icon: "User",
+    name: "Personalized Counseling",
+    content:
+      "We begin with understanding each student's academic background, goals, and aspirations.",
+    Points:
+      "One-to-one counseling sessions,Career mapping & country selection,Clear guidance for future success",
+  },
+  {
+    icon: "BookOpen",
+    name: "Test Preparation",
+    content:
+      "We help students ace required entrance and language exams.",
+    Points:
+      "IELTS PTE TOEFL GRE GMAT SAT coaching,Mock tests & practice material,Proven strategies for top scores",
+  },
+  {
+    icon: "GraduationCap",
+    name: "University Shortlisting",
+    content:
+      "Our experts match students with the best-fit universities.",
+    Points:
+      "Dream,Safe & Practical options,Updated university databases,Guidance on rankings,Location & affordability",
+  },
+  {
+    icon: "FileText",
+    name: "Application Support",
+    content:
+      "We make sure every application is flawless and on time.",
+    Points:
+      "SOP/LOR/CV drafting assistance,Step-by-step application submission,Continuous follow-ups with universities",
+  },
+  {
+    icon: "Wallet",
+    name: "Scholarships & Finance Guidance",
+    content:
+      "We reduce financial stress by exploring funding options.",
+    Points:
+      "Scholarship search & application help,Education loan support,Budget planning for tuition & living",
+  },
+  {
+    icon: "Plane",
+    name: "Visa & Pre-Departure",
+    content:
+      "We prepare students to begin their international journey smoothly.",
+    Points:
+      "Visa documentation & interview practice,Pre-departure orientation sessions,Accommodation,travel & cultural tips",
+  },
+];
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -60,11 +109,11 @@ const ProcessRoadmap = ({ content }: any) => {
         {/* Section Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="heading mb-2 sm:mb-3 text-xl sm:text-2xl font-bold">
-            {content?.title.split(" ").slice(0, 3).join(" ") || "Your Study Abroad"}
+            Your Study Abroad
             <span className="text-[#D71635]"> {content?.title.split(" ").slice(3).join(" ") || ""}</span>
           </h2>
           <p className="text-sm sm:text-base text-gray-600 max-w-full sm:max-w-xl mx-auto">
-            {content?.subTittle || "Navigate your journey to studying abroad with our comprehensive 6-step process, designed to make your dreams a reality."}
+            Navigate your journey to studying abroad with our comprehensive 6-step process, designed to make your dreams a reality.
           </p>
         </div>
 

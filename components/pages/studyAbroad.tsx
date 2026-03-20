@@ -118,7 +118,7 @@ const StudyAbroadPage = ({ content }: any) => {
             <DestinationSection content={getContentByType('StudyDestinations')} />
             <DegreesSection content={getContentByType('AcademicPrograms')} />
             <CardLayout content={getContentByType('WhyChooseUs')} />
-            <ProcessRoadmap content={getContentByType('roadmap')} />
+            <ProcessRoadmap />
             <Component />
 
             <ReadMoreSection content={getContentByType('content')} />

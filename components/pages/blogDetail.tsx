@@ -4,23 +4,23 @@ import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
 import { usePathname } from 'next/navigation';
 
-export default function SingleBlogPage({ 
-  blogData,  
-  similarBlogs, 
+export default function SingleBlogPage({
+  blogData,
+  similarBlogs,
   adjacentBlogs,
   sanitizedContent,
-  slug 
-}:any) {
+  slug
+}: any) {
 
   const { prevBlog, nextBlog } = adjacentBlogs || {};
-  
+
   if (!blogData || !blogData.Slug) {
     return (
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center`}>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Blog Post Not Found</h1>
         <p className="text-gray-600 mb-6">The requested blog post could not be found.</p>
-        <Link 
-          href="/blog" 
+        <Link
+          href="/blog"
           className="bg-[#E12827] text-white px-6 py-3 rounded-md hover:bg-[#c82322] transition duration-200"
         >
           Back to Blog
@@ -35,7 +35,7 @@ export default function SingleBlogPage({
     <>
       <div>
         {/* Hero Section with New Design */}
-        {pathname === "/blogs/detail"  && <section className="hero-gradient py-8">
+        {pathname === "/blogs/detail" && <section className="hero-gradient py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
@@ -82,7 +82,7 @@ export default function SingleBlogPage({
         </section>}
 
         {/* Blog Content Section */}
-        <section  className={`py-12 bg-gray-50 mt-20`}>
+        <section className={`py-12 bg-gray-50 mt-20`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content */}
@@ -180,13 +180,13 @@ export default function SingleBlogPage({
     }
   `}</style>
 
-   <div
-                      className="prose prose-lg max-w-none blog-html"
-                      dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-                    />
+                      <div
+                        className="prose prose-lg max-w-none blog-html"
+                        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+                      />
 
                     </div>
-                   
+
 
                     {/* Blog Navigation */}
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-6 border-t border-gray-200">

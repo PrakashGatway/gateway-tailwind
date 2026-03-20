@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "@/components/home/mainLayout";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema"
 
 
 export const metadata = {
@@ -9,7 +10,7 @@ export const metadata = {
   description: "Discover the best consultant for studying abroad..."
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children ,params }: { children: ReactNode , params : any}) {
   return (
     <html lang="en">
       <head>
@@ -363,6 +364,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </Script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+        <BreadcrumbSchema params = {params} />
 
       </head>
       <body suppressHydrationWarning>

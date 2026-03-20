@@ -177,8 +177,9 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
-  console.log(content)
 
+  console.log(content)
+  console.log(getContentByType('hero')?.stats[0].value)
 
 
   return (
@@ -207,42 +208,37 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
               </div>
               <div className="flex flex-wrap gap-2 text-sm">
 
-                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="font-semibold"> Russell</p>
-                </div>
 
-                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="font-semibold">Russell Group Universities</p>
-                </div>
+                {content?.sections[0]?.content?.points && content?.sections[0]?.content?.points?.map((item, i) => (
+                  <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                    <p className="font-semibold"> {item?.content}</p>
+                  </div>
 
-                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="font-semibold">Russell Group Universities</p>
-                </div>
+                ))}
 
-                <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                  <p className="font-semibold">Russell Group Universities</p>
-                </div>
 
               </div>
               <div className=" grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 pt-4 flex-wrap">
                 {/* Stats Cards */}
                 <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    {<CounterUp end={getContentByType('hero')?.students} />}<span className="text-red-600">+</span>
+                    <CounterUp end={getContentByType('hero')?.stats[0].value} /><span className="text-red-600"></span>
+
+                 
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
                 </div>
 
                 <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.university} /><span className="text-red-600">+</span>
+                    <CounterUp end={getContentByType('hero')?.stats[1].value} /><span className="text-red-600"></span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Universities</p>
                 </div>
 
                 <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.cities} /><span className="text-red-600">+</span>
+                    <CounterUp end={getContentByType('hero')?.stats[2].value} /><span className="text-red-600"></span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Cities</p>
                 </div>
@@ -283,15 +279,15 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       </section>
       <SingleSlider />
 
-      <WhyStudyUK content = {content} />
+      <WhyStudyUK content={content} />
       <MultiStepForm />
       {/* Why Choose Us Section */}
-      <TopUKUniversities content = {content} />
-      <UKStudyCosts content= {content} />
-      <UKUniversityIntakes content = {content} />
-      <GatewayAbroadProcess content = {content} />
-      <UKScholarships content = {content}  />
-      <ProcessRoadmap content={getContentByType('roadmap')} />
+      <TopUKUniversities content={content} />
+      <UKStudyCosts content={content} />
+      <UKUniversityIntakes content={content} />
+      <GatewayAbroadProcess content={content} />
+      <UKScholarships content={content} />
+      <ProcessRoadmap />
 
       <section className="py-12 bg-gray-300 relative">
         <div className="absolute inset-0 z-0">

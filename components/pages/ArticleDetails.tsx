@@ -1463,7 +1463,7 @@ const [category,setCategories] = useState([])
     fetchCategories();
   }, [fetchCategories]);
 
-  console.log(category)
+ 
 
       const [views, setViews] = useState(article.viewCount);
 

@@ -36,8 +36,8 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: pageContent.metaTitle,
-      description: pageContent.metaDescription,
+      title: pageContent?.metaTitle,
+      description: pageContent?.metaDescription,
       images: ["img/ga-logo.svg"],
     },
     keywords: pageContent?.keywords || "study abroad, international education",
