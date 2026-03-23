@@ -10,6 +10,8 @@ import PageServices from '@/services/PageServices';
 import { constant } from '@/constant/index.constant.js';
 import HeroSection from '../hero-section';
 import AboutSection from '../about-section';
+import { motion } from "framer-motion";
+
 import TestPreparation from '../TestPreparationSection';
 // import { useGlobal } from '@/hooks/AppStateContext';
 import Swal from 'sweetalert2';
@@ -615,7 +617,121 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section>
 
-      <DestinationsSection/>
+      <DestinationsSection />
+      <section className="bg-white py-16 px-4 md:px-8" id="destinations" >
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 bg-emerald-900/10 text-[#D81635] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
+          >
+            🌍 Study Abroad Destinations
+          </motion.span>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-serif text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-3"
+          >
+            India's Most Trusted<br />
+            <em className="text-[#D81635] not-italic">Study Abroad Consultants</em> — Choose Your Country
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-gray-600 max-w-2xl text-lg mb-12"
+          >
+            From the Russell Group universities of the UK to Germany's tuition-free institutions — we help Indian students reach 450+ universities across 18 countries.
+          </motion.p>
+
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+
+            <div className="rounded-2xl p-8 bg-white border-2 border-[#D81635] text-white shadow-lg duration-300 ease-in-out hover:-translate-y-3">
+              <span className="inline-block mb-4 px-4 py-1 text-xs font-semibold bg-black rounded-full tracking-wide">
+                🌍 STUDY ABROAD SERVICES
+              </span>
+
+              <h2 className="text-3xl font-bold leading-snug mb-4 text-black">
+                End-to-End Study <br /> Abroad Consulting
+              </h2>
+
+              <p className="text-sm text-black mb-6">
+                From university shortlisting to visa approval — our expert counsellors handle every step of your overseas education journey.
+              </p>
+
+              <ul className="space-y-3 text-sm text-black">
+                <li className="flex items-start gap-2">✔ Free profile evaluation & shortlist</li>
+                <li className="flex items-start gap-2">✔ SOP, LOR & resume writing</li>
+                <li className="flex items-start gap-2">✔ Application & deadline management</li>
+                <li className="flex items-start gap-2">✔ Scholarship applications</li>
+                <li className="flex items-start gap-2">✔ Visa filing (95% success)</li>
+                <li className="flex items-start gap-2">✔ Loan guidance support</li>
+              </ul>
+
+              <button className="mt-6 bg-[#D81635] text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition">
+                🎯 Start Free Counselling →
+              </button>
+            </div>
+
+            <div className="rounded-2xl p-8 bg-[#FFF7EE] border-2 border-black text-white shadow-lg duration-300 ease-in-out hover:-translate-y-3">
+              <span className="inline-block mb-4 px-4 py-1 text-xs font-semibold bg-black rounded-full tracking-wide">
+                📘 TEST PREPARATION
+              </span>
+
+              <h2 className="text-3xl font-bold leading-snug mb-4 text-black">
+                India's Top-Rated <br /> Test Prep Coaching
+              </h2>
+
+              <p className="text-sm  mb-6 text-black">
+                Certified trainers, proven strategies, and personalised plans to boost your scores.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">IELTS</p>
+                  <p className="text-xs text-black">Target 7.0–8.5</p>
+                </div>
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">PTE</p>
+                  <p className="text-xs text-black">Target 65–90</p>
+                </div>
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">TOEFL</p>
+                  <p className="text-xs text-black">Target 100–120</p>
+                </div>
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">GRE</p>
+                  <p className="text-xs text-black">Target 320–340</p>
+                </div>
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">GMAT</p>
+                  <p className="text-xs text-black">Target 700–800</p>
+                </div>
+                <div className="bg-[#E6EDEB] rounded-lg p-3 text-center">
+                  <p className="font-semibold text-black">SAT</p>
+                  <p className="text-xs text-black">Target 1400–1600</p>
+                </div>
+              </div>
+
+              <button className="border border-white/30 px-6 py-3 rounded-full bg-[#D81635] transition">
+                📚 Book Free Demo Class →
+              </button>
+            </div>
+
+          </div>
+
+
+
+
+
+
+        </div>
+      </section>
 
       {/* Coaching Services Section */}
       <section className="py-12 md:py-16 bg-white">
@@ -869,8 +985,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                         <div className="relative z-10 flex-shrink-0">
                           <div
                             className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive
-                                ? item?.color + " text-white scale-110"
-                                : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
+                              ? item?.color + " text-white scale-110"
+                              : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
                               }`}
                           >
                             {item?.icon}
@@ -880,8 +996,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                         {/* Content Card */}
                         <div
                           className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${isActive
-                              ? "border-red-300 shadow-lg shadow-red-100/50"
-                              : "border-gray-200 hover:border-red-200 hover:shadow-md"
+                            ? "border-red-300 shadow-lg shadow-red-100/50"
+                            : "border-gray-200 hover:border-red-200 hover:shadow-md"
                             }`}
                         >
                           {/* Tag */}
@@ -892,8 +1008,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                           {/* Title */}
                           <h4
                             className={`font-bold text-base lg:text-lg mb-2 transition-colors duration-300 ${isActive
-                                ? "text-gray-900"
-                                : "text-gray-700 group-hover:text-gray-900"
+                              ? "text-gray-900"
+                              : "text-gray-700 group-hover:text-gray-900"
                               }`}
                           >
                             {item?.title}

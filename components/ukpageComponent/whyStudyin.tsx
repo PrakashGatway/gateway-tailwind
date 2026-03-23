@@ -130,14 +130,14 @@ export function TopUKUniversities({ content }) {
                                 <p className="text-gray-500 text-sm mt-1"> {uni?.year}</p>
                             </div>
                             <div className="relative z-10 flex flex-wrap gap-2 mb-5">
-                                {uni?.Courses&& uni?.Courses?.map((course, i) => (
+                                {/* {uni?.Courses && uni?.Courses?.map((course, i) => (
                                     <span
                                         key={i}
                                         className="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full border border-white/10 hover:bg-[#C9A84C]/20 hover:text-[#C9A84C] hover:border-[#C9A84C]/30 transition-all duration-300"
                                     >
                                         {course.trim()}
                                     </span>
-                                ))}
+                                ))} */}
                             </div>
                             <div className="flex gap-3">
 

@@ -178,8 +178,8 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
   };
 
 
-  console.log(content)
-  console.log(getContentByType('hero')?.stats[0].value)
+
+  
 
 
   return (
