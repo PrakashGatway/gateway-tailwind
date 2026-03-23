@@ -22,6 +22,7 @@ import { error } from 'console';
 import ContactForm from '../pages/UkForm';
 import { ProcessStep } from '../ukpageComponent/whyStudyin';
 import UniversitySliderClient from '../universityslider';
+import DestinationsSection from './DestinationSection';
 
 
 export const highlightText = (text) => {
@@ -613,6 +614,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           </div>
         </div>
       </section>
+
+      <DestinationsSection/>
 
       {/* Coaching Services Section */}
       <section className="py-12 md:py-16 bg-white">
