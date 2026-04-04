@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
 import { usePathname } from 'next/navigation';
+import ContactForm from './UkForm';
 
 export default function SingleBlogPage({
   blogData,
@@ -282,9 +283,9 @@ export default function SingleBlogPage({
 
               {/* Sidebar */}
               <div className="lg:w-4/12">
-                <div className="space-y-6">
+                <div className="space-y-6 sticky top-24">
                   {/* Search Box */}
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                  {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <h5 className="text-lg font-bold text-gray-900 mb-4">Search</h5>
                     <div className="relative">
                       <input
@@ -297,7 +298,9 @@ export default function SingleBlogPage({
                         <i className="fa fa-search" />
                       </button>
                     </div>
-                  </div>
+                  </div> */}
+
+                  <ContactForm type="article"/>
 
                   {/* Similar Blogs */}
                   {similarBlogs && similarBlogs.length > 0 && (

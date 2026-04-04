@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axiosInstance from '@/services/axiosInstance';
 
-export default function ContactForm() {
+export default function ContactForm({ type }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [submitError, setSubmitError] = useState(null);
@@ -21,7 +21,8 @@ export default function ContactForm() {
             email: '',
             phone: '',
             programLevel: '',
-            city: ''
+            city: '',
+            message: ''
         }
     });
 
@@ -44,10 +45,11 @@ export default function ContactForm() {
                 phone: data.phone,
                 source: rawSource,
                 coursePreference: data.programLevel || "unfilled",
-                countryOfResidence: data.city,
+                city: data.city,
                 extraDetails: {
                     programLevel: data.programLevel,
-                    type: 'contact'
+                    type: 'contact',
+                    message: data.message
                 }
             });
 
@@ -148,7 +150,7 @@ export default function ContactForm() {
                 </div>
 
                 {/* Phone */}
-                <div>
+                {type != "article" && <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Phone Number *
                     </label>
@@ -167,11 +169,30 @@ export default function ContactForm() {
                     {errors.phone && (
                         <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
                     )}
-                </div>
+                </div>}
 
                 {/* Program Level + City Grid */}
                 <div className="grid grid-cols-2 gap-2">
-                    <div>
+                    {type === "article" ? <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Phone Number *
+                        </label>
+                        <input
+                            type="tel"
+                            placeholder="Enter your 10-digit mobile number"
+                            {...register("phone", {
+                                required: "Phone number is required",
+                                pattern: {
+                                    value: /^\d{10}$/,
+                                    message: "Please enter a valid 10-digit mobile number"
+                                }
+                            })}
+                            className={`w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none ${errors.phone ? 'border-red-500' : ''}`}
+                        />
+                        {errors.phone && (
+                            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+                        )}
+                    </div> : <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Program level *
                         </label>
@@ -187,7 +208,8 @@ export default function ContactForm() {
                         {errors.programLevel && (
                             <p className="text-red-500 text-xs mt-1">{errors.programLevel.message}</p>
                         )}
-                    </div>
+                    </div>}
+
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -201,6 +223,17 @@ export default function ContactForm() {
                         />
                     </div>
                 </div>
+                {type === "article" && <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Message
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter your message"
+                        {...register("message")}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    />
+                </div>}
 
                 {/* Submit Button */}
                 <div className="flex items-center justify-between pt-2">

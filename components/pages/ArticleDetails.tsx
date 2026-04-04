@@ -1329,6 +1329,7 @@ import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
 import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '@/services/axiosInstance';
+import ContactForm from './UkForm';
 // import { useEffect, useState } from 'react';
 // import axiosInstance from '@/services/axiosInstance';
 // import { useGlobal } from '@/hooks/AppStateContext';
@@ -2047,9 +2048,9 @@ const [category,setCategories] = useState([])
 
                         {/* Sidebar */}
                         <div className="lg:w-4/12">
-                            <div className="space-y-6">
+                            <div className="space-y-6 sticky top-24">
                                 {/* Search Box */}
-                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                                     <h5 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                                         <span className="text-red-600">🔍</span>
                                         Search
@@ -2065,6 +2066,10 @@ const [category,setCategories] = useState([])
                                             <i className="fa fa-search" />
                                         </button>
                                     </div>
+                                </div> */}
+                                <div>
+
+                                <ContactForm type="article"/>
                                 </div>
 
                                 {/* Latest Articles */}
