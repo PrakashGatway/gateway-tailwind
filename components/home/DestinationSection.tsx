@@ -1,159 +1,149 @@
 "use client";
 
+import { baseUrl } from "@/services/axiosInstance";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 
+// --- Types ---
 interface Destination {
     id: string;
     flag: string;
     name: string;
-    description: string;
+    description: string; // Cleaned text without HTML tags
     link: string;
     badge?: string;
     badgeColor?: string;
     bgClass: string;
+    image: string;
 }
 
-const destinations: Destination[] = [
-  {
-    id: "uk",
-    flag: "🇬🇧",
-    name: "United Kingdom",
-    description: "Russell Group · 1-Year Master's · 2-Year Graduate Route Visa · 95,000+ Indian students in 2025",
-    link: "/study-in-uk",
-    badge: "Most Popular",
-    badgeColor: "bg-rose-600",
-    image: "https://images.unsplash.com/photo-1562774053-701939374585",
-  },
-  {
-    id: "canada",
-    flag: "🇨🇦",
-    name: "Canada",
-    description: "PR Pathway · 3-Year PGWP · Top Universities",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1576495199011-eb94736d05d6",
-  },
-  {
-    id: "australia",
-    flag: "🇦🇺",
-    name: "Australia",
-    description: "Group of Eight · 4-Year Work Visa · Indian Community",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1603437119287-4a3732b685f9?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "usa",
-    flag: "🇺🇸",
-    name: "USA",
-    description: "Ivy League · State Universities · 3-Year STEM OPT",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1622397333309-3056849bc70b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "germany",
-    flag: "🇩🇪",
-    name: "Germany",
-    description: "FREE Public Tuition · TU Munich · DAAD Scholarship",
-    link: "#",
-    badge: "Free Tuition!",
-    badgeColor: "bg-emerald-700",
-    image: "https://images.unsplash.com/photo-1662555500038-3d9ed651fc06?q=80&w=1198&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  
-  {
-    id: "ireland",
-    flag: "🇮🇪",
-    name: "Ireland",
-    description: "EU Gateway · Tech Hub Dublin · 2-Year Stay-Back",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1624951517902-e05b4105e123?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+// --- Helper: Map API Response to Component Interface ---
+const mapApiToDestination = (apiItem: any, index: number): Destination => {
+    // 1. Generate a stable ID from slug or index
+    const id = apiItem.slug ? apiItem.slug.replace('study-in-', '') : `dest-${index}`;
+    
+    // 2. Extract Flag (Simple mapping based on name, fallback to globe)
+ 
 
-export default function DestinationsSection() {
-    const [hoveredId, setHoveredId] = useState<string | null>(null);
-
-    // First row: UK (index 0), Canada (1), Australia (2), USA (3)
-    const firstRow = destinations.slice(0, 4);
-    // Second row: Germany (4), Ireland (5) + we need two more filler cards to make 4 cards
-    // but we want the last card (Ireland) to be 40% when not hovered? Actually requirement:
-    // "in 2 row the last one have 40" – means in second row, the last card (Ireland) should be 40% by default.
-    // To keep the grid balanced, we'll add two placeholder cards in second row.
-    const secondRow = [
-  destinations[4], // Germany
-
-  {
-    id: "placeholder1",
-    flag: "🇳🇿",
-    name: "New Zealand",
-    description: "Stunning landscapes · Growing Indian community",
-    link: "#",
-    image: "https://plus.unsplash.com/premium_photo-1742418009234-e6ba86c08ec1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // NZ university style
-    placeholder: true,
-  },
-
-  {
-    id: "placeholder2",
-    flag: "🇸🇬",
-    name: "Singapore",
-    description: "Asian hub · Top business schools",
-    link: "#",
-    image: "https://plus.unsplash.com/premium_photo-1697729404559-25e36fc1fa8e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Singapore university campus
-    placeholder: true,
-  },
-
-  destinations[5], // Ireland (last → 40%)
-] as (Destination & { placeholder?: boolean })[];
-
-    const getCardWidth = (id, isLastInSecondRow = false) => {
-        // 👉 FIRST ROW IDs
-        const firstRowIds = ["uk", "canada", "australia", "usa"];
-
-        // 👉 SECOND ROW IDs
-        const secondRowIds = ["germany", "placeholder1", "placeholder2", "ireland"];
-
-        // =========================
-        // ✅ FIRST ROW LOGIC
-        // =========================
-        if (firstRowIds.includes(id)) {
-            // No hover → UK big
-            if (!hoveredId) {
-                return id === "uk" ? "w-[40%]" : "w-[20%]";
-            }
-
-            // Hover inside first row
-            if (firstRowIds.includes(hoveredId)) {
-                return id === hoveredId ? "w-[40%]" : "w-[20%]";
-            }
-
-            // Hover on second row → reset to default
-            return id === "uk" ? "w-[40%]" : "w-[20%]";
-        }
-
-        // =========================
-        // ✅ SECOND ROW LOGIC
-        // =========================
-        if (secondRowIds.includes(id)) {
-            // Default → Ireland big
-            if (!hoveredId) {
-                return id === "ireland" ? "w-[40%]" : "w-[20%]";
-            }
-
-            // Hover inside second row
-            if (secondRowIds.includes(hoveredId)) {
-                return id === hoveredId ? "w-[40%]" : "w-[20%]";
-            }
-
-            // Hover on first row → reset
-            return id === "ireland" ? "w-[40%]" : "w-[20%]";
-        }
-
-        return "w-[20%]";
+    // 3. Clean HTML tags from subtitle for the description text
+    const cleanText = (html: string) => {
+        if (!html) return "";
+        // Remove divs, spans, but keep bullets/dots if they are text content
+        // A simple regex to strip tags is usually enough for this display
+        return html.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(/&nbsp;/g, ' ').trim();
     };
 
+
+    // 5. Dynamic Background Colors based on index or name (Optional aesthetic touch)
+    const bgColors = [
+        "from-blue-900/20", "from-red-900/20", "from-cyan-900/20", 
+        "from-indigo-900/20", "from-emerald-900/20", "from-orange-900/20", "from-purple-900/20"
+    ];
+
+
+    return {
+        id: id,
+        name: apiItem.name,
+        description: cleanText(apiItem.subtitle),
+        link: `/${apiItem.slug}`, // Ensure slug exists in API
+        image: apiItem.image ? (apiItem.image) : "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop",
+        bgClass: bgColors[index % bgColors.length],
+        // Add badges dynamically if needed, e.g., if name is UK
+        badge: (id === 'uk' || id === 'united-kingdom') ? "Most Popular" : undefined,
+        badgeColor: "bg-rose-600"
+    };
+
+};
+
+export default function DestinationsSection({ content }: { content: any }) {
+    const [hoveredId, setHoveredId] = useState<string | null>(null);
+    const [mappedDestinations, setMappedDestinations] = useState<Destination[]>([]);
+
+    console.log(content?.destinations, "Raw API Destinations");
+
+    // Transform API data when content changes
+    useEffect(() => {
+        if (content?.destinations && Array.isArray(content.destinations)) {
+            const transformed = content.destinations.map((item: any, index: number) => 
+                mapApiToDestination(item, index)
+            );
+            setMappedDestinations(transformed);
+        }
+    }, [content]);
+
+    // --- Dynamic Layout Logic ---
+    
+    // Split into two rows dynamically
+    // Row 1: First 4 items
+    // Row 2: Remaining items (padded to 4 if necessary for layout consistency, or just flexible)
+    const firstRow = useMemo(() => mappedDestinations.slice(0, 4), [mappedDestinations]);
+    
+    // For the second row, we take the rest. 
+    // To maintain the "accordion" visual balance, we ideally want 4 items in row 2 as well.
+    // If API returns exactly 7, Row 2 has 3. We can pad it or just handle 3.
+    // Let's assume we want to fill the row. If < 4, we can add placeholders or just render what we have.
+    // Here, I will strictly use the API data. If you want placeholders, add them here.
+    let secondRowRaw = mappedDestinations.slice(4);
+    
+    // OPTIONAL: If you want to ensure the second row always has 4 slots for the animation logic:
+    // You can push dummy objects if secondRowRaw.length < 4. 
+    // For now, I will stick to the actual data to avoid broken links.
+    
+    const secondRow = secondRowRaw;
+
+    /**
+     * Dynamic Width Calculator
+     * Logic: 
+     * 1. Identify the "Dominant" card in each row.
+     *    - Row 1 Default Dominant: Index 0 (First item)
+     *    - Row 2 Default Dominant: Last Item (to mimic your previous "Ireland" logic) OR First Item.
+     *      *Note: Your previous code had Ireland (last) as big. Let's stick to that pattern for Row 2.*
+     * 2. If Hovering a card in that row, THAT card becomes dominant (40%), others shrink (20%).
+     * 3. If not hovering, default dominant stays big.
+     */
+    const getCardWidth = (id: string, rowType: 'first' | 'second') => {
+        const rowItems = rowType === 'first' ? firstRow : secondRow;
+        const idsInRow = rowItems.map(d => d.id);
+        
+        if (!idsInRow.includes(id)) return "lg:w-[20%]"; // Safety check
+
+        // Determine default "Big" card for this row
+        // Row 1: First item is big by default
+        // Row 2: Last item is big by default (matching your previous Ireland logic)
+        const defaultBigId = rowType === 'first' ? idsInRow[0] : idsInRow[idsInRow.length - 1];
+
+        // Scenario 1: No hover anywhere
+        if (!hoveredId) {
+            return id === defaultBigId ? "lg:w-[40%]" : "lg:w-[20%]";
+        }
+
+        // Scenario 2: Hovering inside THIS row
+        if (idsInRow.includes(hoveredId)) {
+            return id === hoveredId ? "lg:w-[40%]" : "lg:w-[20%]";
+        }
+
+        // Scenario 3: Hovering in the OTHER row -> Reset to default state
+        return id === defaultBigId ? "lg:w-[40%]" : "lg:w-[20%]";
+    };
+
+    // Mobile Grouping (Pairs)
+    const firstRowPairs = [];
+    for (let i = 0; i < firstRow.length; i += 2) {
+        firstRowPairs.push(firstRow.slice(i, i + 2));
+    }
+    
+    const secondRowPairs = [];
+    for (let i = 0; i < secondRow.length; i += 2) {
+        secondRowPairs.push(secondRow.slice(i, i + 2));
+    }
+
+    if (!mappedDestinations.length) return null; // Or a loader
+
+  
+
     return (
-        <section className=" py-16 px-4 md:px-8" id="destinations" style={{
-          background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
+        <section className="py-12 sm:py-16 px-4 md:px-8" id="destinations" style={{
+            background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
         }}>
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
@@ -161,137 +151,77 @@ export default function DestinationsSection() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 bg-emerald-900/10 text-[#D81635] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
+                    className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
                 >
-                    🌍 Study Abroad Destinations
+                    {content?.label || "Study Abroad Destinations"}
                 </motion.span>
 
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="font-serif text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-3"
+                    className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3"
                 >
-                    India's Most Trusted<br />
-                    <em className="text-[#D81635] not-italic">Study Abroad Consultants</em> — Choose Your Country
+                    {content?.title || "Choose Your Country"}
                 </motion.h2>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 }}
-                    className="text-gray-600 max-w-2xl text-lg mb-12"
-                >
-                    From the Russell Group universities of the UK to Germany's tuition-free institutions — we help Indian students reach 450+ universities across 18 countries.
-                </motion.p>
+                    className="text-gray-600 max-w-2xl text-base sm:text-lg mb-8 sm:mb-12"
+                    dangerouslySetInnerHTML={{
+                        __html : content.subTitle || ""
+                    }}
+                />
 
-                {/* First Row */}
-                <div className="flex  gap-2 mb-4">
+                {/* --- FIRST ROW --- */}
+                
+                {/* Mobile View */}
+                <div className="lg:hidden mb-4">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 lg:hidden">
+  {firstRow?.map((dest, index) => (
+    <MobileCard key={dest.id || index} dest={dest} />
+  ))}
+</div>
+                </div>
+
+                {/* Desktop View */}
+                <div className="hidden lg:flex lg:flex-row gap-4 mb-4">
                     {firstRow.map((dest) => (
-                        <motion.a
+                        <DesktopCard 
                             key={dest.id}
-                            href={dest.link}
-                            className={`relative h-64 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out ${getCardWidth(dest.id)
-                                } bg-gradient-to-br ${dest.bgClass}`}
-                            onHoverStart={() => setHoveredId(dest.id)}
-                            onHoverEnd={() => setHoveredId(null)}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            layout
-                        >
-                            {/* ✅ IMAGE */}
-                            <img
-                                src={dest.image}
-                                alt={dest.name}
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                            />
-
-                            {/* ✅ OVERLAY */}
-                            <div className="absolute top-48 inset-0 h-[30%] bg-black/40 z-10" />
-
-
-                            {/* Badge */}
-                            {dest.badge && (
-                                <span className={`absolute top-4 right-4 z-20 ${dest.badgeColor} text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide shadow-lg`}>
-                                    {dest.badge}
-                                </span>
-                            )}
-
-                            {/* Content */}
-                            <div className="absolute -bottom-12 left-0 right-0 z-20 p-5 text-white">
-                               
-                                <h3 className="font-serif text-2xl font-bold leading-tight">{dest.name}</h3>
-                            
-
-                                {/* CTA that appears on hover */}
-                                <motion.span
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileHover={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="inline-flex items-center gap-1 mt-3 bg-amber-400 text-gray-900 text-xs font-bold px-4 py-2 rounded-full"
-                                >
-                                    Explore {dest.name.split(' ')[0]} →
-                                </motion.span>
-                            </div>
-                        </motion.a>
-
+                            dest={dest}
+                            widthClass={getCardWidth(dest.id, 'first')}
+                            hoveredId={hoveredId}
+                            setHoveredId={setHoveredId}
+                        />
                     ))}
                 </div>
 
-                {/* Second Row */}
-                <div className="flex  gap-4">
-                    {secondRow.map((dest, index) => {
-                        const isLast = index === secondRow.length - 1; // Ireland is last
-                        return (
-                            <motion.a
-                                key={dest.id}
-                                href={dest.link}
-                                className={`relative h-64 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out ${isLast ? getCardWidth(dest.id, true) : getCardWidth(dest.id)
-                                    } bg-gradient-to-br ${dest.bgClass}`}
-                                onHoverStart={() => setHoveredId(dest.id)}
-                                onHoverEnd={() => setHoveredId(null)}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.2 + index * 0.05 }}
-                                layout
-                            >
-                              {/* ✅ IMAGE */}
-                            <img
-                                src={dest.image}
-                                alt={dest.name}
-                                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
-                            />
+                {/* --- SECOND ROW --- */}
 
-                            {/* ✅ OVERLAY */}
-                            <div className="absolute top-48 inset-0 h-[30%] bg-black/40 z-10" />
+                {/* Mobile View */}
+                <div className="lg:hidden">
+                   <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 lg:hidden">
+  {secondRow?.map((dest, index) => (
+    <MobileCard key={dest.id || index} dest={dest} />
+  ))}
+</div>
+                </div>
 
-
-                                {dest.badge && (
-                                    <span className={`absolute top-4 right-4 z-20 ${dest.badgeColor} text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide shadow-lg`}>
-                                        {dest.badge}
-                                    </span>
-                                )}
-
-                                <div className="absolute -bottom-12 left-0 right-0 z-20 p-5 text-white">
-                               
-                                    <h3 className="font-serif text-2xl font-bold leading-tight">{dest.name}</h3>
-                                 
-
-                                    <motion.span
-                                        initial={{ opacity: 0, y: 10 }}
-                                        whileHover={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="inline-flex items-center gap-1 mt-3 bg-amber-400 text-gray-900 text-xs font-bold px-4 py-2 rounded-full"
-                                    >
-                                        Explore {dest.name.split(' ')[0]} →
-                                    </motion.span>
-                                </div>
-
-                              
-                            </motion.a>
-                        );
-                    })}
+                {/* Desktop View */}
+                <div className="hidden lg:flex lg:flex-row gap-4">
+                    {secondRow.map((dest, index) => (
+                        <DesktopCard 
+                            key={dest.id}
+                            dest={dest}
+                            widthClass={getCardWidth(dest.id, 'second')}
+                            hoveredId={hoveredId}
+                            setHoveredId={setHoveredId}
+                            delay={0.2 + index * 0.05}
+                        />
+                    ))}
                 </div>
 
                 {/* CTA Band */}
@@ -299,21 +229,21 @@ export default function DestinationsSection() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="mt-12 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
+                    className="mt-8 sm:mt-12 bg-[#D71635] rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
                 >
-                    <p className="text-white font-medium text-lg flex items-center gap-3">
+                    <p className="text-white font-medium text-base sm:text-lg flex items-center gap-3 text-center md:text-left">
                         <span className="text-2xl">🤔</span> Not sure which country is best for your profile, budget, and career goals?
                     </p>
-                    <div className="flex gap-3 flex-shrink-0">
+                    <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 w-full sm:w-auto">
                         <a
                             href="#lead-form"
-                            className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                            className="bg-amber-400 text-gray-900 font-bold px-5 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg text-center"
                         >
                             🎯 Get Free Country Match
                         </a>
                         <a
                             href="tel:+91XXXXXXXXXX"
-                            className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
+                            className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-5 sm:px-6 py-3 rounded-full transition-all text-center"
                         >
                             📞 Call Our Expert
                         </a>
@@ -321,5 +251,99 @@ export default function DestinationsSection() {
                 </motion.div>
             </div>
         </section>
+    );
+}
+
+// --- Sub-Components for Cleaner Code ---
+
+function DesktopCard({ 
+    dest, 
+    widthClass, 
+    hoveredId, 
+    setHoveredId, 
+    delay = 0.2 
+}: { 
+    dest: Destination; 
+    widthClass: string; 
+    hoveredId: string | null; 
+    setHoveredId: (id: string | null) => void;
+    delay?: number;
+}) {
+
+    console.log(dest?.image, "Image URL for", dest.name);
+    
+    return (
+        <motion.a
+            href={dest.link}
+            className={`relative h-64 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ease-in-out ${widthClass} bg-gradient-to-br ${dest.bgClass} hover:shadow-2xl group`}
+            onHoverStart={() => setHoveredId(dest.id)}
+            onHoverEnd={() => setHoveredId(null)}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay }}
+            layout // Important for smooth width transitions
+        >
+            <img
+                  src={`${baseUrl}/uploads/${dest?.image}`}
+                alt={dest.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
+            
+            {dest.badge && (
+                <span className={`absolute top-4 right-4 z-20 ${dest.badgeColor} text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide shadow-lg`}>
+                    {dest.badge}
+                </span>
+            )}
+             <div className="absolute -bottom-14 left-0 right-0 z-20 p-5 text-white transition-all duration-300 ease-out group-hover:bottom-0">
+                <h3 className="font-serif text-2xl font-bold leading-tight"> {dest.name}</h3>
+                <p className="text-sm text-white/90 mt-1 line-clamp-2">{dest.description}</p>
+                
+                {/* 
+                    3. Updated Button Logic:
+                    - Default: opacity-0 (Invisible)
+                    - Group Hover: opacity-100 (Visible)
+                    - Removed individual motion hover props to let parent control it
+                */}
+                <span
+                    className="inline-flex items-center gap-1 mt-3 bg-amber-400 text-gray-900 text-xs font-bold px-4 py-2 rounded-full opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100"
+                >
+                    Explore {dest.name.split(' ')[0]} →
+                </span>
+            </div>
+        </motion.a>
+    );
+}
+
+function MobileCard({ dest }: { dest: Destination }) {
+   
+    return (
+        <motion.a
+            href={dest.link}
+            className="relative h-48 sm:h-56 rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br from-gray-900/20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <img
+                src={`${baseUrl}/uploads/${dest?.image}`}
+                alt={dest.name}
+                className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
+            
+            {dest.badge && (
+                <span className={`absolute top-3 right-3 z-20 ${dest.badgeColor} text-white text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide shadow-lg`}>
+                    {dest.badge}
+                </span>
+            )}
+            
+            <div className="absolute bottom-0 left-0 right-0 z-20 p-3 sm:p-4 text-white">
+                <h3 className="font-serif text-base sm:text-xl font-bold leading-tight">{dest.flag} {dest.name}</h3>
+                <span className="inline-flex items-center gap-1 mt-2 bg-amber-400 text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full">
+                    Explore →
+                </span>
+            </div>
+        </motion.a>
     );
 }

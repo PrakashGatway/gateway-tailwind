@@ -5,6 +5,8 @@ import ClientLayout from "@/components/home/mainLayout";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema"
 
 
+
+
 export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
   description: "Discover the best consultant for studying abroad..."
@@ -378,6 +380,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           />
         </noscript>
         <ClientLayout>{children}</ClientLayout>
+    
      </body>
     </html>
   );

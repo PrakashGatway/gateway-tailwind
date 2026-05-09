@@ -5,10 +5,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap");
 
+
 html,
-body,
-* {
-  font-family: "Noto Sans", "Inter", system-ui, -apple-system, sans-serif;
+body *{
+  font-family: "Playfair Display", serif;
 }
 
 .blogs * {
@@ -393,7 +393,7 @@ html {
   background: #D71635;
   color: white;
   padding: 12px 24px;
-  border-radius: 60px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: 600;
@@ -403,7 +403,7 @@ html {
 }
 
 [data-theme="dark"] .btn-primary {
-  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+  background: linear-gradient(135deg,#D71635 0%, #D71635 100%);
 }
 
 /* .btn-primary::before {
@@ -422,7 +422,7 @@ html {
 } */
 
 .btn-primary:hover {
-  background: #FF1D45;
+  
   transform: translateY(-2px);
   box-shadow: 0 15px 35px rgba(220, 38, 38, 0.4);
 }
@@ -433,10 +433,10 @@ html {
 
 .btn-secondary {
   border: 2px solid #D71635;
-  background: white;
-  color: #dc2626;
+  background: black;
+  color: white;
   padding: 10px 22px;
-  border-radius: 60px;
+  border-radius: 10px;
   font-weight: 600;
   transition: all 0.3s ease;
 }
@@ -448,7 +448,7 @@ html {
 }
 
 .btn-secondary:hover {
-  background: #FF1D45;
+  background: #D71635;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);

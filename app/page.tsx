@@ -1,4 +1,5 @@
 import Index from "@/components/home/HomePage"
+import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
 import Script from "next/script";
 
@@ -41,9 +42,9 @@ export async function generateMetadata() {
   };
 }
 
-export const revalidate = 21600; // revalidate every 6 hours
+// export const revalidate = 6; // revalidate every 6 hours
 
-export default async function Home() {
+export default async function Home({slug}) {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -84,21 +85,26 @@ export default async function Home() {
 
   const [
     aboutPage,
-    homePage,
     course,
     testimonials,
     youtubeVideo,
     studentSlider,
     studentHome,
+    faq
   ] = await Promise.all([
     PageServices.getAboutPageById().then(res => res?.data || null).catch(() => null),
-    PageServices.getHomePageDetails().then(res => res?.data || null).catch(() => null),
     PageServices.getCourse().then(res => res?.data || null).catch(() => null),
     PageServices.getTestimonial().then(res => res?.data || null).catch(() => null),
     PageServices.getYoutubeVideo().then(res => res?.data || null).catch(() => null),
     PageServices.getStudentSlider().then(res => res?.data || null).catch(() => null),
-    PageServices.getStudentHome().then(res => res?.data || null).catch(() => null)
+    PageServices.getStudentHome().then(res => res?.data || null).catch(() => null),
+    PageServices.getAllFaqForFront("home").then(res => res?.data || null).catch(()=> null)
   ]);
+
+
+        const response = await serverInstance.get(`/page/home?type=home_page`);
+
+ 
 
 
   return (
@@ -113,12 +119,14 @@ export default async function Home() {
       />
 
       <Index aboutPage={aboutPage}
-        homePage={homePage}
+        homePage={response?.data?.data}
         course={course}
         testimonials={testimonials}
         youtubeVideo={youtubeVideo}
         studentSlider={studentSlider}
-        studentHome={studentHome} />
+        studentHome={studentHome}
+        faq = {faq}
+         />
     </>
   );
 }

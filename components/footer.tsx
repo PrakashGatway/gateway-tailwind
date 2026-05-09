@@ -21,6 +21,9 @@ export const Footer = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const path = usePathname()
+
+  
   const {
     register: registerContact,
     handleSubmit: handleSubmitContact,
@@ -188,6 +191,11 @@ export const Footer = () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [showModal]);
+
+    if(path.startsWith("/onboarding")){
+    return null
+  }
+
 
   return (
     <>

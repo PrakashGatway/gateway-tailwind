@@ -19,7 +19,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { constant } from "@/constant/index.constant";
 import { useGlobal } from "@/hooks/AppStateContext";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import axiosInstance from "@/services/axiosInstance";
 
 const Header = () => {
@@ -45,6 +45,12 @@ const Header = () => {
   // Gateway Abroad contact number
   const contactNumber = "+91-8302092630";
 
+  const path = usePathname()
+
+
+
+
+
 
   async function getPageData(type, setState) {
     const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
@@ -52,6 +58,8 @@ const Header = () => {
       setState(response.data.data);
     }
   }
+  
+  
 
   // 👇 useEffect to fetch data
   useEffect(() => {
@@ -124,6 +132,10 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  if(path === "/onboarding"){
+    return null
+  }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

@@ -4,11 +4,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axiosInstance from '@/services/axiosInstance';
+import { useParams } from 'next/navigation';
 
 export default function ContactForm({ type }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [submitError, setSubmitError] = useState(null);
+
+    const {slug} = useParams()
 
     const {
         register,
@@ -96,7 +99,7 @@ export default function ContactForm({ type }) {
 
     // ✅ Main Form (UI preserved exactly as provided)
     return (
-        <div className="w-full relatvie max-w-2xl border-4 overflow-hidden border-gray-300 bg-white backdrop-blur-sm rounded-3xl shadow-lg p-6">
+        <div className="w-full relatvie max-w-2xl  overflow-hidden border border-gray-500  bg-gray-50 backdrop-blur-sm rounded-3xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-red-700">Contact Details</h2>
             <p className="text-gray-500 text-sm mb-3">Please provide your contact information</p>
 
@@ -171,6 +174,8 @@ export default function ContactForm({ type }) {
                     )}
                 </div>}
 
+              
+
                 {/* Program Level + City Grid */}
                 <div className="grid grid-cols-2 gap-2">
                     {type === "article" ? <div>
@@ -194,22 +199,52 @@ export default function ContactForm({ type }) {
                         )}
                     </div> : <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Program level *
+                           Preferred Program level *
                         </label>
                         <select
                             {...register("programLevel", { required: "Please select a program level" })}
                             className={`w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none ${errors.programLevel ? 'border-red-500' : ''}`}
                         >
                             <option value="">Select</option>
-                            <option value="Undergraduate">Undergraduate</option>
-                            <option value="Postgraduate">Postgraduate</option>
+                            <option value="Undergraduate">Undergraduate(UG)</option>
+                            <option value="Postgraduate">Postgraduate(PG)</option>
                             <option value="PhD">PhD</option>
+                            <option value="Diploma">Diploma</option>
+                            {/* <option value="10th">10th</option>
+                            <option value="12th">12th</option> */}
                         </select>
                         {errors.programLevel && (
                             <p className="text-red-500 text-xs mt-1">{errors.programLevel.message}</p>
                         )}
                     </div>}
 
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Preferred Destination *
+                        </label>
+                        <select
+                            {...register("destination", { required: "Please select a destination" })}
+                            className={`w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none ${errors.destination ? 'border-red-500' : ''}`}
+                        >
+                            <option value="">Select</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Usa">Usa</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Dubai">Dubai</option>
+                            <option value="France">France</option>
+                            <option value="Dubai">Dubai</option>
+                            <option value="New Zealand">New Zealand</option>
+
+
+                            
+                        </select>
+                        {errors.destination && (
+                            <p className="text-red-500 text-xs mt-1">{errors.destination.message}</p>
+                        )}
+                    </div>
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -236,22 +271,22 @@ export default function ContactForm({ type }) {
                 </div>}
 
                 {/* Submit Button */}
-                <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center justify-center pt-2">
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="px-6 py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-green-700 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="px-6 py-2 rounded-full bg-red-600 text-white font-semibold  flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed "
                     >
                         {isSubmitting ? (
                             <>
-                                <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <svg className="animate-spin h-4 w-4 text-white " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
                                 Submitting...
                             </>
                         ) : (
-                            "Submit ✓"
+                            "Connect to an expert now ✓"
                         )}
                     </button>
                 </div>
