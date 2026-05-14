@@ -54,7 +54,7 @@ export const highlightText = (text) => {
 
 
 
-function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2,faq:faqdata }: any) {
+function Index({ homePage: homePageDetails, course: CourseData, aboutPage: aboutPageData, testimonials: testimonials, youtubeVideo: videoStudednt, studentSlider: slider, studentHome: slider2, faq: faqdata }: any) {
   const router = useRouter();
   const [blogData, setBlogData] = useState([]);
   const [video, setVideo] = useState([]);
@@ -70,6 +70,9 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
 
   const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider(
+
+
+    
     {
       initial: 0,
       slideChanged(slider) {
@@ -122,6 +125,9 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
       },
     ]
   );
+
+
+  const contactNumber = "+91-8302092630";
 
   // Keen Slider for student rank
   // const [studentRankRef] = useKeenSlider({
@@ -204,7 +210,7 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
   ];
 
 
-   
+
 
 
 
@@ -265,7 +271,7 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
     ]
   );
 
-  
+
 
   // Keen Slider for YouTube videos with built-in autoplay plugin
   const [youtubeRef, youtubeInstanceRef] = useKeenSlider(
@@ -456,7 +462,7 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
   });
 
 
-
+console.log(homePageDetails)
 
 
 
@@ -618,10 +624,9 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
   };
 
   const handleGetStarted = () => {
-    
+
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
-
 
 
 
@@ -631,35 +636,33 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
     <>
       <HeroSection content={homePageDetails?.sections[0]?.content} title={homePageDetails?.sections[0]?.content?.title} description={homePageDetails?.sections[0]?.content?.subtitle} image={`${baseUrl}/uploads/${homePageDetails?.pageContent?.heroImage}`} />
 
-        {/* Student Info Section - AUTO HEIGHT */}
+      {/* Student Info Section - AUTO HEIGHT */}
       <section
         className="pt-6 relative bg-white"
-        
+
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 l py-6 lg:px-8">
           <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
 
             {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
             <div className="w-full lg:w-[50%] order-2 lg:order-1 ">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 text-center lg:text-left mb-6 ">
-                Established in <span className="bg-red-600 py-[2px] px-[4px] md:py-[4px] md:px-[6px] text-white rounded-[4px]">2009</span>, this institute prepares students for international standardized tests, helping them achieve their study abroad goals and secure admission to top universities.
-              </h3>
+
 
               {studentData.length > 0 && (
                 <div className="relative max-h-[320px]">
                   <div ref={studentInfoRef} className="keen-slider">
-                    {studentData.map((s, index) => (
+                    {homePageDetails?.sections[12]?.content?.aboutimage?.map((s, index) => (
                       <div key={index} className="keen-slider__slide">
                         <div className="relative">
                           {/* Student Image - Responsive */}
                           <div className="flex justify-center">
                             <div className="relative">
                               <Image
-                                src={`${constant.REACT_APP_URL}/api/uploads/${s.image}`}
+                                src={`${baseUrl}/uploads/${s.image}`}
                                 alt={s.name}
                                 width={300}
                                 height={300}
-                                className="rounded-full w-full max-w-[250px] md:max-w-[300px] aspect-square object-cover"
+                                className=" w-100 md:w-full  object-cover"
                               />
                             </div>
                           </div>
@@ -690,19 +693,19 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
             {/* Register Form Column - MOBILE: TOP, DESKTOP: RIGHT SIDE */}
             <div className="w-full lg:w-[50%] order-1 lg:order-2 flex justify-center lg:justify-start items-start">
-                              <DynamicCounsellingForm/>
+              <DynamicCounsellingForm />
             </div>
 
           </div>
         </div>
       </section>
 
-            <SingleSlider />
-      
+      <SingleSlider />
+
 
       {/* About Us Section */}
 
-      <About content={homePageDetails?.sections[1]?.content}/>
+      <About content={homePageDetails?.sections[1]?.content} />
       {/* <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8">About us</h2>
@@ -712,76 +715,75 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
         </div>
       </section> */}
 
-      <DestinationsSection content = {homePageDetails?.sections[2]?.content} />
+      <DestinationsSection content={homePageDetails?.sections[2]?.content} />
 
-    
 
-        {/* Coaching Services Section */}
 
-         <section id="exams" className="relative py-16 md:py-20 bg-white overflow-hidden ">
-      {/* Background Decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/2 h-full  opacity-60" />
-      </div>
+      {/* Coaching Services Section */}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-10 md:mb-14">
-          <div className="inline-flex items-center gap-2 bg-red-100  border border-[#F4A62A]/20 rounded-full px-4 py-1.5 mb-4">
-            <span className="text-[#C41430] text-[10px] md:text-xs font-bold uppercase tracking-wider">
-              {homePageDetails?.sections[3]?.content?.label}
-            </span>
-          </div>
-          <h2 className="font-serif text-xl md:text-3xl lg:text-4xl font-extrabold text-black leading-tight mb-4">
-            {homePageDetails?.sections[3]?.content?.title}
-          </h2>
-          <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed" dangerouslySetInnerHTML={{
-            __html : homePageDetails?.sections[3]?.content?.description
-          }}>
-            
-          </p>
+      <section id="exams" className="relative py-16 md:py-20 bg-white overflow-hidden ">
+        {/* Background Decoration */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-1/2 h-full  opacity-60" />
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {homePageDetails?.sections[3]?.content?.testprepcourses?.map((exam) => {
-
-             const colorbgClass = exam?.coursetitle === "IELTS" ? "bg-red-500" :
-              exam?.coursetitle === "PTE" ? "bg-cyan-500" :
-                exam?.coursetitle === "TOEFL" ? "bg-blue-800" :
-                  exam?.coursetitle === "GRE" ? "bg-[#0C447C]" :
-                    exam?.coursetitle === "GMAT" ? "bg-cyan-600" :
-                      exam?.coursetitle === "SAT" ? "bg-cyan-400" :
-                        exam?.coursetitle === "Duolingo" ? "bg-[#76c442]" : "bg-gray-500";
-
-            const colorClass = exam?.coursetitle === "IELTS" ? "text-red-500" :
-              exam?.coursetitle === "PTE" ? "text-cyan-500" :
-                exam?.coursetitle === "TOEFL" ? "text-blue-800" :
-                  exam?.coursetitle === "GRE" ? "text-[#0C447C]" :
-                    exam?.coursetitle === "GMAT" ? "text-cyan-600" :
-                      exam?.coursetitle === "SAT" ? "text-cyan-400" :
-                        exam?.coursetitle === "Duolingo" ? "text-[#76c442]" : "text-gray-500";
-             return (
-            <div
-              key={exam.id}
-              className={`group relative bg-[#FFF7EE] border border-white/10 rounded-2xl p-5  hover:border-white/20 hover:-translate-y-1 transition-all duration-300 flex flex-col ${
-                exam.wide ? 'md:col-span-2 lg:col-span-1 xl:col-span-1' : ''
-              }`}
-            >
-              {/* Top colored border on hover */}
-              <div className={`absolute top-0 left-0 right-0 h-1 ${colorbgClass}  rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity`} />
-
-              {/* Category Badge */}
-              <span className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-[10px] md:text-[11px] font-bold uppercase tracking-wide mb-3`}>
-                {exam.category}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-10 md:mb-14">
+            <div className="inline-flex items-center gap-2 bg-red-100  border border-[#F4A62A]/20 rounded-full px-4 py-1.5 mb-4">
+              <span className="text-[#C41430] text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                {homePageDetails?.sections[3]?.content?.label}
               </span>
+            </div>
+            <h2 className=" text-xl md:text-3xl lg:text-4xl font-extrabold text-black leading-tight mb-4">
+              {homePageDetails?.sections[3]?.content?.title}
+            </h2>
+            <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed" dangerouslySetInnerHTML={{
+              __html: homePageDetails?.sections[3]?.content?.description
+            }}>
 
-              {/* Exam Name & Details */}
-              <h3 className={`font-serif text-3xl font-extrabold ${colorClass} mb-1`}>{exam.coursetitle}</h3>
-              <p className=" h-full mb-2" dangerouslySetInnerHTML={{__html: exam.coursesubtitle}} />
+            </p>
+          </div>
 
-              {/* Features List */}
-              {/* <ul className="space-y-2 mb-6 flex-grow">
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            {homePageDetails?.sections[3]?.content?.testprepcourses?.map((exam) => {
+
+              const colorbgClass = exam?.coursetitle === "IELTS" ? "bg-red-500" :
+                exam?.coursetitle === "PTE" ? "bg-cyan-500" :
+                  exam?.coursetitle === "TOEFL" ? "bg-blue-800" :
+                    exam?.coursetitle === "GRE" ? "bg-[#0C447C]" :
+                      exam?.coursetitle === "GMAT" ? "bg-cyan-600" :
+                        exam?.coursetitle === "SAT" ? "bg-cyan-400" :
+                          exam?.coursetitle === "Duolingo" ? "bg-[#76c442]" : "bg-gray-500";
+
+              const colorClass = exam?.coursetitle === "IELTS" ? "text-red-500" :
+                exam?.coursetitle === "PTE" ? "text-cyan-500" :
+                  exam?.coursetitle === "TOEFL" ? "text-blue-800" :
+                    exam?.coursetitle === "GRE" ? "text-[#0C447C]" :
+                      exam?.coursetitle === "GMAT" ? "text-cyan-600" :
+                        exam?.coursetitle === "SAT" ? "text-cyan-400" :
+                          exam?.coursetitle === "Duolingo" ? "text-[#76c442]" : "text-gray-500";
+              return (
+                <div
+                  key={exam.id}
+                  className={`group relative bg-[#FFF7EE] border border-white/10 rounded-2xl p-5  hover:border-white/20 hover:-translate-y-1 transition-all duration-300 flex flex-col ${exam.wide ? 'md:col-span-2 lg:col-span-1 xl:col-span-1' : ''
+                    }`}
+                >
+                  {/* Top colored border on hover */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 ${colorbgClass}  rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity`} />
+
+                  {/* Category Badge */}
+                  <span className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-[10px] md:text-[11px] font-bold uppercase tracking-wide mb-3`}>
+                    {exam.category}
+                  </span>
+
+                  {/* Exam Name & Details */}
+                  <h3 className={` text-3xl font-extrabold ${colorClass} mb-1`}>{exam.coursetitle}</h3>
+                  <p className=" h-full mb-2" dangerouslySetInnerHTML={{ __html: exam.coursesubtitle }} />
+
+                  {/* Features List */}
+                  {/* <ul className="space-y-2 mb-6 flex-grow">
                 {exam.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-gray-600 text-xs">
                     <span className={`w-1.5 h-1.5 rounded-full bg-[#F4A62A] mt-1.5 shrink-0`} />
@@ -790,31 +792,32 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
                 ))}
               </ul> */}
 
-              {/* Enroll Button */}
-              <a
-                href={`/${exam?.slug}`}
-                className="w-full py-2.5 rounded-lg bg-red-500 text-white text-xs font-semibold border border-white/20 hover:bg-[#F4A62A] hover:text-[#5a2d00] hover:border-[#F4A62A] transition-colors text-center"
-              >
-                {exam?.btntext}
-              </a>
-            </div>
-          )})}
-        </div>
+                  {/* Enroll Button */}
+                  <a
+                    href={`/${exam?.slug}`}
+                    className="w-full py-2.5 rounded-lg bg-red-500 text-white text-xs font-semibold border border-white/20 hover:bg-[#F4A62A] hover:text-[#5a2d00] hover:border-[#F4A62A] transition-colors text-center"
+                  >
+                    {exam?.btntext}
+                  </a>
+                </div>
+              )
+            })}
+          </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-center">
-          <p className="text-black text-sm md:text-base">
-            <strong className="text-black">Not sure which test to take?</strong> Our experts will guide you to the right exam for your target country & university.
-          </p>
-          <button
-            onClick={handleGetStarted}
-            className="bg-red-500 text-white px-6 py-3 rounded-lg font-bold text-sm hover:bg-[#e9971e] transition-colors shadow-lg shadow-[#F4A62A]/20 whitespace-nowrap"
-          >
-            Get Free Test Guidance →
-          </button>
+          {/* Bottom CTA */}
+          <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-center">
+            <p className="text-black text-sm md:text-base">
+              <strong className="text-black">Not sure which test to take?</strong> Our experts will guide you to the right exam for your target country & university.
+            </p>
+            <button
+              onClick={handleGetStarted}
+              className="bg-red-500 text-white px-6 py-3 rounded-lg font-bold text-sm hover:bg-[#e9971e] transition-colors shadow-lg shadow-[#F4A62A]/20 whitespace-nowrap"
+            >
+              Get Free Test Guidance →
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
       {/* <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-900 mb-12">
@@ -845,57 +848,58 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
 
       <section className=" py-10 md:py-16 px-4 md:px-8" id="destinations" style={{
-          background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
-        }}>
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header Section */}
-        <div className="mb-8 md:mb-12">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-[10px] md:text-xs tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
-          >
-            {homePageDetails?.sections[4]?.content?.label}
-          </motion.span>
+        background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
+      }}>
+        <div className="max-w-7xl mx-auto">
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3">
-            {homePageDetails?.sections[4]?.content?.title}
-            
-          </motion.h2>
+          {/* Header Section */}
+          <div className="mb-8 md:mb-12">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-[10px] md:text-xs tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
+            >
+              {homePageDetails?.sections[4]?.content?.label}
+            </motion.span>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            viewport={{ once: true }}
-            className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-lg mb-8 md:mb-12"
-            dangerouslySetInnerHTML={{
-              __html: homePageDetails?.sections[4]?.content?.subTitle
-            }}
-          >
-            
-          </motion.p>
-        </div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3">
+              {homePageDetails?.sections[4]?.content?.title}
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-0 md:p-6">
-          {homePageDetails.sections[4]?.content?.abroadconsulting?.map((service, index) => { return (
-             <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full">
-            <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
-              {service?.label}
-            </span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              viewport={{ once: true }}
+              className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-lg mb-8 md:mb-12"
+              dangerouslySetInnerHTML={{
+                __html: homePageDetails?.sections[4]?.content?.subTitle
+              }}
+            >
+
+            </motion.p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-0 md:p-6">
+            {homePageDetails.sections[4]?.content?.abroadconsulting?.map((service, index) => {
+              return (
+                <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full">
+                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                    {service?.label}
+                  </span>
 
 
-            <p
-  className="
+                  <p
+                    className="
     
     [&_ul]:list-disc
     [&_ul]:pl-5
@@ -903,49 +907,50 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
     [&_li]:leading-tight
     [&_li]:mb-0
   "
-  dangerouslySetInnerHTML={{ __html: service?.content }}
-/>
+                    dangerouslySetInnerHTML={{ __html: service?.content }}
+                  />
 
 
-            <button onClick={handleGetStarted} className="w-full md:w-auto bg-[#D81635] text-white px-6 py-3 rounded-full font-semibold text-sm md:text-base hover:bg-yellow-300 hover:text-black transition-colors duration-300 mt-auto">
-              {service?.buttontext}
-            </button>
+                  <button onClick={handleGetStarted} className="w-full md:w-auto bg-[#D81635] text-white px-6 py-3 rounded-full font-semibold text-sm md:text-base hover:bg-yellow-300 hover:text-black transition-colors duration-300 mt-auto">
+                    {service?.buttontext}
+                  </button>
+                </div>
+
+              )
+            })}
+
+            {/* Card 1: Consulting */}
+
+
+            {/* Card 2: Test Prep */}
+            {homePageDetails.sections[4]?.content?.testprepcourses?.map((course, index) => {
+              return (
+                <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full">
+                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                    {course?.label}
+                  </span>
+
+
+
+                  <p className="text-xs sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed" dangerouslySetInnerHTML={{
+                    __html: course?.content
+                  }}>
+
+                  </p>
+
+
+                  <Link href="/onboarding">
+                    <button className="w-full md:w-full border border-black/10 px-6 py-3 rounded-full bg-[#D81635] text-white font-semibold text-sm md:text-base hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+                      {course?.buttontext}
+                    </button>
+                  </Link>
+
+                </div>
+              )
+            })}
           </div>
-
-          )})}
-
-          {/* Card 1: Consulting */}
-         
-
-          {/* Card 2: Test Prep */}
-         {homePageDetails.sections[4]?.content?.testprepcourses?.map((course, index) => {
-            return (
-              <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full">
-            <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
-              {course?.label}
-            </span>
-
-            
-
-            <p className="text-xs sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed" dangerouslySetInnerHTML={{
-              __html: course?.content
-            }}>
-             
-            </p>
-
-          
-            <Link href="/onboarding">
-            <button  className="w-full md:w-full border border-black/10 px-6 py-3 rounded-full bg-[#D81635] text-white font-semibold text-sm md:text-base hover:bg-black hover:text-white transition-all duration-300 mt-auto">
-              {course?.buttontext}
-            </button>
-            </Link>
-
-          </div>
-            )
-          }          )}
-          </div>
-      </div>
-    </section>
+        </div>
+      </section>
 
       <section className="bg-white py-14 md:py-20 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
@@ -966,19 +971,19 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
           <p className=" text-gray-500 mt-3 md:mt-4 max-w-2xl  text-sm md:text-lg" dangerouslySetInnerHTML={{
             __html: homePageDetails?.sections[5]?.content?.subTitle
           }}>
-          
+
           </p>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
 
             {/* Loop through features */}
-            {homePageDetails?.sections[5]?.content?.cards?.map((item,idx) => { 
-           const IconComponent = Icons[item.icon] || Icons.Target;
+            {homePageDetails?.sections[5]?.content?.cards?.map((item, idx) => {
+              const IconComponent = Icons[item.icon] || Icons.Target;
               return (
-              <div
-                key={idx}
-                className="
+                <div
+                  key={idx}
+                  className="
     relative bg-[#F7F4EE] rounded-xl md:rounded-2xl p-5 md:p-6 
     shadow-sm transition-all duration-300
     hover:shadow-md hover:-translate-y-1
@@ -992,28 +997,29 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
     hover:after:w-full
   "
-              >
-                {/* Background Number */}
-              
+                >
+                  {/* Background Number */}
 
-                {/* Icon */}
-                <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
-                  <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
+
+                  {/* Icon */}
+                  <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
+                    <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-semibold text-base md:text-lg text-gray-800">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
+                    __html: item.description
+                  }}>
+
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h4 className="font-semibold text-base md:text-lg text-gray-800">
-                  {item.title}
-                </h4>
-
-                {/* Description */}
-                <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
-                  __html : item.description
-                }}>
-                  
-                </p>
-              </div>
-            )})}
+              )
+            })}
 
           </div>
         </div>
@@ -1023,108 +1029,104 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
       <StudentScoresSection content={homePageDetails?.sections[7]?.content} studentslider={slider} />
 
-      
+
 
       <section className="bg-red-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header Section */}
-        <div className="mb-10 md:mb-14">
-          {/* Badge */}
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
-          >
-            <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-            {homePageDetails?.sections[9]?.content?.label}
-          </motion.span>
+        <div className="max-w-7xl mx-auto">
 
-          {/* Main Heading */}
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#C41430] leading-tight font-serif mb-6"
-          >
-            {homePageDetails?.sections[9]?.content?.title}
-          </motion.h2>
+          {/* Header Section */}
+          <div className="mb-10 md:mb-14">
+            {/* Badge */}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
+            >
+              <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              {homePageDetails?.sections[9]?.content?.label}
+            </motion.span>
 
-          {/* Subtext */}
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-gray-800 max-w-2xl leading-relaxed"
-            dangerouslySetInnerHTML={{
-              __html: homePageDetails?.sections[9]?.content?.subTitle
-            }}
-          >
-            
-          </motion.p>
-        </div>
-
-        {/* Location Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
-          {homePageDetails?.sections[9]?.content?.cities?.map((loc: any, index: number) => {
-            const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
-             return (
-            <motion.div
-              key={index}
+            {/* Main Heading */}
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
-              whileHover={{ y: -5 }}
-              className={`
-                flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
-                ${index ===  homePageDetails?.sections[9]?.content?.cities?.length - 1
-                  ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20' 
-                  : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
-                }
-              `}
+              transition={{ delay: 0.1 }}
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#C41430] leading-tight  mb-6"
             >
-              <div className={`mb-3 ${index ===  homePageDetails?.sections[9]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
-                <IconComponent className = "w-8 h-8" />
-              </div>
-              
-              <h3 className="text-base sm:text-lg font-bold mb-1">
-                {loc.name}
-              </h3>
-              
-              <p className={`text-xs sm:text-sm leading-snug ${index ===  loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
-                __html: loc.description
-              }}>
-                
-              </p>
-            </motion.div>
-          )})}
+              {homePageDetails?.sections[9]?.content?.title}
+            </motion.h2>
+
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-sm sm:text-base md:text-lg text-gray-800 max-w-2xl leading-relaxed"
+              dangerouslySetInnerHTML={{
+                __html: homePageDetails?.sections[9]?.content?.subTitle
+              }}
+            >
+
+            </motion.p>
+          </div>
+
+          {/* Location Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
+            {homePageDetails?.sections[9]?.content?.cities?.map((loc: any, index: number) => {
+              const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
+              return (
+                <Link href = {`/${loc?.slug}`}>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  whileHover={{ y: -5 }}
+                  className={`
+                flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
+                ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1
+                      ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
+                      : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
+                    }
+              `}
+                >
+                  <div className={`mb-3 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
+                    <IconComponent className="w-8 h-8" />
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-bold mb-1">
+                    {loc.name}
+                  </h3>
+
+                  <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
+                    __html: loc.description
+                  }}>
+
+                  </p>
+                </motion.div>
+                </Link>
+              )
+            })}
+          </div>
+
+          {/* SEO Text Block with Side Border */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+            className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
+          >
+            <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
+              { __html: homePageDetails?.sections[9]?.content?.sectiondescription }
+            }>
+
+            </p>
+          </motion.div>
+
         </div>
+      </section>
 
-        {/* SEO Text Block with Side Border */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-          className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
-        >
-          <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
-            { __html : homePageDetails?.sections[9]?.content?.sectiondescription}
-          }>
-            
-          </p>
-        </motion.div>
-
-      </div>
-    </section>
-
-  <LandingPage content = {homePageDetails?.sections[10]?.content} />
-
-
-    
-
-
-
-    
+      <LandingPage content={homePageDetails?.sections[10]?.content} />
 
 
 
@@ -1133,7 +1135,14 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
 
 
-     
+
+
+
+
+
+
+
+
 
       {/* Test Preparation Section */}
       {/* <section className="py-12 md:py-20 bg-white">
@@ -1210,14 +1219,14 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
                           </span>
 
                           {/* Title */}
-                          <h4
+                          <h3
                             className={`font-bold text-base lg:text-lg mb-2 transition-colors duration-300 ${isActive
                               ? "text-gray-900"
                               : "text-gray-700 group-hover:text-gray-900"
                               }`}
                           >
                             {item?.title}
-                          </h4>
+                          </h3>
 
                           {/* Description */}
                           <p
@@ -1264,7 +1273,7 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
 
                 {/* Quick Stats */}
                 <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
-                  <h4 className="font-bold text-gray-800 mb-3 text-sm">Why Choose Gateway Abroad?</h4>
+                  <h3 className="font-bold text-gray-800 mb-3 text-sm">Why Choose Gateway Abroad?</h3>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
@@ -1334,43 +1343,43 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
         </div>
         <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-10 sm:mb-12 lg:mb-16"
+          >
             <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-10 sm:mb-12 lg:mb-16"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
-                      className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6"
-                    >
-                      <span className="text-[#C41430] font-bold text-xs sm:text-sm tracking-wider uppercase">
-                        {homePageDetails?.sections[8]?.content?.label}
-                      </span>
-                    </motion.div>
-          
-                    <motion.h2
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                      className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
-                      style={{ fontFamily: 'serif' }}
-                    >
-                      {homePageDetails?.sections[8]?.content?.title}
-                    </motion.h2>
-          
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.5 }}
-                      className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: homePageDetails?.sections[8]?.content?.subTitle }}
-                    >
-                      
-                    </motion.p>
-                  </motion.div>
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6"
+            >
+              <span className="text-[#C41430] font-bold text-xs sm:text-sm tracking-wider uppercase">
+                {homePageDetails?.sections[8]?.content?.label}
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
+              
+            >
+              {homePageDetails?.sections[8]?.content?.title}
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: homePageDetails?.sections[8]?.content?.subTitle }}
+            >
+
+            </motion.p>
+          </motion.div>
 
           {(!testimonials?.testimonial || testimonials.testimonial.length === 0) ? (
             <div className="text-center text-gray-500 py-8">Loading testimonials...</div>
@@ -1378,98 +1387,99 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
             <div className="relative group">
               <div ref={testimonialRef} className="keen-slider">
                 {testimonials.testimonial.map((test, idx) => {
-                
-              return  (
-                  <div key={test._id} className="keen-slider__slide p-2 pb-6">
-                   <div className="relative bg-white box-border caret-transparent z-0 ml-[30px] rounded-3xl md:ml-[50px] shadow-lg before:accent-auto before:border-b-gray-200 before:box-border before:caret-transparent before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-0 before:left-[-35px] before:tracking-[normal] before:leading-6 before:list-outside before:list-disc before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-0 before:z-[-1] before:border-t-white before:border-t-[25px] before:border-x-transparent before:border-x-[50px] before:border-separate before:border-solid before:top-0 before:font-noto_sans before:md:left-[-50px] before:md:border-t-[55px] before:md:border-x-[80px]">
-  
-  <div className="box-border caret-transparent pt-5 px-5 md:pt-[35px] md:px-[30px]">
-    
-    {/* Header */}
-    <div className="items-center box-border caret-transparent flex justify-between">
-      <h6 className="text-gray-700 text-lg font-bold box-border caret-transparent leading-tight mb-2">
-        {test.name}
-      </h6>
 
-      <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
-            <span className="text-yellow-400 text-lg">★</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+                  return (
+                    <div key={test._id} className="keen-slider__slide p-2 pb-6">
+                      <div className="relative bg-white box-border caret-transparent z-0 ml-[30px] rounded-3xl md:ml-[50px] shadow-lg before:accent-auto before:border-b-gray-200 before:box-border before:caret-transparent before:text-neutral-800 before:block before:text-base before:not-italic before:normal-nums before:font-normal before:h-0 before:left-[-35px] before:tracking-[normal] before:leading-6 before:list-outside before:list-disc before:pointer-events-auto before:absolute before:text-start before:indent-[0px] before:normal-case before:visible before:w-0 before:z-[-1] before:border-t-white before:border-t-[25px] before:border-x-transparent before:border-x-[50px] before:border-separate before:border-solid before:top-0 before:font-noto_sans before:md:left-[-50px] before:md:border-t-[55px] before:md:border-x-[80px]">
 
-    {/* Content */}
-    <div>
-      <p
-        className="text-zinc-500 text-sm font-medium box-border caret-transparent 
+                        <div className="box-border caret-transparent pt-5 px-5 md:pt-[35px] md:px-[30px]">
+
+                          {/* Header */}
+                          <div className="items-center box-border caret-transparent flex justify-between">
+                            <p className="text-gray-700 text-lg font-bold box-border caret-transparent leading-tight mb-2">
+                              {test.name}
+                            </p>
+
+                            <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
+                              {[1, 2, 3, 4, 5].map((star) => (
+                                <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
+                                  <span className="text-yellow-400 text-lg">★</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Content */}
+                          <div>
+                            <p
+                              className="text-zinc-500 text-sm font-medium box-border caret-transparent 
         max-w-full text-left mb-14   
         overflow-hidden line-clamp-3"
-      >
-        {test.content}
-      </p>
+                            >
+                              {test.content}
+                            </p>
 
-      {/* Tags */}
-      <div className='flex justify-between mb-4'>
-  <span className="px-4 py-2 mt-2 rounded-full text-xs font-semibold bg-red-500 text-white">
-    {test?.univercity}
-  </span>
-  <span className="inline-block mt-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700">
-  {test?.type}
-</span>
-</div>
+                            {/* Tags */}
+                            <div className='flex justify-between mb-4'>
+                              <span className="px-4 py-2 mt-2 rounded-full text-xs font-semibold bg-red-500 text-white">
+                                {test?.univercity}
+                              </span>
+                              <span className="inline-block mt-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700">
+                                {test?.type}
+                              </span>
+                            </div>
 
 
-    </div>
+                          </div>
 
-  </div>
+                        </div>
 
-  {/* Footer */}
-  <div className="bg-red-600 box-border caret-transparent px-5 py-3.5 rounded-b-3xl md:px-[30px]"></div>
+                        {/* Footer */}
+                        <div className="bg-red-600 box-border caret-transparent px-5 py-3.5 rounded-b-3xl md:px-[30px]"></div>
 
-</div>
-                  </div>
-                )})}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
 
             </div>
           )}
-           <motion.div
-          className=" mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
-        >
-          <div className="flex items-start gap-4 text-center lg:text-left">
-            <div className="flex-shrink-0 bg-white/10 p-3 rounded-xl">
-              <Icons.BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          <motion.div
+            className=" mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
+          >
+            <div className="flex items-start gap-4 text-center lg:text-left">
+              <div className="flex-shrink-0 bg-white/10 p-3 rounded-xl">
+                <Icons.BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+              </div>
+              <div>
+                <p className="text-white text-base sm:text-lg font-semibold mb-1">
+                  Want results like these?
+                </p>
+                <p className="text-gray-300 text-sm sm:text-base">
+                  Our coaches know exactly what it takes to crack your exam.
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-white text-base sm:text-lg font-semibold mb-1">
-                Want results like these?
-              </p>
-              <p className="text-gray-300 text-sm sm:text-base">
-                Our coaches know exactly what it takes to crack your exam.
-              </p>
+            <div className="flex gap-3 flex-shrink-0">
+              <a
+                onClick={handleGetStarted}
+                className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
+              >
+                🎯 Get in Touch
+              </a>
+              <a
+                href={`tel:${contactNumber}`}
+                className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
+              >
+                📞 Call Our Expert
+              </a>
             </div>
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <a
-              href="#lead-form"
-              className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
-            >
-              🎯 Get in Touch
-            </a>
-            <a
-              href="tel:+91XXXXXXXXXX"
-              className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
-            >
-              📞 Call Our Expert
-            </a>
-          </div>
-        </motion.div>
+          </motion.div>
         </div>
 
-        
+
       </section>
       {/* Blog Section */}
       <section className="py-12 md:py-20 bg-gray-50">
@@ -1506,8 +1516,8 @@ function Index({ homePage:homePageDetails, course: CourseData, aboutPage: aboutP
         </div>
       </section>
 
-  <FAQSection content={homePageDetails?.sections[11]?.content} faq = {faqdata} />
-      
+      <FAQSection content={homePageDetails?.sections[11]?.content} faq={faqdata} />
+
 
       {/* ====== Partner Section ====== */}
       <section className="py-12 md:py-16 bg-white">

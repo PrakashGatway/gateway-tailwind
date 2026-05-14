@@ -170,7 +170,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
         </div>
 
         {/* Slider */}
-        <div className="relative ml-[110px]" ref={sliderContainerRef}>
+        <div className="relative lg:ml-[110px]" ref={sliderContainerRef}>
           {programs.length > 0 ? (
             <>
               <div ref={sliderRef} className="keen-slider">
@@ -217,7 +217,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
 
                         {/* Features */}
                         <div className="mb-3">
-                          <h4 className="text-sm font-semibold text-gray-900 mb-2">Key Features:</h4>
+                          <h3 className="text-sm font-semibold text-gray-900 mb-2">Key Features:</h3>
                           <div className="space-y-2">
                             {(program?.keyFeatures || [
                               "Industry-relevant curriculum",

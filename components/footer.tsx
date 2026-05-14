@@ -247,9 +247,9 @@ export const Footer = () => {
                       Gateway Abroad Education has been a trusted Study abroad consultants for over 16 years, helping students pursue higher studies in countries like the UK, Ireland, Australia, the USA, Canada, New Zealand, and Singapore</p>
                   </div>
                   <div>
-                    <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
+                    <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                       Follow us
-                    </h4>
+                    </h3>
                     <ul className="flex flex-wrap list-none mb-4 pl-0">
                       {[
                         { href: contactData.facebook, icon: 'fa-facebook' },
@@ -280,9 +280,9 @@ export const Footer = () => {
               {/* Quick Links Column */}
               <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
                 <div className="pl-0 md:pl-5 mb-6">
-                  <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
+                  <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                     Quick Links
-                  </h4>
+                  </h3>
                   <ul className="list-none pl-0 mb-4 flex flex-wrap md:block"> {/* list-none और pl-0 दोनों */}
                     {[
                       { href: "/", text: "Home" },
@@ -317,9 +317,9 @@ export const Footer = () => {
               {/* Test Preparation Column */}
               <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
                 <div className="pl-0 md:pl-2 mb-6">
-                  <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
+                  <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                     Test Preparation
-                  </h4>
+                  </h3>
                   <ul className="list-none pl-0 mb-4 flex flex-wrap md:block">
                     {CourseData?.map((course) => (
                       <li
@@ -343,9 +343,9 @@ export const Footer = () => {
               <div className="shrink-0 max-w-full w-full px-3 md:w-3/12">
                 <div className="mb-6">
                   <div className="mb-6">
-                    <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
+                    <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                       Contact us
-                    </h4>
+                    </h3>
                     <ul className="leading-[normal] list-none mb-4 pl-0">
                       <li className="mb-2.5">
                         <Link
@@ -403,9 +403,9 @@ export const Footer = () => {
 
                   {/* Newsletter Form */}
                   <div className="mt-6">
-                    <h4 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
+                    <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                       Newsletter
-                    </h4>
+                    </h3>
                     <form onSubmit={handleSubmitNewsletter(handleUpdate2)}>
                       <input
                         type="email"

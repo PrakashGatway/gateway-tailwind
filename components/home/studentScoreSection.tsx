@@ -108,14 +108,14 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
             </span>
           </motion.div>
 
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
           >
             {content?.title}
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
@@ -227,7 +227,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
               🎯 Get Free Country Match
             </a>
             <a
-              href="tel:+91XXXXXXXXXX"
+              href="tel:+91-8302092630"
               className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
             >
               📞 Call Our Expert

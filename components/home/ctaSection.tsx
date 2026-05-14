@@ -9,6 +9,7 @@ const LandingPage = ({ content }) => {
     console.log('Submitting number:', whatsappNumber);
     // Add your API logic here
   };
+  console.log(content)
 
   return (
     <div className="  flex items-center justify-center px-4 py-12 relative overflow-hidden font-sans" style={{
@@ -20,9 +21,9 @@ const LandingPage = ({ content }) => {
         
         {/* Headline Section */}
         <div className="space-y-2">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black leading-tight tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black leading-tight tracking-tight">
             {content?.title}
-          </h1>
+          </h2>
         
         </div>
 
@@ -64,7 +65,7 @@ const LandingPage = ({ content }) => {
           {content?.features?.map((feature, index) => (
             <div key={index} className="flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full border border-gray-200 shadow-sm">
               <CheckCircle2 className="w-4 h-4 text-green-500" />
-              <span>{feature?.title}</span>
+              <span>{feature?.featuretitle}</span>
             </div>
           ))}
 

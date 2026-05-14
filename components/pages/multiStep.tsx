@@ -107,9 +107,9 @@ export default function EnhancedMultiStepForm() {
     <section className="relative bg-white py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <h6 className="text-xl sm:text-2xl lg:text-3xl !text-gray-800 mx-auto font-semibold !text-center mb-8">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl !text-gray-800 mx-auto font-semibold !text-center mb-8">
           Let's calculate your chances of getting into your dream University
-        </h6>
+        </h3>
 
         {/* Main Form Container */}
         <div className="bg-pink-100 relative mx-auto w-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/30 overflow-hidden px-4 sm:px-6 lg:px-8 pt-6">

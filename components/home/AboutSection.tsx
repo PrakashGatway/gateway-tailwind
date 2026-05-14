@@ -98,7 +98,7 @@ const About = ({ content }) => {
                   <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-red-100 flex items-center justify-center mb-2.5 sm:mb-3 mr-2 `}>
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#D81635]" />
                   </div>
-                  <h4 className="text-xs sm:text-sm font-bold text-brand mb-3">{pillar.title}</h4>
+                  <h3 className="text-xs sm:text-sm font-bold text-brand mb-3">{pillar.title}</h3>
                 </div>
                 <p className="text-[10px] sm:text-xs text-muted leading-snug" dangerouslySetInnerHTML={{
                   __html: pillar.description || ""

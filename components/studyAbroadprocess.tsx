@@ -101,14 +101,14 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
             <span className="text-white  font-semibold text-sm tracking-wide">OUR 6-STEP PROCESS</span>
           </motion.div>
 
-          <motion.h1
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-xl md:text-3xl lg:text-4xl font-bold text-black mb-6 leading-tight"
           >
             {content?.title}
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}

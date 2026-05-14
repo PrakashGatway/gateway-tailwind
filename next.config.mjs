@@ -61,16 +61,25 @@ const nextConfig = {
         source: "/study-in-:country",   // pattern for incoming requests
         destination: "/study-in/:country", // actual Next.js page
       },
-    {
-      source: "/gallary",   // pattern for incoming requests
-      destination: "/gallery", // actual Next.js page
-    },
-        {
-      source: "/blog-description",   // pattern for incoming requests
-      destination: "/blog", // actual Next.js page
-    }
+      {
+        source: "/gallary",   // pattern for incoming requests
+        destination: "/gallery", // actual Next.js page
+      },
+      //     {
+      //   source: "/blog-description",   // pattern for incoming requests
+      //   destination: "/blog", // actual Next.js page
+      // },
+
     ];
   },
+  redirects: async () => [
+    {
+      source: "/article/hindi-to-english-translation-app",
+      destination:
+        "/blog-description/hindi-to-english-translation-app",
+      permanent: true,
+    },
+  ]
 }
 
 export default nextConfig

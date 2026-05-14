@@ -282,7 +282,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       <WhyStudyUK content={content} />
       <MultiStepForm />
       {/* Why Choose Us Section */}
-      <TopUKUniversities content={content} />
+      <TopUKUniversities content={content?.sections[2]?.content} />
       <UKStudyCosts content={content} />
       <UKUniversityIntakes content={content} />
       <GatewayAbroadProcess content={content} />

@@ -75,7 +75,6 @@ export function TopUKUniversities({ content }) {
 
 
 
-
     return (
         <section className="bg-pink-100 py-20 px-5 relative overflow-hidden">
 
@@ -83,17 +82,17 @@ export function TopUKUniversities({ content }) {
                 {/* Header */}
                 <div className="mb-10">
                     <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
-                        {content?.sections[2]?.content?.title}
+                        {content?.title}
                     </h2>
 
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-3xl">
-                        {content?.sections[2]?.content?.subTittle}
+                        {content?.subTittle}
                     </p>
                 </div>
 
                 {/* Universities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-                    {content?.sections[2]?.content?.Cards && content?.sections[2]?.content?.Cards?.map((uni, index) => (
+                    {content?.Cards && content?.Cards?.map((uni, index) => (
                         <div
                             key={index}
                             className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 overflow-hidden

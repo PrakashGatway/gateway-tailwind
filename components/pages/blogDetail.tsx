@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { constant } from '@/constant/index.constant';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 import ContactForm from './UkForm';
+
+import { useEffect } from 'react';
 
 export default function SingleBlogPage({
   blogData,
@@ -30,16 +32,19 @@ export default function SingleBlogPage({
     );
   }
 
-  const pathname = usePathname()
+ const pathname = usePathname();
+
+
+ 
 
   return (
     <>
       <div>
         {/* Hero Section with New Design */}
-        {pathname === "/blogs/detail" && <section className="hero-gradient py-8">
+       <section className="hero-gradient py-8 relative z-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
-            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4 relative z-10">
               <Link
                 href="/"
                 className="hover:text-[#E12827] transition-colors"
@@ -80,10 +85,10 @@ export default function SingleBlogPage({
               </div>
             </div>
           </div>
-        </section>}
+        </section>
 
         {/* Blog Content Section */}
-        <section className={`py-12 bg-gray-50 mt-20`}>
+        <section className={`py-12 bg-gray-50 `}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main Content */}

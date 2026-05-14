@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export async function generateStaticParams() {
   try {
     const res = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?all=true", {
-      next: { revalidate: 21600 }
+     
     })
     const data = await res.json();
 
@@ -25,8 +25,7 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
     const res = await fetch(
-      `https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`,
-      { next: { revalidate: 21600 } }
+      `https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`
     );
     const data = await res.json();
     const seoData = data?.data?.blog;
@@ -126,7 +125,7 @@ export default async function SingleBlog({ params }) {
   try {
     // Fetch current blog data
     const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { 
-      next: { revalidate: 3600 } 
+    
     });
     
     if (!res.ok) {
@@ -146,7 +145,7 @@ export default async function SingleBlog({ params }) {
     
     // Fetch all blogs for similar blogs and navigation
     const allBlogsRes = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?limit=5", {
-      next: { revalidate: 3600 }
+    
     });
     
     const allBlogsData = await allBlogsRes.json();

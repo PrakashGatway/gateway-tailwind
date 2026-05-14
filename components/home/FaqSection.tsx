@@ -6,40 +6,7 @@ const FAQSection = ({ content,faq }) => {
 
   
 
-  const faqs = [
-    {
-      question: "Which is the best study abroad consultancy in India?",
-      answer: "Gateway Abroad is ranked among India’s top consultancies with 5,000+ student placements, expert counselors, and end-to-end support from university selection to visa approval."
-    },
-    {
-      question: "Does Gateway Abroad offer IELTS coaching?",
-      answer: "Yes! We provide certified IELTS, PTE, TOEFL, GRE, GMAT & SAT coaching with personalized plans, mock tests, and score guarantees."
-    },
-    {
-      question: "Can I study abroad without IELTS from India?",
-      answer: "Some universities accept alternatives like Duolingo, internal tests, or waive IELTS if you studied in English medium. Our counselors guide you based on your profile."
-    },
-    {
-      question: "Is the first counselling session really free?",
-      answer: "Absolutely! Your first consultation is 100% free — no hidden charges, no commitment. Just clarity on your next steps."
-    },
-    {
-      question: "What is the IELTS score required for UK universities?",
-      answer: "Most UK universities require 6.0–7.0 overall. Top Russell Group unis may ask for 7.0+. We help you target the right score for your dream course."
-    },
-    {
-      question: "Which scholarships can Indian students get to study abroad?",
-      answer: "We assist with Chevening, Commonwealth, DAAD, Erasmus Mundus, Fulbright, and university-specific merit/need-based scholarships."
-    },
-    {
-      question: "How much does it cost to study in UK from India?",
-      answer: "Tuition ranges from £10,000–£38,000/year depending on course/university. Living costs ~£12,000/year. We help you plan budget + scholarships."
-    },
-    {
-      question: "Does Gateway Abroad offer online counselling and IELTS coaching?",
-      answer: "Yes! We offer 100% online counseling sessions and live/virtual IELTS classes so you can prepare from anywhere in India."
-    }
-  ];
+ 
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -55,7 +22,7 @@ const FAQSection = ({ content,faq }) => {
             {content?.label}
           </span>
           
-          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black leading-tight">
+          <h2 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black leading-tight">
             {content?.title}
           </h2>
         </div>

@@ -7,7 +7,7 @@ export default function LocationAvailability({ cities }) {
         <div className="row">
           <div className="col-12">
             <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full ">🌍 Study Abroad Consultants in</h4>
+              <h3 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full ">Study Abroad Consultants in</h3>
             </div>
 
             <div style={{borderColor:'#f1f1f14a!important'}} className="flex gap-1 flex-wrap justify-start items-center sm:gap-3 overflow-x-auto scrollbar-thin border-b scrollbar-thumb-gray-300 scrollbar-track-transparent pb-3">

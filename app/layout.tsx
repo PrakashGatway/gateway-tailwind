@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "@/components/home/mainLayout";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema"
+import { Poppins, Rubik } from "next/font/google";
 
 
 
@@ -11,10 +12,16 @@ export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
   description: "Discover the best consultant for studying abroad..."
 };
+ const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export default function RootLayout({ children ,params }: { children: ReactNode , params : any}) {
+
   return (
-    <html lang="en">
+    <html lang="en" className={poppins.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         {/* <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" /> */}

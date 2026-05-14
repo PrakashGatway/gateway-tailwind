@@ -379,9 +379,9 @@ const Header = () => {
                   {contactNumber}
                 </Link>
               </div>
-              <h5 className="text-[8px] sm:text-[12px] font-bold text-[#d61635] pl-1 sm:pl-2 mt-0.5">
+              <p className="text-[8px] sm:text-[14px] font-bold text-[#d61635] pl-1 sm:pl-2 mt-0.5">
                 connect with expert
-              </h5>
+              </p>
             </div>
 
 

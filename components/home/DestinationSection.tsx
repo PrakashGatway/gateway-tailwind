@@ -59,7 +59,6 @@ export default function DestinationsSection({ content }: { content: any }) {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
     const [mappedDestinations, setMappedDestinations] = useState<Destination[]>([]);
 
-    console.log(content?.destinations, "Raw API Destinations");
 
     // Transform API data when content changes
     useEffect(() => {
@@ -160,7 +159,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="font-serif text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3"
+                    className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3"
                 >
                     {content?.title || "Choose Your Country"}
                 </motion.h2>
@@ -242,7 +241,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                             🎯 Get Free Country Match
                         </a>
                         <a
-                            href="tel:+91XXXXXXXXXX"
+                            href="tel:+91-8302092630"
                             className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-5 sm:px-6 py-3 rounded-full transition-all text-center"
                         >
                             📞 Call Our Expert
@@ -270,7 +269,7 @@ function DesktopCard({
     delay?: number;
 }) {
 
-    console.log(dest?.image, "Image URL for", dest.name);
+    
     
     return (
         <motion.a
@@ -296,7 +295,7 @@ function DesktopCard({
                 </span>
             )}
              <div className="absolute -bottom-14 left-0 right-0 z-20 p-5 text-white transition-all duration-300 ease-out group-hover:bottom-0">
-                <h3 className="font-serif text-2xl font-bold leading-tight"> {dest.name}</h3>
+                <h3 className=" text-2xl font-bold leading-tight"> {dest.name}</h3>
                 <p className="text-sm text-white/90 mt-1 line-clamp-2">{dest.description}</p>
                 
                 {/* 
@@ -339,7 +338,7 @@ function MobileCard({ dest }: { dest: Destination }) {
             )}
             
             <div className="absolute bottom-0 left-0 right-0 z-20 p-3 sm:p-4 text-white">
-                <h3 className="font-serif text-base sm:text-xl font-bold leading-tight">{dest.flag} {dest.name}</h3>
+                <h3 className=" text-base sm:text-xl font-bold leading-tight">{dest.flag} {dest.name}</h3>
                 <span className="inline-flex items-center gap-1 mt-2 bg-amber-400 text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full">
                     Explore →
                 </span>

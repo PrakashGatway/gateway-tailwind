@@ -114,9 +114,7 @@ export default function Component() {
         </div>
         <div className="space-y-2">
           <SliderRow logos={dummyLogos.slice(0, 10)} direction="right" speed={30} />
-          <SliderRow logos={dummyLogos.slice(10, 20)} direction="left" speed={35} />
-          <SliderRow logos={dummyLogos.slice(15, 23)} direction="right" speed={28} />
-          <SliderRow logos={dummyLogos.slice(0, 15)} direction="left" speed={32} />
+         
         </div>
       </div>
     </div>
