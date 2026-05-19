@@ -1,5 +1,6 @@
 import StudyAbroadPage from "@/components/pages/studyAbroad";
 import { serverInstance } from "@/services/axiosInstance";
+import Script from "next/script";
 
 const pageContentPromise = async ({ slug }) => {
     try {
@@ -43,9 +44,156 @@ export async function generateMetadata({ params }) {
         },
     };
 }
-
 export default async function StudyAbroad({ params }) {
-    const { slug } = await params;
-    const pageContent = await pageContentPromise({ slug });
-    return <StudyAbroadPage content={pageContent} />;
+  const { slug } = params;
+
+  const pageContent = await pageContentPromise({
+    slug,
+  });
+
+  const pageUrl = `https://www.gatewayabroadeducations.com/study-abroad/bangalore`;
+
+  const logo =
+    "https://api.gatewayabroadeducations.com/api/uploads/1778565858071-59950305.webp";
+
+  return (
+    <>
+      {/* Educational Organization Schema */}
+      <Script
+        id="edu-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+
+            "@type":
+              "EducationalOrganization",
+
+            name: "Gateway Abroad Education",
+
+            url: pageUrl,
+
+            logo: logo,
+
+            image: logo,
+
+            description:
+              pageContent?.metaDescription ||
+              "Gateway Abroad Education helps students study abroad.",
+
+            address: {
+              "@type": "PostalAddress",
+
+              addressLocality:
+                pageContent?.city ||
+                "Bengaluru",
+
+              addressRegion:
+                pageContent?.state ||
+                "Karnataka",
+
+              addressCountry: "India",
+            },
+
+            aggregateRating: {
+              "@type":
+                "AggregateRating",
+
+              ratingValue: "5",
+
+              ratingCount: "1599",
+
+              bestRating: "5",
+
+              worstRating: "1",
+            },
+          }),
+        }}
+      />
+
+      {/* Local Business Schema */}
+      <Script
+        id="local-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+
+            "@type": "LocalBusiness",
+
+            name:
+              "Gateway Abroad Education",
+
+            image: logo,
+
+            url: pageUrl,
+
+            telephone:
+              pageContent?.phone ||
+              "+918302092630",
+
+            address: {
+              "@type": "PostalAddress",
+
+              streetAddress:
+                pageContent?.address ||
+                "1st Floor BHIVE Workspace, Mahalakshmi Chambers, 29, Mahatma Gandhi Rd, near Trinity Metro Station",
+
+              addressLocality:
+                pageContent?.city ||
+                "Bengaluru",
+
+              postalCode:
+                pageContent?.postalCode ||
+                "560001",
+
+              addressRegion:
+                pageContent?.state ||
+                "Karnataka",
+
+              addressCountry: "IN",
+            },
+
+            geo: {
+              "@type":
+                "GeoCoordinates",
+
+              latitude:
+                pageContent?.latitude ||
+                12.973674609320545,
+
+              longitude:
+                pageContent?.longitude ||
+                77.61658997671694,
+            },
+
+            openingHoursSpecification:
+              [
+                {
+                  "@type":
+                    "OpeningHoursSpecification",
+
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                  ],
+
+                  opens: "09:00",
+
+                  closes: "18:00",
+                },
+              ],
+          }),
+        }}
+      />
+
+      <StudyAbroadPage
+        content={pageContent}
+      />
+    </>
+  );
 }

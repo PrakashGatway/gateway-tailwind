@@ -199,41 +199,52 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
         </div>
 
         {/* CTA Band */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-12 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
-        >
-          <div className="flex items-start gap-4 text-center lg:text-left">
-            <div className="flex-shrink-0 bg-white/10 p-3 rounded-xl">
-              <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-            </div>
-            <div>
-              <p className="text-white text-base sm:text-lg font-semibold mb-1">
-                Want results like these?
-              </p>
-              <p className="text-gray-300 text-sm sm:text-base">
-                Our coaches know exactly what it takes to crack your exam.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-3 flex-shrink-0">
-            <a
-              href="#lead-form"
-              className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
-            >
-              🎯 Get Free Country Match
-            </a>
-            <a
-              href="tel:+91-8302092630"
-              className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
-            >
-              📞 Call Our Expert
-            </a>
-          </div>
-        </motion.div>
+      <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.4 }}
+  viewport={{ once: true }}
+  // Responsive padding & rounded corners
+  className="mt-8 sm:mt-10 md:mt-12 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center text-center md:text-left gap-4 sm:gap-6 shadow-xl"
+>
+  {/* Content Section - centered on mobile, left-aligned on desktop */}
+  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 w-full">
+    {/* Icon - consistent sizing with minimum touch area */}
+    <div className="flex-shrink-0 bg-white/10 p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center">
+      <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+    </div>
+    
+    {/* Text Content - minimum font sizes enforced */}
+    <div className="flex-1">
+      {/* Minimum heading: text-sm on mobile */}
+      <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
+        Want results like these?
+      </p>
+      {/* Minimum body: text-xs on mobile */}
+      <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
+        Our coaches know exactly what it takes to crack your exam.
+      </p>
+    </div>
+  </div>
+
+  {/* Buttons Section - full width on mobile, auto on desktop */}
+  <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
+    <a
+      href="#lead-form"
+      // Minimum touch target: 44px height, full width on mobile
+      className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
+    >
+      🎯 Get Free Country Match
+    </a>
+    <a
+      href="tel:+91-8302092630"
+      // Secondary button - same responsive treatment
+      className="w-xs sm:w-auto border-2 border-white/30 hover:border-amber-400 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
+    >
+      📞 Call Our Expert
+    </a>
+  </div>
+</motion.div>
       </div>
     </section>
   );

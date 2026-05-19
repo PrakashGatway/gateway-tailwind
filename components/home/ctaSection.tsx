@@ -9,7 +9,7 @@ const LandingPage = ({ content }) => {
     console.log('Submitting number:', whatsappNumber);
     // Add your API logic here
   };
-  console.log(content)
+ 
 
   return (
     <div className="  flex items-center justify-center px-4 py-12 relative overflow-hidden font-sans" style={{

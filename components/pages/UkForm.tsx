@@ -275,7 +275,7 @@ export default function ContactForm({ type }) {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="px-6 py-2 rounded-full bg-red-600 text-white font-semibold  flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed "
+                        className="lg:px-6 lg:py-2 p-2 rounded-full bg-red-600 text-white font-semibold  flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed "
                     >
                         {isSubmitting ? (
                             <>

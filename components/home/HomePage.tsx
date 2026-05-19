@@ -72,7 +72,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
   const [studentInfoRef, studentInfoInstanceRef] = useKeenSlider(
 
 
-    
+
     {
       initial: 0,
       slideChanged(slider) {
@@ -392,6 +392,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
   // );
 
 
+
+
   const [slide, setSlide] = useState(0)
 
   const visibleCards = 3
@@ -462,7 +464,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
   });
 
 
-console.log(homePageDetails)
+
 
 
 
@@ -1075,35 +1077,35 @@ console.log(homePageDetails)
             {homePageDetails?.sections[9]?.content?.cities?.map((loc: any, index: number) => {
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
-                <Link href = {`/${loc?.slug}`}>
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -5 }}
-                  className={`
+                <Link href={`/${loc?.slug}`}>
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ y: -5 }}
+                    className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
                 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1
-                      ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
-                      : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
-                    }
+                        ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
+                        : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
+                      }
               `}
-                >
-                  <div className={`mb-3 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
-                    <IconComponent className="w-8 h-8" />
-                  </div>
+                  >
+                    <div className={`mb-3 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
+                      <IconComponent className="w-8 h-8" />
+                    </div>
 
-                  <h3 className="text-base sm:text-lg font-bold mb-1">
-                    {loc.name}
-                  </h3>
+                    <h3 className="text-base sm:text-lg font-bold mb-1">
+                      {loc.name}
+                    </h3>
 
-                  <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
-                    __html: loc.description
-                  }}>
+                    <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
+                      __html: loc.description
+                    }}>
 
-                  </p>
-                </motion.div>
+                    </p>
+                  </motion.div>
                 </Link>
               )
             })}
@@ -1265,7 +1267,7 @@ console.log(homePageDetails)
                   </p>
                   <a
                     href="tel:+918302092630"
-                    className="text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
+                    className=" text-sm lg:text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
                   >
                     +91 8302092630
                   </a>
@@ -1365,7 +1367,7 @@ console.log(homePageDetails)
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
-              
+
             >
               {homePageDetails?.sections[8]?.content?.title}
             </motion.h2>
@@ -1446,37 +1448,49 @@ console.log(homePageDetails)
 
             </div>
           )}
-          <motion.div
-            className=" mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl"
-          >
-            <div className="flex items-start gap-4 text-center lg:text-left">
-              <div className="flex-shrink-0 bg-white/10 p-3 rounded-xl">
-                <Icons.BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-              </div>
-              <div>
-                <p className="text-white text-base sm:text-lg font-semibold mb-1">
-                  Want results like these?
-                </p>
-                <p className="text-gray-300 text-sm sm:text-base">
-                  Our coaches know exactly what it takes to crack your exam.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-3 flex-shrink-0">
-              <a
-                onClick={handleGetStarted}
-                className="bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
-              >
-                🎯 Get in Touch
-              </a>
-              <a
-                href={`tel:${contactNumber}`}
-                className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-6 py-3 rounded-full transition-all"
-              >
-                📞 Call Our Expert
-              </a>
-            </div>
-          </motion.div>
+        <motion.div
+  // Responsive spacing & layout
+  className="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center text-center md:text-left gap-4 sm:gap-6 shadow-xl"
+>
+  {/* Content Section - stacked on mobile, row on desktop */}
+  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 w-full">
+    
+    {/* Icon Container - minimum touch target */}
+    <div className="flex-shrink-0 bg-white/10 p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center">
+      <Icons.BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+    </div>
+    
+    {/* Text Content - minimum font sizes enforced */}
+    <div className="flex-1">
+      {/* Minimum heading: text-sm (14px) on mobile */}
+      <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
+        Want results like these?
+      </p>
+      {/* Minimum body: text-xs (12px) on mobile */}
+      <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
+        Our coaches know exactly what it takes to crack your exam.
+      </p>
+    </div>
+  </div>
+
+  {/* Buttons Section - full width on mobile, inline on desktop */}
+  <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
+    <button
+      onClick={handleGetStarted}
+      // Primary button: full-width mobile, min 44px touch target
+      className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 active:bg-amber-500 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
+    >
+      🎯 Get in Touch
+    </button>
+    <a
+      href={`tel:${contactNumber}`}
+      // Secondary button: same responsive treatment
+      className="w-full sm:w-auto border-2 border-white/30 hover:border-amber-400 active:border-amber-500 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
+    >
+      📞 Call Our Expert
+    </a>
+  </div>
+</motion.div>
         </div>
 
 
