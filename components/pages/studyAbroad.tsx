@@ -139,7 +139,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
   {/* Mobile Marquee */}
   <div className="md:hidden">
     <div className="flex w-max animate-[marquee_15s_linear_infinite]">
-      {[...items, ...items].map((item, index) => (
+      {[...items, ...items]?.map((item, index) => (
         <div
           key={index}
           className="flex items-center gap-2 px-8 py-[13px] whitespace-nowrap"
@@ -162,7 +162,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
 
   {/* Desktop */}
   <div className="hidden md:flex justify-center items-stretch min-w-max">
-    {items.map((item, index) => (
+    {items && items?.map((item, index) => (
       <div
         key={index}
         className="flex items-center gap-2 px-[56px] py-[13px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
@@ -225,9 +225,9 @@ const StudyAbroadPage = ({ content,faq }: any) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
 
             {/* Loop through features */}
-            {content?.sections[2]?.content?.Cards.map((item) =>
+            {content?.sections[2]?.content?.Cards && content?.sections[2]?.content?.Cards?.map((item) =>
             {
-               const IconComponent = Icons[item.icon] || Icons.Target;
+               const IconComponent = Icons[item?.icon] || Icons.Target;
               return (
               <div
                 key={item.id}
