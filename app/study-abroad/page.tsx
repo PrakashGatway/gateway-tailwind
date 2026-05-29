@@ -1,5 +1,6 @@
 import StudyAbroadPage from "@/components/pages/studyAbroad";
 import { serverInstance } from "@/services/axiosInstance";
+import PageServices from "@/services/PageServices";
 
 const pageContentPromise = async () => {
     try {
@@ -10,10 +11,11 @@ const pageContentPromise = async () => {
     }
 }
 
-export const revalidate = 21600; 
+export const revalidate = 21600;
 
 export async function generateMetadata() {
     const pageContent = await pageContentPromise();
+    console.log(pageContent.slug, "hhh")
 
     return {
         metadataBase: new URL('https://www.gatewayabroadeducations.com'),
@@ -47,5 +49,8 @@ export async function generateMetadata() {
 
 export default async function StudyAbroad() {
     const pageContent = await pageContentPromise();
-    return <StudyAbroadPage content={pageContent} />;
+    
+    const faq = await PageServices.getAllFaqForFront(`main`);
+    // return null
+    return <StudyAbroadPage content={pageContent} faq = {faq} />;
 }

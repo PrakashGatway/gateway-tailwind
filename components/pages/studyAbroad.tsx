@@ -32,29 +32,31 @@ const StudyAbroadPage = ({ content,faq }: any) => {
     return <Loader />;
   }
 
-  const [faqData, setFaqData] = useState([]);
+  
 
-  const getAllfaqData = async () => {
-    try {
-      const response = await PageServices.getAllFaqForFront('Study-abroad');
-      if (response.status === 'success') {
-        setFaqData(response.data.faq || [])
-      } else {
-        console.log('something went wrong');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
+
+  // const getAllfaqData = async () => {
+  //   try {
+  //     const response = await PageServices.getAllFaqForFront('Study-abroad');
+  //     if (response.status === 'success') {
+  //       // setFaqData(response.data.faq || [])
+  //       // console.log(faqData)
+  //     } else {
+  //       console.log('something went wrong');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // }
 
   function getContentByType(type) {
     const item = content && content.sections.find(obj => obj.type === type);
     return item ? item.content : undefined; // Return undefined if not found
   }
 
-  useEffect(() => {
-    getAllfaqData()
-  }, [])
+  // useEffect(() => {
+  //   getAllfaqData()
+  // }, [])
   const handleGetStarted = () => {
 
     window.dispatchEvent(new CustomEvent('openFooterModal'));
@@ -444,7 +446,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
       <ReadMoreSection content={getContentByType('content')} />
 
 
-      <FAQSection faq= {faq.data} />
+      <FAQSection faq= {faq?.data || []} content = {""} />
 
       {/* FAQ Section */}
       {/* <section className="faq-section py-16 lg:py-20 mb-0">

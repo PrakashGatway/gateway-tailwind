@@ -4,10 +4,6 @@ import { Plus, MessageCircle } from 'lucide-react';
 const FAQSection = ({ content,faq }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
-  
-console.log(faq)
- 
-
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
