@@ -629,7 +629,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
-
+console.log(homePageDetails)
 
 
 

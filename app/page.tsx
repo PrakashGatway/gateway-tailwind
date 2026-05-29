@@ -6,8 +6,8 @@ import Script from "next/script";
 
 export async function generateMetadata() {
   const seoData = {
-    title: "Gateway Abroad Education, Study Abroad and Test Preparation",
-    description: "Planning to study abroad from India? Gateway Abroad offers expert test prep, visa support & admissions for Canada, UK, USA, Germany & more",
+    title: "Gateway Abroad Education | Study Abroad Consultants, Test Prep, Visa Support",
+    description: "Gateway Abroad Education is trusted study abroad consultants, offering expert counseling, test prep, visa support, and admissions to top global universities",
     keywords: "study abroad, test preparation, visa support, overseas education",
     ogTitle: "Gateway Abroad Education, Study Abroad and Test Preparation",
     ogDescription: "Planning to study abroad from India? Gateway Abroad offers expert test prep, visa support & admissions for Canada, UK, USA, Germany & more.",
@@ -42,7 +42,7 @@ export async function generateMetadata() {
   };
 }
 
-// export const revalidate = 6; // revalidate every 6 hours
+export const revalidate = 60; // revalidate every 6 hours
 
 export default async function Home({slug}) {
   const localBusinessSchema = {
@@ -117,6 +117,7 @@ export default async function Home({slug}) {
           __html: JSON.stringify(localBusinessSchema),
         }}
       />
+
 
       <Index aboutPage={aboutPage}
         homePage={response?.data?.data}

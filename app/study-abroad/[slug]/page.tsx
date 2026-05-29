@@ -1,5 +1,6 @@
 import StudyAbroadPage from "@/components/pages/studyAbroad";
 import { serverInstance } from "@/services/axiosInstance";
+import PageServices from "@/services/PageServices";
 import Script from "next/script";
 
 const pageContentPromise = async ({ slug }) => {
@@ -47,6 +48,7 @@ export async function generateMetadata({ params }) {
 export default async function StudyAbroad({ params }) {
   const { slug } = params;
 
+
   const pageContent = await pageContentPromise({
     slug,
   });
@@ -56,6 +58,12 @@ export default async function StudyAbroad({ params }) {
   const logo =
     "https://api.gatewayabroadeducations.com/api/uploads/1778565858071-59950305.webp";
 
+   const faq =
+    await PageServices
+        .getAllFaqForFront(`${slug}`);
+
+console.log(faq,"hyyyy");
+  
   return (
     <>
       {/* Educational Organization Schema */}
@@ -191,8 +199,13 @@ export default async function StudyAbroad({ params }) {
         }}
       />
 
+
+
+      
+
       <StudyAbroadPage
         content={pageContent}
+        faq = {faq}
       />
     </>
   );

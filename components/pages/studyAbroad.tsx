@@ -26,7 +26,7 @@ import { Html } from "next/document";
 import { TopUKUniversities } from "../ukpageComponent/whyStudyin";
 
 
-const StudyAbroadPage = ({ content }: any) => {
+const StudyAbroadPage = ({ content,faq }: any) => {
 
   if (!content) {
     return <Loader />;
@@ -60,7 +60,7 @@ const StudyAbroadPage = ({ content }: any) => {
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
-  console.log(content)
+ 
 
  
 
@@ -385,7 +385,7 @@ const StudyAbroadPage = ({ content }: any) => {
             {content?.sections[5]?.content?.cities?.map((loc: any, index: number) => {
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
-                <Link href = {`/${loc?.slug}`}>
+                <Link href = {`#`}>
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -400,19 +400,19 @@ const StudyAbroadPage = ({ content }: any) => {
                     }
               `}
                 >
-                  <div className={`mb-3 ${index === content?.sections[5]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
+                  {/* <div className={`mb-3 ${index === content?.sections[5]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
                     <IconComponent className="w-8 h-8" />
-                  </div>
+                  </div> */}
 
                   <h3 className="text-base sm:text-lg font-bold mb-1">
-                    {loc.name}
+                    {/* {loc.name} */}
                   </h3>
-
+{/* 
                   <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
                     __html: loc.description
                   }}>
 
-                  </p>
+                  </p> */}
                 </motion.div>
                 </Link>
               )
@@ -444,7 +444,7 @@ const StudyAbroadPage = ({ content }: any) => {
       <ReadMoreSection content={getContentByType('content')} />
 
 
-      <FAQSection />
+      <FAQSection faq= {faq.data} />
 
       {/* FAQ Section */}
       {/* <section className="faq-section py-16 lg:py-20 mb-0">
