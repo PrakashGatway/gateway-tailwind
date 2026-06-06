@@ -35,10 +35,11 @@ export const highlightText = (text) => {
     )
   );
 };
-const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoStudednt }: any) => {
+const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoStudednt, faq, articleres }: any) => {
   const [form, setform] = useState([]);
   // const { teamMembers: member, youtubeVideo: videoStudednt, } = useGlobal();
   const [blogData, setBlogData] = useState([]);
+  const [mergedData, setMergedData] = useState([]);
   const router = useRouter();
   const [video, setVideo] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -123,6 +124,23 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     }
   }, [country]);
 
+  useEffect(() => {
+    const mergedData = [
+      ...(blogData || []).map(item => ({
+        ...item,
+        type: "blog",
+      })),
+      ...(articleres || []).map(item => ({
+        ...item,
+        type: "article",
+      })),
+    ];
+
+    setMergedData(mergedData);
+  }, [blogData, articleres]);
+
+  console.log(blogData)
+
   const getAllTestimonial = async (value: string) => {
     try {
       const response = await PageServices.getTestimonialByCat(value);
@@ -178,8 +196,13 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
   };
 
 
+  console.log(mergedData)
+  const getCoverImageUrl = (coverImage: string) => {
+    if (!coverImage) return "/img/placeholder-blog.jpg";
+    if (coverImage.startsWith("http")) return coverImage;
+    return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
+  };
 
-  
 
 
   return (
@@ -224,7 +247,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
                     <CounterUp end={getContentByType('hero')?.stats[0].value} /><span className="text-red-600"></span>
 
-                 
+
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
                 </div>
@@ -405,7 +428,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
 
           <div className="blog-section-inner">
             {/* Keen Slider Container with Auto Play */}
-            {blogData.length > 0 ? (
+            {mergedData.length > 0 ? (
               <>
                 <div
                   ref={sliderRef}
@@ -413,54 +436,66 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  {blogData.map((blog, index) => (
-                    <div
-                      className="keen-slider__slide cursor-pointer p-2 lg:p-3"
-                      key={index}
-                      onClick={() => router.push(`/blog-description/${blog.Slug}`)}
-                    >
-                      <div
-                        key={index}
-                        className={`min-w-[360px] max-w-[360px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
-                      >
-                        {/* Image */}
-                        <div className="relative h-52">
-                          <Image
-                            src={
-                              blog.image
-                                ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
-                                : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg"
-                            }
-                            alt={blog.blogTitle}
-                            fill
-                            className="object-cover object-top"
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                          />
-                        </div>
+                  {mergedData.map((blog, index) => {
+                      const imageUrl = blog?.image
+    ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+    : blog?.coverImage
+    ? getCoverImageUrl(blog.coverImage)
+    : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
 
-                        {/* Content */}
-                        <div className="p-4">
-                          {/* Date */}
-                          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                            <span>{formatDate(blog.createdAt)}</span>
+                    return (
+                      <div
+                        className="keen-slider__slide cursor-pointer p-2 lg:p-3"
+                        key={index}
+                        onClick={() =>
+                          router.push(
+                            blog?.Slug
+                              ? `/blog-description/${blog.Slug}`
+                              : `/article/${blog.slug}`
+                          )
+                        }
+                      >
+                        <div
+                          key={index}
+                          className={`min-w-[360px] max-w-[360px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
+                        >
+                          {/* Image */}
+                          <div className="relative h-52">
+                            <Image
+                              src={
+                                imageUrl
+                              }
+                              alt={blog?.blogTitle}
+                              fill
+                              className="object-cover object-top"
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                            />
                           </div>
 
-                          {/* Title */}
-                          <Link href={`/blog-description/${blog.Slug}`}>
-                            <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
-                              {blog.blogTitle}
-                            </h3>
-                          </Link>
+                          {/* Content */}
+                          <div className="p-4">
+                            {/* Date */}
+                            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                              <span>{formatDate(blog?.createdAt)}</span>
+                            </div>
 
-                          {/* Description */}
-                          <div
-                            className="text-gray-600 text-sm line-clamp-2"
-                            dangerouslySetInnerHTML={sanitizedData(blog.blogDescription)}
-                          />
+                            {/* Title */}
+                            <Link href={`/blog-description/${blog?.Slug}`}>
+                              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
+                                {blog?.blogTitle || blog?.title}
+                              </h3>
+                            </Link>
+
+                            {/* Description */}
+                            <div
+                              className="text-gray-600 text-sm line-clamp-2"
+                              dangerouslySetInnerHTML={sanitizedData(blog?.blogDescription || blog?.description)}
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </>
             ) : (
@@ -481,7 +516,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
           </div>
           <div className="max-w-7xl mx-auto">
             <Accordion type="single" collapsible className="w-full space-y-3">
-              {faqData.map((f: any, index: number) => (
+              {faq?.faq?.map((f: any, index: number) => (
                 <AccordionItem
                   value={`item-${index}`}
                   key={index}

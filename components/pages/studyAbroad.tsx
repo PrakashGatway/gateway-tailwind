@@ -215,7 +215,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
           </h2>
 
           {/* Subtext */}
-          <p className=" text-gray-500 mt-3 md:mt-4 max-w-2xl  text-sm md:text-lg" dangerouslySetInnerHTML={{
+          <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-lg" dangerouslySetInnerHTML={{
           __html :  content?.sections[2]?.content?.title
           }}>
             
@@ -373,7 +373,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-sm sm:text-base md:text-lg text-gray-800 max-w-2xl leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: content?.sections[5]?.content?.subTitle
               }}
@@ -402,19 +402,19 @@ const StudyAbroadPage = ({ content,faq }: any) => {
                     }
               `}
                 >
-                  {/* <div className={`mb-3 ${index === content?.sections[5]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
+                   <div className={`mb-3 ${index === content?.sections[5]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
                     <IconComponent className="w-8 h-8" />
-                  </div> */}
+                  </div> 
 
                   <h3 className="text-base sm:text-lg font-bold mb-1">
-                    {/* {loc.name} */}
+                     {loc.name} 
                   </h3>
-{/* 
+ 
                   <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
                     __html: loc.description
                   }}>
 
-                  </p> */}
+                  </p> 
                 </motion.div>
                 </Link>
               )

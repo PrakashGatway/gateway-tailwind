@@ -15,11 +15,11 @@ const FAQSection = ({ content,faq }) => {
         {/* Header */}
         <div className="mb-10 md:mb-14 text-center md:text-left">
           <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
-            {content?.label}
+            {content?.label || "Frequently Asked Question"}
           </span>
           
           <h2 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black leading-tight">
-            {content?.title}
+            {content?.title || "Study Abroad & Test Prep FAQs — Answered Honestly"}
           </h2>
         </div>
 

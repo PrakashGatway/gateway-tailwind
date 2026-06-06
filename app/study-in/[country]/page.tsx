@@ -100,8 +100,15 @@ const UkPage = async ({ params }) => {
     },
   };
 
+   const faq =
+    await PageServices.getAllFaqForFront(country.toLowerCase());
+
+
+
+  const articleres = await serverInstance.get(`/web/blog?category=${country}&limit=10`);
 
   return (
+    
     <>
       <Script
         id="study-country-schema"
@@ -112,8 +119,10 @@ const UkPage = async ({ params }) => {
         }}
       />
 
+      
 
-      <StudyInUk country={country} content={pageContent} youtubeVideo={youtubeVideo} teamMembers={teamMembers} />
+
+      <StudyInUk articleres={articleres.data.data} country={country} content={pageContent} youtubeVideo={youtubeVideo} teamMembers={teamMembers} faq={faq?.data} />
     </>
   );
 };

@@ -24,6 +24,7 @@ const fetchArticles = async ({ page, limit, category, search }: {
   return res?.data
 };
 
+
 const BlogCardSkeleton = () => (
   <div className="w-full">
     <div className="bg-white rounded-xl  overflow-hidden hover:shadow-xl transition-all duration-300 border-bottom border-gray-100">

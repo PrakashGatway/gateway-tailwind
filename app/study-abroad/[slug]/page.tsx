@@ -60,9 +60,9 @@ export default async function StudyAbroad({ params }) {
 
    const faq =
     await PageServices
-        .getAllFaqForFront(`${slug}`);
+        .getAllFaqForFront(slug);
 
-console.log(faq,"hyyyy");
+
   
   return (
     <>

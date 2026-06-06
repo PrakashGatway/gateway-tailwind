@@ -85,7 +85,7 @@ export function TopUKUniversities({ content }) {
                         {content?.title}
                     </h2>
 
-                    <p className="text-gray-700 text-base sm:text-lg leading-relaxed max-w-3xl">
+                    <p className="text-gray-700 text-base sm:text-lg leading-relaxed w-full">
                         {content?.subTittle}
                     </p>
                 </div>
