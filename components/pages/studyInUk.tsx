@@ -480,11 +480,9 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                             </div>
 
                             {/* Title */}
-                            <Link href={`/blog-description/${blog?.Slug}`}>
                               <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
                                 {blog?.blogTitle || blog?.title}
                               </h3>
-                            </Link>
 
                             {/* Description */}
                             <div
