@@ -77,7 +77,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
     { icon: "", value: "16 Yrs", label: "In Business Since 2008" },
   ];
 
-
+console.log(content.sections)
 
   return (
     <>
@@ -204,19 +204,19 @@ const StudyAbroadPage = ({ content,faq }: any) => {
           {/* Badge */}
           <div className="flex  mb-3">
             <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-medium">
-              {content?.sections[2]?.content?.label}
+              {getContentByType('whychooseus')?.label}
             </span>
           </div>
 
           {/* Heading */}
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold  text-gray-900 leading-tight">
-           {content?.sections[2]?.content?.title}
+           {getContentByType('whychooseus')?.title}
          
           </h2>
 
           {/* Subtext */}
           <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-lg" dangerouslySetInnerHTML={{
-          __html :  content?.sections[2]?.content?.title
+          __html :  getContentByType('whychooseus')?.subTitle
           }}>
             
           </p>
@@ -225,7 +225,7 @@ const StudyAbroadPage = ({ content,faq }: any) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
 
             {/* Loop through features */}
-            {content?.sections[2]?.content?.Cards && content?.sections[2]?.content?.Cards?.map((item) =>
+            {getContentByType('whychooseus')?.cards && getContentByType('whychooseus')?.cards?.map((item) =>
             {
                const IconComponent = Icons[item?.icon] || Icons.Target;
               return (
@@ -259,12 +259,14 @@ const StudyAbroadPage = ({ content,faq }: any) => {
 
                 {/* Title */}
                 <h3 className="font-semibold text-base md:text-lg text-gray-800">
-                  {item?.name}
+                  {item?.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed">
-                  {item?.content}
+                <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
+                  __html : item?.description
+                }} >
+                  
                 </p>
               </div>
             )})}
@@ -438,9 +440,9 @@ const StudyAbroadPage = ({ content,faq }: any) => {
         </div>
       </section>
 
-      <LandingPage content={content?.sections[7]?.content}  />
+      <LandingPage content={getContentByType('ctasection')}  />
 
-      <TopUKUniversities content={content?.sections[8]?.content} />
+      <TopUKUniversities content={getContentByType('BestUniversities')} />
       <Component />
 
       <ReadMoreSection content={getContentByType('content')} />
