@@ -389,7 +389,7 @@ console.log(content.sections)
             {content?.sections[5]?.content?.cities?.map((loc: any, index: number) => {
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
-                <Link href = {`#`}>
+                <Link href = {`/${loc?.slug}`}>
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
