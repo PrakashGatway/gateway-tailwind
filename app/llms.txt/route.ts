@@ -61,14 +61,14 @@ export async function GET() {
     const cityLinks = cityPages
         .map(
             (blog: any) =>
-                `- [${blog.title}](${baseUrl}/study-abroad/${blog.slug}) - ${blog.metaDescription}`
+                `- [${blog.metaTitle}](${baseUrl}/study-abroad/${blog.slug}) - ${blog.metaDescription}`
         )
         .join("\n");
 
         const countryLinks = countryPages
         .map(
             (blog: any) =>
-                `- [${blog.title}](${baseUrl}/study-in-${blog.slug}) - ${blog.metaDescription}`
+                `- [${blog.metaTitle}](${baseUrl}/study-in-${blog.slug}) - ${blog.metaDescription}`
         )
         .join("\n");
 
