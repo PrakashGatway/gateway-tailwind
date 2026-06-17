@@ -160,12 +160,12 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
     <section className="py-20 bg-[#F3E0F2] overflow-hidden">
       <div className="container-sm mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h2 className="heading text-center d-block mb-2 text-2xl font-bold">
+        <div className="text-center mb-10 max-w-7xl mx-auto">
+          <h2 className="heading text-left d-block mb-2 text-4xl font-bold">
             {content?.title || "Academic Programs"}
           </h2>
-          <p className="sub-heading !text-base max-w-3xl mx-auto">
-            {content?.subTitle || "Explore our comprehensive range of academic programs designed to help you achieve your educational and career goals"}
+          <p className="sub-heading !text-base   text-justify">
+            {content?.subTittle || "Explore our comprehensive range of academic programs designed to help you achieve your educational and career goals"}
           </p>
         </div>
 

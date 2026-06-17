@@ -33,7 +33,7 @@ const LandingPage = ({ content }) => {
         </p>
 
         {/* CTA Section (Input + Button) */}
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto mt-8">
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto mt-2">
           
           {/* Input Field */}
           <div className="relative w-full group">

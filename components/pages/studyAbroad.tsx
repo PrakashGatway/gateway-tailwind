@@ -26,13 +26,13 @@ import { Html } from "next/document";
 import { TopUKUniversities } from "../ukpageComponent/whyStudyin";
 
 
-const StudyAbroadPage = ({ content,faq }: any) => {
+const StudyAbroadPage = ({ content, faq }: any) => {
 
   if (!content) {
     return <Loader />;
   }
 
-  
+
 
 
   // const getAllfaqData = async () => {
@@ -62,9 +62,9 @@ const StudyAbroadPage = ({ content,faq }: any) => {
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
 
- 
 
- 
+
+
 
 
 
@@ -77,7 +77,8 @@ const StudyAbroadPage = ({ content,faq }: any) => {
     { icon: "", value: "16 Yrs", label: "In Business Since 2008" },
   ];
 
-console.log(content.sections)
+  console.log(content.sections)
+  console.log(getContentByType('whychooseus')?.cards?.map((item) => item?.title))
 
   return (
     <>
@@ -135,54 +136,54 @@ console.log(content.sections)
 
       </section>
       <div className="bg-[#D71635] overflow-hidden">
-  
-  {/* Mobile Marquee */}
-  <div className="md:hidden">
-    <div className="flex w-max animate-[marquee_15s_linear_infinite]">
-      {[...items, ...items]?.map((item, index) => (
-        <div
-          key={index}
-          className="flex items-center gap-2 px-8 py-[13px] whitespace-nowrap"
-        >
-          {item.icon}
 
-          <div>
-            <div className=" text-[1.1rem] font-bold text-white leading-none">
-              {item.value}
-            </div>
+        {/* Mobile Marquee */}
+        <div className="md:hidden">
+          <div className="flex w-max animate-[marquee_15s_linear_infinite]">
+            {[...items, ...items]?.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 px-8 py-[13px] whitespace-nowrap"
+              >
+                {item.icon}
 
-            <div className="text-[0.80rem] font-semibold text-yellow-500">
-              {item.label}
-            </div>
+                <div>
+                  <div className=" text-[1.1rem] font-bold text-white leading-none">
+                    {item.value}
+                  </div>
+
+                  <div className="text-[0.80rem] font-semibold text-yellow-500">
+                    {item.label}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
 
-  {/* Desktop */}
-  <div className="hidden md:flex justify-center items-stretch min-w-max">
-    {items && items?.map((item, index) => (
-      <div
-        key={index}
-        className="flex items-center gap-2 px-[56px] py-[13px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
-      >
-        {item.icon}
+        {/* Desktop */}
+        <div className="hidden md:flex justify-center items-stretch min-w-max">
+          {items && items?.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 px-[56px] py-[13px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
+            >
+              {item.icon}
 
-        <div>
-          <div className=" text-[1.1rem] font-bold text-white leading-none">
-            {item.value}
-          </div>
+              <div>
+                <div className=" text-[1.1rem] font-bold text-white leading-none">
+                  {item.value}
+                </div>
 
-          <div className="text-[0.80rem] font-semibold text-yellow-500">
-            {item.label}
-          </div>
+                <div className="text-[0.80rem] font-semibold text-yellow-500">
+                  {item.label}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    ))}
-  </div>
 
-  <style jsx>{`
+        <style jsx>{`
     @keyframes marquee {
       from {
         transform: translateX(0);
@@ -192,7 +193,7 @@ console.log(content.sections)
       }
     }
   `}</style>
-</div>
+      </div>
 
       <EnhancedMultiStepForm />
       {/* <DestinationSection content={getContentByType('StudyDestinations')} /> */}
@@ -210,28 +211,27 @@ console.log(content.sections)
 
           {/* Heading */}
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold  text-gray-900 leading-tight">
-           {getContentByType('whychooseus')?.title}
-         
+            {getContentByType('whychooseus')?.title}
+
           </h2>
 
           {/* Subtext */}
           <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-lg" dangerouslySetInnerHTML={{
-          __html :  getContentByType('whychooseus')?.subTitle
+            __html: getContentByType('whychooseus')?.subTitle
           }}>
-            
+
           </p>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
 
             {/* Loop through features */}
-            {getContentByType('whychooseus')?.cards && getContentByType('whychooseus')?.cards?.map((item) =>
-            {
-               const IconComponent = Icons[item?.icon] || Icons.Target;
+            {getContentByType('whychooseus')?.cards && getContentByType('whychooseus')?.cards?.map((item) => {
+              const IconComponent = Icons[item?.icon] || Icons.Target;
               return (
-              <div
-                key={item.id}
-                className="
+                <div
+                  key={item._id}
+                  className="
     relative bg-[#F7F4EE] rounded-xl md:rounded-2xl p-5 md:p-6 
     shadow-sm transition-all duration-300
     hover:shadow-md hover:-translate-y-1
@@ -245,31 +245,32 @@ console.log(content.sections)
 
     hover:after:w-full
   "
-              >
-                {/* Background Number */}
-                <span className="absolute top-3 right-4 md:top-4 md:right-6 text-4xl md:text-5xl font-bold text-[#E7E9E1]">
-                  {item.id}
-                </span>
+                >
+                  {/* Background Number */}
+                  <span className="absolute top-3 right-4 md:top-4 md:right-6 text-4xl md:text-5xl font-bold text-[#E7E9E1]">
+                    {item._id}
+                  </span>
 
-                {/* Icon */}
-                <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
-                                      <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
+                  {/* Icon */}
+                  <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
+                    <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
 
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-semibold text-base md:text-lg text-gray-800">
+                    {item?.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
+                    __html: item?.description
+                  }} >
+
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-semibold text-base md:text-lg text-gray-800">
-                  {item?.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
-                  __html : item?.description
-                }} >
-                  
-                </p>
-              </div>
-            )})}
+              )
+            })}
 
           </div>
         </div>
@@ -282,25 +283,25 @@ console.log(content.sections)
           {/* Heading */}
           <div className="text-center">
             <span className="inline-block text-lg md:text-xl lg:text-2xl font-semibold mb-3">
-              {content?.sections[4]?.content?.label}
+              {getContentByType("servicesection")?.label}
             </span>
 
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">
-                           {content?.sections[4]?.content?.title}
+              {getContentByType("servicesection")?.title}
 
             </h2>
 
             <p className="mt-3 text-sm md:text-base text-gray-800 max-w-2xl mx-auto" dangerouslySetInnerHTML={{
-              __html : content?.sections[4]?.content?.subtitle
+              __html: getContentByType("servicesection")?.subtitle
             }}>
-         
+
             </p>
           </div>
 
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[15px] mt-[40px]">
-            {content.sections[4]?.content?.Cards && content.sections[4]?.content?.Cards?.map((item, index) => {
-              const Icon = Icons[item?.icon] || Icons.Target ;
+            {getContentByType("servicesection")?.Cards && getContentByType("servicesection")?.Cards?.map((item, index) => {
+              const Icon = Icons[item?.icon] || Icons.Target;
 
 
               return (
@@ -320,9 +321,9 @@ console.log(content.sections)
                     </h3>
 
                     <p className="text-[0.79rem] text-gray-800  leading-[1.6]" dangerouslySetInnerHTML={{
-                      __html : item.subtitle
+                      __html: item.subtitle
                     }}>
-                      
+
                     </p>
 
                     <a
@@ -345,7 +346,7 @@ console.log(content.sections)
       </section>
       <ProcessRoadmap />
 
-        <section className="bg-red-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-red-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
@@ -357,7 +358,7 @@ console.log(content.sections)
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
             >
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-              {content?.sections[5]?.content?.label}
+              {getContentByType("citysection").label}
             </motion.span>
 
             {/* Main Heading */}
@@ -367,7 +368,7 @@ console.log(content.sections)
               transition={{ delay: 0.1 }}
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#C41430] leading-tight  mb-6"
             >
-              {content?.sections[5]?.content?.title}
+              {getContentByType("citysection")?.title}
             </motion.h2>
 
             {/* Subtext */}
@@ -377,7 +378,7 @@ console.log(content.sections)
               transition={{ delay: 0.2 }}
               className="text-sm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
               dangerouslySetInnerHTML={{
-                __html: content?.sections[5]?.content?.subTitle
+                __html: getContentByType("citysection")?.subTitle
               }}
             >
 
@@ -386,38 +387,38 @@ console.log(content.sections)
 
           {/* Location Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
-            {content?.sections[5]?.content?.cities?.map((loc: any, index: number) => {
+            {getContentByType("citysection")?.cities?.map((loc: any, index: number) => {
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
-                <Link href = {`/${loc?.slug}`}>
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -5 }}
-                  className={`
+                <Link href={`/${loc?.slug}`}>
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ y: -5 }}
+                    className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
-                ${index === content?.sections[5]?.content?.cities?.length - 1
-                      ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
-                      : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
-                    }
+                ${index === getContentByType("citysection")?.cities?.length - 1
+                        ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
+                        : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
+                      }
               `}
-                >
-                   <div className={`mb-3 ${index === content?.sections[5]?.content?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
-                    <IconComponent className="w-8 h-8" />
-                  </div> 
+                  >
+                    <div className={`mb-3 ${index === getContentByType("citysection")?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
+                      <IconComponent className="w-8 h-8" />
+                    </div>
 
-                  <h3 className="text-base sm:text-lg font-bold mb-1">
-                     {loc.name} 
-                  </h3>
- 
-                  <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
-                    __html: loc.description
-                  }}>
+                    <h3 className="text-base sm:text-lg font-bold mb-1">
+                      {loc.name}
+                    </h3>
 
-                  </p> 
-                </motion.div>
+                    <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
+                      __html: loc.description
+                    }}>
+
+                    </p>
+                  </motion.div>
                 </Link>
               )
             })}
@@ -431,7 +432,7 @@ console.log(content.sections)
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
             <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
-              { __html: content?.sections[5]?.content?.sectiondescription }
+              { __html: getContentByType("citysection")?.sectiondescription }
             }>
 
             </p>
@@ -440,7 +441,7 @@ console.log(content.sections)
         </div>
       </section>
 
-      <LandingPage content={getContentByType('ctasection')}  />
+      <LandingPage content={getContentByType('ctasection')} />
 
       <TopUKUniversities content={getContentByType('BestUniversities')} />
       <Component />
@@ -448,7 +449,7 @@ console.log(content.sections)
       <ReadMoreSection content={getContentByType('content')} />
 
 
-      <FAQSection faq= {faq?.data || []} content = {""} />
+      <FAQSection faq={faq?.data || []} content={""} />
 
       {/* FAQ Section */}
       {/* <section className="faq-section py-16 lg:py-20 mb-0">
