@@ -14,7 +14,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -35,8 +35,12 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.jsx",
-    ".next/types/**/*.ts"
-, "components/home/HomePage.tsx", "components/TestPreparationSection.jsx", "app/contact/page.tsx"  ],
+    ".next/types/**/*.ts",
+    "components/home/HomePage.tsx",
+    "components/TestPreparationSection.jsx",
+    "app/contact/page.tsx",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

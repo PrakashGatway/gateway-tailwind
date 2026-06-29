@@ -45,8 +45,12 @@ export async function generateMetadata({ params }) {
         },
     };
 }
-export default async function StudyAbroad({ params }) {
-  const { slug } = params;
+export default async function StudyAbroad({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
 
   const pageContent = await pageContentPromise({

@@ -249,8 +249,8 @@ export async function generateMetadata({ params }:any) {
   };
 }
 
-const CoursePage = ({ params }: any) => {
-  const { course } =  params;
+const CoursePage = async({ params }: any) => {
+  const { course } = await params;
   const schema = getCourseSchema(course);
 
   return (

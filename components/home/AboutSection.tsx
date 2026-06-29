@@ -36,19 +36,12 @@ const About = ({ content }) => {
 
             {/* Body Text - Minimum font sizes for mobile */}
             <div className="space-y-3 sm:space-y-4 animate-fade-up delay-200">
-              <p
-                className="
-    
-    [&_ul]:list-disc
-    [&_ul]:pl-5
-    [&_ul]:space-y-0
-    [&_li]:leading-tight
-    [&_li]:mb-0
-  "
-                dangerouslySetInnerHTML={{
-                  __html: content?.subtitle || ""
-                }}
-              />
+              {/* <p
+  className={`[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-0 [&_li]:leading-tight [&_li]:mb-0`}
+  dangerouslySetInnerHTML={{
+    __html: content?.subtitle || "",
+  }}
+></p> */}
 
             </div>
 

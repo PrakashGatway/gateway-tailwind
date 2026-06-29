@@ -458,7 +458,7 @@ const handleGetStarted = () => {
             <div className="flex justify-center">
               <div className="relative">
                 <img
-                  src="/img/country-toefl_480.png"
+                  src={courseData.image ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image}` : "/placeholder.svg"}
                   alt={`${courseName} Countries`}
                   className="rounded-lg shadow-lg w-full max-w-md"
                 />

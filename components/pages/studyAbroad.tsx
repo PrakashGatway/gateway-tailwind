@@ -358,7 +358,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
             >
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-              {getContentByType("citysection").label}
+              {getContentByType("citysection")?.label}
             </motion.span>
 
             {/* Main Heading */}
