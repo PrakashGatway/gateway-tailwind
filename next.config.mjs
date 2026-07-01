@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -32,7 +30,7 @@ const nextConfig = {
   },
 
   compiler: {
-    removeConsole: true,
+    removeConsole: false,
   },
 
   compress: true,

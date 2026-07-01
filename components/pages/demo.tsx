@@ -39,6 +39,7 @@ const App = () => {
                 src="/img/help-support-img.svg"
                 alt="Study Abroad Help"
                 className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                loading='lazy'
               />
             </div>
           </div>

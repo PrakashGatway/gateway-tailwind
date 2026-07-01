@@ -10,7 +10,6 @@ import PageServices from '@/services/PageServices';
 import { constant } from '@/constant/index.constant.js';
 import HeroSection from '../hero-section';
 import AboutSection from '../about-section';
-import { motion } from "framer-motion";
 
 import TestPreparation from '../TestPreparationSection';
 // import { useGlobal } from '@/hooks/AppStateContext';
@@ -629,7 +628,6 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
-console.log(homePageDetails)
 
 
 
@@ -665,6 +663,7 @@ console.log(homePageDetails)
                                 width={300}
                                 height={300}
                                 className=" w-100 md:w-full  object-cover"
+                                priority
                               />
                             </div>
                           </div>
@@ -856,38 +855,29 @@ console.log(homePageDetails)
 
           {/* Header Section */}
           <div className="mb-8 md:mb-12">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+            <span
+             
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-[10px] md:text-xs tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
             >
               {homePageDetails?.sections[4]?.content?.label}
-            </motion.span>
+            </span>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
+            <h2
+             
               className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3">
               {homePageDetails?.sections[4]?.content?.title}
 
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              viewport={{ once: true }}
+            <p
+              
               className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-lg mb-8 md:mb-12"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[4]?.content?.subTitle
               }}
             >
 
-            </motion.p>
+            </p>
           </div>
 
           {/* Cards Grid */}
@@ -1039,37 +1029,32 @@ console.log(homePageDetails)
           {/* Header Section */}
           <div className="mb-10 md:mb-14">
             {/* Badge */}
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+            <span
+            
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
             >
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
               {homePageDetails?.sections[9]?.content?.label}
-            </motion.span>
+            </span>
 
             {/* Main Heading */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+            <h2
+              
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#C41430] leading-tight  mb-6"
             >
               {homePageDetails?.sections[9]?.content?.title}
-            </motion.h2>
+            </h2>
 
             {/* Subtext */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+            <p
+              
               className="text-sm sm:text-base md:text-lg text-gray-800 max-w-2xl leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[9]?.content?.subTitle
               }}
             >
 
-            </motion.p>
+            </p>
           </div>
 
           {/* Location Grid */}
@@ -1078,12 +1063,9 @@ console.log(homePageDetails)
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
                 <Link href={`/${loc?.slug}`}>
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ y: -5 }}
+                 
                     className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
                 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1
@@ -1105,17 +1087,15 @@ console.log(homePageDetails)
                     }}>
 
                     </p>
-                  </motion.div>
+                  </div>
                 </Link>
               )
             })}
           </div>
 
           {/* SEO Text Block with Side Border */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
+          <div
+          
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
             <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
@@ -1123,7 +1103,7 @@ console.log(homePageDetails)
             }>
 
             </p>
-          </motion.div>
+          </div>
 
         </div>
       </section>
@@ -1341,47 +1321,38 @@ console.log(homePageDetails)
             fill
             className="object-cover"
             quality={75}
+            priority
           />
         </div>
         <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div
+          
             className="mb-10 sm:mb-12 lg:mb-16"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring" }}
+            <div
+            
               className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6"
             >
               <span className="text-[#C41430] font-bold text-xs sm:text-sm tracking-wider uppercase">
                 {homePageDetails?.sections[8]?.content?.label}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+            <h2
               className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
 
             >
               {homePageDetails?.sections[8]?.content?.title}
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+            <p
               className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
               dangerouslySetInnerHTML={{ __html: homePageDetails?.sections[8]?.content?.subTitle }}
             >
 
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           {(!testimonials?.testimonial || testimonials.testimonial.length === 0) ? (
             <div className="text-center text-gray-500 py-8">Loading testimonials...</div>
@@ -1448,7 +1419,7 @@ console.log(homePageDetails)
 
             </div>
           )}
-        <motion.div
+        <div
   // Responsive spacing & layout
   className="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center text-center md:text-left gap-4 sm:gap-6 shadow-xl"
 >
@@ -1490,7 +1461,7 @@ console.log(homePageDetails)
       📞 Call Our Expert
     </a>
   </div>
-</motion.div>
+</div>
         </div>
 
 
@@ -1562,6 +1533,7 @@ console.log(homePageDetails)
                       src="/img/partner-img.svg"
                       alt="Partner Program"
                       className="w-full max-w-xs sm:max-w-sm lg:max-w-[20rem]"
+                      loading='lazy'
                     />
                   </div>
                 </div>

@@ -6,7 +6,6 @@ const LandingPage = ({ content }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting number:', whatsappNumber);
     // Add your API logic here
   };
  

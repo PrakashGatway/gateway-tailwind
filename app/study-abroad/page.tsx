@@ -15,7 +15,6 @@ export const revalidate = 21600;
 
 export async function generateMetadata() {
     const pageContent = await pageContentPromise();
-    console.log(pageContent.slug, "hhh")
 
     return {
         metadataBase: new URL('https://www.gatewayabroadeducations.com'),

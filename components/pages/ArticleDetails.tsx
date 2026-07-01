@@ -1446,49 +1446,49 @@ export default function ArticleClient({
     slug
 }: any) {
 
-    
-const [category,setCategories] = useState([])
+
+    const [category, setCategories] = useState([])
 
 
-  const fetchCategories = useCallback(async () => {
-    try {
-      const res = await axiosInstance("/web/cat?limit=100");
-      if (res.status !== 200) throw new Error("Failed to fetch categories");
-      setCategories(res.data.data || []);
-    } catch (err) {
-      console.error("Error fetching categories:", err);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
-
- 
-
-      const [views, setViews] = useState(article.viewCount);
-
-  useEffect(() => {
-    const updateView = async () => {
-      const res = await fetch(
-        `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
-        {
-          cache: "no-store",
+    const fetchCategories = useCallback(async () => {
+        try {
+            const res = await axiosInstance("/web/cat?limit=100");
+            if (res.status !== 200) throw new Error("Failed to fetch categories");
+            setCategories(res.data.data || []);
+        } catch (err) {
+            console.error("Error fetching categories:", err);
         }
-      );
+    }, []);
 
-      const data = await res.json();
-     
+    useEffect(() => {
+        fetchCategories();
+    }, [fetchCategories]);
 
-      // assuming API returns updated viewCount
-      setViews(data?.data?.viewCount);
-    };
 
-    updateView();
-  }, [slug]);
 
-  
-   
+    const [views, setViews] = useState(article.viewCount);
+
+    useEffect(() => {
+        const updateView = async () => {
+            const res = await fetch(
+                `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
+                {
+                    cache: "no-store",
+                }
+            );
+
+            const data = await res.json();
+
+
+            // assuming API returns updated viewCount
+            setViews(data?.data?.viewCount);
+        };
+
+        updateView();
+    }, [slug]);
+
+
+
     // const [comments, setComments] = useState(commentsProp);
     // const [commentForm, setCommentForm] = useState({
     //     name: '',
@@ -1667,24 +1667,9 @@ const [category,setCategories] = useState([])
                         {/* <div>
                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
                         </div> */}
-                        <div className='ml-auto'>
-                            <span className='
-                                bg-gradient-to-r from-[#E12827] to-[#FF6B6B]
-                                text-white
-                                px-5 py-2
-                                rounded-full
-                                text-sm font-bold
-                                shadow-lg
-                                hover:shadow-xl
-                                hover:from-[#FF6B6B]
-                                hover:to-[#E12827]
-                                transition-all duration-300
-                                transform hover:-translate-y-0.5
-                                tracking-wide
-                            '>
-                                Author • Admin
-                            </span>
-                        </div>
+                        <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10'>
+               Author - Sakshi Taneja
+              </Link>
                     </div>
                 </div>
             </section>
@@ -1719,7 +1704,7 @@ const [category,setCategories] = useState([])
                                 {/* Article Content */}
                                 <div className="sm:px-6 pb-8 pt-6">
 
-                                     <style>{`
+                                    <style>{`
     .blog-html table {
       width: 100%;
       border-collapse: collapse;
@@ -1850,9 +1835,41 @@ const [category,setCategories] = useState([])
                                                     <i className="fa fa-envelope"></i>
                                                 </Link>
                                             </div>
-                                            <div>
-                                                <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>~ By Admin</span>
+
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3 mt-4 border border-gray-200 p-4">
+                                        <Link href="/author/sakshi-taneja">
+                                            <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
+                                                <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10" alt="" loading='lazy' />
+                                                </div>
+
+                                                <div className="leading-tight">
+                                                    <p className="text-xs text-gray-500 uppercase tracking-wide">
+                                                        Author
+                                                    </p>
+                                                    <h4 className="text-lg font-semibold text-gray-900">
+                                                        Sakshi Taneja
+                                                    </h4>
+                                                </div>
                                             </div>
+                                        </Link>
+
+                                        <div className="">
+                                            <p className="text-base font-semibold text-[#E12827]">
+                                                Content Writer & International Education Specialist
+                                            </p>
+
+                                            <p className="mt-2 text-sm leading-7 text-gray-600">
+                                                Sakshi Taneja is a content writer specializing in international
+                                                education, study abroad opportunities, university admissions, student
+                                                visas, scholarships, and career guidance. She creates accurate,
+                                                research-driven, and student-focused content to help aspiring
+                                                international students make informed decisions about their global
+                                                education journey.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -2069,7 +2086,7 @@ const [category,setCategories] = useState([])
                                 </div> */}
                                 <div>
 
-                                <ContactForm type="article"/>
+                                    <ContactForm type="article" />
                                 </div>
 
                                 {/* Latest Articles */}
@@ -2123,7 +2140,7 @@ const [category,setCategories] = useState([])
                                         Categories
                                     </h5>
                                     <div className="flex flex-wrap gap-2">
-                                        {category && category?.map((category,i) => (
+                                        {category && category?.map((category, i) => (
                                             <Link
                                                 key={i}
                                                 href={`/article?category=${category?._id}`}

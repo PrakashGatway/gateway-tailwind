@@ -8,6 +8,17 @@ import useAsync from '../hooks/useAsync';
 import { useForm } from 'react-hook-form';
 import LocationAvailability from './sections/cityLocation';
 import axiosInstance from '@/services/axiosInstance';
+import { ArrowDown, ArrowDownWideNarrow, ChevronUp, Mail, MessageCircle } from 'lucide-react';
+import {
+  FaFacebookF,
+  FaXTwitter,
+  FaPinterestP,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+  FaWhatsapp,
+  FaGoogle,
+} from "react-icons/fa6";
 
 export const Footer = () => {
   const { data } = useAsync(PageServices.getSettingData);
@@ -23,7 +34,7 @@ export const Footer = () => {
 
   const path = usePathname()
 
-  
+
   const {
     register: registerContact,
     handleSubmit: handleSubmitContact,
@@ -192,7 +203,7 @@ export const Footer = () => {
     };
   }, [showModal]);
 
-    if(path.startsWith("/onboarding")){
+  if (path.startsWith("/onboarding")) {
     return null
   }
 
@@ -252,23 +263,26 @@ export const Footer = () => {
                     </h3>
                     <ul className="flex flex-wrap list-none mb-4 pl-0">
                       {[
-                        { href: contactData.facebook, icon: 'fa-facebook' },
-                        { href: contactData.tweeter, icon: 'fa-quora' },
-                        { href: contactData.googlePlus, icon: 'fa-google-plus' },
-                        { href: contactData.pintrest, icon: 'fa-pinterest' },
-                        { href: contactData.instagram, icon: 'fa-instagram' },
-                        { href: contactData.linkdin, icon: 'fa-linkedin' },
-                        { href: contactData.youtube, icon: 'fa-youtube' },
-                        { href: `https://api.whatsapp.com/send?phone=${contactData.contectOne || ''}`, icon: 'fa-whatsapp' }
-                      ].map((social, index) => (
+                        { href: contactData.facebook, icon: FaFacebookF },
+                        { href: contactData.tweeter, icon: FaXTwitter },
+                        { href: contactData.googlePlus, icon: FaGoogle },
+                        { href: contactData.pintrest, icon: FaPinterestP },
+                        { href: contactData.instagram, icon: FaInstagram },
+                        { href: contactData.linkdin, icon: FaLinkedinIn },
+                        { href: contactData.youtube, icon: FaYoutube },
+                        {
+                          href: `https://api.whatsapp.com/send?phone=${contactData.contectOne || ""}`,
+                          icon: FaWhatsapp,
+                        },
+                      ].map(({ href, icon: Icon }, index) => (
                         <li key={index} className="mb-[15px]">
                           <Link
-                            href={social.href || "#"}
+                            href={href || "#"}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white bg-zinc-800 inline-block h-8 leading-8 text-center w-8 mr-2 rounded-[50%] hover:bg-red-600"
+                            className="text-white bg-zinc-800 inline-flex items-center justify-center h-8 w-8 mr-2 rounded-full hover:bg-red-600 transition-colors"
                           >
-                            <i className={`fa ${social.icon}`} />
+                            <Icon size={16} />
                           </Link>
                         </li>
                       ))}
@@ -293,7 +307,7 @@ export const Footer = () => {
                       { href: "/career", text: "Career" },
                       { href: "/contact", text: "Contact Us" },
                       { href: "/gallery", text: "Gallery" },
-                     
+
 
 
                     ].map((link, index) => (
@@ -356,9 +370,9 @@ export const Footer = () => {
                           {contactData.officeAdress || "Address not available"}
                         </Link>
                       </li>
-                      <li className="mb-2.5">
+                      <li className="mb-2.5 flex">
                         <span className="text-lg inline-block mr-1.5">
-                          <i className="fa fa-whatsapp" />
+                          <MessageCircle size={20} />
                         </span>
                         {contactData.contectOne && (
                           <Link
@@ -385,9 +399,10 @@ export const Footer = () => {
                           </Link>
                         )}
                       </li>
-                      <li className="mb-2.5">
+                      <li className="mb-2.5 flex">
                         <span className="text-lg inline-block mr-1.5">
-                          <i className="fa fa-envelope-o" />
+                          <Mail size={18} className="text-black" />
+
                         </span>
                         {contactData.email && (
                           <Link
@@ -450,9 +465,9 @@ export const Footer = () => {
           href="#"
           id="scroll-button"
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="text-white bg-red-600 inline-block h-10 w-10 leading-10 text-center rounded-[50%] hover:bg-red-700 transition-colors duration-200"
+          className="text-white bg-red-600 inline-block h-10 w-10 leading-10 text-center rounded-[50%] hover:bg-red-700 transition-colors duration-200 flex items-center justify-center"
         >
-          <i className="fa fa-angle-up" />
+          <ChevronUp size={18} />
         </Link>
       </div>
 
@@ -463,12 +478,17 @@ export const Footer = () => {
           className="bg-[#d71635] text-white px-3 py-3 rounded-br-lg hover:bg-red-700 transition-colors duration-200 flex items-center relative group"
         >
           {/* Arrow with black background */}
-          <span className="mr-2  bg-black p-[1rem] rounded-bl-lg rounded-br-lg absolute -left-8 top-0 h-full flex items-center justify-center">
-            <i className="fa fa-long-arrow-down text-white pb-[30px] rotate-180" />
+          <span className="mr-2  bg-black p-[4px] rounded-bl-lg rounded-br-lg absolute -left-8 top-0 h-full flex items-center justify-center">
+            <ArrowDown
+              size={30}
+              className="text-white mt-8  rotate-180"
+            />
           </span>
 
-          <span className="pb-[30px]  rotate-180"><i className="fa fa-envelope-o mr-[5px]" /> Get in touch</span>
-        </button>
+          <span className="flex items-center gap-2 pb-[30px] rotate-180">
+            <Mail size={18} className="text-white" />
+            Get in touch
+          </span>        </button>
 
       </div>
 

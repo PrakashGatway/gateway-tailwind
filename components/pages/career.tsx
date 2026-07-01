@@ -97,6 +97,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
                 width={500}
                 height={350}
                 className="w-full rounded-2xl shadow-lg"
+                loading="lazy"
               />
             </div>
             <div className="w-full md:w-7/12">
@@ -134,6 +135,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
                 width={500}
                 height={350}
                 className="w-full rounded-2xl shadow-lg" 
+                loading="lazy"
               />
             </div>
           </div>
@@ -202,7 +204,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
             Boost Your Career! Find the Perfect <br />Role with Gateway Abroad
           </h2>
           <div className="mt-8">
-            <img src="img/career-form-img.svg" alt="Career Form" className="w-full max-w-md" />
+            <img src="img/career-form-img.svg" alt="Career Form" className="w-full max-w-md" loading="lazy" />
           </div>
         </div>
       </div>
@@ -265,7 +267,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
               
               <div className="border-2  border-gray-300 rounded-lg p-6 text-center hover:border-red-400 transition-colors duration-300 bg-gray-50">
                 <label className="cursor-pointer flex flex-col items-center">
-                  <img src="img/upload-img.svg" className="w-12 h-[4rem] " alt="Upload" />
+                  <img src="img/upload-img.svg" className="w-12 h-[4rem] " alt="Upload" loading="lazy" />
                   <span className="text-gray-600 font-medium">
                     {file ? file.name : "upload your CV Here"}
                   </span>
@@ -325,6 +327,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
                 src="img/counselling-session.svg"
                 alt="Counselling Session"
                 className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                loading="lazy"
               />
             </div>
           </div>

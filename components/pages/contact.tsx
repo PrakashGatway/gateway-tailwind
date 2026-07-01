@@ -141,7 +141,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                     width={500}
                                     height={400}
                                     className="w-full max-w-md lg:max-w-full"
-                                    priority
+                                    loading='lazy'
                                 />
                             </div>
                         </div>
@@ -175,6 +175,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                             width={20}
                                             height={20}
                                             className="group-hover:invert group-hover:brightness-0 transition-all duration-300"
+                                            loading='lazy'
                                         />
                                     </div>
                                 </div>
@@ -213,6 +214,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                             width={20}
                                             height={20}
                                             className="group-hover:invert group-hover:brightness-0 transition-all duration-300"
+                                            loading='lazy'
                                         />
                                     </div>
                                 </div>
@@ -239,6 +241,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                             width={20}
                                             height={20}
                                             className="group-hover:invert group-hover:brightness-0 transition-all duration-300"
+                                            loading='lazy'
                                         />
                                     </div>
                                 </div>
@@ -282,6 +285,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                                                 width={20}
                                                                 height={20}
                                                                 className="group-hover:invert group-hover:brightness-0 transition-all duration-300"
+                                                                loading='lazy'
                                                             />
                                                         </div>
                                                     </div>
@@ -314,6 +318,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                                         alt="Branch"
                                                         width={20}
                                                         height={20}
+                                                        loading='lazy'
                                                     />
                                                 </div>
                                                 <div>
@@ -365,6 +370,7 @@ function Contact({contactPage: data, contactSettings: contactData, faqData: faq}
                                         width={400}
                                         height={300}
                                         className="w-full max-w-sm lg:max-w-md"
+                                        loading='lazy'
                                     />
                                 </div>
                             </div>

@@ -3,13 +3,9 @@
 @tailwind utilities;
 
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap");
 
 
-html,
-body {
-  font-family: var(--font-poppins);
-}
+
 
 .blogs * {
   font-family: "Noto Sans", "Inter", system-ui, -apple-system, sans-serif !important;
@@ -356,7 +352,7 @@ html {
   background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1f2937 100%);
 }
 
-.hero-gradient::before {
+/* .hero-gradient::before {
   content: "";
   position: absolute;
   top: 0;
@@ -369,7 +365,7 @@ html {
 
 [data-theme="dark"] .hero-gradient::before {
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f43f5e' fill-opacity='0.1' fill-rule='nonzero'%3E%3Ccircle cx='30' cy='30' r='30'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
+} */
 
 .text-gradient {
   background: #D41833;

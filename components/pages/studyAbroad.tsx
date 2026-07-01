@@ -77,8 +77,6 @@ const StudyAbroadPage = ({ content, faq }: any) => {
     { icon: "", value: "16 Yrs", label: "In Business Since 2008" },
   ];
 
-  console.log(content.sections)
-  console.log(getContentByType('whychooseus')?.cards?.map((item) => item?.title))
 
   return (
     <>
@@ -511,6 +509,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
                         height: 'auto',
                         maxWidth: '25rem'
                       }}
+                      loading="lazy"
                     />
                   </div>
                 </div>

@@ -3,10 +3,20 @@
 import { useState } from "react"
 import ContactForm from "./UkForm"
 import { constant } from "@/constant/index.constant"
+import Link from "next/link"
 
 
-export default function AuthorPage({ initialData }) {
+export default function AuthorPage({ initialData, latestArticles }) {
     const [blogs, setblogs] = useState(initialData?.data?.blog)
+    const [article, setarticle] = useState(latestArticles)
+    const [active, setactive] = useState("blogs")
+
+    const getCoverImageUrl = (coverImage: string) => {
+        if (!coverImage) return "/img/placeholder-blog.jpg";
+        if (coverImage.startsWith("http")) return coverImage;
+        return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
+    };
+
     return (
         <>
             <section className="bg-white min-h-screen mt-32">
@@ -170,55 +180,126 @@ export default function AuthorPage({ initialData }) {
                                 <div className="mt-10">
                                     <div className="flex items-center justify-between mb-2">
                                         <h2 className="text-3xl font-bold text-gray-900">
-                                            Recent Articles
+                                            Recent Articles & Blogs
                                         </h2>
 
                                         <span className="text-sm text-gray-500">
                                             Latest writings from this author
                                         </span>
                                     </div>
+                                    <div className="inline-flex items-center p-1 bg-gray-100 rounded-2xl shadow-sm">
+                                        <button
+                                            onClick={() => setactive("blogs")}
+                                            className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${active === "blogs"
+                                                    ? "bg-[#D71635] text-white shadow-md scale-105"
+                                                    : "text-gray-600 hover:text-[#D71635] hover:bg-white"
+                                                }`}
+                                        >
+                                            Blogs
+                                        </button>
+
+                                        <button
+                                            onClick={() => setactive("articles")}
+                                            className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${active === "articles"
+                                                    ? "bg-[#D71635] text-white shadow-md scale-105"
+                                                    : "text-gray-600 hover:text-[#D71635] hover:bg-white"
+                                                }`}
+                                        >
+                                            Articles
+                                        </button>
+                                    </div>
 
                                     <div className="space-y-4">
-                                        {blogs.map((blog, index) => (
-                                            <article
-                                                key={index}
-                                                className="group bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-                                            >
-                                                <div className="flex flex-col md:flex-row">
-                                                    {/* Image */}
-                                                    <div className="md:w-[180px] flex-shrink-0 flex items-center justify-center bg-white">
-                                                        <img
-                                                            src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                                                            alt={blog.blogTitle}
-                                                            className="w-full h-100 object-cover group-hover:scale-105 transition-transform duration-500"
-                                                        />
-                                                    </div>
+                                        {active === "blogs" ?
+                                            blogs.map((blog, index) => (
+                                                <Link href={`/blog-description/${blog.Slug}`}>
+                                                    <article
+                                                        key={index}
+                                                        className="group bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                                                    >
+                                                        <div className="flex flex-col md:flex-row">
+                                                            {/* Image */}
+                                                            <div className="md:w-[180px] flex-shrink-0 flex items-center justify-center bg-white">
+                                                                <img
+                                                                    src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
+                                                                    alt={blog.blogTitle}
+                                                                    className="w-full h-100 object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                />
+                                                            </div>
 
-                                                    {/* Content */}
-                                                    <div className="flex-1 p-5 flex flex-col justify-center">
-                                                        <div className="flex flex-wrap items-center gap-3 mb-3">
-                                                            <span className="px-3 py-1 rounded-full bg-red-50 text-[#D71635] text-xs font-medium">
-                                                                {blog.category}
-                                                            </span>
+                                                            {/* Content */}
+                                                            <div className="flex-1 p-5 flex flex-col justify-center">
+                                                                <div className="flex flex-wrap items-center gap-3 mb-3">
+                                                                    <span className="px-3 py-1 rounded-full bg-red-50 text-[#D71635] text-xs font-medium">
+                                                                        {blog.category}
+                                                                    </span>
 
-                                                            {blog.createdAt && (
-                                                                <span className="text-sm text-gray-400">
-                                                                    {new Date(blog.createdAt).toLocaleDateString("en-IN")}
-                                                                </span>
-                                                            )}
+                                                                    {blog.createdAt && (
+                                                                        <span className="text-sm text-gray-400">
+                                                                            {new Date(blog.createdAt).toLocaleDateString("en-IN")}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+
+                                                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#D71635] transition-colors duration-300">
+                                                                    {blog.blogTitle}
+                                                                </h3>
+
+                                                                <p className="mt-2 text-gray-600 leading-7 line-clamp-4">
+                                                                    {blog?.descriptions}
+                                                                </p>
+                                                            </div>
                                                         </div>
 
-                                                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#D71635] transition-colors duration-300">
-                                                            {blog.blogTitle}
-                                                        </h3>
+                                                    </article>
+                                                </Link>
+                                            )) : active === "articles" ?
+                                                article.map((article, index) => (
+                                                    <Link href={`/article/${article.slug}`}>
+                                                        <article
+                                                            key={index}
+                                                            className="group bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                                                        >
+                                                            <div className="flex flex-col md:flex-row">
+                                                                {/* Image */}
+                                                                <div className="md:w-[180px] flex-shrink-0 flex items-center justify-center bg-white">
+                                                                    <img
+                                                                        src={`${getCoverImageUrl(article.coverImage)}`}
+                                                                        alt={article.title}
+                                                                        className="w-full h-100 object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                    />
+                                                                </div>
 
-                                                        <p className="mt-2 text-gray-600 leading-7 line-clamp-4">
-                                                            {blog?.descriptions}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        ))}
+                                                                {/* Content */}
+                                                                <div className="flex-1 p-5 flex flex-col justify-center">
+                                                                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                                                                        <span className="px-3 py-1 rounded-full bg-red-50 text-[#D71635] text-xs font-medium">
+                                                                            {article.category.name}
+                                                                        </span>
+
+                                                                        {article.createdAt && (
+                                                                            <span className="text-sm text-gray-400">
+                                                                                {new Date(article.createdAt).toLocaleDateString("en-IN")}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+
+                                                                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#D71635] transition-colors duration-300">
+                                                                        {article.title}
+                                                                    </h3>
+
+                                                                    <p className="mt-2 text-gray-600 leading-7 line-clamp-4">
+                                                                        {article?.description}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </Link>
+                                                ))
+                                                : null
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>

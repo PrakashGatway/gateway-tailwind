@@ -92,6 +92,7 @@ function About({ aboutPage: data, teamMembers: member }: any) {
                       alt="About Us Image 1"
                       width={400}
                       height={300}
+                      loading='lazy'
                       className="w-full max-w-xs sm:max-w-sm md:max-w-md"
                     />
                   </div>
@@ -132,6 +133,7 @@ function About({ aboutPage: data, teamMembers: member }: any) {
                       alt="About Us Image 2"
                       width={400}
                       height={300}
+                      loading='lazy'
                       className="w-full max-w-xs sm:max-w-sm md:max-w-md"
                     />
                   </div>
@@ -274,6 +276,7 @@ function About({ aboutPage: data, teamMembers: member }: any) {
                         src="img/counselling-session.svg"
                         alt="Counselling Session"
                         className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                        loading='lazy'
                       />
                     </div>
                   </div>

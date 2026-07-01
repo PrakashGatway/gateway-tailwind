@@ -139,7 +139,6 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     setMergedData(mergedData);
   }, [blogData, articleres]);
 
-  console.log(blogData)
 
   const getAllTestimonial = async (value: string) => {
     try {
@@ -196,7 +195,6 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
   };
 
 
-  console.log(mergedData)
   const getCoverImageUrl = (coverImage: string) => {
     if (!coverImage) return "/img/placeholder-blog.jpg";
     if (coverImage.startsWith("http")) return coverImage;
@@ -319,6 +317,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
             alt="Background"
             fill
             className="object-cover"
+            loading="lazy"
             quality={75}
           />
         </div>
@@ -409,6 +408,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                       src="img/counselling-session.svg"
                       alt="Counselling Session"
                       className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -469,6 +469,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                               fill
                               className="object-cover object-top"
                               sizes="(max-width: 768px) 100vw, 33vw"
+                              loading="lazy"
                             />
                           </div>
 

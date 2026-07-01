@@ -319,7 +319,6 @@ const onSubmit = async (data: FormData) => {
     // 🔥 ADD THIS LINE
     apiData.testGiven = testGiven;
 
-    console.log("Final Payload:", JSON.stringify(apiData, null, 2));
 
     const res = await fetch("https://api.ooshasglobal.com/api/enquiry", {
       method: "POST",

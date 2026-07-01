@@ -286,6 +286,7 @@ function DesktopCard({
                   src={`${baseUrl}/uploads/${dest?.image}`}
                 alt={dest.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
             
@@ -328,6 +329,7 @@ function MobileCard({ dest }: { dest: Destination }) {
                 src={`${baseUrl}/uploads/${dest?.image}`}
                 alt={dest.name}
                 className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
             

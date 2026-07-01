@@ -53,7 +53,6 @@ const CompactCounsellingForm = ({ onSubmit }) => {
       if (onSubmit) {
         await onSubmit(data);
       } else {
-        console.log('Form Data:', data);
         alert('Thank you! Our counsellor will contact you within 24 hours.');
       }
       reset();

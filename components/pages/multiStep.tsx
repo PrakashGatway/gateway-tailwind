@@ -417,6 +417,7 @@ export default function EnhancedMultiStepForm() {
                 src="/anime/formsid.png"
                 alt="University Illustration"
                 className="w-full max-w-[300px] s xl:max-w-[360px] h-auto object-contain drop-shadow-xl relative z-10"
+                loading="lazy"
               />
             </div>
 

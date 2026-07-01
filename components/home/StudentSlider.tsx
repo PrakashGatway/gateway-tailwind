@@ -40,7 +40,6 @@ const StudentInfoSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Your existing form submission logic
-    console.log("Form submitted:", formData);
   };
 
   const handleInputChange = (e) => {
@@ -109,6 +108,7 @@ const StudentInfoSection = () => {
                             src={`${constant.REACT_APP_URL}/api/uploads/${student.image}`} 
                             alt={student.name}
                             className="w-16 h-16 rounded-full object-cover border-2 border-purple-500 shadow-lg"
+                            loading="lazy"
                           />
                           <div className="flex-1">
                             <div className="flex justify-between items-start">

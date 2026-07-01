@@ -35,7 +35,25 @@ const blogs = [
     limit: 12
   }); 
 
+ let latestArticles =[]
+
+    try {
+    const latestRes = await fetch(
+      'https://uat.gatewayabroadeducations.com/api/v1/web/blog?page=1&limit=10',
+      { next: { revalidate: 21600 } }
+    );
+    if (latestRes.ok) {
+      const latestData = await latestRes.json();
+      latestArticles = latestData?.data?.filter(
+        articleItem => articleItem.slug !== slug
+      ) || [];
+    }
+  } catch (error) {
+    console.error('Error fetching latest articles:', error);
+  }
+
+
   return (
-  <AuthorPage initialData = {initialData} />
+  <AuthorPage initialData = {initialData} latestArticles={latestArticles} />
   );
 }

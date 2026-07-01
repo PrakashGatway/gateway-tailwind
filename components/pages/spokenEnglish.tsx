@@ -178,6 +178,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                                 width={30}
                                                 height={24}
                                                 className="rounded-full object-cover"
+                                                loading='lazy'
                                             />
                                         </div>
                                     </div>
@@ -205,6 +206,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                         fill
                         className="object-cover"
                         quality={75}
+                        loading='lazy'
                     />
                 </div>
                 <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
@@ -285,6 +287,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                 width={350}
                                 height={350}
                                 className="mx-auto"
+                                loading='lazy'
                             />
                         </div>
                         <div className="lg:w-7/12">
@@ -476,6 +479,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                             src="img/counselling-session.svg"
                                             alt="Counselling Session"
                                             className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
+                                            loading='lazy'
                                         />
                                     </div>
                                 </div>

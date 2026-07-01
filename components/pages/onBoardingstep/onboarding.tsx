@@ -143,7 +143,6 @@ export default function Onboarding() {
 
       
 
-      console.log("✅ Submission successful:", response.data);
 
       // Proceed to success step
       setCurrentStep(7);

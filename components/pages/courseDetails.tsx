@@ -279,7 +279,7 @@ const handleGetStarted = () => {
           width={500}
           height={400}
           className="rounded-2xl shadow-xl w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]"
-          priority
+          loading='lazy'
         />
        
       </div>
@@ -355,6 +355,7 @@ const handleGetStarted = () => {
                 width={500}
                 height={400}
                 className="rounded-lg w-[90%]"
+                loading='lazy'
               />
             </div>
             <div>
@@ -377,7 +378,8 @@ const handleGetStarted = () => {
             src="/img/gmat-descp-img-1.svg" 
             alt="Icon" 
             width={60} 
-            height={60} 
+            height={60}
+            loading='lazy' 
           />
         </div>
         <h5 className="text-lg font-bold text-gray-900 mb-2">
@@ -397,6 +399,7 @@ const handleGetStarted = () => {
             alt="Icon" 
             width={60} 
             height={60} 
+            loading='lazy'
           />
         </div>
         <h5 className="text-lg font-bold text-gray-900 mb-2">
@@ -415,7 +418,8 @@ const handleGetStarted = () => {
             src="/img/gmat-descp-img-3.svg" 
             alt="Icon" 
             width={60} 
-            height={60} 
+            height={60}
+            loading='lazy' 
           />
         </div>
         <h5 className="text-lg font-bold text-gray-900 mb-2">
@@ -435,6 +439,7 @@ const handleGetStarted = () => {
             alt="Icon" 
             width={60} 
             height={60} 
+            loading='lazy'
           />
         </div>
         <h5 className="text-lg font-bold text-gray-900 mb-2">
@@ -457,10 +462,13 @@ const handleGetStarted = () => {
             {/* Image Column */}
             <div className="flex justify-center">
               <div className="relative">
-                <img
+                <Image
                   src={courseData.image ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image}` : "/placeholder.svg"}
                   alt={`${courseName} Countries`}
                   className="rounded-lg shadow-lg w-full max-w-md"
+                  width={100}
+                  height={100}
+                  loading='lazy'
                 />
 
               </div>
@@ -484,6 +492,7 @@ const handleGetStarted = () => {
                       src="/img/arrow-up-right.svg"
                       alt="arrow icon"
                       className="w-10 h-[25px] mr-2 text-green-500"
+                      loading='lazy'
                     />
                     <span>{country}</span>
                   </div>
@@ -503,7 +512,7 @@ const handleGetStarted = () => {
               courseData.whyChoose?.[['one', 'two', 'three', 'four', 'five', 'six'][num - 1]] && (
                 <div key={num} className="bg-white rounded-lg  p-6  text-center">
                   <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
-                    <Image src={`/img/why-choose-ga-img-${num}.svg`} alt="Feature" width={60} height={32} />
+                    <Image src={`/img/why-choose-ga-img-${num}.svg`} alt="Feature" width={60} height={32} loading='lazy'/>
                   </div>
                   <p className="text-black-600 font-bold">{courseData.whyChoose[['one', 'two', 'three', 'four', 'five', 'six'][num - 1]]}</p>
                 </div>
@@ -549,6 +558,7 @@ const handleGetStarted = () => {
             fill
             className="object-cover"
             quality={75}
+            loading='lazy'
         />
     </div>
     <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
@@ -715,7 +725,7 @@ const handleGetStarted = () => {
       {/* Practice Material */}
       <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
         <div className=" flex items-center justify-center mx-auto mb-6">
-          <Image src="/img/resource-img-1.svg" alt="Practice Material" width={350} height={40} />
+          <Image src="/img/resource-img-1.svg" alt="Practice Material" width={350} height={40} loading='lazy' />
         </div>
         <h4 className="text-xl font-bold text-gray-900 mb-4">Practice Material</h4>
         <p className="text-gray-600 mb-6">
@@ -742,7 +752,7 @@ const handleGetStarted = () => {
       {/* Other Resources */}
       <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
         <div className=" flex items-center justify-center mx-auto mb-6">
-          <Image src="/img/resource-img-2.svg" alt="Other Resources" width={350} height={40} />
+          <Image src="/img/resource-img-2.svg" alt="Other Resources" width={350} height={40} loading='lazy' />
         </div>
         <h4 className="text-xl font-bold text-gray-900 mb-4">Other Resources</h4>
         <p className="text-gray-600 mb-6">
@@ -769,7 +779,7 @@ const handleGetStarted = () => {
       {/* Syllabus Download */}
       <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
         <div className=" flex items-center justify-center mx-auto mb-6">
-          <Image src="/img/resource-img-3.svg" alt="Syllabus Download" width={350} height={40} />
+          <Image src="/img/resource-img-3.svg" alt="Syllabus Download" width={350} height={40} loading='lazy' />
         </div>
         <h4 className="text-xl font-bold text-gray-900 mb-4">Syllabus Download</h4>
         <p className="text-gray-600 mb-6">
@@ -851,6 +861,7 @@ const handleGetStarted = () => {
               alt="Counselling Session"
               width={400}
               height={300}
+              loading='lazy'
               className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
             />
           </div>

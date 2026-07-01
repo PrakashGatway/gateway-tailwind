@@ -80,9 +80,9 @@ export default function SingleBlogPage({
                   </span>
                 </div>
               )}
-              <div>
-                <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Author - Admin</span>
-              </div>
+               <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10'>
+               Author - Sakshi Taneja
+              </Link>
             </div>
           </div>
         </section>
@@ -253,11 +253,43 @@ export default function SingleBlogPage({
                           </a>
                         </div>
 
-                        <div>
-                          <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>~ By Admin</span>
-                        </div>
+                        
                       </div>
                     </div>
+
+                    <div className="space-y-3 mt-4 border border-gray-200 p-4">
+  <Link href="/author/sakshi-taneja">
+    <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
+      <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10" alt="" loading='lazy' />
+      </div>
+
+      <div className="leading-tight">
+        <p className="text-xs text-gray-500 uppercase tracking-wide">
+          Author
+        </p>
+        <h4 className="text-lg font-semibold text-gray-900">
+          Sakshi Taneja
+        </h4>
+      </div>
+    </div>
+  </Link>
+
+  <div className="">
+    <p className="text-base font-semibold text-[#E12827]">
+      Content Writer & International Education Specialist
+    </p>
+
+    <p className="mt-2 text-sm leading-7 text-gray-600">
+      Sakshi Taneja is a content writer specializing in international
+      education, study abroad opportunities, university admissions, student
+      visas, scholarships, and career guidance. She creates accurate,
+      research-driven, and student-focused content to help aspiring
+      international students make informed decisions about their global
+      education journey.
+    </p>
+  </div>
+</div>
                   </div>
                 </div>
 
