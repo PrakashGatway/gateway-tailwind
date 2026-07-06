@@ -13,7 +13,7 @@ export default function BreadcrumbSchema({ params }) {
       name: String(segment)
         .replace(/-/g, " ")
         .replace(/\b\w/g, l => l.toUpperCase()),
-      item: `https://gatewayabroadeducations.com${href}`,
+      item: `https://www.gatewayabroadeducations.com${href}`,
     };
   });
 
@@ -25,7 +25,7 @@ export default function BreadcrumbSchema({ params }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://gatewayabroadeducations.com/",
+        item: "https://www.gatewayabroadeducations.com/",
       },
       ...breadcrumbs,
     ],

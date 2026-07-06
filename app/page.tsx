@@ -1,7 +1,6 @@
 import Index from "@/components/home/HomePage"
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
-import Script from "next/script";
 
 
 export async function generateMetadata() {
@@ -44,38 +43,39 @@ export async function generateMetadata() {
 
 export const revalidate = 60; // revalidate every 6 hours
 
-export default async function Home({slug}) {
+export default async function Home({ slug }) {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": "https://www.gatewayabroadeducations.com/#organization",
     "name": "Gateway Abroad Education",
-    "image":
-      "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
-    "@id": "https://www.gatewayabroadeducations.com/",
     "url": "https://www.gatewayabroadeducations.com/",
-    "telephone": "08302092630",
+    "logo": "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
+    "image": "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
+    "telephone": "+91-8302092630",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress":
-        "105, First Floor, Geetanjali Tower, Ajmer Road, Civil Lines, Jaipur, Rajasthan 302006",
+      "streetAddress": "105, First Floor, Geetanjali Tower, Ajmer Road, Civil Lines",
       "addressLocality": "Jaipur",
       "addressRegion": "Rajasthan",
       "postalCode": "302006",
       "addressCountry": "IN"
     },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
-      "opens": "09:00",
-      "closes": "18:00"
-    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
     "sameAs": [
       "https://www.facebook.com/Gatewayabroadjeducation1/",
       "https://www.instagram.com/gatewayabroadeducation",
@@ -98,21 +98,19 @@ export default async function Home({slug}) {
     PageServices.getYoutubeVideo().then(res => res?.data || null).catch(() => null),
     PageServices.getStudentSlider().then(res => res?.data || null).catch(() => null),
     PageServices.getStudentHome().then(res => res?.data || null).catch(() => null),
-    PageServices.getAllFaqForFront("home").then(res => res?.data || null).catch(()=> null)
+    PageServices.getAllFaqForFront("home").then(res => res?.data || null).catch(() => null)
   ]);
 
 
-        const response = await serverInstance.get(`/page/home?type=home_page`);
+  const response = await serverInstance.get(`/page/home?type=home_page`);
 
- 
+
 
 
   return (
     <>
-      <Script
-        id="local-business-schema"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(localBusinessSchema),
         }}
@@ -126,8 +124,8 @@ export default async function Home({slug}) {
         youtubeVideo={youtubeVideo}
         studentSlider={studentSlider}
         studentHome={studentHome}
-        faq = {faq}
-         />
+        faq={faq}
+      />
     </>
   );
 }
