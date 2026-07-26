@@ -638,10 +638,10 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
       {/* Student Info Section - AUTO HEIGHT */}
       <section
-        className="pt-6 relative bg-white"
+        className=" relative bg-white"
 
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 l py-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 l lg:py-12 lg:px-8">
           <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
 
             {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
@@ -701,7 +701,9 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section>
 
+<div className="my-6">
       <SingleSlider />
+</div>
 
 
       {/* About Us Section */}
@@ -722,7 +724,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
       {/* Coaching Services Section */}
 
-      <section id="exams" className="relative py-16 md:py-20 bg-white overflow-hidden ">
+      <section id="exams" className="relative py-16 md:py-12 bg-white overflow-hidden ">
         {/* Background Decoration */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-1/2 h-full  opacity-60" />
@@ -732,11 +734,11 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-red-100  border border-[#F4A62A]/20 rounded-full px-4 py-1.5 mb-4">
-              <span className="text-[#C41430] text-[10px] md:text-xs font-bold uppercase tracking-wider">
+              <span className="text-[#C41430] text-sm md:text-sm font-bold uppercase tracking-wider">
                 {homePageDetails?.sections[3]?.content?.label}
               </span>
             </div>
-            <h2 className=" text-xl md:text-3xl lg:text-4xl font-extrabold text-black leading-tight mb-4">
+            <h2 className=" text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-4">
               {homePageDetails?.sections[3]?.content?.title}
             </h2>
             <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed" dangerouslySetInnerHTML={{
@@ -775,18 +777,18 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                   <div className={`absolute top-0 left-0 right-0 h-1 ${colorbgClass}  rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity`} />
 
                   {/* Category Badge */}
-                  <span className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-[10px] md:text-[11px] font-bold uppercase tracking-wide mb-3`}>
+                  <span className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-sm md:text-[11px] font-bold uppercase tracking-wide mb-3`}>
                     {exam.category}
                   </span>
 
                   {/* Exam Name & Details */}
-                  <h3 className={` text-3xl font-extrabold ${colorClass} mb-1`}>{exam.coursetitle}</h3>
-                  <p className=" h-full mb-2" dangerouslySetInnerHTML={{ __html: exam.coursesubtitle }} />
+                  <h3 className={`text-2xl lg:text-4xl font-bold ${colorClass} mb-1`}>{exam.coursetitle}</h3>
+                  <p className=" h-full lg:text-base mb-2" dangerouslySetInnerHTML={{ __html: exam.coursesubtitle }} />
 
                   {/* Features List */}
                   {/* <ul className="space-y-2 mb-6 flex-grow">
                 {exam.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-gray-600 text-xs">
+                  <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm">
                     <span className={`w-1.5 h-1.5 rounded-full bg-[#F4A62A] mt-1.5 shrink-0`} />
                     <span>{feature}</span>
                   </li>
@@ -796,7 +798,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                   {/* Enroll Button */}
                   <a
                     href={`/${exam?.slug}`}
-                    className="w-full py-2.5 rounded-lg bg-red-500 text-white text-xs font-semibold border border-white/20 hover:bg-[#F4A62A] hover:text-[#5a2d00] hover:border-[#F4A62A] transition-colors text-center"
+                    className="w-full py-2.5 rounded-lg bg-red-500 text-white text-base font-semibold border border-white/20 hover:bg-[#F4A62A] hover:text-[#5a2d00] hover:border-[#F4A62A] transition-colors text-center"
                   >
                     {exam?.btntext}
                   </a>
@@ -812,7 +814,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             </p>
             <button
               onClick={handleGetStarted}
-              className="bg-red-500 text-white px-6 py-3 rounded-lg font-bold text-sm hover:bg-[#e9971e] transition-colors shadow-lg shadow-[#F4A62A]/20 whitespace-nowrap"
+              className="bg-red-500 text-white px-6 py-3 rounded-lg font-bold text-base hover:bg-[#e9971e] transition-colors shadow-lg shadow-[#F4A62A]/20 whitespace-nowrap"
             >
               Get Free Test Guidance →
             </button>
@@ -848,7 +850,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       </section> */}
 
 
-      <section className=" py-10 md:py-16 px-4 md:px-8" id="destinations" style={{
+      <section className=" py-10 md:py-12 px-4 md:px-8" id="destinations" style={{
         background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
       }}>
         <div className="max-w-7xl mx-auto">
@@ -857,21 +859,21 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           <div className="mb-8 md:mb-12">
             <span
              
-              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-[10px] md:text-xs tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-sm md:text-sm tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
             >
               {homePageDetails?.sections[4]?.content?.label}
             </span>
 
             <h2
              
-              className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3">
+              className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3 font-bold">
               {homePageDetails?.sections[4]?.content?.title}
 
             </h2>
 
             <p
               
-              className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-lg mb-8 md:mb-12"
+              className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-base mb-8 md:mb-12"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[4]?.content?.subTitle
               }}
@@ -885,7 +887,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {homePageDetails.sections[4]?.content?.abroadconsulting?.map((service, index) => {
               return (
                 <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full">
-                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                     {service?.label}
                   </span>
 
@@ -898,6 +900,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
     [&_ul]:space-y-0
     [&_li]:leading-tight
     [&_li]:mb-0
+    lg:text-base
   "
                     dangerouslySetInnerHTML={{ __html: service?.content }}
                   />
@@ -918,13 +921,13 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {homePageDetails.sections[4]?.content?.testprepcourses?.map((course, index) => {
               return (
                 <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full">
-                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-[10px] md:text-xs font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                  <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                     {course?.label}
                   </span>
 
 
 
-                  <p className="text-xs sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed" dangerouslySetInnerHTML={{
+                  <p className="text-sm sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed" dangerouslySetInnerHTML={{
                     __html: course?.content
                   }}>
 
@@ -944,12 +947,12 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section>
 
-      <section className="bg-white py-14 md:py-20 px-4 md:px-8">
+      <section className="bg-white py-14 md:py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Badge */}
           <div className="flex  mb-3">
-            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-medium">
+            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-sm md:text-sm font-semibold uppercase tracking-wider">
               {homePageDetails?.sections[5]?.content?.label}
             </span>
           </div>
@@ -960,7 +963,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           </h2>
 
           {/* Subtext */}
-          <p className=" text-gray-500 mt-3 md:mt-4 max-w-2xl  text-sm md:text-lg" dangerouslySetInnerHTML={{
+          <p className=" text-gray-500 mt-3 md:mt-4 max-w-2xl  text-sm md:text-base" dangerouslySetInnerHTML={{
             __html: homePageDetails?.sections[5]?.content?.subTitle
           }}>
 
@@ -1004,7 +1007,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
+                  <p className="text-gray-500 text-sm md:text-base mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
                     __html: item.description
                   }}>
 
@@ -1023,7 +1026,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
 
 
-      <section className="bg-red-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-red-50 py-12 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
@@ -1031,9 +1034,9 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {/* Badge */}
             <span
             
-              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-sm sm:text-sm font-semibold uppercase tracking-wider mb-4"
             >
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-red-500 uppercase rounded-full"></span>
               {homePageDetails?.sections[9]?.content?.label}
             </span>
 
@@ -1048,7 +1051,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {/* Subtext */}
             <p
               
-              className="text-sm sm:text-base md:text-lg text-gray-800 max-w-2xl leading-relaxed"
+              className="text-sm sm:text-base md:text-base text-gray-800 max-w-2xl leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[9]?.content?.subTitle
               }}
@@ -1082,7 +1085,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                       {loc.name}
                     </h3>
 
-                    <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
+                    <p className={`text-sm sm:text-base leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
                       __html: loc.description
                     }}>
 
@@ -1138,7 +1141,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section> */}
 
-      <section className="py-14 bg-pink-100 px-5" id="process">
+      <section className="py-12 bg-pink-100 px-5" id="process">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-10">
 
@@ -1148,7 +1151,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
               {/* Header */}
               <div className="mb-8">
 
-                <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                <h2 className="text-2xl lg:text-4xl max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
                   {highlightText("How Gateway Abroad Helps || To Achieve Your Dream Destination || — End to End")}
                 </h2>
 
@@ -1196,7 +1199,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                             }`}
                         >
                           {/* Tag */}
-                          <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
+                          <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-sm sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
                             {item?.tag}
                           </span>
 
@@ -1242,7 +1245,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
                 {/* Contact Info Card */}
                 <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">
-                  <p className="text-gray-600 text-xs uppercase font-bold mb-2">
+                  <p className="text-gray-600 text-sm uppercase font-bold mb-2">
                     Call / WhatsApp
                   </p>
                   <a
@@ -1284,7 +1287,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       </section>
 
       {/* YouTube Testimonials Section */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      <section className="py-12 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-left mb-12 border-b-2 border-gray-200 pb-4">
             What Our Students Say
@@ -1334,7 +1337,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             
               className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6"
             >
-              <span className="text-[#C41430] font-bold text-xs sm:text-sm tracking-wider uppercase">
+              <span className="text-[#C41430] font-bold text-sm sm:text-sm tracking-wider uppercase">
                 {homePageDetails?.sections[8]?.content?.label}
               </span>
             </div>
@@ -1347,7 +1350,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             </h2>
 
             <p
-              className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
+              className="text-gray-600 text-base sm:text-base max-w-3xl leading-relaxed"
               dangerouslySetInnerHTML={{ __html: homePageDetails?.sections[8]?.content?.subTitle }}
             >
 
@@ -1394,10 +1397,10 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
                             {/* Tags */}
                             <div className='flex justify-between mb-4'>
-                              <span className="px-4 py-2 mt-2 rounded-full text-xs font-semibold bg-red-500 text-white">
+                              <span className="px-4 py-2 mt-2 rounded-full text-sm font-semibold bg-red-500 text-white">
                                 {test?.univercity}
                               </span>
-                              <span className="inline-block mt-2 px-4 py-2 rounded-full text-xs font-semibold bg-gray-200 text-gray-700">
+                              <span className="inline-block mt-2 px-4 py-2 rounded-full text-sm font-semibold bg-gray-200 text-gray-700">
                                 {test?.type}
                               </span>
                             </div>
@@ -1437,8 +1440,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
         Want results like these?
       </p>
-      {/* Minimum body: text-xs (12px) on mobile */}
-      <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
+      {/* Minimum body: text-sm (12px) on mobile */}
+      <p className="text-gray-300 text-sm sm:text-sm md:text-base leading-relaxed">
         Our coaches know exactly what it takes to crack your exam.
       </p>
     </div>
@@ -1467,7 +1470,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
       </section>
       {/* Blog Section */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      <section className="py-12 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center ">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-0 border-b-2 border-gray-200 pb-4">
@@ -1505,7 +1508,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
 
       {/* ====== Partner Section ====== */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-12 md:py-12 bg-white">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
             {/* Content container with specific padding */}

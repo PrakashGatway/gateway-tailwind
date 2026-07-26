@@ -12,7 +12,7 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
 
 
   return (
-    <section className="hero-gradient pt-12 py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
+    <section className="hero-gradient  py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
       {/* Animated background elements */}
       {/* <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
@@ -35,7 +35,7 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-3">
               <div className="">
-                <h1 className="text-3xl lg:text-[2.5rem] font-bold leading-[1.1]">
+                <h1 className="text-3xl lg:text-4xl font-bold leading-[1.1]">
                   <span className="inline">{title?.split(';')[0] || "Gateway"}</span>
                   {/* <br /> */}
                   {type != "about" && <> <span className="text-gradient py-1 inline">

@@ -73,7 +73,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
   };
 
   return (
-    <section className="  py-16 px-4 relative overflow-hidden" style={{
+    <section className="  py-12 px-4 relative overflow-hidden" style={{
           background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
         }}>
       {/* Background Pattern */}
@@ -114,7 +114,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-gray-800 text-lg md:text-lg max-w-3xl leading-relaxed"
+            className="text-gray-800 text-lg md:text-base max-w-3xl leading-relaxed"
             dangerouslySetInnerHTML={{
               __html : content.subTitle
             }}
@@ -183,7 +183,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
                   
                   <motion.p
                     variants={itemVariants}
-                    className="text-gray-800 text-sm leading-relaxed group-hover:text-gray-800 transition-colors duration-300"
+                    className="text-gray-800 text-base leading-relaxed group-hover:text-gray-800 transition-colors duration-300"
                   dangerouslySetInnerHTML={{
                       __html: step.description
                     }} >
@@ -257,7 +257,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
             whileTap={{ scale: 0.95 }}
             className="bg-[#D81635] hover:bg-[#c41430] text-white font-bold text-lg px-5 py-4 rounded-full shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto group"
           >
-            <Target className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+            <Target className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 text-lg" />
             Begin My Free Counselling
             <motion.span
               animate={{ x: [0, 5, 0] }}

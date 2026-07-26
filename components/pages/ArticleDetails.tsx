@@ -1449,6 +1449,8 @@ export default function ArticleClient({
 
     const [category, setCategories] = useState([])
 
+    console.log("article", article)
+
 
     const fetchCategories = useCallback(async () => {
         try {

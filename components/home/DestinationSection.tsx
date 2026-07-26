@@ -141,7 +141,7 @@ export default function DestinationsSection({ content }: { content: any }) {
   
 
     return (
-        <section className="py-12 sm:py-16 px-4 md:px-8" id="destinations" style={{
+        <section className="py-12 sm:py-12 px-4 md:px-8" id="destinations" style={{
             background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
         }}>
             <div className="max-w-7xl mx-auto">
@@ -150,7 +150,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
+                    className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xs lg:text-sm tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
                 >
                     {content?.label || "Study Abroad Destinations"}
                 </motion.span>
@@ -159,7 +159,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3"
+                    className=" text-2xl sm:text-3xl md:text-4xl font-bold font-black text-gray-900 leading-tight mb-3"
                 >
                     {content?.title || "Choose Your Country"}
                 </motion.h2>
@@ -168,7 +168,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 }}
-                    className="text-gray-600 w-full text-base sm:text-lg mb-8 sm:mb-12"
+                    className="text-gray-600 w-full text-base sm:text-base mb-8 sm:mb-12 text-justify"
                     dangerouslySetInnerHTML={{
                         __html : content.subTitle || ""
                     }}

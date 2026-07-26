@@ -9,16 +9,16 @@ const FAQSection = ({ content,faq }) => {
   };
 
   return (
-    <section className="py-12 md:py-5 px-4 md:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-12 px-4 md:px-0 bg-white">
+      <div className="max-w-7xl mx-auto">
         
         {/* Header */}
         <div className="mb-10 md:mb-14 text-center md:text-left">
-          <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
+          <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-sm tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
             {content?.label || "Frequently Asked Question"}
           </span>
           
-          <h2 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black leading-tight">
+          <h2 className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black ">
             {content?.title || "Study Abroad & Test Prep FAQs — Answered Honestly"}
           </h2>
         </div>

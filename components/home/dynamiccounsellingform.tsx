@@ -341,7 +341,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                 id="agree"
                 className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="agree" className="text-xs text-gray-500 leading-tight">
+              <label htmlFor="agree" className="text-sm text-gray-500 leading-tight">
                 I agree to be contacted via regarding my inquiry. <span className="text-red-500">*</span>
               </label>
             </div>
@@ -364,7 +364,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
               )}
             </button>
             
-            <p className="text-[10px] text-gray-400 text-center mt-3">
+            <p className="text-sm text-gray-400 text-center mt-3">
               By submitting, you agree to our Terms of Service and Privacy Policy.
             </p>
           </div>

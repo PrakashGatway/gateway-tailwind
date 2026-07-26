@@ -88,7 +88,7 @@ const Course = () => {
     if (formSubmitted) {
       window.open(value, '_blank');
     } else {
-      setShowModal(true);
+      handleGetStarted()
     }
   };
 
@@ -649,7 +649,7 @@ const handleGetStarted = () => {
           </div>
           <div className="text-center">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={handleGetStarted}
               className="text-white text-base md:text-lg font-bold bg-red-600 shadow-lg px-12 py-3 rounded-full hover:bg-red-700 transition-colors duration-300"
             >
               Choose Plan
@@ -674,7 +674,7 @@ const handleGetStarted = () => {
           </div>
           <div className="text-center">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={handleGetStarted}
               className="text-white text-base md:text-lg font-bold bg-red-600 shadow-lg px-12 py-3 rounded-full hover:bg-red-700 transition-colors duration-300"
             >
               Choose Plan
@@ -704,7 +704,7 @@ const handleGetStarted = () => {
           </div>
           <div className="text-center">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={handleGetStarted}
               className="text-white text-base md:text-lg font-bold bg-black shadow-lg px-12 py-3 rounded-full hover:bg-gray-800 transition-colors duration-300"
             >
               Choose Plan

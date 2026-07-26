@@ -14,17 +14,17 @@ export default function WhyStudyUK({ content }) {
 
 
     return (
-        <section className="bg-white pt-20 px-5">
+        <section className="bg-white py-12 px-5">
             <div className="max-w-7xl px-2 mx-auto">
 
                 {/* Title */}
-                <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
+                <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-7xl font-bold text-gray-800 !leading-[1.3] mb-2">
                     <span>{content.sections[1].content.title?.split("||")[0]}</span>
                     <span className="text-red-600 font-bold">{content.sections[1].title?.split("||")[1]}</span>
                 </h2>
 
                 {/* Description */}
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl mb-12">
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-7xl mb-12 text-justify">
                     {content.sections[1].content.subTittle}
                 </p>
 
@@ -43,10 +43,11 @@ export default function WhyStudyUK({ content }) {
                             {/* Left accent border */}
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#C8102E] to-[#012169] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl" />
 
-                            <DynamicIcon name={reason.icon} size={45} className="!stroke-[1.2px]" color="#C8102E" />
+                            {/* <DynamicIcon name={reason.icon} size={45} className="!stroke-[1.2px]" color="#C8102E" /> */}
+                            <span className="text-2xl">{reason.icon}</span>
 
                             {/* Title */}
-                            <h3 className="text-lg font-semibold text-gray-700 mt-3 mb-2">
+                            <h3 className="text-lg font-semibold text-gray-700 mb-2">
                                 {reason.name}
                             </h3>
 
@@ -76,12 +77,12 @@ export function TopUKUniversities({ content }) {
 
 
     return (
-        <section className="bg-pink-100 py-20 px-5 relative overflow-hidden">
+        <section className="bg-pink-100 py-12 px-5 relative overflow-hidden">
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <div className="mb-10">
-                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-2">
+                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] font-bold text-gray-800 !leading-[1.3] mb-2">
                         {content?.title}
                     </h2>
 
@@ -112,7 +113,7 @@ export function TopUKUniversities({ content }) {
                                 <h3 className="text-lg sm:text-xl font-bold text-gray-600 mt-1 group-hover:text-red-600 transition-colors duration-300">
                                     {uni?.name}
                                 </h3>
-                                <p className="text-sm">{uni?.description}</p>
+                                <p className="text-base">{uni?.description}</p>
                                 {/* <span className="text-3xl filter drop-shadow-lg">{uni.image}</span> */}
                             </div>
 
@@ -190,16 +191,16 @@ export function UKStudyCosts({ content }) {
 
 
     return (
-        <section className="bg-white pt-14 px-5">
+        <section className="bg-white py-12 px-5">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
                 <div className="mb-12">
-                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] font-bold text-gray-800 !leading-[1.3] mb-4">
                         {content?.sections[3]?.content?.title}
                     </h2>
 
-                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                         {content?.sections[3]?.content?.subTitle}
 
                     </p>
@@ -394,7 +395,7 @@ export function GatewayAbroadProcess({ content }) {
 
 
     return (
-        <section className="py-14 bg-pink-100 px-5" id="process">
+        <section className="py-12 bg-pink-100 px-5" id="process">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col lg:flex-row gap-10">
 
@@ -853,16 +854,16 @@ export function UKScholarships({ content }) {
 
 
     return (
-        <section className="bg-white py-10 px-5">
+        <section className="bg-white py-12 px-5">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
                 <div className=" mb-12">
-                    <h2 className="text-2xl lg:text-5xl xl:text-[2.4rem] max-w-2xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                    <h2 className="text-2xl lg:text-5xl xl:text-[2.4rem]  font-bold text-gray-800 !leading-[1.3] mb-4">
                         {content?.sections[6]?.content?.sectiontitle}
                     </h2>
 
-                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                         {content?.sections[6]?.content?.sectionsubtitle}
 
                     </p>
@@ -1003,11 +1004,11 @@ export function UKUniversityIntakes({ content }) {
 
                 {/* Header */}
                 <div className=" mb-12">
-                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] max-w-3xl font-bold text-gray-800 !leading-[1.3] mb-4">
+                    <h2 className="text-2xl lg:text-4xl xl:text-[2.4rem] font-bold text-gray-800 !leading-[1.3] mb-4">
                         {content?.sections[4]?.content?.sectiontitle}
                     </h2>
 
-                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-4xl">
+                    <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                         {content?.sections[4]?.content?.sectionsubtitle}
 
                     </p>
@@ -1027,7 +1028,7 @@ export function UKUniversityIntakes({ content }) {
                 <div className="text-center">
                     <a
                         href="#apply"
-                        className="inline-flex items-center text-sm gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-lg shadow-red-200 hover:shadow-red-300 hover:-translate-y-1 group"
+                        className="inline-flex items-center text-base gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-lg shadow-red-200 hover:shadow-red-300 hover:-translate-y-1 group"
                     >
                         Get Free Intake Counselling
                         <svg

@@ -209,7 +209,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       <section className="bg-pink-100 pt-8 py-1 flex items-center relative overflow-hidden">
 
 
-        <div className="max-w-7xl mx-auto px-4 py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 py-12 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
 
             <div className="space-y-4 w-full items-start lg:w-[62%]">
@@ -218,7 +218,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                   {highlightText(content?.title) || content?.title}
                 </h1>
                 <p
-                  className="text-base lg:text-lg leading-relaxed mt-4"
+                  className="text-base lg:text-lg text-justify leading-relaxed mt-4"
                   style={{
                     color: "rgba(0, 0, 0, 0.9)",
                     textShadow: "0 2px 8px rgba(255, 255, 255, 0.6)"
@@ -323,7 +323,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
         </div>
         <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
+          <h2 className="text-2xl md:text-4xl font-bold text-center text-gray-900 mb-8">
             What Our Achievers Say
           </h2>
 
@@ -380,7 +380,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
         </div>
       </section>
       {/* <CardStackGridSection video={video} /> */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-12 md:py-12 bg-white">
         <div className=" mx-auto px-4 max-w-7xl">
           <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full">
             {/* Content container with specific padding */}
@@ -388,7 +388,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
               <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
                 <div className="w-full lg:w-[75%] pt-6">
                   <div className="text-center lg:text-left pl-[17px]">
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
+                    <h2 className="text-xl sm:text-2xl lg:text-4xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px] ">
                       Avail A Complementary Counselling Session
                     </h2>
                     <p className="text-base  lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
@@ -417,10 +417,10 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
           </div>
         </div>
       </section>
-      <section className="py-4">
+      <section className="lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
-            <h2 className="heading text-2xl font-bold mb-0">Important Facts & Information</h2>
+            <h2 className="heading text-4xl font-bold mb-0">Important Facts & Information</h2>
             <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
               <Link href="/blog" className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
             </button>
@@ -457,7 +457,7 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
                       >
                         <div
                           key={index}
-                          className={`min-w-[360px] max-w-[360px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
+                          className={`min-w-[360px] max-w-[460px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
                         >
                           {/* Image */}
                           <div className="relative h-52">

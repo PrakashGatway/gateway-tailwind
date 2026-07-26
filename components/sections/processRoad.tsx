@@ -108,11 +108,11 @@ const ProcessRoadmap = ({ content }: any) => {
       <div className="max-w-full sm:max-w-xl md:max-w-3xl lg:max-w-7xl mx-auto relative z-5">
         {/* Section Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="heading mb-2 sm:mb-3 text-xl sm:text-2xl font-bold">
+          <h2 className="heading mb-2 sm:mb-3 text-xl sm:text-4xl font-bold">
             Your Study Abroad
             <span className="text-[#D71635]"> {content?.title.split(" ").slice(3).join(" ") || ""}</span>
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-full sm:max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-600 max-w-full mx-auto">
             Navigate your journey to studying abroad with our comprehensive 6-step process, designed to make your dreams a reality.
           </p>
         </div>

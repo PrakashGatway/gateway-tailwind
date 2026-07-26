@@ -143,7 +143,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
 
   if (loading) {
     return (
-      <section className="py-20 bg-[#F3E0F2] overflow-hidden">
+      <section className="py-12 bg-[#F3E0F2] overflow-hidden">
         <div className="container-sm mx-auto px-4 sm:px-6 lg:px-8 w-[80%]">
           <div className="text-center mb-10">
             <h2 className="heading text-center d-block mb-2">Loading programs...</h2>

@@ -34,7 +34,7 @@ export default function SingleBlogPage({
 
  const pathname = usePathname();
 
-
+console.log(blogData)
  
 
   return (

@@ -87,7 +87,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
   };
 
   return (
-    <section className="bg-red-50 py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="bg-red-50 py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <motion.div
@@ -100,10 +100,10 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring" }}
-            className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-6 shadow-sm border border-gray-200"
+            className="inline-flex items-center gap-2 bg-red-100 px-4 py-2  rounded-full mb-6 shadow-sm border border-gray-200"
           >
             <Award className="w-4 h-4 text-[#EF4444]" />
-            <span className="text-[#D81635] py-1 rounded-full text-xs md:text-sm font-medium">
+            <span className="text-[#D81635] py-1 rounded-full text-xs md:text-sm font-semibold uppercase tracking-wider">
               {content?.label}
             </span>
           </motion.div>
@@ -121,7 +121,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed"
+            className="text-gray-600 text-base sm:text-base max-w-3xl leading-relaxed"
             dangerouslySetInnerHTML={{ __html: content?.subTitle }}
           />
         </motion.div>

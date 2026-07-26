@@ -81,10 +81,10 @@ const StudyAbroadPage = ({ content, faq }: any) => {
   return (
     <>
       {/* HERO */}
-      <section className="hero-gradient pt-10 py-1 pb-0  flex items-center relative overflow-hidden">
+      <section className="hero-gradient py-12 pb-0  flex items-center relative overflow-hidden">
 
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content with staggered animations */}
             <div className="space-y-4">
@@ -197,12 +197,12 @@ const StudyAbroadPage = ({ content, faq }: any) => {
       {/* <DestinationSection content={getContentByType('StudyDestinations')} /> */}
       <DestinationsSection content={content?.sections[0].content} />
       <DegreesSection content={getContentByType('AcademicPrograms')} />
-      <section className="bg-white py-14 md:py-20 px-4 md:px-8">
+      <section className="bg-white py-14 md:py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Badge */}
           <div className="flex  mb-3">
-            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-medium">
+            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-bold uppercase">
               {getContentByType('whychooseus')?.label}
             </span>
           </div>
@@ -214,7 +214,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
           </h2>
 
           {/* Subtext */}
-          <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-lg" dangerouslySetInnerHTML={{
+          <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-base" dangerouslySetInnerHTML={{
             __html: getContentByType('whychooseus')?.subTitle
           }}>
 
@@ -276,7 +276,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
       {/* <CardLayout content={getContentByType('WhyChooseUs')} /> */}
 
       <section id="services" className="hero-gradient">
-        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 py-12 md:py-12">
 
           {/* Heading */}
           <div className="text-center">
@@ -284,12 +284,12 @@ const StudyAbroadPage = ({ content, faq }: any) => {
               {getContentByType("servicesection")?.label}
             </span>
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
               {getContentByType("servicesection")?.title}
 
             </h2>
 
-            <p className="mt-3 text-sm md:text-base text-gray-800 max-w-2xl mx-auto" dangerouslySetInnerHTML={{
+            <p className="mt-3 text-base md:text-base text-gray-800 mx-auto" dangerouslySetInnerHTML={{
               __html: getContentByType("servicesection")?.subtitle
             }}>
 
@@ -314,11 +314,11 @@ const StudyAbroadPage = ({ content, faq }: any) => {
 
                   {/* Content */}
                   <div>
-                    <h3 className="font-bold text-[0.88rem] text-black mb-[5px]">
+                    <h3 className="font-bold text-lg text-black mb-[5px]">
                       {item.title}
                     </h3>
 
-                    <p className="text-[0.79rem] text-gray-800  leading-[1.6]" dangerouslySetInnerHTML={{
+                    <p className="text-sm text-gray-800  leading-[1.6]" dangerouslySetInnerHTML={{
                       __html: item.subtitle
                     }}>
 
@@ -344,7 +344,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
       </section>
       <ProcessRoadmap />
 
-      <section className="bg-red-50 py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-red-50 py-12 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
@@ -355,7 +355,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
             >
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-red-500 text-sm uppercase font-bold rounded-full"></span>
               {getContentByType("citysection")?.label}
             </motion.span>
 

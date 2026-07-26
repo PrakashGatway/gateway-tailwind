@@ -15,7 +15,7 @@ const About = ({ content }) => {
 
 
   return (
-    <section id="about" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="about" className="py-12 sm:py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-start">
 
@@ -23,13 +23,13 @@ const About = ({ content }) => {
           <div className="space-y-4 sm:space-y-6">
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 bg-[#EAF2FD] rounded-full px-3 sm:px-4 py-1.5 animate-fade-up">
-              <span className="text-[10px] sm:text-xs font-bold text-[#0C447C] tracking-wider uppercase">
+              <span className="text-[10px] sm:text-sm font-bold text-[#0C447C] tracking-wider uppercase">
                 {content?.label}
               </span>
             </div>
 
             {/* Heading */}
-            <h2 className=" text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand leading-tight animate-fade-up delay-100">
+            <h2 className=" text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight animate-fade-up delay-100">
               {content?.title}
 
             </h2>
@@ -59,6 +59,8 @@ const About = ({ content }) => {
                 dangerouslySetInnerHTML={{
                   __html: content?.howwehelp[0]?.description
                 }}
+
+                className="text-sm sm:text-base text-justify leading-relaxed"
               />
 
 
@@ -85,15 +87,15 @@ const About = ({ content }) => {
             return (
               <div
                 key={idx}
-                className="pillar-card bg-surface rounded-r12 p-4 sm:p-5 border border-border hover:border-brand hover:-translate-y-0.5"
+                className=" bg-surface rounded-r12 p-4 sm:p-5 border border-border hover:border-brand hover:-translate-y-0.5"
               >
                 <div className='flex items-center '>
                   <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-red-100 flex items-center justify-center mb-2.5 sm:mb-3 mr-2 `}>
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#D81635]" />
                   </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-brand mb-3">{pillar.title}</h3>
+                  <h3 className="text-base sm:text-base font-bold  mb-3">{pillar.title}</h3>
                 </div>
-                <p className="text-[10px] sm:text-xs text-muted leading-snug" dangerouslySetInnerHTML={{
+                <p className="text-sm sm:text-sm " dangerouslySetInnerHTML={{
                   __html: pillar.description || ""
                 }} />
               </div>

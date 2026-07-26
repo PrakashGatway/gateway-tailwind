@@ -11,7 +11,7 @@ const LandingPage = ({ content }) => {
  
 
   return (
-    <div className="  flex items-center justify-center px-4 py-12 relative overflow-hidden font-sans" style={{
+    <div className="  flex items-center justify-center px-4 py-12 relative overflow-hidden" style={{
           background: "linear-gradient(180deg, rgba(188, 140, 252, 0.2), rgba(215, 22, 53, 0.2))"
         }}>
       
@@ -20,14 +20,14 @@ const LandingPage = ({ content }) => {
         
         {/* Headline Section */}
         <div className="space-y-2">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black leading-tight tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-bold text-black leading-tight tracking-tight">
             {content?.title}
           </h2>
         
         </div>
 
         {/* Subheadline */}
-        <p className="text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-light" dangerouslySetInnerHTML={{__html : content?.subTitle}}>
+        <p className="text-gray-800 text-sm sm:text-base md:text-base lg:text-base max-w-2xl mx-auto leading-relaxed font-semibold" dangerouslySetInnerHTML={{__html : content?.subTitle}}>
           
         </p>
 
@@ -60,7 +60,7 @@ const LandingPage = ({ content }) => {
         </form>
 
         {/* Trust Badges / Features */}
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 mt-8 text-[10px] sm:text-xs md:text-sm text-gray-800 font-medium tracking-wide">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 mt-8 text-[10px] sm:text-xs md:text-base text-gray-800 font-medium tracking-wide">
           {content?.features?.map((feature, index) => (
             <div key={index} className="flex items-center gap-1 bg-white/80 px-3 py-1 rounded-full border border-gray-200 shadow-sm">
               <CheckCircle2 className="w-4 h-4 text-green-500" />
