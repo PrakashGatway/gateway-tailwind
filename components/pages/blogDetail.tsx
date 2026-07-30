@@ -5,7 +5,10 @@ import { constant } from '@/constant/index.constant';
 import { redirect, usePathname, useRouter } from 'next/navigation';
 import ContactForm from './UkForm';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import PageServices from '@/services/PageServices';
+import { Eye, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useGlobal } from '@/hooks/AppStateContext';
 
 export default function SingleBlogPage({
   blogData,
@@ -16,6 +19,113 @@ export default function SingleBlogPage({
 }: any) {
 
   const { prevBlog, nextBlog } = adjacentBlogs || {};
+
+  const [viewCount,setviewCount] = useState(null)
+  const [comments, setComments] = useState([]);
+const [loading, setLoading] = useState(false);
+const [replyingTo, setReplyingTo] = useState(null);
+const [replyingToName, setReplyingToName] = useState("");
+const [showReplies, setShowReplies] = useState({});
+
+const {user, setDrawer} = useGlobal();
+
+const [commentForm, setCommentForm] = useState({
+    content: "",
+});
+
+const fetchComments = async () => {
+    if (!blogData?._id) return;
+
+    try {
+        setLoading(true);
+
+        const response = await PageServices.getBlogComments(
+            blogData._id
+        );
+
+        setComments(response?.data?.comments || []);
+
+    } catch (error) {
+        console.error("Get comments error:", error);
+    } finally {
+        setLoading(false);
+    }
+};
+
+useEffect(() => {
+    if (blogData?._id) {
+        fetchComments();
+    }
+}, [blogData?._id]);
+
+
+
+const handleCommentSubmit = async (e) => {
+   e.preventDefault();
+        if (!user) {
+            setDrawer(true);
+            return;
+        }
+
+    try {
+        const body = {
+            blogId: blogData._id,
+            content: commentForm.content,
+            name: user?.name,
+            parentComment: replyingTo || null,
+        };
+
+        await PageServices.createBlogComment(body);
+
+        setCommentForm({
+            content: "",
+        });
+
+        setReplyingTo(null);
+        setReplyingToName("");
+        alert("Comment Submitted Successfully")
+
+        // Get updated comments
+        await fetchComments();
+
+    } catch (error) {
+        console.error("Comment submit error:", error);
+    }
+};
+
+
+const handleReply = (commentId, authorName) => {
+    setReplyingTo(commentId);
+    setReplyingToName(authorName || "Anonymous");
+
+    document
+        .getElementById("comment-form")
+        ?.scrollIntoView({
+            behavior: "smooth",
+        });
+};
+
+const handleCancelReply = () => {
+    setReplyingTo(null);
+    setReplyingToName("");
+
+    setCommentForm({
+        content: "",
+    });
+};
+
+
+
+const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    });
+};
+
+
+
 
   if (!blogData || !blogData.Slug) {
     return (
@@ -34,7 +144,32 @@ export default function SingleBlogPage({
 
  const pathname = usePathname();
 
-console.log(blogData)
+
+
+
+useEffect(() => {
+  if (!blogData?.Slug) return;
+
+  // Show current view count immediately
+  setviewCount(Number(blogData?.viewCount ?? 0));
+
+  const timer = setTimeout(async () => {
+    try {
+      const response = await PageServices.incrementBlogView(blogData.Slug);
+
+      // Updated view count from API
+      setviewCount(Number(response?.data?.viewCount ?? 0));
+
+      console.log("View updated:", response);
+    } catch (error) {
+      console.error("View count error:", error);
+    }
+  }, 10000);
+
+  return () => {
+    clearTimeout(timer);
+  };
+}, [blogData?.Slug]);
  
 
   return (
@@ -80,6 +215,20 @@ console.log(blogData)
                   </span>
                 </div>
               )}
+
+            { (
+  <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-3 py-1.5">
+    <Eye className="h-4 w-4 text-[#E12827]" />
+
+    <span className="text-xs font-medium text-gray-600">
+      Views
+    </span>
+
+   <span className="text-sm font-bold text-[#E12827]">
+  {(1000 + (viewCount ?? Number(viewCount?.viewCount ?? 0))).toLocaleString()}
+</span>
+  </div>
+)}
                <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10'>
                Author - Sakshi Taneja
               </Link>
@@ -294,28 +443,156 @@ console.log(blogData)
                 </div>
 
                 {/* Comment Section */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Leave a Reply</h4>
-                  <p className="text-gray-600 mb-6">Your email address will not be published.</p>
-                  <form className="space-y-4">
-                    <div>
-                      <textarea
-                        placeholder="Your Comment *"
-                        className="w-full flex h-[200px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-[17px] px-4 text-gray-900 transition-colors"
-                        rows={5}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="bg-[#E12827] text-white px-8 py-3 rounded-md hover:bg-[#c82322] transition duration-200 font-semibold"
-                      >
-                        POST COMMENT
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h3 className="text-2xl font-bold text-gray-900">
+                                        Comments ({comments.length})
+                                    </h3>
+                                    {comments.length > 0 && (
+                                        <button
+                                            onClick={() => document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' })}
+                                            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
+                                        >
+                                            Add Comment
+                                        </button>
+                                    )}
+                                </div>
+
+                                <div id="comment-form" className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+                                    <h4 className="text-lg font-bold text-gray-900 mb-2">
+                                        {replyingTo ? 'Reply to Comment' : 'Leave a Comment'}
+                                    </h4>
+                                    {replyingTo && (
+                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
+                                            <span className="font-medium">Replying to: {replyingToName}</span>
+                                            <button
+                                                onClick={handleCancelReply}
+                                                className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                            >
+                                                Cancel Reply
+                                            </button>
+                                        </div>
+                                    )}
+                                    <p className="text-gray-600 text-sm mb-4">Your email address will not be published.</p>
+                                    <form onSubmit={handleCommentSubmit} className="space-y-4">
+                                        <textarea
+                                            placeholder="Your Comment *"
+                                            className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+                                            value={commentForm.content}
+                                            onChange={(e) => setCommentForm({ ...commentForm, content: e.target.value })}
+                                            required
+                                        />
+                                        <button
+                                            type="submit"
+                                            className="bg-[#E12827] text-white px-8 py-3 rounded-lg hover:bg-[#c82322] transition duration-200 font-semibold hover:shadow-lg"
+                                        >
+                                            POST {replyingTo ? 'REPLY' : 'COMMENT'}
+                                        </button>
+                                    </form>
+                                </div>
+
+                                {loading ? (
+                                    <div className="flex justify-center py-8">
+                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-4">
+                                        {comments.length === 0 ? (
+                                            <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-lg">
+                                                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                    <span className="text-2xl">💬</span>
+                                                </div>
+                                                <p className="text-lg font-medium mb-2">No comments yet</p>
+                                                <p className="text-sm text-gray-600">Be the first to share your thoughts!</p>
+                                            </div>
+                                        ) : (
+                                            comments.slice(0, 5).map((comment) => (
+                                                <div key={comment._id} className="rounded-xl p-4 bg-white border border-gray-100 hover:border-gray-200 transition-all mb-4 last:mb-0">
+                                                    <div className="flex items-start space-x-3">
+                                                        <div className="flex-shrink-0">
+                                                            <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
+                                                                <span className="text-red-600 font-bold text-sm">
+                                                                    {comment.author?.name?.charAt(0)?.toUpperCase() || 'A'}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+                                                                <div>
+                                                                    <span className="font-bold text-gray-900">
+                                                                        {comment.author?.name || 'Anonymous'}
+                                                                    </span>
+                                                                    <span className="text-xs text-gray-500 ml-2">
+                                                                        {formatDate(comment.createdAt)}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="flex items-center space-x-3 mt-1 sm:mt-0">
+                                                            
+                                                                 
+                                                                    <button
+                                                                        onClick={() => handleReply(comment._id, comment.author?.name)}
+                                                                        className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
+                                                                    >
+                                                                        Reply
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <p className="text-gray-700 mb-3">{comment.content}</p>
+
+                                                            {comment.nestedReplies && comment.nestedReplies.length > 0 && (
+                                                                <div className="mt-4 space-y-3 border-l-2 border-gray-100 pl-4">
+                                                                    {(showReplies[comment._id]
+                                                                        ? comment.nestedReplies
+                                                                        : comment.nestedReplies.slice(0, 2)
+                                                                    ).map((reply) => (
+                                                                        <div key={reply._id} className="flex items-start space-x-3">
+                                                                            <div className="flex-shrink-0">
+                                                                                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                                                    <span className="text-purple-600 font-bold text-xs">
+                                                                                        {reply.author?.name?.charAt(0)?.toUpperCase() || 'A'}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="flex-1">
+                                                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
+                                                                                    <div>
+                                                                                        <span className="font-medium text-gray-900 text-sm">
+                                                                                            {reply.author?.name || 'Anonymous'}
+                                                                                        </span>
+                                                                                        <span className="text-xs text-gray-500 ml-2">
+                                                                                            {formatDate(reply.createdAt)}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                  
+                                                                                </div>
+                                                                                <p className="text-gray-600 text-sm">{reply.content}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    ))}
+
+                                                                    {comment.nestedReplies.length > 2 && (
+                                                                        <button
+                                                                            onClick={() => toggleReplies(comment._id)}
+                                                                            className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
+                                                                        >
+                                                                            {showReplies[comment._id]
+                                                                                ? 'Hide replies'
+                                                                                : `View ${comment.nestedReplies.length - 2} more replies`}
+                                                                            <i className={`ml-1 ${showReplies[comment._id] ? 'fa fa-chevron-up' : 'fa fa-chevron-down'}`}></i>
+                                                                        </button>
+                                                                    )}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+
+                                     
+                                    </div>
+                                )}
+                            </div>
               </div>
 
               {/* Sidebar */}

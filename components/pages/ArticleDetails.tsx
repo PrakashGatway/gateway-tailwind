@@ -1330,6 +1330,7 @@ import { constant } from '@/constant/index.constant';
 import { useCallback, useEffect, useState } from 'react';
 import axiosInstance from '@/services/axiosInstance';
 import ContactForm from './UkForm';
+import { useGlobal } from '@/hooks/AppStateContext';
 // import { useEffect, useState } from 'react';
 // import axiosInstance from '@/services/axiosInstance';
 // import { useGlobal } from '@/hooks/AppStateContext';
@@ -1468,138 +1469,154 @@ export default function ArticleClient({
 
 
 
-    const [views, setViews] = useState(article.viewCount);
+    const [views, setViews] = useState(null);
+    
+useEffect(() => {
+  if (!article?._id) return;
+
+
+      setViews(Number(article.viewCount ?? 0));
+
+  const timer = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `https://uat.gatewayabroadeducations.com/api/v1/web/blog/log/${article._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to update blog view");
+      }
+
+      const data = await res.json();
+
+      console.log("View response:", data);
+
+      setViews(Number(data?.data?.viewCount ?? 0));
+    } catch (error) {
+      console.error("View count error:", error);
+    }
+  }, 10000);
+
+  return () => clearTimeout(timer);
+}, [article?._id]);
+
+
+
+    const [comments, setComments] = useState(commentsProp);
+    const [commentForm, setCommentForm] = useState({
+        name: '',
+        email: '',
+        content: '',
+        parentCommentId: null
+    });
+    const [replyingTo, setReplyingTo] = useState(null);
+    const [showReplies, setShowReplies] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    const {user, setDrawer} = useGlobal();
+
+    const fetchComments = async () => {
+    try {
+        setLoading(true);
+        const response = await axiosInstance.get(`/web/comments/${article._id}`);
+
+        if (response.data.success) {
+            setComments(response.data.data.comments || []);
+        }
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+    } finally {
+        setLoading(false);
+    }
+    };
 
     useEffect(() => {
-        const updateView = async () => {
-            const res = await fetch(
-                `https://uat.gatewayabroadeducations.com/api/v1/web/blog/${slug}`,
-                {
-                    cache: "no-store",
-                }
-            );
-
-            const data = await res.json();
-
-
-            // assuming API returns updated viewCount
-            setViews(data?.data?.viewCount);
-        };
-
-        updateView();
-    }, [slug]);
-
-
-
-    // const [comments, setComments] = useState(commentsProp);
-    // const [commentForm, setCommentForm] = useState({
-    //     name: '',
-    //     email: '',
-    //     content: '',
-    //     parentCommentId: null
-    // });
-    // const [replyingTo, setReplyingTo] = useState(null);
-    // const [showReplies, setShowReplies] = useState({});
-    // const [loading, setLoading] = useState(false);
-
-    // const {user, setDrawer} = useGlobal();
-
-    // const fetchComments = async () => {
-    // try {
-    //     setLoading(true);
-    //     const response = await axiosInstance.get(`/web/comments/${article._id}`);
-
-    //     if (response.data.success) {
-    //         setComments(response.data.data.comments || []);
-    //     }
-    // } catch (error) {
-    //     console.error('Error fetching comments:', error);
-    // } finally {
-    //     setLoading(false);
-    // }
-    // };
-
-    // useEffect(() => {
-    //     if (article?._id) {
-    //         fetchComments();
-    //     }
-    // }, [article?._id]);
+        if (article?._id) {
+            fetchComments();
+        }
+    }, [article?._id]);
 
     // Handle comment submit
-    // const handleCommentSubmit = async (e) => {
-    //     e.preventDefault();
-    //     if (!user) {
-    //         setDrawer(true);
-    //         return;
-    //     }
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        if (!user) {
+            setDrawer(true);
+            return;
+        }
 
-    //     try {
-    //         const response = await axiosInstance.post('/web/comments/create', {
-    //             articleId: article._id,
-    //             content: commentForm.content,
-    //             parentCommentId: commentForm.parentCommentId
-    //         });
+        try {
+            const response = await axiosInstance.post('/web/comments/create', {
+                articleId: article._id,
+                content: commentForm.content,
+                parentCommentId: commentForm.parentCommentId
+            });
 
-    //         if (response) {
-    //             setCommentForm({
-    //                 name: '',
-    //                 email: '',
-    //                 content: '',
-    //                 parentCommentId: null
-    //             });
-    //             setReplyingTo(null);
-    //             fetchComments();
-    //             alert('Comment posted successfully! It will appear after admin approval.');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error posting comment:', error);
-    //         alert('Error posting comment');
-    //     }
-    // };
+            if (response) {
+                setCommentForm({
+                    name: '',
+                    email: '',
+                    content: '',
+                    parentCommentId: null
+                });
+                setReplyingTo(null);
+                fetchComments();
+                alert('Comment posted successfully! It will appear after admin approval.');
+            }
+        } catch (error) {
+            console.error('Error posting comment:', error);
+            alert('Error posting comment');
+        }
+    };
 
-    // const handleReply = (commentId, authorName) => {
-    //     setReplyingTo(commentId);
-    //     setCommentForm(prev => ({
-    //         ...prev,
-    //         content: `@${authorName} `,
-    //         parentCommentId: commentId
-    //     }));
-    //     document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
-    // };
+    const handleReply = (commentId, authorName) => {
+        setReplyingTo(commentId);
+        setCommentForm(prev => ({
+            ...prev,
+            content: `@${authorName} `,
+            parentCommentId: commentId
+        }));
+        document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' });
+    };
 
-    // const handleCancelReply = () => {
-    //     setReplyingTo(null);
-    //     setCommentForm(prev => ({
-    //         ...prev,
-    //         content: '',
-    //         parentCommentId: null
-    //     }));
-    // };
+    const handleCancelReply = () => {
+        setReplyingTo(null);
+        setCommentForm(prev => ({
+            ...prev,
+            content: '',
+            parentCommentId: null
+        }));
+    };
 
-    // const handleLike = async (commentId) => {
-    //     try {
-    //         await axiosInstance.post(`/web/${commentId}/like`);
-    //         fetchComments();
-    //     } catch (error) {
-    //         console.error('Error liking comment:', error);
-    //     }
-    // };
+    const handleLike = async (commentId) => {
+        try {
+            await axiosInstance.post(`/web/${commentId}/like`);
+            fetchComments();
+        } catch (error) {
+            console.error('Error liking comment:', error);
+        }
+    };
 
-    // const handleDislike = async (commentId) => {
-    //     try {
-    //         await axiosInstance.post(`/web/${commentId}/dislike`);
-    //         fetchComments();
-    //     } catch (error) {
-    //         console.error('Error disliking comment:', error);
-    //     }
-    // };
+    const handleDislike = async (commentId) => {
+        try {
+            await axiosInstance.post(`/web/${commentId}/dislike`);
+            fetchComments();
+        } catch (error) {
+            console.error('Error disliking comment:', error);
+        }
+    };
 
-    // const toggleReplies = (commentId) => {
-    //     setShowReplies(prev => ({
-    //         ...prev,
-    //         [commentId]: !prev[commentId]
-    //     }));
-    // };
+    const toggleReplies = (commentId) => {
+        setShowReplies(prev => ({
+            ...prev,
+            [commentId]: !prev[commentId]
+        }));
+    };
 
 
     if (!article || !article.slug) {
@@ -1664,7 +1681,8 @@ export default function ArticleClient({
                             </div>
                         )}
                         <div>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View - {views}</span>
+                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View -   {(1000 + (views ?? Number(views ?? 0))).toLocaleString()}
+</span>
                         </div>
                         {/* <div>
                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
@@ -1877,7 +1895,7 @@ export default function ArticleClient({
                                 </div>
                             </div>
 
-                            {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-2xl font-bold text-gray-900">
                                         Comments ({comments.length})
@@ -2062,7 +2080,7 @@ export default function ArticleClient({
                                         )}
                                     </div>
                                 )}
-                            </div> */}
+                            </div>
                         </div>
 
                         {/* Sidebar */}

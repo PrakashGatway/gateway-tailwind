@@ -43,8 +43,8 @@ export default function WhyStudyUK({ content }) {
                             {/* Left accent border */}
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#C8102E] to-[#012169] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl" />
 
-                            {/* <DynamicIcon name={reason.icon} size={45} className="!stroke-[1.2px]" color="#C8102E" /> */}
-                            <span className="text-2xl">{reason.icon}</span>
+                            <DynamicIcon name={reason.icon} size={45} className="!stroke-[1.2px]" color="#C8102E" />
+                            {/* <span className="text-2xl">{reason.icon}</span> */}
 
                             {/* Title */}
                             <h3 className="text-lg font-semibold text-gray-700 mb-2">
@@ -74,6 +74,7 @@ export function TopUKUniversities({ content }) {
         window.dispatchEvent(new CustomEvent('openFooterModal'));
     };
 
+    
 
 
     return (
@@ -106,10 +107,10 @@ export function TopUKUniversities({ content }) {
                                 {uni.qsRank}
                             </div>
                             {/* Animated gradient overlay on hover */}
-                            <div className={`absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none`} />
+                            <div className={`absolute inset-0  bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none`} />
 
                             {/* QS Rank Tag - Enhanced */}
-                            <div className="relative z-10  items-start justify-between mb-1">
+                            <div className="relative z-10  items-start justify-between mt-4">
                                 <h3 className="text-lg sm:text-xl font-bold text-gray-600 mt-1 group-hover:text-red-600 transition-colors duration-300">
                                     {uni?.name}
                                 </h3>
@@ -151,7 +152,7 @@ export function TopUKUniversities({ content }) {
 
                                 {/* Visit Button */}
                                 <Link
-                                    href={"/contact"}
+                                    href={`/${uni?.slug}`}
                                     onClick={!uni?.slug ? handleGetStarted : undefined}
                                     className="px-10 text-center text-sm py-2 rounded-full bg-[#F7E8FA] text-black font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
                                 >

@@ -121,7 +121,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-gray-600 text-base sm:text-base max-w-3xl leading-relaxed"
+            className="text-gray-600 text-base sm:text-base leading-relaxed"
             dangerouslySetInnerHTML={{ __html: content?.subTitle }}
           />
         </motion.div>

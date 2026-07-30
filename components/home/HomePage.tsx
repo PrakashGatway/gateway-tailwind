@@ -701,9 +701,9 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         </div>
       </section>
 
-<div className="my-6">
-      <SingleSlider />
-</div>
+      <div className="my-6">
+        <SingleSlider />
+      </div>
 
 
       {/* About Us Section */}
@@ -858,22 +858,22 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           {/* Header Section */}
           <div className="mb-8 md:mb-12">
             <span
-             
+
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-sm md:text-sm tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4"
             >
               {homePageDetails?.sections[4]?.content?.label}
             </span>
 
             <h2
-             
+
               className=" text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3 font-bold">
               {homePageDetails?.sections[4]?.content?.title}
 
             </h2>
 
             <p
-              
-              className="text-gray-600 max-w-2xl text-sm sm:text-base md:text-base mb-8 md:mb-12"
+
+              className="text-gray-600 text-sm sm:text-base md:text-base mb-8 md:mb-12"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[4]?.content?.subTitle
               }}
@@ -963,7 +963,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           </h2>
 
           {/* Subtext */}
-          <p className=" text-gray-500 mt-3 md:mt-4 max-w-2xl  text-sm md:text-base" dangerouslySetInnerHTML={{
+          <p className=" text-gray-500 mt-3 md:mt-4  text-sm md:text-base" dangerouslySetInnerHTML={{
             __html: homePageDetails?.sections[5]?.content?.subTitle
           }}>
 
@@ -1033,7 +1033,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           <div className="mb-10 md:mb-14">
             {/* Badge */}
             <span
-            
+
               className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-sm sm:text-sm font-semibold uppercase tracking-wider mb-4"
             >
               <span className="w-1.5 h-1.5 bg-red-500 uppercase rounded-full"></span>
@@ -1042,7 +1042,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
             {/* Main Heading */}
             <h2
-              
+
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#C41430] leading-tight  mb-6"
             >
               {homePageDetails?.sections[9]?.content?.title}
@@ -1050,8 +1050,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
             {/* Subtext */}
             <p
-              
-              className="text-sm sm:text-base md:text-base text-gray-800 max-w-2xl leading-relaxed"
+
+              className="text-sm sm:text-base md:text-base text-gray-800 leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[9]?.content?.subTitle
               }}
@@ -1068,7 +1068,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                 <Link href={`/${loc?.slug}`}>
                   <div
                     key={index}
-                 
+
                     className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
                 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1
@@ -1098,7 +1098,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
           {/* SEO Text Block with Side Border */}
           <div
-          
+
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
             <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
@@ -1155,7 +1155,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                   {highlightText("How Gateway Abroad Helps || To Achieve Your Dream Destination || — End to End")}
                 </h2>
 
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-3xl">
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                   From your first free consultation to your flight to the Destination — we manage every step with precision and care.
                 </p>
               </div>
@@ -1330,11 +1330,11 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
         <div className="absolute inset-0 bg-gray-400/10 z-1"></div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div
-          
+
             className="mb-10 sm:mb-12 lg:mb-16"
           >
             <div
-            
+
               className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6"
             >
               <span className="text-[#C41430] font-bold text-sm sm:text-sm tracking-wider uppercase">
@@ -1350,7 +1350,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             </h2>
 
             <p
-              className="text-gray-600 text-base sm:text-base max-w-3xl leading-relaxed"
+              className="text-gray-600 text-base sm:text-base leading-relaxed"
               dangerouslySetInnerHTML={{ __html: homePageDetails?.sections[8]?.content?.subTitle }}
             >
 
@@ -1422,49 +1422,49 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
             </div>
           )}
-        <div
-  // Responsive spacing & layout
-  className="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center text-center md:text-left gap-4 sm:gap-6 shadow-xl"
->
-  {/* Content Section - stacked on mobile, row on desktop */}
-  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 w-full">
-    
-    {/* Icon Container - minimum touch target */}
-    <div className="flex-shrink-0 bg-white/10 p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center">
-      <Icons.BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
-    </div>
-    
-    {/* Text Content - minimum font sizes enforced */}
-    <div className="flex-1">
-      {/* Minimum heading: text-sm (14px) on mobile */}
-      <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
-        Want results like these?
-      </p>
-      {/* Minimum body: text-sm (12px) on mobile */}
-      <p className="text-gray-300 text-sm sm:text-sm md:text-base leading-relaxed">
-        Our coaches know exactly what it takes to crack your exam.
-      </p>
-    </div>
-  </div>
+          <div
+            // Responsive spacing & layout
+            className="mt-6 sm:mt-8 md:mt-10 bg-gradient-to-r from-[#FF1D45] to-red-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center text-center md:text-left gap-4 sm:gap-6 shadow-xl"
+          >
+            {/* Content Section - stacked on mobile, row on desktop */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 w-full">
 
-  {/* Buttons Section - full width on mobile, inline on desktop */}
-  <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
-    <button
-      onClick={handleGetStarted}
-      // Primary button: full-width mobile, min 44px touch target
-      className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 active:bg-amber-500 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
-    >
-      🎯 Get in Touch
-    </button>
-    <a
-      href={`tel:${contactNumber}`}
-      // Secondary button: same responsive treatment
-      className="w-full sm:w-auto border-2 border-white/30 hover:border-amber-400 active:border-amber-500 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
-    >
-      📞 Call Our Expert
-    </a>
-  </div>
-</div>
+              {/* Icon Container - minimum touch target */}
+              <div className="flex-shrink-0 bg-white/10 p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center">
+                <Icons.BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+              </div>
+
+              {/* Text Content - minimum font sizes enforced */}
+              <div className="flex-1">
+                {/* Minimum heading: text-sm (14px) on mobile */}
+                <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
+                  Want results like these?
+                </p>
+                {/* Minimum body: text-sm (12px) on mobile */}
+                <p className="text-gray-300 text-sm sm:text-sm md:text-base leading-relaxed">
+                  Our coaches know exactly what it takes to crack your exam.
+                </p>
+              </div>
+            </div>
+
+            {/* Buttons Section - full width on mobile, inline on desktop */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
+              <button
+                onClick={handleGetStarted}
+                // Primary button: full-width mobile, min 44px touch target
+                className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 active:bg-amber-500 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
+              >
+                🎯 Get in Touch
+              </button>
+              <a
+                href={`tel:${contactNumber}`}
+                // Secondary button: same responsive treatment
+                className="w-full sm:w-auto border-2 border-white/30 hover:border-amber-400 active:border-amber-500 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
+              >
+                📞 Call Our Expert
+              </a>
+            </div>
+          </div>
         </div>
 
 

@@ -46,6 +46,28 @@ const PageServices = {
         return requests.patch(`/page/65af62437fbc53a5e549a19c`, body);
     },
 
+    incrementBlogView: async (id) => {
+    return await requests.patch(`/blog/${id}/view`);
+},
+
+// Blog Comments
+
+getBlogComments: async (blogId) => {
+    return await requests.get(`/comment/blog/${blogId}`);
+},
+
+createBlogComment: async (body) => {
+    return await requests.post(`/comment`, body);
+},
+
+likeBlogComment: async (id, body) => {
+    return await requests.post(`/comment/${id}/like`, body);
+},
+
+dislikeBlogComment: async (id, body) => {
+    return await requests.post(`/comment/${id}/dislike`, body);
+},
+
     // Home Page 
 
     getHomePageById: async (id) => {
