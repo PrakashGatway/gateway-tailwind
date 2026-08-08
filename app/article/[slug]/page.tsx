@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
     const title =
       article?.title || "Article - Gateway Abroad | Study Abroad Tips & Updates";
     const description =
-      article?.description ||
+      article?.meta?.metaDescription || article?.description ||
       "Expert study abroad & test prep guidance from Gateway Abroad.";
     const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
     const ogImage =
