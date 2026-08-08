@@ -52,7 +52,7 @@ const Header = () => {
       setState(response.data.data);
     }
   }
-  
+
   useEffect(() => {
     getPageData('country_page', setCountyPage);
   }, []);
@@ -81,23 +81,23 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Auto-open login drawer when login=true in URL and clean URL
-  useEffect(() => {
-    if (!isMounted) return;
+  // // Auto-open login drawer when login=true in URL and clean URL
+  // useEffect(() => {
+  //   if (!isMounted) return;
 
-    const loginParam = searchParams?.get('login');
-    if (loginParam === 'true' && !drawer && !user?.email) {
-      setDrawer(true);
+  //   const loginParam = searchParams?.get('login');
+  //   if (loginParam === 'true' && !drawer && !user?.email) {
+  //     setDrawer(true);
 
-      // Remove login=true from URL without page refresh
-      const url = new URL(window.location.href);
-      url.searchParams.delete('login');
-      const newUrl = url.pathname + url.search;
+  //     // Remove login=true from URL without page refresh
+  //     const url = new URL(window.location.href);
+  //     url.searchParams.delete('login');
+  //     const newUrl = url.pathname + url.search;
 
-      // Use replaceState to update URL without reload
-      window.history.replaceState(null, '', newUrl);
-    }
-  }, [searchParams, drawer, user?.email, setDrawer, isMounted]);
+  //     // Use replaceState to update URL without reload
+  //     window.history.replaceState(null, '', newUrl);
+  //   }
+  // }, [searchParams, drawer, user?.email, setDrawer, isMounted]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -124,7 +124,7 @@ const Header = () => {
     };
   }, []);
 
-  if(path === "/onboarding"){
+  if (path === "/onboarding") {
     return null
   }
 
