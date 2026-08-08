@@ -19,7 +19,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { constant } from "@/constant/index.constant";
 import { useGlobal } from "@/hooks/AppStateContext";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import axiosInstance from "@/services/axiosInstance";
 
 const Header = () => {
@@ -39,18 +39,12 @@ const Header = () => {
   const { user, course, logout, drawer, setDrawer } = useGlobal();
   const [CourseData, setCourseData] = useState([]);
 
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
   const router = useRouter();
 
-  // Gateway Abroad contact number
   const contactNumber = "+91-8302092630";
 
   const path = usePathname()
-
-
-
-
-
 
   async function getPageData(type, setState) {
     const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
@@ -59,9 +53,6 @@ const Header = () => {
     }
   }
   
-  
-
-  // 👇 useEffect to fetch data
   useEffect(() => {
     getPageData('country_page', setCountyPage);
   }, []);
@@ -185,7 +176,6 @@ const Header = () => {
             >
               About Us
             </Link>
-
 
             <div
               className="relative"
