@@ -1085,7 +1085,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                       {loc.name}
                     </h3>
 
-                    <p className={`text-sm sm:text-base leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
+                    <p className={`text-sm sm:text-base leading-snug ${index ===  homePageDetails?.sections[9]?.content?.cities?.length - 1 ? 'text-white' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
                       __html: loc.description
                     }}>
 

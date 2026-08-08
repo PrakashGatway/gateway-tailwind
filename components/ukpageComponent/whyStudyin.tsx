@@ -152,7 +152,7 @@ export function TopUKUniversities({ content }) {
 
                                 {/* Visit Button */}
                                 <Link
-                                    href={`/${uni?.slug}`}
+                                    href={`${uni?.slug}`}
                                     onClick={!uni?.slug ? handleGetStarted : undefined}
                                     className="px-10 text-center text-sm py-2 rounded-full bg-[#F7E8FA] text-black font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
                                 >

@@ -2,6 +2,7 @@
 
 import { baseUrl } from "@/services/axiosInstance";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 
 // --- Types ---
@@ -235,17 +236,17 @@ export default function DestinationsSection({ content }: { content: any }) {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 w-full sm:w-auto">
                         <a
-                            href="#lead-form"
+                            href="/onboarding"
                             className="bg-amber-400 text-gray-900 font-bold px-5 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg text-center"
                         >
                             🎯 Get Free Country Match
                         </a>
-                        <a
+                        <Link
                             href="tel:+91-8302092630"
                             className="border-2 border-white/30 hover:border-amber-400 text-white font-semibold px-5 sm:px-6 py-3 rounded-full transition-all text-center"
                         >
                             📞 Call Our Expert
-                        </a>
+                        </Link>
                     </div>
                 </motion.div>
             </div>

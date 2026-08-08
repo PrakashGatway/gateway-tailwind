@@ -230,7 +230,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
   {/* Buttons Section - full width on mobile, auto on desktop */}
   <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto">
     <a
-      href="#lead-form"
+      href="/onboarding"
       // Minimum touch target: 44px height, full width on mobile
       className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
     >
