@@ -8,6 +8,10 @@ const FAQSection = ({ content,faq }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+   const handleGetStarted = () => {
+
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
   return (
     <section className="py-12 md:py-12 px-4 md:px-0 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -61,7 +65,7 @@ const FAQSection = ({ content,faq }) => {
 
         {/* Bottom CTA Button */}
         <div className="mt-10 md:mt-14 flex justify-center">
-          <button className="bg-[#f59e0b]  text-black font-bold px-4 py-2 rounded-full text-sm sm:text-base md:text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/30 flex items-center gap-2">
+          <button onClick={handleGetStarted} className="bg-[#f59e0b]  text-black font-bold px-4 py-2 rounded-full text-sm sm:text-base md:text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/30 flex items-center gap-2">
             💬 Have More Questions? Ask Us Free
           </button>
         </div>

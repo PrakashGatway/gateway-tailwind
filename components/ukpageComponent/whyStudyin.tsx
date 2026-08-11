@@ -170,7 +170,7 @@ export function TopUKUniversities({ content }) {
                 {/* Bottom CTA - Enhanced */}
                 <div className="text-center">
                     <a
-                        href="#apply"
+                        onClick={handleGetStarted}
                         className="inline-flex items-center text-xs gap-3 bg-[#C8102E] hover:bg-[#a80d26] text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg shadow-[#C8102E]/30 hover:shadow-[#C8102E]/50 hover:-translate-y-1 group"
                     >
                         Get Matched to the Right UK University
@@ -998,6 +998,11 @@ export function UKUniversityIntakes({ content }) {
         return "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
     };
 
+ const handleGetStarted = () => {
+
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
 
     return (
         <section className="bg-[#F8F6F2] py-12 px-5">
@@ -1028,7 +1033,7 @@ export function UKUniversityIntakes({ content }) {
                 {/* Bottom CTA */}
                 <div className="text-center">
                     <a
-                        href="#apply"
+                        onClick={handleGetStarted}
                         className="inline-flex items-center text-base gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-lg shadow-red-200 hover:shadow-red-300 hover:-translate-y-1 group"
                     >
                         Get Free Intake Counselling
@@ -1050,6 +1055,13 @@ export function UKUniversityIntakes({ content }) {
 
 // Individual Intake Card Component
 function IntakeCard({ content }) {
+
+     const handleGetStarted = () => {
+
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
+
     return (
         <>
             {content?.sections[4]?.content?.intakecards?.map((item, index) => {
@@ -1122,7 +1134,7 @@ function IntakeCard({ content }) {
 
                         {/* Button */}
                         <a
-                            href="#apply"
+                            onClick={handleGetStarted}
                             className="relative z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
                         >
                             Apply Now

@@ -1523,7 +1523,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                       Join thousand of instructors and earn money hassle free!
                     </p>
                     <button
-                      onClick={() => document.getElementById('partnerModal').showModal()}
+                      onClick={handleGetStarted}
                       className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
                     >
                       Apply Now
