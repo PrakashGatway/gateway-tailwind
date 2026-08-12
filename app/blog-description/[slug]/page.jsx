@@ -33,6 +33,8 @@ export async function generateMetadata({ params }) {
     const defaultTitle = "Blog - Gateway Abroad | Study Abroad Tips & Updates";
     const defaultDescription = "Stay updated with the latest study abroad news, visa updates, test prep tips, and student success stories from Gateway Abroad.";
     const defaultImage = "https://www.gatewayabroadeducations.com/assets/img/ga-logo.svg";
+    // Ensure status is a boolean; default to true when not provided
+    const status = seoData?.Status === undefined ? true : Boolean(seoData?.Status);
     const title = seoData?.blogTitle || defaultTitle;
     const description = seoData?.descriptions || defaultDescription;
     const keywords = seoData?.keyword || "study abroad blog, IELTS tips, student visa updates, university admissions, abroad education news, Gateway Abroad blog";
@@ -51,12 +53,12 @@ export async function generateMetadata({ params }) {
         site_name: "Gateway Abroad Education",
       },
       robots: {
-        index: true,
-        follow: true,
+        index: status ||  true,
+        follow: status || true,
         maxImagePreview: "large",
         googleBot: {
-          index: true,
-          follow: true,
+          index: status || true,
+          follow: status || true,
           maxImagePreview: "large",
         },
       },
