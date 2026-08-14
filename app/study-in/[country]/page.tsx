@@ -122,7 +122,8 @@ const UkPage = async ({ params }) => {
       
 
 
-      <StudyInUk articleres={articleres.data.data} country={country} content={pageContent} youtubeVideo={youtubeVideo} teamMembers={teamMembers} faq={faq?.data} />
+      <StudyInUk articleres={articleres.data.data} country={country} content={pageContent}
+       youtubeVideo={youtubeVideo} teamMembers={teamMembers} faq={faq?.data} />
     </>
   );
 };

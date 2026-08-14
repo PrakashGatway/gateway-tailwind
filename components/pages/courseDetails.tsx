@@ -980,3 +980,6 @@ const handleGetStarted = () => {
 };
 
 export default Course;
+
+
+

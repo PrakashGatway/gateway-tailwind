@@ -1,137 +1,128 @@
-"use client"
+"use client";
 
-import Link from 'next/link';
-import { constant } from '@/constant/index.constant';
-import { redirect, usePathname, useRouter } from 'next/navigation';
-import ContactForm from './UkForm';
+import Link from "next/link";
+import { constant } from "@/constant/index.constant";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import ContactForm from "./UkForm";
 
-import { useEffect, useState } from 'react';
-import PageServices from '@/services/PageServices';
-import { Eye, ThumbsDown, ThumbsUp } from 'lucide-react';
-import { useGlobal } from '@/hooks/AppStateContext';
+import { useEffect, useState } from "react";
+import PageServices from "@/services/PageServices";
+import { Eye, ThumbsDown, ThumbsUp } from "lucide-react";
+import { useGlobal } from "@/hooks/AppStateContext";
 
 export default function SingleBlogPage({
   blogData,
   similarBlogs,
   adjacentBlogs,
   sanitizedContent,
-  slug
+  slug,
 }: any) {
-
   const { prevBlog, nextBlog } = adjacentBlogs || {};
 
-  const [viewCount,setviewCount] = useState(null)
+  const [viewCount, setviewCount] = useState(null);
   const [comments, setComments] = useState([]);
-const [loading, setLoading] = useState(false);
-const [replyingTo, setReplyingTo] = useState(null);
-const [replyingToName, setReplyingToName] = useState("");
-const [showReplies, setShowReplies] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyingToName, setReplyingToName] = useState("");
+  const [showReplies, setShowReplies] = useState({});
 
-const {user, setDrawer} = useGlobal();
+  const { user, setDrawer } = useGlobal();
 
-const [commentForm, setCommentForm] = useState({
+  const [commentForm, setCommentForm] = useState({
     content: "",
-});
+  });
 
-const fetchComments = async () => {
+  const fetchComments = async () => {
     if (!blogData?._id) return;
 
     try {
-        setLoading(true);
+      setLoading(true);
 
-        const response = await PageServices.getBlogComments(
-            blogData._id
-        );
+      const response = await PageServices.getBlogComments(blogData._id);
 
-        setComments(response?.data?.comments || []);
-
+      setComments(response?.data?.comments || []);
     } catch (error) {
-        console.error("Get comments error:", error);
+      console.error("Get comments error:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     if (blogData?._id) {
-        fetchComments();
+      fetchComments();
     }
-}, [blogData?._id]);
+  }, [blogData?._id]);
 
-
-
-const handleCommentSubmit = async (e) => {
-   e.preventDefault();
-        if (!user) {
-            setDrawer(true);
-            return;
-        }
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      setDrawer(true);
+      return;
+    }
 
     try {
-        const body = {
-            blogId: blogData._id,
-            content: commentForm.content,
-            name: user?.name,
-            parentComment: replyingTo || null,
-        };
+      const body = {
+        blogId: blogData._id,
+        content: commentForm.content,
+        name: user?.name,
+        parentComment: replyingTo || null,
+      };
 
-        await PageServices.createBlogComment(body);
+      await PageServices.createBlogComment(body);
 
-        setCommentForm({
-            content: "",
-        });
+      setCommentForm({
+        content: "",
+      });
 
-        setReplyingTo(null);
-        setReplyingToName("");
-        alert("Comment Submitted Successfully")
+      setReplyingTo(null);
+      setReplyingToName("");
+      alert("Comment Submitted Successfully");
 
-        // Get updated comments
-        await fetchComments();
-
+      // Get updated comments
+      await fetchComments();
     } catch (error) {
-        console.error("Comment submit error:", error);
+      console.error("Comment submit error:", error);
     }
-};
+  };
 
-
-const handleReply = (commentId, authorName) => {
+  const handleReply = (commentId, authorName) => {
     setReplyingTo(commentId);
     setReplyingToName(authorName || "Anonymous");
 
-    document
-        .getElementById("comment-form")
-        ?.scrollIntoView({
-            behavior: "smooth",
-        });
-};
+    document.getElementById("comment-form")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
-const handleCancelReply = () => {
+  const handleCancelReply = () => {
     setReplyingTo(null);
     setReplyingToName("");
 
     setCommentForm({
-        content: "",
+      content: "",
     });
-};
+  };
 
-
-
-const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
-};
-
-
-
+  };
 
   if (!blogData || !blogData.Slug) {
     return (
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center`}>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Blog Post Not Found</h1>
-        <p className="text-gray-600 mb-6">The requested blog post could not be found.</p>
+      <div
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center`}
+      >
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          Blog Post Not Found
+        </h1>
+        <p className="text-gray-600 mb-6">
+          The requested blog post could not be found.
+        </p>
         <Link
           href="/blog"
           className="bg-[#E12827] text-white px-6 py-3 rounded-md hover:bg-[#c82322] transition duration-200"
@@ -142,48 +133,41 @@ const formatDate = (dateString) => {
     );
   }
 
- const pathname = usePathname();
+  const pathname = usePathname();
 
+  useEffect(() => {
+    if (!blogData?.Slug) return;
 
+    // Show current view count immediately
+    setviewCount(Number(blogData?.viewCount ?? 0));
 
+    const timer = setTimeout(async () => {
+      try {
+        const response = await PageServices.incrementBlogView(blogData.Slug);
 
-useEffect(() => {
-  if (!blogData?.Slug) return;
+        // Updated view count from API
+        setviewCount(Number(response?.data?.viewCount ?? 0));
 
-  // Show current view count immediately
-  setviewCount(Number(blogData?.viewCount ?? 0));
+        console.log("View updated:", response);
+      } catch (error) {
+        console.error("View count error:", error);
+      }
+    }, 10000);
 
-  const timer = setTimeout(async () => {
-    try {
-      const response = await PageServices.incrementBlogView(blogData.Slug);
-
-      // Updated view count from API
-      setviewCount(Number(response?.data?.viewCount ?? 0));
-
-      console.log("View updated:", response);
-    } catch (error) {
-      console.error("View count error:", error);
-    }
-  }, 10000);
-
-  return () => {
-    clearTimeout(timer);
-  };
-}, [blogData?.Slug]);
- 
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [blogData?.Slug]);
 
   return (
     <>
       <div>
         {/* Hero Section with New Design */}
-       <section className="hero-gradient py-8 relative z-1">
+        <section className="hero-gradient py-8 relative z-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4 relative z-10">
-              <Link
-                href="/"
-                className="hover:text-[#E12827] transition-colors"
-              >
+              <Link href="/" className="hover:text-[#E12827] transition-colors">
                 Home
               </Link>
               <span>›</span>
@@ -194,7 +178,9 @@ useEffect(() => {
                 Blog
               </Link>
               <span>›</span>
-              <span className="text-gray-900 font-medium truncate">{blogData?.blogTitle}</span>
+              <span className="text-gray-900 font-medium truncate">
+                {blogData?.blogTitle}
+              </span>
             </nav>
 
             {/* Blog Title */}
@@ -206,7 +192,9 @@ useEffect(() => {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
                 <span>📅</span>
-                <span>{new Date(blogData?.createdAt).toLocaleDateString()}</span>
+                <span>
+                  {new Date(blogData?.createdAt).toLocaleDateString()}
+                </span>
               </div>
               {blogData?.category && (
                 <div className="flex items-center space-x-2">
@@ -216,21 +204,26 @@ useEffect(() => {
                 </div>
               )}
 
-            { (
-  <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-3 py-1.5">
-    <Eye className="h-4 w-4 text-[#E12827]" />
+              {
+                <div className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-3 py-1.5">
+                  <Eye className="h-4 w-4 text-[#E12827]" />
 
-    <span className="text-xs font-medium text-gray-600">
-      Views
-    </span>
+                  <span className="text-xs font-medium text-gray-600">
+                    Views
+                  </span>
 
-   <span className="text-sm font-bold text-[#E12827]">
-  {(1000 + (viewCount ?? Number(viewCount?.viewCount ?? 0))).toLocaleString()}
-</span>
-  </div>
-)}
-               <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10'>
-               Author - Sakshi Taneja
+                  <span className="text-sm font-bold text-[#E12827]">
+                    {(
+                      1000 + (viewCount ?? Number(viewCount?.viewCount ?? 0))
+                    ).toLocaleString()}
+                  </span>
+                </div>
+              }
+              <Link
+                href={"/author/sakshi-taneja"}
+                className="text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10"
+              >
+                Author - Sakshi Taneja
               </Link>
             </div>
           </div>
@@ -247,8 +240,9 @@ useEffect(() => {
                   <div className="mb-6">
                     <img
                       className="w-full h-auto"
-                      src={`${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
-                      alt={blogData?.blogTitle || 'Blog Image'}
+                      // src={`${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
+                      src={blogData.image.startsWith('http') ? blogData.image : `${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
+                      alt={blogData?.blogTitle || "Blog Image"}
                       loading="lazy"
                     />
                   </div>
@@ -339,9 +333,7 @@ useEffect(() => {
                         className="prose prose-lg max-w-none blog-html"
                         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                       />
-
                     </div>
-
 
                     {/* Blog Navigation */}
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-6 border-t border-gray-200">
@@ -353,7 +345,9 @@ useEffect(() => {
                           <i className="fa fa-arrow-left"></i>
                           <span>Previous Post</span>
                         </Link>
-                      ) : <div></div>}
+                      ) : (
+                        <div></div>
+                      )}
                       {nextBlog ? (
                         <Link
                           href={`/blog-description/${nextBlog?.Slug}`}
@@ -362,16 +356,20 @@ useEffect(() => {
                           <span>Next Post</span>
                           <i className="fa fa-arrow-right"></i>
                         </Link>
-                      ) : <div></div>}
+                      ) : (
+                        <div></div>
+                      )}
                     </div>
 
                     {/* Share Section */}
                     <div className="mt-8 pt-6 border-t border-gray-200">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Share this post:</h4>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                        Share this post:
+                      </h4>
                       <div className="flex space-x-3 justify-between">
-                        <div className='flex space-x-3'>
+                        <div className="flex space-x-3">
                           <a
-                            target='_blank'
+                            target="_blank"
                             rel="noopener noreferrer"
                             href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
@@ -379,7 +377,7 @@ useEffect(() => {
                             <i className="fa fa-facebook"></i>
                           </a>
                           <a
-                            target='_blank'
+                            target="_blank"
                             rel="noopener noreferrer"
                             href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
@@ -387,7 +385,7 @@ useEffect(() => {
                             <i className="fa fa-twitter"></i>
                           </a>
                           <a
-                            target='_blank'
+                            target="_blank"
                             rel="noopener noreferrer"
                             href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
@@ -401,198 +399,241 @@ useEffect(() => {
                             <i className="fa fa-envelope"></i>
                           </a>
                         </div>
-
-                        
                       </div>
                     </div>
 
                     <div className="space-y-3 mt-4 border border-gray-200 p-4">
-  <Link href="/author/sakshi-taneja">
-    <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-      <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10" alt="" loading='lazy' />
-      </div>
+                      <Link href="/author/sakshi-taneja">
+                        <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
+                          <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
+                            <img
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10"
+                              alt=""
+                              loading="lazy"
+                            />
+                          </div>
 
-      <div className="leading-tight">
-        <p className="text-xs text-gray-500 uppercase tracking-wide">
-          Author
-        </p>
-        <h4 className="text-lg font-semibold text-gray-900">
-          Sakshi Taneja
-        </h4>
-      </div>
-    </div>
-  </Link>
+                          <div className="leading-tight">
+                            <p className="text-xs text-gray-500 uppercase tracking-wide">
+                              Author
+                            </p>
+                            <h4 className="text-lg font-semibold text-gray-900">
+                              Sakshi Taneja
+                            </h4>
+                          </div>
+                        </div>
+                      </Link>
 
-  <div className="">
-    <p className="text-base font-semibold text-[#E12827]">
-      Content Writer & International Education Specialist
-    </p>
+                      <div className="">
+                        <p className="text-base font-semibold text-[#E12827]">
+                          Content Writer & International Education Specialist
+                        </p>
 
-    <p className="mt-2 text-sm leading-7 text-gray-600">
-      Sakshi Taneja is a content writer specializing in international
-      education, study abroad opportunities, university admissions, student
-      visas, scholarships, and career guidance. She creates accurate,
-      research-driven, and student-focused content to help aspiring
-      international students make informed decisions about their global
-      education journey.
-    </p>
-  </div>
-</div>
+                        <p className="mt-2 text-sm leading-7 text-gray-600">
+                          Sakshi Taneja is a content writer specializing in
+                          international education, study abroad opportunities,
+                          university admissions, student visas, scholarships,
+                          and career guidance. She creates accurate,
+                          research-driven, and student-focused content to help
+                          aspiring international students make informed
+                          decisions about their global education journey.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Comment Section */}
-                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-2xl font-bold text-gray-900">
-                                        Comments ({comments.length})
-                                    </h3>
-                                    {comments.length > 0 && (
-                                        <button
-                                            onClick={() => document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' })}
-                                            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
-                                        >
-                                            Add Comment
-                                        </button>
-                                    )}
-                                </div>
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Comments ({comments.length})
+                    </h3>
+                    {comments.length > 0 && (
+                      <button
+                        onClick={() =>
+                          document
+                            .getElementById("comment-form")
+                            ?.scrollIntoView({ behavior: "smooth" })
+                        }
+                        className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
+                      >
+                        Add Comment
+                      </button>
+                    )}
+                  </div>
 
-                                <div id="comment-form" className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-                                    <h4 className="text-lg font-bold text-gray-900 mb-2">
-                                        {replyingTo ? 'Reply to Comment' : 'Leave a Comment'}
-                                    </h4>
-                                    {replyingTo && (
-                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
-                                            <span className="font-medium">Replying to: {replyingToName}</span>
-                                            <button
-                                                onClick={handleCancelReply}
-                                                className="text-red-600 hover:text-red-800 text-sm font-medium"
-                                            >
-                                                Cancel Reply
-                                            </button>
-                                        </div>
-                                    )}
-                                    <p className="text-gray-600 text-sm mb-4">Your email address will not be published.</p>
-                                    <form onSubmit={handleCommentSubmit} className="space-y-4">
-                                        <textarea
-                                            placeholder="Your Comment *"
-                                            className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
-                                            value={commentForm.content}
-                                            onChange={(e) => setCommentForm({ ...commentForm, content: e.target.value })}
-                                            required
-                                        />
-                                        <button
-                                            type="submit"
-                                            className="bg-[#E12827] text-white px-8 py-3 rounded-lg hover:bg-[#c82322] transition duration-200 font-semibold hover:shadow-lg"
-                                        >
-                                            POST {replyingTo ? 'REPLY' : 'COMMENT'}
-                                        </button>
-                                    </form>
-                                </div>
+                  <div
+                    id="comment-form"
+                    className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
+                  >
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">
+                      {replyingTo ? "Reply to Comment" : "Leave a Comment"}
+                    </h4>
+                    {replyingTo && (
+                      <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
+                        <span className="font-medium">
+                          Replying to: {replyingToName}
+                        </span>
+                        <button
+                          onClick={handleCancelReply}
+                          className="text-red-600 hover:text-red-800 text-sm font-medium"
+                        >
+                          Cancel Reply
+                        </button>
+                      </div>
+                    )}
+                    <p className="text-gray-600 text-sm mb-4">
+                      Your email address will not be published.
+                    </p>
+                    <form onSubmit={handleCommentSubmit} className="space-y-4">
+                      <textarea
+                        placeholder="Your Comment *"
+                        className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+                        value={commentForm.content}
+                        onChange={(e) =>
+                          setCommentForm({
+                            ...commentForm,
+                            content: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                      <button
+                        type="submit"
+                        className="bg-[#E12827] text-white px-8 py-3 rounded-lg hover:bg-[#c82322] transition duration-200 font-semibold hover:shadow-lg"
+                      >
+                        POST {replyingTo ? "REPLY" : "COMMENT"}
+                      </button>
+                    </form>
+                  </div>
 
-                                {loading ? (
-                                    <div className="flex justify-center py-8">
-                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
-                                    </div>
-                                ) : (
-                                    <div className="space-y-4">
-                                        {comments.length === 0 ? (
-                                            <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-lg">
-                                                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                                                    <span className="text-2xl">💬</span>
-                                                </div>
-                                                <p className="text-lg font-medium mb-2">No comments yet</p>
-                                                <p className="text-sm text-gray-600">Be the first to share your thoughts!</p>
+                  {loading ? (
+                    <div className="flex justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {comments.length === 0 ? (
+                        <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-lg">
+                          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-2xl">💬</span>
+                          </div>
+                          <p className="text-lg font-medium mb-2">
+                            No comments yet
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Be the first to share your thoughts!
+                          </p>
+                        </div>
+                      ) : (
+                        comments.slice(0, 5).map((comment) => (
+                          <div
+                            key={comment._id}
+                            className="rounded-xl p-4 bg-white border border-gray-100 hover:border-gray-200 transition-all mb-4 last:mb-0"
+                          >
+                            <div className="flex items-start space-x-3">
+                              <div className="flex-shrink-0">
+                                <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
+                                  <span className="text-red-600 font-bold text-sm">
+                                    {comment.author?.name
+                                      ?.charAt(0)
+                                      ?.toUpperCase() || "A"}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+                                  <div>
+                                    <span className="font-bold text-gray-900">
+                                      {comment.author?.name || "Anonymous"}
+                                    </span>
+                                    <span className="text-xs text-gray-500 ml-2">
+                                      {formatDate(comment.createdAt)}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center space-x-3 mt-1 sm:mt-0">
+                                    <button
+                                      onClick={() =>
+                                        handleReply(
+                                          comment._id,
+                                          comment.author?.name,
+                                        )
+                                      }
+                                      className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
+                                    >
+                                      Reply
+                                    </button>
+                                  </div>
+                                </div>
+                                <p className="text-gray-700 mb-3">
+                                  {comment.content}
+                                </p>
+
+                                {comment.nestedReplies &&
+                                  comment.nestedReplies.length > 0 && (
+                                    <div className="mt-4 space-y-3 border-l-2 border-gray-100 pl-4">
+                                      {(showReplies[comment._id]
+                                        ? comment.nestedReplies
+                                        : comment.nestedReplies.slice(0, 2)
+                                      ).map((reply) => (
+                                        <div
+                                          key={reply._id}
+                                          className="flex items-start space-x-3"
+                                        >
+                                          <div className="flex-shrink-0">
+                                            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                              <span className="text-purple-600 font-bold text-xs">
+                                                {reply.author?.name
+                                                  ?.charAt(0)
+                                                  ?.toUpperCase() || "A"}
+                                              </span>
                                             </div>
-                                        ) : (
-                                            comments.slice(0, 5).map((comment) => (
-                                                <div key={comment._id} className="rounded-xl p-4 bg-white border border-gray-100 hover:border-gray-200 transition-all mb-4 last:mb-0">
-                                                    <div className="flex items-start space-x-3">
-                                                        <div className="flex-shrink-0">
-                                                            <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
-                                                                <span className="text-red-600 font-bold text-sm">
-                                                                    {comment.author?.name?.charAt(0)?.toUpperCase() || 'A'}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-                                                                <div>
-                                                                    <span className="font-bold text-gray-900">
-                                                                        {comment.author?.name || 'Anonymous'}
-                                                                    </span>
-                                                                    <span className="text-xs text-gray-500 ml-2">
-                                                                        {formatDate(comment.createdAt)}
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex items-center space-x-3 mt-1 sm:mt-0">
-                                                            
-                                                                 
-                                                                    <button
-                                                                        onClick={() => handleReply(comment._id, comment.author?.name)}
-                                                                        className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
-                                                                    >
-                                                                        Reply
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <p className="text-gray-700 mb-3">{comment.content}</p>
+                                          </div>
+                                          <div className="flex-1">
+                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
+                                              <div>
+                                                <span className="font-medium text-gray-900 text-sm">
+                                                  {reply.author?.name ||
+                                                    "Anonymous"}
+                                                </span>
+                                                <span className="text-xs text-gray-500 ml-2">
+                                                  {formatDate(reply.createdAt)}
+                                                </span>
+                                              </div>
+                                            </div>
+                                            <p className="text-gray-600 text-sm">
+                                              {reply.content}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      ))}
 
-                                                            {comment.nestedReplies && comment.nestedReplies.length > 0 && (
-                                                                <div className="mt-4 space-y-3 border-l-2 border-gray-100 pl-4">
-                                                                    {(showReplies[comment._id]
-                                                                        ? comment.nestedReplies
-                                                                        : comment.nestedReplies.slice(0, 2)
-                                                                    ).map((reply) => (
-                                                                        <div key={reply._id} className="flex items-start space-x-3">
-                                                                            <div className="flex-shrink-0">
-                                                                                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                                                                    <span className="text-purple-600 font-bold text-xs">
-                                                                                        {reply.author?.name?.charAt(0)?.toUpperCase() || 'A'}
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="flex-1">
-                                                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
-                                                                                    <div>
-                                                                                        <span className="font-medium text-gray-900 text-sm">
-                                                                                            {reply.author?.name || 'Anonymous'}
-                                                                                        </span>
-                                                                                        <span className="text-xs text-gray-500 ml-2">
-                                                                                            {formatDate(reply.createdAt)}
-                                                                                        </span>
-                                                                                    </div>
-                                                                                  
-                                                                                </div>
-                                                                                <p className="text-gray-600 text-sm">{reply.content}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ))}
-
-                                                                    {comment.nestedReplies.length > 2 && (
-                                                                        <button
-                                                                            onClick={() => toggleReplies(comment._id)}
-                                                                            className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
-                                                                        >
-                                                                            {showReplies[comment._id]
-                                                                                ? 'Hide replies'
-                                                                                : `View ${comment.nestedReplies.length - 2} more replies`}
-                                                                            <i className={`ml-1 ${showReplies[comment._id] ? 'fa fa-chevron-up' : 'fa fa-chevron-down'}`}></i>
-                                                                        </button>
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        )}
-
-                                     
+                                      {comment.nestedReplies.length > 2 && (
+                                        <button
+                                          onClick={() =>
+                                            toggleReplies(comment._id)
+                                          }
+                                          className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
+                                        >
+                                          {showReplies[comment._id]
+                                            ? "Hide replies"
+                                            : `View ${comment.nestedReplies.length - 2} more replies`}
+                                          <i
+                                            className={`ml-1 ${showReplies[comment._id] ? "fa fa-chevron-up" : "fa fa-chevron-down"}`}
+                                          ></i>
+                                        </button>
+                                      )}
                                     </div>
-                                )}
+                                  )}
+                              </div>
                             </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Sidebar */}
@@ -614,12 +655,14 @@ useEffect(() => {
                     </div>
                   </div> */}
 
-                  <ContactForm type="article"/>
+                  <ContactForm type="article" />
 
                   {/* Similar Blogs */}
                   {similarBlogs && similarBlogs.length > 0 && (
                     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                      <h5 className="text-lg font-bold text-gray-900 mb-4">Similar Blogs</h5>
+                      <h5 className="text-lg font-bold text-gray-900 mb-4">
+                        Similar Blogs
+                      </h5>
                       <div className="space-y-3">
                         {similarBlogs.map((blog) => (
                           <Link
@@ -631,14 +674,12 @@ useEffect(() => {
                               <img
                                 className="w-full h-full object-fill transition duration-300"
                                 src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                                alt={blog?.blogTitle || 'Similar Blog Image'}
+                                alt={blog?.blogTitle || "Similar Blog Image"}
                                 loading="lazy"
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h6 className="">
-                                {blog.blogTitle}
-                              </h6>
+                              <h6 className="">{blog.blogTitle}</h6>
                               <p className="text-xs text-gray-500 font-normal">
                                 {new Date(blog.createdAt).toLocaleDateString()}
                               </p>
@@ -682,9 +723,19 @@ useEffect(() => {
 
                   {/* Categories */}
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h5 className="text-lg font-bold text-gray-900 mb-4">Categories</h5>
+                    <h5 className="text-lg font-bold text-gray-900 mb-4">
+                      Categories
+                    </h5>
                     <div className="flex flex-wrap gap-4">
-                      {['GMAT', 'TOEFL', 'IELTS', 'GRE', 'PTE', 'SAT', 'SPOKEN ENGLISH'].map((category) => (
+                      {[
+                        "GMAT",
+                        "TOEFL",
+                        "IELTS",
+                        "GRE",
+                        "PTE",
+                        "SAT",
+                        "SPOKEN ENGLISH",
+                      ].map((category) => (
                         <Link
                           key={category}
                           href={`/blog?category=${category}`}
@@ -698,9 +749,19 @@ useEffect(() => {
 
                   {/* Tags Cloud */}
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h5 className="text-base font-bold text-gray-900 mb-4">Tags</h5>
+                    <h5 className="text-base font-bold text-gray-900 mb-4">
+                      Tags
+                    </h5>
                     <div className="flex flex-wrap gap-2">
-                      {['Study Abroad', 'Education', 'University', 'Scholarship', 'Visa', 'Career', 'Student Life'].map((tag) => (
+                      {[
+                        "Study Abroad",
+                        "Education",
+                        "University",
+                        "Scholarship",
+                        "Visa",
+                        "Career",
+                        "Student Life",
+                      ].map((tag) => (
                         <Link
                           key={tag}
                           href={`/blog?tag=${tag.toLowerCase()}`}
@@ -729,7 +790,8 @@ useEffect(() => {
                         Have a question about GMAT?
                       </h2>
                       <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276] font-normal">
-                        Want some help figuring out what kind of prep service is right for you?
+                        Want some help figuring out what kind of prep service is
+                        right for you?
                       </p>
                       <a
                         href="/contact"
