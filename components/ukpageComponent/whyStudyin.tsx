@@ -7,9 +7,13 @@ import { useState } from "react";
 import { highlightText } from "../pages/studyInUk";
 import { DynamicIcon } from "../sections/processRoad";
 
-export default function WhyStudyUK({ content }) {
+export default function WhyStudyUK({ content , country}) {
 
- 
+   const handleGetStarted = () => {
+
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
+
 
 
 
@@ -58,13 +62,120 @@ export default function WhyStudyUK({ content }) {
                         </div>
                     ))}
                 </div>
+      {/* Bottom CTA - Enhanced */}
+             <div
+    className="
+        group
+        flex w-7xl
+        items-center
+        justify-between
+        gap-6
+        rounded-[28px]
+        bg-gradient-to-r
+        from-[#C8102E]
+        via-[#D7193F]
+        to-[#B30D28]
+        px-6
+        py-5
+        text-white
+        shadow-[0_12px_30px_rgba(200,16,46,0.22)]
+        transition-all
+        duration-300
+        hover:shadow-[0_16px_40px_rgba(200,16,46,0.30)]
+        sm:px-8
+        sm:py-6
+        lg:px-10
+    "
+>
+    {/* Content */}
+    <div className="min-w-0 flex-1">
+     
+
+        <button
+            type="button"
+            onClick={handleGetStarted}
+            className="
+                text-left
+                text-base
+                font-bold
+                leading-snug
+                text-white
+                transition-colors
+                hover:text-white/90
+                sm:text-lg
+                lg:text-xl
+            "
+        >
+            Get Matched to the Right{" "}
+            <span className="text-[#FFD6DC]">
+                {country.toUpperCase()}
+            </span>{" "}
+            University
+        </button>
+
+        <p className="mt-1 text-xs text-white/70 sm:text-sm">
+            Discover universities that match your goals and preferences.
+        </p>
+    </div>
+
+    {/* CTA Button */}
+    <button
+        type="button"
+        onClick={handleGetStarted}
+        className="
+            flex
+            shrink-0
+            items-center
+            gap-2
+            rounded-full
+            bg-white
+            px-5
+            py-3
+            text-sm
+            font-bold
+            text-[#C8102E]
+            shadow-[0_5px_15px_rgba(0,0,0,0.12)]
+            transition-all
+            duration-300
+            hover:scale-[1.03]
+            hover:bg-[#FFF5F6]
+            active:scale-95
+            sm:px-6
+            sm:py-3.5
+        "
+    >
+        Explore
+
+        <svg
+            className="
+                h-4 w-4
+                transition-transform
+                duration-300
+                group-hover:translate-x-1
+            "
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.5"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+        </svg>
+    </button>
+</div>
+
             </div>
+
+          
         </section>
     );
 }
 
 
-export function TopUKUniversities({ content }) {
+export function TopUKUniversities({ content , country}) {
 
     const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -166,29 +277,124 @@ export function TopUKUniversities({ content }) {
                         </div>
                     ))}
                 </div>
+                     {/* Bottom CTA - Enhanced */}
+             <div
+    className="
+        group
+        flex w-7xl
+        items-center
+        justify-between
+        gap-6
+        rounded-[28px]
+        bg-gradient-to-r
+        from-[#C8102E]
+        via-[#D7193F]
+        to-[#B30D28]
+        px-6
+        py-5
+        text-white
+        shadow-[0_12px_30px_rgba(200,16,46,0.22)]
+        transition-all
+        duration-300
+        hover:shadow-[0_16px_40px_rgba(200,16,46,0.30)]
+        sm:px-8
+        sm:py-6
+        lg:px-10
+    "
+>
+    {/* Content */}
+    <div className="min-w-0 flex-1">
+     
 
-                {/* Bottom CTA - Enhanced */}
-                <div className="text-center">
-                    <a
-                        onClick={handleGetStarted}
-                        className="inline-flex items-center text-xs gap-3 bg-[#C8102E] hover:bg-[#a80d26] text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg shadow-[#C8102E]/30 hover:shadow-[#C8102E]/50 hover:-translate-y-1 group"
-                    >
-                        Get Matched to the Right UK University
-                        <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </a>
-                </div>
+        <button
+            type="button"
+            onClick={handleGetStarted}
+            className="
+                text-left
+                text-base
+                font-bold
+                leading-snug
+                text-white
+                transition-colors
+                hover:text-white/90
+                sm:text-lg
+                lg:text-xl
+            "
+        >
+            Get Matched to the Right{" "}
+            <span className="text-[#FFD6DC]">
+                {country.toUpperCase()}
+            </span>{" "}
+            University
+        </button>
+
+        <p className="mt-1 text-xs text-white/70 sm:text-sm">
+            Discover universities that match your goals and preferences.
+        </p>
+    </div>
+
+    {/* CTA Button */}
+    <button
+        type="button"
+        onClick={handleGetStarted}
+        className="
+            flex
+            shrink-0
+            items-center
+            gap-2
+            rounded-full
+            bg-white
+            px-5
+            py-3
+            text-sm
+            font-bold
+            text-[#C8102E]
+            shadow-[0_5px_15px_rgba(0,0,0,0.12)]
+            transition-all
+            duration-300
+            hover:scale-[1.03]
+            hover:bg-[#FFF5F6]
+            active:scale-95
+            sm:px-6
+            sm:py-3.5
+        "
+    >
+        Explore
+
+        <svg
+            className="
+                h-4 w-4
+                transition-transform
+                duration-300
+                group-hover:translate-x-1
+            "
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2.5"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+        </svg>
+    </button>
+</div>
+            
             </div>
         </section>
     );
 }
 
 
-export function UKStudyCosts({ content }) {
+export function UKStudyCosts({ content , country}) {
 
 
+const handleGetStarted = () => {
 
+    window.dispatchEvent(new CustomEvent('openFooterModal'));
+  };
 
 
     return (
@@ -370,10 +576,10 @@ export function UKStudyCosts({ content }) {
                         <div className="bg-gradient-to-br from-red-600 to-pink-500 rounded-2xl p-5 text-white">
                             <h4 className="font-bold text-lg mb-2">📊 Free Cost Analysis</h4>
                             <p className="text-sm text-white/80 mb-4">
-                                Not sure if UK fits your budget? Get a personalised cost-benefit report.
+                                Not sure if {country.toUpperCase()} fits your budget? Get a personalised cost-benefit report.
                             </p>
                             <a
-                                href="#apply"
+                                onClick={handleGetStarted}
                                 className="inline-flex items-center gap-2 bg-white text-red-700 font-bold px-4 py-2.5 rounded-full text-sm hover:bg-amber-400 transition-colors"
                             >
                                 Get Free Estimate
@@ -391,7 +597,7 @@ export function UKStudyCosts({ content }) {
 }
 
 
-export function GatewayAbroadProcess({ content }) {
+export function GatewayAbroadProcess({ content,country }) {
     const [activeStep, setActiveStep] = useState(null);
 
 
@@ -477,7 +683,7 @@ export function GatewayAbroadProcess({ content }) {
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                                        500+ Students Placed in UK
+                                        500+ Students Placed in {country.toUpperCase()}
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />

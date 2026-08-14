@@ -72,48 +72,75 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
   const handleMouseEnter = () => setAutoPlay(false);
   const handleMouseLeave = () => setAutoPlay(true);
 
+const autoplayRef = useRef(null);
+
+const startAutoplay = () => {
+  if (autoplayRef.current) {
+    clearInterval(autoplayRef.current);
+  }
+
+  autoplayRef.current = setInterval(() => {
+    instanceRef.current?.next();
+  }, 3000);
+};
+
+const stopAutoplay = () => {
+  if (autoplayRef.current) {
+    clearInterval(autoplayRef.current);
+    autoplayRef.current = null;
+  }
+};
+
+
   // Slider configuration update karein
-  const [sliderRef, instanceRef] = useKeenSlider({
-    initial: 0,
-    loop: true,
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
-    },
-    created() {
-      setLoaded(true);
-    },
-    breakpoints: {
-      "(min-width: 640px)": {
-        slides: {
-          perView: 2,
-          spacing: 16,
-          origin: 'center'
-        },
-      },
-      "(min-width: 768px)": {
-        slides: {
-          perView: 3,
-          spacing: 20,
-          origin: 'center'
-        },
-      },
-      "(min-width: 1024px)": {
-        slides: {
-          perView: 3,
-          spacing: 12,
-          origin: 'center'
-        },
+const [sliderRef, instanceRef] = useKeenSlider({
+  initial: 0,
+  loop: true,
+
+  slideChanged(slider) {
+    setCurrentSlide(slider.track.details.rel);
+  },
+
+  created() {
+    setLoaded(true);
+
+    setTimeout(() => {
+      startAutoplay();
+    }, 300);
+  },
+
+  slides: {
+    perView: 1,
+    spacing: 16,
+  },
+
+  breakpoints: {
+    "(min-width: 640px)": {
+      slides: {
+        perView: 2,
+        spacing: 16,
       },
     },
-    slides: {
-      perView: 1,
-      spacing: 12,
-      origin: 'center'
+
+    "(min-width: 768px)": {
+      slides: {
+        perView: 3,
+        spacing: 20,
+      },
     },
-    drag: true,
-    rubberband: true,
-    mode: "snap",
-  });
+
+    "(min-width: 1024px)": {
+      slides: {
+        perView: 2,
+        spacing: 20,
+      },
+    },
+  },
+
+  drag: true,
+  rubberband: true,
+  mode: "snap",
+});
 
   const fetchBlogs = useCallback(async (page = 1, category = country.toUpperCase(), search = '') => {
     try {
@@ -138,6 +165,9 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
 
     setMergedData(mergedData);
   }, [blogData, articleres]);
+
+
+
 
 
   const getAllTestimonial = async (value: string) => {
@@ -266,9 +296,9 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                <Link href="#" data-bs-toggle="modal" data-bs-target="#getintouchModel" className="btn-primary inline-block text-center group">
-                  <span onClick={handleGetStarted} className="relative z-10">Get Started Today</span>
-                </Link>
+                <button onClick={handleGetStarted} className="btn-primary inline-block text-center group">
+                  <span className="relative z-10">Get Started Today</span>
+                </button>
               </div>
             </div>
 
@@ -300,13 +330,13 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
       </section>
       <SingleSlider />
 
-      <WhyStudyUK content={content} />
+      <WhyStudyUK content={content} country={country} />
       <MultiStepForm />
       {/* Why Choose Us Section */}
-      <TopUKUniversities content={content?.sections[2]?.content} />
-      <UKStudyCosts content={content} />
+      <TopUKUniversities content={content?.sections[2]?.content} country={country} />
+      <UKStudyCosts content={content} country={country} />
       <UKUniversityIntakes content={content} />
-      <GatewayAbroadProcess content={content} />
+      <GatewayAbroadProcess content={content} country={country} />
       <UKScholarships content={content} />
       <ProcessRoadmap />
 
@@ -422,87 +452,89 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
             <h2 className="heading text-4xl font-bold mb-0">Important Facts & Information</h2>
             <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
-              <Link href="/blog" className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
+              <Link href={`/blog?category=${country.toUpperCase()}`} className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
             </button>
           </div>
 
-          <div className="blog-section-inner">
-            {/* Keen Slider Container with Auto Play */}
-            {mergedData.length > 0 ? (
-              <>
-                <div
-                  ref={sliderRef}
-                  className="keen-slider relative"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {mergedData.map((blog, index) => {
-                      const imageUrl = blog?.image
-    ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
-    : blog?.coverImage
-    ? getCoverImageUrl(blog.coverImage)
-    : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
+          <div className="w-full min-w-0 max-w-full overflow-hidden">
+  {mergedData.length > 0 ? (
+    <>
+      <div
+        ref={sliderRef}
+        className="keen-slider !flex w-full min-w-0 max-w-full overflow-hidden"
+        onMouseEnter={stopAutoplay}
+        onMouseLeave={startAutoplay}
+      >
+        {mergedData.map((blog, index) => {
+          const imageUrl = blog?.image
+            ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+            : blog?.coverImage
+              ? getCoverImageUrl(blog.coverImage)
+              : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
 
-                    return (
-                      <div
-                        className="keen-slider__slide cursor-pointer p-2 lg:p-3"
-                        key={index}
-                        onClick={() =>
-                          router.push(
-                            blog?.Slug
-                              ? `/blog-description/${blog.Slug}`
-                              : `/article/${blog.slug}`
-                          )
-                        }
-                      >
-                        <div
-                          key={index}
-                          className={`min-w-[360px] max-w-[460px] border rounded-lg overflow-hidden shadow hover:shadow-lg transition bg-white`}
-                        >
-                          {/* Image */}
-                          <div className="relative h-52">
-                            <Image
-                              src={
-                                imageUrl
-                              }
-                              alt={blog?.blogTitle}
-                              fill
-                              className="object-cover object-top"
-                              sizes="(max-width: 768px) 100vw, 33vw"
-                              loading="lazy"
-                            />
-                          </div>
+          return (
+            <div
+              key={index}
+              className="keen-slider__slide !min-w-0 !max-w-none cursor-pointer p-2 lg:p-3"
+              onClick={() =>
+                router.push(
+                  blog?.Slug
+                    ? `/blog-description/${blog.Slug}`
+                    : `/article/${blog.slug}`
+                )
+              }
+            >
+              <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
 
-                          {/* Content */}
-                          <div className="p-4">
-                            {/* Date */}
-                            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                              <span>{formatDate(blog?.createdAt)}</span>
-                            </div>
-
-                            {/* Title */}
-                              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
-                                {blog?.blogTitle || blog?.title}
-                              </h3>
-
-                            {/* Description */}
-                            <div
-                              className="text-gray-600 text-sm line-clamp-2"
-                              dangerouslySetInnerHTML={sanitizedData(blog?.blogDescription || blog?.description)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
+                {/* Image */}
+                <div className="relative h-40 w-full shrink-0">
+                  <Image
+                    src={imageUrl}
+                    alt={blog?.blogTitle || blog?.title || "Blog"}
+                    fill
+                    className="object-cover w-full object-top"
+                    loading="lazy"
+                  />
                 </div>
-              </>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-500">No blog posts available.</p>
+
+                {/* Content */}
+                <div className="flex-1 p-4">
+
+                  {/* Date */}
+                  <div className="mb-2 flex items-center gap-2 text-sm text-gray-500">
+                    <span>
+                      {formatDate(blog?.createdAt)}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors hover:text-red-600">
+                    {blog?.blogTitle || blog?.title}
+                  </h3>
+
+                  {/* Description */}
+                  <div
+                    className="line-clamp-2 text-sm text-gray-600"
+                    dangerouslySetInnerHTML={sanitizedData(
+                      blog?.blogDescription || blog?.description
+                    )}
+                  />
+
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  ) : (
+    <div className="py-12 text-center">
+      <p className="text-gray-500">
+        No blog posts available.
+      </p>
+    </div>
+  )}
+</div>
         </div>
       </section>
       <section className="py-12 bg-white">
