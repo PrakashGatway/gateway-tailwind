@@ -188,6 +188,7 @@ export default function SingleBlogPage({
               {blogData?.blogTitle}
             </h1>
 
+
             {/* Blog Meta Information */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">

@@ -210,7 +210,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[url('/img/footer-bg.svg')] bg-no-repeat bg-cover bg-bottom font-noto_sans relative z-10">
+      <footer className="bg-[url('/img/footer-bg.webp')] bg-no-repeat bg-cover bg-bottom font-noto_sans relative z-10">
 
         {pathname.includes("study-abroad")}
 

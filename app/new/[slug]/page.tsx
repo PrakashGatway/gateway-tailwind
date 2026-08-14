@@ -122,7 +122,7 @@ const Course = () => {
   const pricingContent = useMemo(() => getSectionContent('pricing'), [getSectionContent]);
   
   // Helper to get resources content
-  const resourcesContent = useMemo(() => getSectionContent('Resources'), [getSectionContent]);
+  const resourcesContent = useMemo(() => getSectionContent('resources'), [getSectionContent]);
   
   // Helper to get counselling content
   const counsellingContent = useMemo(() => getSectionContent('counselling'), [getSectionContent]);
@@ -356,13 +356,12 @@ const Course = () => {
             </div>
 
             <div className="relative flex justify-center mt-8 md:mt-0">
-              {console.log('page data',   `${constant.REACT_APP_URL}/api/uploads/${pageData.pageContent.heroImage}` )}
-              <Image
+               <Image
                 src={
                   pageData?.pageContent?.heroImage 
-                    ? `${constant.REACT_APP_URL}/api/uploads/${pageData.pageContent.heroImage}` 
+                    ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.heroImage}` 
                     : courseData.image2 
-                      ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image2}`
+                      ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image2}`
                       : "/placeholder.svg"
                 }
                 alt={`${courseName} Preparation`}
@@ -434,9 +433,9 @@ const Course = () => {
               <Image
                 src={
                   pageData?.pageContent?.WhatIsImage 
-                    ? `${constant.REACT_APP_URL}/api/uploads/${pageData.pageContent.WhatIsImage}`
+                    ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.WhatIsImage}`
                     : courseData.image3 
-                      ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image3}`
+                      ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image3}`
                       : '/placeholder.jpg'
                 }
                 alt={`${courseName} Overview`}
@@ -456,12 +455,12 @@ const Course = () => {
                   dangerouslySetInnerHTML={{ __html: whatIsContent.description }}
                 />
               )}
-              {whatIsContent?.whatIsOnToefl && (
+              {/* {whatIsContent?.whatIsOnToefl && (
                 <div 
                   className="text-gray-600 leading-relaxed mt-4"
                   dangerouslySetInnerHTML={{ __html: whatIsContent.whatIsOnToefl }}
                 />
-              )}
+              )} */}
             </div>
           </div>
 
@@ -516,7 +515,7 @@ const Course = () => {
             <div className="flex justify-center">
               <div className="relative">
                 <Image
-                  src={courseData.image ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image}` : "/placeholder.svg"}
+                  src={ `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}` || "/placeholder.svg"}
                   alt={`${courseName} Countries`}
                   className="rounded-lg shadow-lg w-full max-w-md"
                   width={100}
@@ -817,6 +816,7 @@ const Course = () => {
 
           {resourcesContent?.items && resourcesContent.items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* {console.log(resourcesContent.items)} */}
               {resourcesContent.items.map((item, index) => (
                 <div key={index} className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
                   <div className="flex items-center justify-center mx-auto mb-6">
