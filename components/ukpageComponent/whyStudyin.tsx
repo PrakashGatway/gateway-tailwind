@@ -108,7 +108,7 @@ export default function WhyStudyUK({ content , country}) {
         >
             Get Matched to the Right{" "}
             <span className="text-[#FFD6DC]">
-                {country.toUpperCase()}
+                {country?.toUpperCase()}
             </span>{" "}
             University
         </button>
@@ -323,7 +323,7 @@ export function TopUKUniversities({ content , country}) {
         >
             Get Matched to the Right{" "}
             <span className="text-[#FFD6DC]">
-                {country.toUpperCase()}
+                {country?.toUpperCase()}
             </span>{" "}
             University
         </button>

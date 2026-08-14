@@ -142,7 +142,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
   mode: "snap",
 });
 
-  const fetchBlogs = useCallback(async (page = 1, category = country.toUpperCase(), search = '') => {
+  const fetchBlogs = useCallback(async (page = 1, category = country?.toUpperCase(), search = '') => {
     try {
       const res = await PageServices.getBlogData({ page, limit: 3, category, search });
       setBlogData(res.data.blog || []);
@@ -452,7 +452,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
             <h2 className="heading text-4xl font-bold mb-0">Important Facts & Information</h2>
             <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
-              <Link href={`/blog?category=${country.toUpperCase()}`} className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
+              <Link href={`/blog?category=${country?.toUpperCase()}`} className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
             </button>
           </div>
 

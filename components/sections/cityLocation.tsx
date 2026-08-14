@@ -18,7 +18,7 @@ export default function LocationAvailability({ cities }) {
                   className={`relative flex items-center justify-center px-3 sm:px-3 py-2 text-sm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-900 shadow-sm
                  text-gray-700 `}
                 >
-                  {city?.slug.toUpperCase()}
+                  {city?.slug?.toUpperCase()}
                 </Link>
               ))}
             </div>
