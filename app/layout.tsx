@@ -98,7 +98,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           }}
         /> */}
 
-        <Script
+     {/*   <Script
           id="facebook-pixel"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -124,7 +124,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
             src="https://www.facebook.com/tr?id=913163584366474&ev=PageView&noscript=1"
             alt="facebook pixel"
           />
-        </noscript>
+        </noscript> */}
 
         {/* <script
           type="application/ld+json"
