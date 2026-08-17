@@ -231,6 +231,7 @@ export async function generateMetadata({ params }:any) {
     title: courseData.title,
     description: courseData.description,
     keywords: courseData.keywords,
+    robots: 'noindex, nofollow',
     openGraph: {
       title: courseData.og?.title || courseData.title,
       description: courseData.og?.description || courseData.description,
