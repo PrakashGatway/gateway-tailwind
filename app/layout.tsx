@@ -373,7 +373,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
         </Script>
 
 
-        <BreadcrumbSchema params = {params} />
+        {/* <BreadcrumbSchema params = {params} /> */}
 
       </head>
       <body suppressHydrationWarning>

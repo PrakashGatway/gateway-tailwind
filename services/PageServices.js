@@ -236,7 +236,7 @@ dislikeBlogComment: async (id, body) => {
     getTestimonial: async () => {
         return await requests.get(`/testimonial?type=GMAT`)
     },
-
+    
     getTestimonialByCat: async (value) => {
         return await requests.get(`/testimonial?type=${value}`)
     },

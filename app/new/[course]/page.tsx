@@ -1,3 +1,5 @@
+
+
 import Course from "@/components/pages/courseDetails";
 import { Metadata } from 'next';
 import Script from "next/script";

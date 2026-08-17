@@ -63,11 +63,10 @@ const nextConfig = {
         source: "/gallary",   // pattern for incoming requests
         destination: "/gallery", // actual Next.js page
       },
-      //     {
-      //   source: "/blog-description",   // pattern for incoming requests
-      //   destination: "/blog", // actual Next.js page
-      // },
-
+      {
+        source: "/spoken-english",
+        destination: "/course/spoken-english",
+      }
     ];
   },
   redirects: async () => [
@@ -76,7 +75,7 @@ const nextConfig = {
       destination:
         "/blog-description/hindi-to-english-translation-app",
       permanent: true,
-    },
+    }
   ]
 }
 
