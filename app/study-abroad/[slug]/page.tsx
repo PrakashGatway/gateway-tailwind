@@ -61,11 +61,8 @@ export default async function StudyAbroad({
   const logo =
     "https://api.gatewayabroadeducations.com/api/uploads/1778565858071-59950305.webp";
 
-  const faq =
-    await PageServices
-      .getAllFaqForFront(slug);
+  const faq = await PageServices.getAllFaqForFront(slug);
 
-  console.log("faq", pageContent);
 
   return (
     <>

@@ -1,9 +1,9 @@
 import axios from "axios";
 
-let mode = "devyyy"
+let mode = "dev"
 
 export const serverInstance = axios.create({
-    baseURL: mode == "dev" ? "https://uat.gatewayabroadeducations.com/api/v1/" : "https://uat.gatewayabroadeducations.com/api/v1/",
+    baseURL: mode == "dev" ? "http://localhost:5000/api/v1/" : "https://uat.gatewayabroadeducations.com/api/v1/",
     timeout: 60000, // 10 seconds timeout
     headers: {
         "Content-Type": "application/json"
@@ -14,7 +14,7 @@ export const serverInstance = axios.create({
 export const baseUrl = mode == "dev" ? "http://localhost:5000" : "https://uat.gatewayabroadeducations.com";
 
 const axiosInstance = axios.create({
-    baseURL: mode == "dev" ? "https://uat.gatewayabroadeducations.com/api/v1/" : "https://uat.gatewayabroadeducations.com/api/v1/",
+    baseURL: mode == "dev" ? "http://localhost:5000/api/v1/" : "https://uat.gatewayabroadeducations.com/api/v1/",
     timeout: 60000, // 10 seconds timeout
     headers: {
         "Content-Type": "application/json"

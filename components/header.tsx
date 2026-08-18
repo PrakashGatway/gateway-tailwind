@@ -37,14 +37,25 @@ const Header = () => {
   const userMenuRef = useRef(null);
 
   const { user, course, logout, drawer, setDrawer } = useGlobal();
-  const [CourseData, setCourseData] = useState([]);
+  const [CourseData, setCourseData] = useState<any[]>([]);
 
   const searchParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
   const router = useRouter();
 
   const contactNumber = "+91-8302092630";
 
-  const path = usePathname()
+  const path = usePathname();
+
+  const img: Record<string, string> = {
+    TOEFL : "https://api.gatewayabroadeducations.com/api/uploads/1712599042549-toefl2023%20(1).png",
+    IELTS : "https://api.gatewayabroadeducations.com/api/uploads/1712599856913-images%20(2).png",
+    SAT : "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(4).png",
+    GRE : "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(3).png",
+    PTE : "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(2).png",
+    GMAT : "https://api.gatewayabroadeducations.com/api/uploads/1722690849056-gmat.jpg",
+    DUOLINGO : "https://api.gatewayabroadeducations.com/api/uploads/1765793616939-978201393.png",
+
+  }
 
   async function getPageData(type, setState) {
     const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
@@ -55,8 +66,10 @@ const Header = () => {
 
   useEffect(() => {
     getPageData('country_page', setCountyPage);
+    getPageData('course_page', setCourseData);
   }, []);
 
+  console.log(CourseData,"data ");
   // 👇 click handler
   // const handleClick = (menu) => {
   //   setOpenMenu(openMenu === menu ? null : menu);
@@ -69,7 +82,7 @@ const Header = () => {
 
   useEffect(() => {
     if (course?.page) {
-      setCourseData(course.page);
+      // setCourseData(course.page);
     }
   }, [course]);
 
@@ -273,29 +286,64 @@ const Header = () => {
                     className="absolute top-full left-0 mt-2 w-[600px] bg-gradient-to-br from-[#f8f9fa] via-[#f1f3f5] to-[#e9ecef] dark:from-[#1a1a2e] dark:via-[#16213e] dark:to-[#0f3460] rounded-xl shadow-2xl py-6 px-6 z-50 border border-gray-100 dark:border-gray-700"
                   >
                     <div className="grid grid-cols-2 gap-2">
-                      {CourseData.map((course, index) => (
+
+                       {/* {CourseData.map((country, index) => {
+                        const slug = country?.slug?.toUpperCase().replace(/\s+/g, "-");
+                        return (
+
+                          <Link
+                            key={index}
+                            href={`/course/${slug}`}
+                            className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
+                          >
+                            {true && (
+                              <Image
+                                alt={country.slug || country.name || "country"}
+                                src={`https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg`}
+                                width={40}
+                                height={40}
+                                className=" object-cover w-5 h-5 rounded-full shadow-lg"
+                              />
+                            )}
+                            <div className="my-auto">
+                              <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+                                {country?.title}
+                              </h3>
+
+                            </div>
+                          </Link>
+                        )
+                      }
+                      )} */}
+
+                      {CourseData.map((course, index) =>
+                      {
+                        const slug = course?.slug?.trim()?.toUpperCase().replace(/\s+/g, "-");
+                        const courseImage = img?.[slug] || img?.[course?.slug?.trim()?.toUpperCase()] || "https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg";
+
+                        return (
                         <Link
                           key={index}
-                          href={`/course/${course.pageName.toLowerCase()}`}
+                          href={`/course/${slug}`}
                           className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                         >
                           <Image
                             alt="course logo"
-                            src={`${constant.REACT_APP_URL}/api/uploads/${course.image}`}
+                            src={courseImage}
                             width={60}
-                            height={0}
+                            height={20}
                             className="rounded-full border-2 border-gray-200 dark:border-gray-600"
                           />
                           <div className="my-auto">
                             <h3 className="text-sm font-bold text-gray-600 p-0 m-0 dark:text-white">
-                              {course.pageName}
+                              {course.title}
                             </h3>
                             <p className="text-xs m-0 p-0 text-gray-600 line-clamp-1 dark:text-gray-400">
-                              {course.textFild}
+                              {course?.textFild}
                             </p>
                           </div>
                         </Link>
-                      ))}
+                      )})}
                       <Link
                         href="/spoken-english"
                         className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"

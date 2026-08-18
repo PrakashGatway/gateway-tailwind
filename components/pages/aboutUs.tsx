@@ -79,7 +79,6 @@ function About({ aboutPage: data }: any) {
     return <div>Loading...</div>;
   }
 
-  // Helper function to get image URL
   const getImageUrl = (fileName) => {
     if (!fileName) return null;
     return `https://uat.gatewayabroadeducations.com/uploads/${fileName}`;
