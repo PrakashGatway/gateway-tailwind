@@ -82,7 +82,7 @@ function About({ aboutPage: data }: any) {
   // Helper function to get image URL
   const getImageUrl = (fileName) => {
     if (!fileName) return null;
-    return `${constant.REACT_APP_URL}/api/uploads/${fileName}`;
+    return `https://uat.gatewayabroadeducations.com/uploads/${fileName}`;
   };
 
   return (
