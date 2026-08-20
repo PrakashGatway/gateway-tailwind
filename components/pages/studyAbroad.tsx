@@ -100,7 +100,9 @@ const StudyAbroadPage = ({ content, faq }: any) => {
               </div>
 
               <div className="mb-3">
-                <div className="text-gray-800 text-base lg:text-lg leading-relaxed max-w-2xl" >{content?.subTitle} </div>
+                <div className="text-gray-800 text-base lg:text-lg leading-relaxed max-w-2xl" dangerouslySetInnerHTML={{
+                  __html: content?.subTitle
+                }}/>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-stagger-4">
