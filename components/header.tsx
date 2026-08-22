@@ -54,7 +54,7 @@ const Header = () => {
     PTE : "https://api.gatewayabroadeducations.com/api/uploads/Rectangle%20783%20(2).png",
     GMAT : "https://api.gatewayabroadeducations.com/api/uploads/1722690849056-gmat.jpg",
     DUOLINGO : "https://api.gatewayabroadeducations.com/api/uploads/1765793616939-978201393.png",
-
+    "SPOKEN-ENGLISH" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy5TnSFRcyIuhZTSckFhutSF5UJCXvJSJt6w&s"
   }
 
   async function getPageData(type, setState) {
@@ -271,8 +271,7 @@ const Header = () => {
               >
                 Test Preparation
                 <ChevronDown
-                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${openMenu === "testPrep" ? "rotate-180" : ""
-                    }`}
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 ${openMenu === "testPrep" ? "rotate-180" : "" }`}
                 />
               </button>
 
@@ -318,13 +317,13 @@ const Header = () => {
 
                       {CourseData.map((course, index) =>
                       {
-                        const slug = course?.slug?.trim()?.toUpperCase().replace(/\s+/g, "-");
+                        const slug = course?.slug?.trim();
                         const courseImage = img?.[slug] || img?.[course?.slug?.trim()?.toUpperCase()] || "https://img.freepik.com/free-vector/planet-earth_1308-82523.jpg";
 
                         return (
                         <Link
                           key={index}
-                          href={`/course/${slug}`}
+                          href={slug === 'spoken-english' ? slug : `/course/${slug}`}
                           className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                         >
                           <Image
@@ -344,7 +343,7 @@ const Header = () => {
                           </div>
                         </Link>
                       )})}
-                      <Link
+                      {/* <Link
                         href="/spoken-english"
                         className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                       >
@@ -363,7 +362,7 @@ const Header = () => {
                             {"Spoken English"}
                           </p>
                         </div>
-                      </Link>
+                      </Link> */}
                       {/* <Link
                         href="/spoken-english"
                         className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
@@ -552,19 +551,17 @@ const Header = () => {
               aria-label="Toggle menu"
             >
               <div className="relative w-6 h-6 flex items-center justify-center">
-                {/* Top Bar */}
+               
                 <span
                   className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "rotate-45" : "-translate-y-2"
                     }`}
                 ></span>
-
-                {/* Middle Bar */}
+                
                 <span
                   className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"
                     }`}
                 ></span>
-
-                {/* Bottom Bar */}
+              
                 <span
                   className={`absolute h-0.5 w-6 bg-current rounded-full transition-all duration-300 ${isMenuOpen ? "-rotate-45" : "translate-y-2"
                     }`}

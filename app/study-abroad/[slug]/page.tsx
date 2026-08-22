@@ -188,6 +188,7 @@ export default async function StudyAbroad({
       <StudyAbroadPage
         content={pageContent}
         faq={faq}
+        slug={slug}
       />
     </>
   );

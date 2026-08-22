@@ -54,9 +54,9 @@ const FAQSection = ({ content,faq }) => {
               {/* Answer - Only visible when open */}
               {openIndex === index && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed">
-                    {faq.content}
-                  </p>
+                  <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{__html : faq.content}}/>
+                    {/* {faq.content}
+                  </p> */}
                 </div>
               )}
             </div>

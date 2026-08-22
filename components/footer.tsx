@@ -385,7 +385,8 @@ export const Footer = () => {
                         {contactData.contectTwo && (
                           <Link
                             href={`tel:${contactData.contectTwo}`}
-                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
+                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 
+                            transition-colors duration-200"
                           >
                             {contactData.contectTwo}
                           </Link>
@@ -488,7 +489,8 @@ export const Footer = () => {
           <span className="flex items-center gap-2 pb-[30px] rotate-180">
             <Mail size={18} className="text-white" />
             Get in touch
-          </span>        </button>
+          </span>        
+        </button>
 
       </div>
 

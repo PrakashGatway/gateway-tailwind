@@ -26,7 +26,7 @@ import { Html } from "next/document";
 import { TopUKUniversities } from "../ukpageComponent/whyStudyin";
 
 
-const StudyAbroadPage = ({ content, faq }: any) => {
+const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
   if (!content) {
     return <Loader />;
@@ -69,7 +69,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
 
 
   const items = [
-    { icon: "✅", value: "5,000+", label: "Students from Udaipur Placed" },
+    { icon: "✅", value: "5,000+", label: `Students from ${slug} Placed` },
     { icon: "", value: "450+", label: "University Partnerships" },
     { icon: "", value: "18+", label: "Countries Covered" },
     { icon: "", value: "96%", label: "Visa Success Rate" },
@@ -100,16 +100,19 @@ const StudyAbroadPage = ({ content, faq }: any) => {
               </div>
 
               <div className="mb-3">
-                <div className="text-gray-800 text-base lg:text-lg leading-relaxed max-w-2xl" >{content?.subTitle} </div>
+                <div
+                 className="text-gray-800 text-base lg:text-lg leading-relaxed text-justify max-w-2xl"
+                 dangerouslySetInnerHTML={{__html: content?.subTitle}} /> 
+                {/* <div className="text-gray-800 text-base lg:text-lg leading-relaxed max-w-2xl" >{content?.subTitle} </div> */}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-stagger-4">
-                <Link href="/contact" className="btn-primary inline-block text-center group px-6 py-3 sm:px-8 sm:py-4">
+                <p className="btn-primary inline-block text-center group px-6 py-3 sm:px-8 sm:py-4">
                   <span className="relative z-10" onClick={handleGetStarted}>Get Started Today</span>
-                </Link>
-                <Link href="/about" className="btn-secondary text-center group px-6 py-3 sm:px-8 sm:py-4">
+                </p>
+                {/* <Link href="/about" className="btn-secondary text-center group px-6 py-3 sm:px-8 sm:py-4">
                   Learn More
-                </Link>
+                </Link> */}
               </div>
               <div className="mt-6 flex items-center gap-3 text-sm sm:text-base text-muted-foreground">
                 <Star className="text-yellow-500 fill-yellow-500" /> Trusted by 5,000+ students | 4.9/5 reviews
@@ -164,7 +167,7 @@ const StudyAbroadPage = ({ content, faq }: any) => {
           {items && items?.map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-2 px-[56px] py-[13px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
+              className="flex items-center gap-2 px-[46px] py-[14px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
             >
               {item.icon}
 

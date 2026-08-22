@@ -117,12 +117,12 @@ export default function ReadMoreSection({ content }: any) {
           )}
         </AnimatePresence>
 
-        <button
+        {/* <button
           onClick={() => setIsOpen(!isOpen)}
           className="btn-secondary mt-4 font-semibold !py-[6px] flex items-center space-x-2"
         >
           <span>{isOpen ? "Read Less" : "Read More"}</span>
-        </button>
+        </button> */}
       </div>
     </section>
 
