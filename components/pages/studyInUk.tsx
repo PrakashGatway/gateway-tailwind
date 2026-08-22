@@ -555,7 +555,8 @@ const [sliderRef, instanceRef] = useKeenSlider({
                     {f.title}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-700 pb-3 text-sm">
-                    {f.content}
+                    {/* {f.content} */}
+                    <p dangerouslySetInnerHTML={{__html :f.content }} />
                   </AccordionContent>
                 </AccordionItem>
               ))}
