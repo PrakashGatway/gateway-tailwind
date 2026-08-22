@@ -247,15 +247,15 @@ const [sliderRef, instanceRef] = useKeenSlider({
                 <h1 className="text-3xl lg:text-5xl xl:text-[2.6rem] font-bold text-black !leading-[1.3]">
                   {highlightText(content?.title) || content?.title}
                 </h1>
-                <p
+                <div
                   className="text-base lg:text-lg text-justify leading-relaxed mt-4"
                   style={{
                     color: "rgba(0, 0, 0, 0.9)",
                     textShadow: "0 2px 8px rgba(255, 255, 255, 0.6)"
                   }}
-                >
-                  {content?.subTitle || "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities."}
-                </p>
+                  dangerouslySetInnerHTML={{__html:content?.subTitle || "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities."}}
+                />
+              
               </div>
               <div className="flex flex-wrap gap-2 text-sm">
 
@@ -271,28 +271,26 @@ const [sliderRef, instanceRef] = useKeenSlider({
               </div>
               <div className=" grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 pt-4 flex-wrap">
                 {/* Stats Cards */}
-                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+               {getContentByType('hero')?.stats[0] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[0].value} /><span className="text-red-600"></span>
-
-
+                    <CounterUp end={getContentByType('hero')?.stats[0]?.value} /><span className="text-red-600"></span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
-                </div>
+                </div>}
 
-                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+              { getContentByType('hero')?.stats[1] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[1].value} /><span className="text-red-600"></span>
+                    <CounterUp end={getContentByType('hero')?.stats[1]?.value} /><span className="text-red-600"></span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Universities</p>
-                </div>
+                </div>}
 
-                <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                {getContentByType('hero')?.stats[2] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
                   <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[2].value} /><span className="text-red-600"></span>
+                    <CounterUp end={getContentByType('hero')?.stats[2]?.value} /><span className="text-red-600"></span>
                   </h3>
                   <p className="text-black font-semibold text-xs mb-0">Cities</p>
-                </div>
+                </div>}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
