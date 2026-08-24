@@ -327,7 +327,7 @@ function Contact({
                           <h4 className="text-xl font-bold text-gray-900 mb-2 text-red-600">
                             {office.officeCity}
                           </h4>
-                          <p className="text-gray-600 font-bold text-sm leading-relaxed">
+                          <p className="text-gray-600 font-bold text-xm leading-relaxed">
                             {office.officeAdress}
                           </p>
                         </div>
@@ -364,7 +364,7 @@ function Contact({
                           <h4 className="text-xl font-bold text-gray-900 mb-2">
                             {office.officeCity}
                           </h4>
-                          <p className="text-gray-600 text-sm leading-relaxed">
+                          <p className="text-gray-600 text-xm leading-relaxed">
                             {office.officeAdress}
                           </p>
                         </div>
@@ -433,7 +433,7 @@ function Contact({
                       name="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                       placeholder="Name"
                       required
                     />
@@ -444,7 +444,7 @@ function Contact({
                       name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                       placeholder="Email"
                       required
                     />
@@ -474,14 +474,14 @@ function Contact({
                       name="city"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                      className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                       placeholder="City"
                       required
                     />
                   </div>
                   <div>
                     <textarea
-                      className="w-full px-4 py-3 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                      className="w-full px-4 py-3 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                       rows={4}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}

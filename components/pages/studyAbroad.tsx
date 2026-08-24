@@ -1,8 +1,34 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { GraduationCap, Plane, MapPin, FileCheck2, Calendar, Star, Quote, Building2, Globe, CheckCircle, IndianRupee, CalendarDays, PlaneTakeoff, Landmark, Award, FileEdit, BookOpen, UserCheck, Monitor, Sun } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  GraduationCap,
+  Plane,
+  MapPin,
+  FileCheck2,
+  Calendar,
+  Star,
+  Quote,
+  Building2,
+  Globe,
+  CheckCircle,
+  IndianRupee,
+  CalendarDays,
+  PlaneTakeoff,
+  Landmark,
+  Award,
+  FileEdit,
+  BookOpen,
+  UserCheck,
+  Monitor,
+  Sun,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import EnhancedMultiStepForm from "@/components/pages/multiStep";
@@ -18,55 +44,26 @@ import { baseUrl } from "@/services/axiosInstance";
 import ContactForm from "./UkForm";
 import DestinationsSection from "../home/DestinationSection";
 import { it } from "node:test";
-import * as Icons from 'lucide-react';
+import * as Icons from "lucide-react";
 import { motion } from "framer-motion";
 import LandingPage from "../home/ctaSection";
 import FAQSection from "../home/FaqSection";
 import { Html } from "next/document";
 import { TopUKUniversities } from "../ukpageComponent/whyStudyin";
 
-
 const StudyAbroadPage = ({ content, faq, slug }: any) => {
-
   if (!content) {
     return <Loader />;
   }
 
-
-
-
-  // const getAllfaqData = async () => {
-  //   try {
-  //     const response = await PageServices.getAllFaqForFront('Study-abroad');
-  //     if (response.status === 'success') {
-  //       // setFaqData(response.data.faq || [])
-  //       // console.log(faqData)
-  //     } else {
-  //       console.log('something went wrong');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // }
-
   function getContentByType(type) {
-    const item = content && content.sections.find(obj => obj.type === type);
+    const item = content && content.sections.find((obj) => obj.type === type);
     return item ? item.content : undefined; // Return undefined if not found
   }
 
-  // useEffect(() => {
-  //   getAllfaqData()
-  // }, [])
   const handleGetStarted = () => {
-
-    window.dispatchEvent(new CustomEvent('openFooterModal'));
+    window.dispatchEvent(new CustomEvent("openFooterModal"));
   };
-
-
-
-
-
-
 
   const items = [
     { icon: "✅", value: "5,000+", label: `Students from ${slug} Placed` },
@@ -77,45 +74,53 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
     { icon: "", value: "16 Yrs", label: "In Business Since 2008" },
   ];
 
-
   return (
     <>
       {/* HERO */}
       <section className="hero-gradient py-12 pb-0  flex items-center relative overflow-hidden">
-
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content with staggered animations */}
             <div className="space-y-4">
               <div className="">
                 <h1 className="text-3xl lg:text-4xl xl:text-[2.5rem] font-bold leading-tight">
-                  <span className="inline-block">{content?.title.split(" ").slice(0, 3).join(" ")}</span>
-                  <br />
-                  {<> <span className="text-[#D41833] py-2 inline-block">
-                    {content?.title.split(" ").slice(3).join(" ")}
+                  <span className="inline-block">
+                    {content?.title.split(" ").slice(0, 3).join(" ")}
                   </span>
-                    <br /> </>}
+                  <br />
+                  {
+                    <>
+                      {" "}
+                      <span className="text-[#D41833] py-2 inline-block">
+                        {content?.title.split(" ").slice(3).join(" ")}
+                      </span>
+                      <br />{" "}
+                    </>
+                  }
                 </h1>
               </div>
 
               <div className="mb-3">
                 <div
-                 className="text-gray-800 text-base lg:text-lg leading-relaxed text-justify max-w-2xl"
-                 dangerouslySetInnerHTML={{__html: content?.subTitle}} /> 
+                  className="text-gray-800 text-base lg:text-lg leading-relaxed text-justify max-w-2xl"
+                  dangerouslySetInnerHTML={{ __html: content?.subTitle }}
+                />
                 {/* <div className="text-gray-800 text-base lg:text-lg leading-relaxed max-w-2xl" >{content?.subTitle} </div> */}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-stagger-4">
                 <p className="btn-primary inline-block text-center group px-6 py-3 sm:px-8 sm:py-4">
-                  <span className="relative z-10" onClick={handleGetStarted}>Get Started Today</span>
+                  <span className="relative z-10" onClick={handleGetStarted}>
+                    Get Started Today
+                  </span>
                 </p>
                 {/* <Link href="/about" className="btn-secondary text-center group px-6 py-3 sm:px-8 sm:py-4">
                   Learn More
                 </Link> */}
               </div>
-              <div className="mt-6 flex items-center gap-3 text-sm sm:text-base text-muted-foreground">
-                <Star className="text-yellow-500 fill-yellow-500" /> Trusted by 5,000+ students | 4.9/5 reviews
+              <div className="mt-6 flex items-center gap-3 text-xm sm:text-base text-muted-foreground">
+                <Star className="text-yellow-500 fill-yellow-500" /> Trusted by
+                5,000+ students | 4.9/5 reviews
               </div>
             </div>
 
@@ -125,19 +130,19 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                 <ContactForm />
               </div>
 
-
-
               <div className="absolute lg:-bottom-8 -bottom-12 lg:-left-4 -left-2 z-10 border-2 border-red-600 bg-white shadow-3xl rounded-xl p-3 sm:p-4">
-                <h3 className="text-lg sm:text-xl m-0 font-bold text-center">99.99%</h3>
-                <p className="text-xs sm:text-sm m-0 text-center">Success Rate</p>
+                <h3 className="text-lg sm:text-xl m-0 font-bold text-center">
+                  99.99%
+                </h3>
+                <p className="text-xs sm:text-xm m-0 text-center">
+                  Success Rate
+                </p>
               </div>
             </div>
           </div>
         </div>
-
       </section>
       <div className="bg-[#D71635] overflow-hidden">
-
         {/* Mobile Marquee */}
         <div className="md:hidden">
           <div className="flex w-max animate-[marquee_15s_linear_infinite]">
@@ -164,75 +169,75 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
         {/* Desktop */}
         <div className="hidden md:flex justify-center items-stretch min-w-max">
-          {items && items?.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-2 px-[46px] py-[14px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
-            >
-              {item.icon}
+          {items &&
+            items?.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 px-[46px] py-[14px] border-r border-[rgba(26,20,64,0.12)] whitespace-nowrap"
+              >
+                {item.icon}
 
-              <div>
-                <div className=" text-[1.1rem] font-bold text-white leading-none">
-                  {item.value}
-                </div>
+                <div>
+                  <div className=" text-[1.1rem] font-bold text-white leading-none">
+                    {item.value}
+                  </div>
 
-                <div className="text-[0.80rem] font-semibold text-yellow-500">
-                  {item.label}
+                  <div className="text-[0.80rem] font-semibold text-yellow-500">
+                    {item.label}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <style jsx>{`
-    @keyframes marquee {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-  `}</style>
+          @keyframes marquee {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        `}</style>
       </div>
 
       <EnhancedMultiStepForm />
       {/* <DestinationSection content={getContentByType('StudyDestinations')} /> */}
       <DestinationsSection content={content?.sections[0].content} />
-      <DegreesSection content={getContentByType('AcademicPrograms')} />
+      <DegreesSection content={getContentByType("AcademicPrograms")} />
       <section className="bg-white py-14 md:py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-
           {/* Badge */}
           <div className="flex  mb-3">
-            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-bold uppercase">
-              {getContentByType('whychooseus')?.label}
+            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-xm font-bold uppercase">
+              {getContentByType("whychooseus")?.label}
             </span>
           </div>
 
           {/* Heading */}
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold  text-gray-900 leading-tight">
-            {getContentByType('whychooseus')?.title}
-
+            {getContentByType("whychooseus")?.title}
           </h2>
 
           {/* Subtext */}
-          <p className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-base" dangerouslySetInnerHTML={{
-            __html: getContentByType('whychooseus')?.subTitle
-          }}>
-
-          </p>
+          <p
+            className=" text-gray-500 mt-3 md:mt-4 w-full  text-xm md:text-base"
+            dangerouslySetInnerHTML={{
+              __html: getContentByType("whychooseus")?.subTitle,
+            }}
+          ></p>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
-
             {/* Loop through features */}
-            {getContentByType('whychooseus')?.cards && getContentByType('whychooseus')?.cards?.map((item) => {
-              const IconComponent = Icons[item?.icon] || Icons.Target;
-              return (
-                <div
-                  key={item._id}
-                  className="
+            {getContentByType("whychooseus")?.cards &&
+              getContentByType("whychooseus")?.cards?.map((item) => {
+                const IconComponent = Icons[item?.icon] || Icons.Target;
+                return (
+                  <div
+                    key={item._id}
+                    className="
     relative bg-[#F7F4EE] rounded-xl md:rounded-2xl p-5 md:p-6 
     shadow-sm transition-all duration-300
     hover:shadow-md hover:-translate-y-1
@@ -246,33 +251,32 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
     hover:after:w-full
   "
-                >
-                  {/* Background Number */}
-                  <span className="absolute top-3 right-4 md:top-4 md:right-6 text-4xl md:text-5xl font-bold text-[#E7E9E1]">
-                    {item._id}
-                  </span>
+                  >
+                    {/* Background Number */}
+                    <span className="absolute top-3 right-4 md:top-4 md:right-6 text-4xl md:text-5xl font-bold text-[#E7E9E1]">
+                      {item._id}
+                    </span>
 
-                  {/* Icon */}
-                  <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
-                    <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
+                    {/* Icon */}
+                    <div className="text-[#D81635] text-2xl md:text-3xl mb-2 md:mb-3">
+                      <IconComponent className="w-8 h-8 md:w-10 md:h-10" />
+                    </div>
 
+                    {/* Title */}
+                    <h3 className="font-semibold text-base md:text-lg text-gray-800">
+                      {item?.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      className="text-gray-500 text-xs md:text-xm mt-1 md:mt-2 leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.description,
+                      }}
+                    ></p>
                   </div>
-
-                  {/* Title */}
-                  <h3 className="font-semibold text-base md:text-lg text-gray-800">
-                    {item?.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed" dangerouslySetInnerHTML={{
-                    __html: item?.description
-                  }} >
-
-                  </p>
-                </div>
-              )
-            })}
-
+                );
+              })}
           </div>
         </div>
       </section>
@@ -280,7 +284,6 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
       <section id="services" className="hero-gradient">
         <div className="max-w-7xl mx-auto px-4 py-12 md:py-12">
-
           {/* Heading */}
           <div className="text-center">
             <span className="inline-block text-lg md:text-xl lg:text-2xl font-semibold mb-3">
@@ -289,76 +292,71 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
               {getContentByType("servicesection")?.title}
-
             </h2>
 
-            <p className="mt-3 text-base md:text-base text-gray-800 mx-auto" dangerouslySetInnerHTML={{
-              __html: getContentByType("servicesection")?.subtitle
-            }}>
-
-            </p>
+            <p
+              className="mt-3 text-base md:text-base text-gray-800 mx-auto"
+              dangerouslySetInnerHTML={{
+                __html: getContentByType("servicesection")?.subtitle,
+              }}
+            ></p>
           </div>
 
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[15px] mt-[40px]">
-            {getContentByType("servicesection")?.Cards && getContentByType("servicesection")?.Cards?.map((item, index) => {
-              const Icon = Icons[item?.icon] || Icons.Target;
+            {getContentByType("servicesection")?.Cards &&
+              getContentByType("servicesection")?.Cards?.map((item, index) => {
+                const Icon = Icons[item?.icon] || Icons.Target;
 
+                return (
+                  <div
+                    key={index}
+                    className="flex gap-[15px] items-start bg-white border-[1.5px] border-[var(--border)] rounded-[15px] p-[20px] transition-all duration-300 hover:border-[var(--teal)] hover:-translate-y-[4px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.07)]"
+                  >
+                    {/* Icon */}
+                    <div className="w-[48px] h-[48px] rounded-[11px] flex-shrink-0 bg-[#D81635] flex items-center justify-center text-[1.35rem]">
+                      <Icon size={24} color="white" />
+                    </div>
 
-              return (
-                <div
-                  key={index}
-                  className="flex gap-[15px] items-start bg-white border-[1.5px] border-[var(--border)] rounded-[15px] p-[20px] transition-all duration-300 hover:border-[var(--teal)] hover:-translate-y-[4px] hover:shadow-[0_12px_30px_rgba(0,0,0,0.07)]"
-                >
-                  {/* Icon */}
-                  <div className="w-[48px] h-[48px] rounded-[11px] flex-shrink-0 bg-[#D81635] flex items-center justify-center text-[1.35rem]">
-                    <Icon size={24} color="white" />
+                    {/* Content */}
+                    <div>
+                      <h3 className="font-bold text-lg text-black mb-[5px]">
+                        {item.title}
+                      </h3>
+
+                      <p
+                        className="text-xm text-gray-800  leading-[1.6]"
+                        dangerouslySetInnerHTML={{
+                          __html: item.subtitle,
+                        }}
+                      ></p>
+
+                      <a
+                        href="#lead-form"
+                        className="block mt-[7px] text-[0.75rem] cursor-pointer  text-left font-bold text-gray-800 relative z-10"
+                      >
+                        {item?.slug}
+                      </a>
+                    </div>
                   </div>
-
-                  {/* Content */}
-                  <div>
-                    <h3 className="font-bold text-lg text-black mb-[5px]">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-sm text-gray-800  leading-[1.6]" dangerouslySetInnerHTML={{
-                      __html: item.subtitle
-                    }}>
-
-                    </p>
-
-                    <a
-                      href="#lead-form"
-                      className="block mt-[7px] text-[0.75rem] cursor-pointer  text-left font-bold text-gray-800 relative z-10"
-                    >
-                      {item?.slug}
-                    </a>
-
-
-                  </div>
-
-                </div>
-
-              )
-            })}
+                );
+              })}
           </div>
-
         </div>
       </section>
       <ProcessRoadmap />
 
       <section className="bg-red-50 py-12 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-
           {/* Header Section */}
           <div className="mb-10 md:mb-14">
             {/* Badge */}
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-xm font-bold tracking-wider mb-4"
             >
-              <span className="w-1.5 h-1.5 bg-red-500 text-sm uppercase font-bold rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-red-500 text-xm uppercase font-bold rounded-full"></span>
               {getContentByType("citysection")?.label}
             </motion.span>
 
@@ -377,52 +375,56 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-sm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
+              className="text-xm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
               dangerouslySetInnerHTML={{
-                __html: getContentByType("citysection")?.subTitle
+                __html: getContentByType("citysection")?.subTitle,
               }}
-            >
-
-            </motion.p>
+            ></motion.p>
           </div>
 
           {/* Location Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
-            {getContentByType("citysection")?.cities?.map((loc: any, index: number) => {
-              const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
-              return (
-                <Link href={`/${loc?.slug}`}>
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ y: -5 }}
-                    className={`
+            {getContentByType("citysection")?.cities?.map(
+              (loc: any, index: number) => {
+                const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
+                return (
+                  <Link href={`/${loc?.slug}`}>
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      whileHover={{ y: -5 }}
+                      className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
-                ${index === getContentByType("citysection")?.cities?.length - 1
-                        ? 'bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20'
-                        : 'bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900'
-                      }
+                ${
+                  index === getContentByType("citysection")?.cities?.length - 1
+                    ? "bg-[#D71635] border-[#064E3B] text-white shadow-lg shadow-red-900/20"
+                    : "bg-white border-gray-200 hover:border-[#C41430] hover:shadow-md text-gray-900"
+                }
               `}
-                  >
-                    <div className={`mb-3 ${index === getContentByType("citysection")?.cities?.length - 1 ? 'text-white' : 'text-[#C41430]'}`}>
-                      <IconComponent className="w-8 h-8" />
-                    </div>
+                    >
+                      <div
+                        className={`mb-3 ${index === getContentByType("citysection")?.cities?.length - 1 ? "text-white" : "text-[#C41430]"}`}
+                      >
+                        <IconComponent className="w-8 h-8" />
+                      </div>
 
-                    <h3 className="text-base sm:text-lg font-bold mb-1">
-                      {loc.name}
-                    </h3>
+                      <h3 className="text-base sm:text-lg font-bold mb-1">
+                        {loc.name}
+                      </h3>
 
-                    <p className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? 'text-green-100' : 'text-gray-500'}`} dangerouslySetInnerHTML={{
-                      __html: loc.description
-                    }}>
-
-                    </p>
-                  </motion.div>
-                </Link>
-              )
-            })}
+                      <p
+                        className={`text-xs sm:text-xm leading-snug ${index === loc.length - 1 ? "text-green-100" : "text-gray-500"}`}
+                        dangerouslySetInnerHTML={{
+                          __html: loc.description,
+                        }}
+                      ></p>
+                    </motion.div>
+                  </Link>
+                );
+              },
+            )}
           </div>
 
           {/* SEO Text Block with Side Border */}
@@ -432,23 +434,22 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             transition={{ delay: 0.5 }}
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
-            <p className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify" dangerouslySetInnerHTML={
-              { __html: getContentByType("citysection")?.sectiondescription }
-            }>
-
-            </p>
+            <p
+              className="text-xm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
+              dangerouslySetInnerHTML={{
+                __html: getContentByType("citysection")?.sectiondescription,
+              }}
+            ></p>
           </motion.div>
-
         </div>
       </section>
 
-      <LandingPage content={getContentByType('ctasection')} />
+      <LandingPage content={getContentByType("ctasection")} />
 
-      <TopUKUniversities content={getContentByType('BestUniversities')} />
+      <TopUKUniversities content={getContentByType("BestUniversities")} />
       <Component />
 
-      <ReadMoreSection content={getContentByType('content')} />
-
+      <ReadMoreSection content={getContentByType("content")} />
 
       <FAQSection faq={faq?.data || []} content={""} />
 
@@ -479,7 +480,9 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
       {/* CTA Section */}
       <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto ">
-          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg w-full max-w-[90rem] mx-auto"> {/* max-w-[90rem] for 7xl width */}
+          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg w-full max-w-[90rem] mx-auto">
+            {" "}
+            {/* max-w-[90rem] for 7xl width */}
             {/* Content container with specific padding */}
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
@@ -493,7 +496,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                     </p>
                     <a
                       href="/contact"
-                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                     >
                       Contact us
                     </a>
@@ -508,9 +511,9 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                       height={300}
                       className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
                       style={{
-                        width: '100%',
-                        height: 'auto',
-                        maxWidth: '25rem'
+                        width: "100%",
+                        height: "auto",
+                        maxWidth: "25rem",
                       }}
                       loading="lazy"
                     />
@@ -526,3 +529,5 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 };
 
 export default StudyAbroadPage;
+
+

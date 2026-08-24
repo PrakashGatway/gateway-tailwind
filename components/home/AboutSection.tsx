@@ -23,7 +23,7 @@ const About = ({ content }) => {
           <div className="space-y-4 sm:space-y-6">
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 bg-[#EAF2FD] rounded-full px-3 sm:px-4 py-1.5 animate-fade-up">
-              <span className="text-[10px] sm:text-sm font-bold text-[#0C447C] tracking-wider uppercase">
+              <span className="text-[10px] sm:text-xm font-bold text-[#0C447C] tracking-wider uppercase">
                 {content?.label}
               </span>
             </div>
@@ -60,7 +60,7 @@ const About = ({ content }) => {
                   __html: content?.howwehelp[0]?.description
                 }}
 
-                className="text-sm sm:text-base text-justify leading-relaxed"
+                className="text-xm sm:text-base text-justify leading-relaxed"
               />
 
 
@@ -95,7 +95,7 @@ const About = ({ content }) => {
                   </div>
                   <h3 className="text-base sm:text-base font-bold  mb-3">{pillar.title}</h3>
                 </div>
-                <p className="text-sm sm:text-sm " dangerouslySetInnerHTML={{
+                <p className="text-xm sm:text-xm " dangerouslySetInnerHTML={{
                   __html: pillar.description || ""
                 }} />
               </div>
@@ -107,13 +107,13 @@ const About = ({ content }) => {
         <div className="flex flex-wrap gap-3 mt-4 sm:mt-6 animate-fade-up delay-300">
           <button
             onClick={handleGetStarted}
-            className="bg-[#D81635] rounded-lg hover:shadow-md hover:-translate-y-0.5 hover:bg-mid text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-r8 text-xs sm:text-sm transition-colors"
+            className="bg-[#D81635] rounded-lg hover:shadow-md hover:-translate-y-0.5 hover:bg-mid text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-r8 text-xs sm:text-xm transition-colors"
           >
             {content?.btn1}
           </button>
           <a
             href="/about"
-            className="border-2 border-brand rounded-lg hover:shadow-md hover:-translate-y-0.5 text-brand hover:bg-brand  font-semibold py-2 sm:py-2.5 px-5 sm:px-5.5 rounded-r8 text-xs sm:text-sm transition-all inline-flex items-center"
+            className="border-2 border-brand rounded-lg hover:shadow-md hover:-translate-y-0.5 text-brand hover:bg-brand  font-semibold py-2 sm:py-2.5 px-5 sm:px-5.5 rounded-r8 text-xs sm:text-xm transition-all inline-flex items-center"
           >
             {content?.btn2}
           </a>

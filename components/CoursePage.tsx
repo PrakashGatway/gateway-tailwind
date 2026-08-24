@@ -1,17 +1,29 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
-import Image from 'next/image';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import Image from "next/image";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { useForm } from "react-hook-form";
 
-import PageServices from '@/services/PageServices';
-import { constant } from '@/constant/index.constant';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import PageServices from "@/services/PageServices";
+import { constant } from "@/constant/index.constant";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import FAQSection from "./home/FaqSection";
 
 // Constants
 const COURSE_LINKS = {
@@ -20,16 +32,20 @@ const COURSE_LINKS = {
     PTE: "https://drive.google.com/drive/folders/1kM7xUBIZacJM82FteV-SlkwWMtMlTyBM",
     SAT: "https://drive.google.com/drive/folders/1OYM497cr2lVjqLsRA8S1m9Ho_EduSBmW",
     GRE: "https://drive.google.com/drive/folders/1vY4eXSz0E5V5Qtrr_LbwKjl7vCedqaCE",
-    IELTS: "https://drive.google.com/drive/folders/1WlxtWu5A2eRlcDswTj0UFJtpp8LHOJwI",
-    TOEFL: "https://drive.google.com/drive/folders/1GdcyZq-o831I1zeHaG9w9KlH9z3QLSiy"
+    IELTS:
+      "https://drive.google.com/drive/folders/1WlxtWu5A2eRlcDswTj0UFJtpp8LHOJwI",
+    TOEFL:
+      "https://drive.google.com/drive/folders/1GdcyZq-o831I1zeHaG9w9KlH9z3QLSiy",
   },
   otherResources: {
     GMAT: "/courseRes/GMAT.pdf",
     PTE: "/courseRes/PTE.pdf",
     SAT: "/courseRes/SAT.pdf",
     GRE: "/courseRes/GRE.pdf",
-    IELTS: "https://drive.google.com/drive/folders/1woaEMonJQbQlpco2Ksnc52oC46HLtTHF",
-    TOEFL: "https://drive.google.com/drive/folders/1woaEMonJQbQlpco2Ksnc52oC46HLtTHF"
+    IELTS:
+      "https://drive.google.com/drive/folders/1woaEMonJQbQlpco2Ksnc52oC46HLtTHF",
+    TOEFL:
+      "https://drive.google.com/drive/folders/1woaEMonJQbQlpco2Ksnc52oC46HLtTHF",
   },
   syllabus: {
     GMAT: "/Syllabus/GMATsyllabus.pdf",
@@ -37,12 +53,20 @@ const COURSE_LINKS = {
     SAT: "/Syllabus/SATsyllabus.pdf",
     GRE: "/Syllabus/GREsyllabus.pdf",
     IELTS: "/Syllabus/IELTSsyllabus.pdf",
-    TOEFL: "/Syllabus/TOEFLsyllabus.pdf"
-  }
+    TOEFL: "/Syllabus/TOEFLsyllabus.pdf",
+  },
 };
 
 const BANNER_COURSES = ["GMAT", "PTE", "SAT", "GRE", "IELTS", "TOEFL"];
-const COUNTRIES = ['USA', 'United Kingdom', 'Australia', 'Canada', 'Germany', 'New Zealand', 'France'];
+const COUNTRIES = [
+  "USA",
+  "United Kingdom",
+  "Australia",
+  "Canada",
+  "Germany",
+  "New Zealand",
+  "France",
+];
 
 interface CourseClientProps {
   initialData: any;
@@ -52,19 +76,19 @@ interface CourseClientProps {
   initialSliderData?: any[];
 }
 
-const CourseClient: React.FC<CourseClientProps> = ({ 
-  initialData, 
-  courseSlug, 
-  initialFaqData = [], 
+const CourseClient: React.FC<CourseClientProps> = ({
+  initialData,
+  courseSlug,
+  initialFaqData = [],
   initialTestimonials = [],
-  initialSliderData = []
+  initialSliderData = [],
 }) => {
   const router = useRouter();
   const params = useParams();
   const course = params?.slug || courseSlug || "sat";
 
   // State - initialized with server data
-  const [courseName, setCourseName] = useState('');
+  const [courseName, setCourseName] = useState("");
   const [courseData, setCourseData] = useState({});
   const [testimonials, setTestimonials] = useState(initialTestimonials);
   const [faqData, setFaqData] = useState(initialFaqData);
@@ -83,11 +107,11 @@ const CourseClient: React.FC<CourseClientProps> = ({
     reset: resetContactForm,
   } = useForm({
     defaultValues: {
-      name: '',
-      email: '',
-      mobile: '',
-      city: '',
-      message: '',
+      name: "",
+      email: "",
+      mobile: "",
+      city: "",
+      message: "",
     },
   });
 
@@ -99,7 +123,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
       spacing: 24,
     },
     breakpoints: {
-      '(min-width: 768px)': {
+      "(min-width: 768px)": {
         slides: {
           perView: 2,
           spacing: 32,
@@ -110,25 +134,61 @@ const CourseClient: React.FC<CourseClientProps> = ({
   });
 
   // Memoized values
-  const hasTestimonials = useMemo(() => testimonials.length > 0, [testimonials]);
-  const hasMultipleTestimonials = useMemo(() => testimonials.length > 1, [testimonials]);
+  const hasTestimonials = useMemo(
+    () => testimonials.length > 0,
+    [testimonials],
+  );
+  const hasMultipleTestimonials = useMemo(
+    () => testimonials.length > 1,
+    [testimonials],
+  );
 
   // Helper to extract section content by type
-  const getSectionContent = useCallback((type: string) => {
-    if (!pageData?.sections) return null;
-    const section = pageData.sections.find((s: any) => s.type === type);
-    return section?.content || null;
-  }, [pageData]);
+  const getSectionContent = useCallback(
+    (type: string) => {
+      if (!pageData?.sections) return null;
+      const section = pageData.sections.find((s: any) => s.type === type);
+      return section?.content || null;
+    },
+    [pageData],
+  );
 
-  const heroContent = useMemo(() => getSectionContent('hero'), [getSectionContent]);
-  const whatIsContent = useMemo(() => getSectionContent('whatIsToefl'), [getSectionContent]);
-  const whyChooseContent = useMemo(() => getSectionContent('whyChooseUs'), [getSectionContent]);
-  const pricingContent = useMemo(() => getSectionContent('pricing'), [getSectionContent]);
-  const resourcesContent = useMemo(() => getSectionContent('resources'), [getSectionContent]);
-  const counsellingContent = useMemo(() => getSectionContent('counselling'), [getSectionContent]);
-  const editorContent = useMemo(() => getSectionContent('editor'), [getSectionContent]);
-  const scoreSectionContent = useMemo(() => getSectionContent('Scoresection'), [getSectionContent]);
-  const ComponentsLanguage = useMemo(() => getSectionContent('ComponentsLanguage'), [getSectionContent]);
+  const heroContent = useMemo(
+    () => getSectionContent("hero"),
+    [getSectionContent],
+  );
+  const whatIsContent = useMemo(
+    () => getSectionContent("whatIsToefl"),
+    [getSectionContent],
+  );
+  const whyChooseContent = useMemo(
+    () => getSectionContent("whyChooseUs"),
+    [getSectionContent],
+  );
+  const pricingContent = useMemo(
+    () => getSectionContent("pricing"),
+    [getSectionContent],
+  );
+  const resourcesContent = useMemo(
+    () => getSectionContent("resources"),
+    [getSectionContent],
+  );
+  const counsellingContent = useMemo(
+    () => getSectionContent("counselling"),
+    [getSectionContent],
+  );
+  const editorContent = useMemo(
+    () => getSectionContent("editor"),
+    [getSectionContent],
+  );
+  const scoreSectionContent = useMemo(
+    () => getSectionContent("Scoresection"),
+    [getSectionContent],
+  );
+  const ComponentsLanguage = useMemo(
+    () => getSectionContent("ComponentsLanguage"),
+    [getSectionContent],
+  );
 
   useEffect(() => {
     if (ComponentsLanguage?.items?.[0]?.section) {
@@ -137,60 +197,70 @@ const CourseClient: React.FC<CourseClientProps> = ({
   }, [ComponentsLanguage]);
 
   const splitString = useCallback((str: string) => {
-    if (!str) return { first: '', second: '' };
-    const parts = str.split(':');
-    return { first: parts[0] || '', second: parts[1] || '' };
+    if (!str) return { first: "", second: "" };
+    const parts = str.split(":");
+    return { first: parts[0] || "", second: parts[1] || "" };
   }, []);
 
-  const getResourceLink = useCallback((resourceType: keyof typeof COURSE_LINKS) => {
-    const courseKey = courseName as keyof typeof COURSE_LINKS.practiceMaterial;
-    return COURSE_LINKS[resourceType]?.[courseKey] || "#";
-  }, [courseName]);
+  const getResourceLink = useCallback(
+    (resourceType: keyof typeof COURSE_LINKS) => {
+      const courseKey =
+        courseName as keyof typeof COURSE_LINKS.practiceMaterial;
+      return COURSE_LINKS[resourceType]?.[courseKey] || "#";
+    },
+    [courseName],
+  );
 
   const stripHtml = useCallback((html: string) => {
-    if (!html) return '';
-    if (typeof window !== 'undefined') {
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      return doc.body.textContent || '';
+    if (!html) return "";
+    if (typeof window !== "undefined") {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      return doc.body.textContent || "";
     }
-    return html.replace(/<[^>]*>/g, '');
+    return html.replace(/<[^>]*>/g, "");
   }, []);
 
   // Handle form submission (client-side only)
-  const handleFormSubmit = useCallback(async (data: any) => {
-    const { name, email, mobile, city, message } = data;
-    try {
-      const response = await PageServices.createForme({
-        name,
-        email,
-        mobileNo: mobile,
-        city,
-        message,
-        type: 'contact',
-      });
-      
-      if (response.status === 'success') {
-        resetContactForm();
-        setIsFormSubmitted(true);
-        setShowModal(false);
-        router.push('/thank-you');
-      }
-    } catch (error) {
-      console.error("Error submitting contact form:", error);
-      alert('An error occurred. Please try again.');
-    }
-  }, [resetContactForm, router]);
+  const handleFormSubmit = useCallback(
+    async (data: any) => {
+      const { name, email, mobile, city, message } = data;
+      try {
+        const response = await PageServices.createForme({
+          name,
+          email,
+          mobileNo: mobile,
+          city,
+          message,
+          type: "contact",
+        });
 
-  const handleDownload = useCallback((url: string) => {
-    if (isFormSubmitted) {
-      window.open(url, '_blank');
-    } else {
-      handleGetStarted();
-    }
-  }, [isFormSubmitted]);
+        if (response.status === "success") {
+          resetContactForm();
+          setIsFormSubmitted(true);
+          setShowModal(false);
+          router.push("/thank-you");
+        }
+      } catch (error) {
+        console.error("Error submitting contact form:", error);
+        alert("An error occurred. Please try again.");
+      }
+    },
+    [resetContactForm, router],
+  );
+
+  const handleDownload = useCallback(
+    (url: string) => {
+      if (isFormSubmitted) {
+        window.open(url, "_blank");
+      } else {
+        handleGetStarted();
+      }
+    },
+    [isFormSubmitted],
+  );
 
   const handleGetStarted = useCallback(() => {
-    window.dispatchEvent(new CustomEvent('openFooterModal'));
+    window.dispatchEvent(new CustomEvent("openFooterModal"));
   }, []);
 
   const handlePrev = useCallback(() => {
@@ -205,7 +275,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
   useEffect(() => {
     if (initialData) {
       setPageData(initialData);
-      setCourseName(initialData.title || initialData.pageName || '');
+      setCourseName(initialData.title || initialData.pageName || "");
       setCourseData(initialData);
     }
   }, [initialData]);
@@ -253,13 +323,13 @@ const CourseClient: React.FC<CourseClientProps> = ({
         startAutoplay();
       };
 
-      sliderContainer.addEventListener('mouseover', handleMouseOver);
-      sliderContainer.addEventListener('mouseout', handleMouseOut);
+      sliderContainer.addEventListener("mouseover", handleMouseOver);
+      sliderContainer.addEventListener("mouseout", handleMouseOut);
 
       return () => {
         stopAutoplay();
-        sliderContainer.removeEventListener('mouseover', handleMouseOver);
-        sliderContainer.removeEventListener('mouseout', handleMouseOut);
+        sliderContainer.removeEventListener("mouseover", handleMouseOver);
+        sliderContainer.removeEventListener("mouseout", handleMouseOut);
       };
     }
 
@@ -285,7 +355,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
             <div className="space-y-4 md:space-y-6 text-center lg:text-left">
               <h1 className="text-2xl sm:text-3xl md:text-[40px] font-bold text-red-600 leading-tight break-words">
-                {heroContent?.title || pageData?.title || `${courseName} Preparation`}
+                {heroContent?.title ||
+                  pageData?.title ||
+                  `${courseName} Preparation`}
               </h1>
               {heroContent?.highlightText && (
                 <p className="text-gray-600 text-base md:text-lg leading-relaxed break-words">
@@ -303,8 +375,8 @@ const CourseClient: React.FC<CourseClientProps> = ({
                 </p>
               )}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button 
-                  onClick={handleGetStarted} 
+                <button
+                  onClick={handleGetStarted}
                   className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-lg font-semibold transition-colors duration-300 text-center whitespace-nowrap"
                 >
                   Enroll Now
@@ -315,9 +387,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
             <div className="relative flex justify-center mt-8 md:mt-0">
               <Image
                 src={
-                  pageData?.pageContent?.heroImage 
-                    ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.heroImage}` 
-                    : courseData.image2 
+                  pageData?.pageContent?.heroImage
+                    ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.heroImage}`
+                    : courseData.image2
                       ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image2}`
                       : "/placeholder.svg"
                 }
@@ -339,38 +411,53 @@ const CourseClient: React.FC<CourseClientProps> = ({
             <div className="relative overflow-hidden">
               <div
                 className="flex marquee-alternate"
-                style={{
-                  '--marquee-duration': '25s',
-                  '--marquee-direction': 'alternate',
-                  gap: '2rem'
-                } as React.CSSProperties}
+                style={
+                  {
+                    "--marquee-duration": "25s",
+                    "--marquee-direction": "alternate",
+                    gap: "2rem",
+                  } as React.CSSProperties
+                }
               >
                 {sliderData.map((item: any) => (
-                  <div key={item._id || item.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
-                    {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
+                  <div
+                    key={item._id || item.id}
+                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm"
+                  >
+                    {item.name} {item.courseName}{" "}
+                    <span className="text-red-400 font-bold">{item.rank}</span>
                   </div>
                 ))}
                 {sliderData.map((item: any) => (
-                  <div key={`${item._id}-dup` || `${item.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
-                    {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
+                  <div
+                    key={`${item._id}-dup` || `${item.id}-dup`}
+                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm"
+                  >
+                    {item.name} {item.courseName}{" "}
+                    <span className="text-red-400 font-bold">{item.rank}</span>
                   </div>
                 ))}
               </div>
 
               <style jsx>{`
                 .marquee-alternate {
-                  animation: marqueeAlternate var(--marquee-duration, 25s) linear infinite var(--marquee-direction, alternate);
+                  animation: marqueeAlternate var(--marquee-duration, 25s)
+                    linear infinite var(--marquee-direction, alternate);
                 }
-                
+
                 .marquee-alternate:hover {
                   animation-play-state: paused;
                 }
-                
+
                 @keyframes marqueeAlternate {
-                  0% { transform: translateX(0); }
-                  100% { transform: translateX(-50%); }
+                  0% {
+                    transform: translateX(0);
+                  }
+                  100% {
+                    transform: translateX(-50%);
+                  }
                 }
-                
+
                 @media (max-width: 640px) {
                   .marquee-alternate {
                     gap: 1rem;
@@ -390,11 +477,11 @@ const CourseClient: React.FC<CourseClientProps> = ({
               <div>
                 <Image
                   src={
-                    pageData?.pageContent?.WhatIsImage 
+                    pageData?.pageContent?.WhatIsImage
                       ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.WhatIsImage}`
-                      : courseData.image3 
+                      : courseData.image3
                         ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image3}`
-                        : '/placeholder.jpg'
+                        : "/placeholder.jpg"
                   }
                   alt={`${courseName} Overview`}
                   width={500}
@@ -408,39 +495,55 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   {whatIsContent?.sectionTitle || `What is ${courseName}?`}
                 </h2>
                 {whatIsContent?.description && (
-                  <div 
+                  <div
                     className="text-gray-600 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: whatIsContent.description }}
+                    dangerouslySetInnerHTML={{
+                      __html: whatIsContent.description,
+                    }}
                   />
                 )}
               </div>
             </div>
 
             {/* What's on Section */}
-            {((whatIsContent?.whatIsOnToefl && whatIsContent.whatIsOnToefl.includes('<p>')) || editorContent) && (
+            {((whatIsContent?.whatIsOnToefl &&
+              whatIsContent.whatIsOnToefl.includes("<p>")) ||
+              editorContent) && (
               <div className="mt-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
                   {editorContent?.title || `What is on the ${courseName}?`}
                 </h2>
-                
+
                 {editorContent?.items && editorContent.items.length > 0 ? (
                   <div className="flex flex-wrap justify-center gap-6">
                     {editorContent.items.map((item: any, index: number) => (
-                      <div key={index} className="bg-white rounded-lg shadow-[0_0_20px_5px_rgba(0,0,0,0.1)] p-6 border border-gray-200 text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[300px]">
+                      <div
+                        key={index}
+                        className="bg-white rounded-lg shadow-[0_0_20px_5px_rgba(0,0,0,0.1)] p-6 border border-gray-200 
+                        text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[300px]"
+                      >
                         <div className="flex items-center justify-center mx-auto mb-4">
-                          <Image 
-                            src={item.icon ? `/img/gmat-descp-img-${index + 1}.svg` : `/img/gmat-descp-img-${index + 1}.svg`}
-                            alt="Icon" 
-                            width={60} 
+                          <Image
+                            src={
+                              item.icon
+                                ? `/img/gmat-descp-img-${index + 1}.svg`
+                                : `/img/gmat-descp-img-${index + 1}.svg`
+                            }
+                            alt="Icon"
+                            width={60}
                             height={60}
                             loading="lazy"
                           />
                         </div>
-                        <h5 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h5>
+                        <h5 className="text-lg font-bold text-gray-900 mb-8">
+                          {item.title}
+                        </h5>
                         {item.description && (
-                          <div 
-                            className="text-black-600 font-bold text-sm"
-                            dangerouslySetInnerHTML={{ __html: item.description }}
+                          <div
+                            className="text-black-600 text-justify text-xm"
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
                           />
                         )}
                       </div>
@@ -448,9 +551,11 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   </div>
                 ) : (
                   whatIsContent?.whatIsOnToefl && (
-                    <div 
+                    <div
                       className="w-full text-center text-gray-600"
-                      dangerouslySetInnerHTML={{ __html: whatIsContent.whatIsOnToefl }}
+                      dangerouslySetInnerHTML={{
+                        __html: whatIsContent.whatIsOnToefl,
+                      }}
                     />
                   )
                 )}
@@ -468,7 +573,11 @@ const CourseClient: React.FC<CourseClientProps> = ({
               <div className="flex justify-center">
                 <div className="relative">
                   <Image
-                    src={pageData?.pageContent?.Scoresimg ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}` : "/placeholder.svg"}
+                    src={
+                      pageData?.pageContent?.Scoresimg
+                        ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}`
+                        : "/placeholder.svg"
+                    }
                     alt={`${courseName} Countries`}
                     className="rounded-lg shadow-lg w-full max-w-md"
                     width={100}
@@ -480,10 +589,15 @@ const CourseClient: React.FC<CourseClientProps> = ({
 
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  {scoreSectionContent?.sectionTitle || `Countries Accepting ${courseName} Scores`}
+                  {scoreSectionContent?.sectionTitle ||
+                    `Countries Accepting ${courseName} Scores`}
                 </h2>
                 {scoreSectionContent?.sectionSubtitle && (
-                  <div dangerouslySetInnerHTML={{ __html: scoreSectionContent.sectionSubtitle }} />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: scoreSectionContent.sectionSubtitle,
+                    }}
+                  />
                 )}
                 {!scoreSectionContent?.sectionSubtitle && (
                   <p className="text-gray-600 mb-6">
@@ -491,11 +605,15 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   </p>
                 )}
                 <h6 className="text-lg font-semibold mb-4">
-                  Some of the popular countries accepting {courseName} scores are as follows:
+                  Some of the popular countries accepting {courseName} scores
+                  are as follows:
                 </h6>
                 <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
                   {COUNTRIES.map((country) => (
-                    <div key={country} className="flex items-center text-gray-700">
+                    <div
+                      key={country}
+                      className="flex items-center text-gray-700"
+                    >
                       <img
                         src="/img/arrow-up-right.svg"
                         alt="arrow icon"
@@ -516,26 +634,34 @@ const CourseClient: React.FC<CourseClientProps> = ({
       <section className="py-12 md:py-20 bg-[#f5f4f8]">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-            {whyChooseContent?.sectionTitle || `Why Choose Gateway Abroad for ${courseName} Test Prep?`}
+            {whyChooseContent?.sectionTitle ||
+              `Why Choose Gateway Abroad for ${courseName} Test Prep?`}
           </h2>
-          
+
           {whyChooseContent?.items && whyChooseContent.items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {whyChooseContent.items.map((item: any, index: number) => (
-                <div key={index} className="bg-white rounded-lg p-6 text-center">
+                <div
+                  key={index}
+                  className="bg-white rounded-lg p-6 text-center"
+                >
                   <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
-                    <Image 
-                      src={item.icon ? `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg` : `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg`} 
-                      alt={item.title || 'Feature'} 
-                      width={60} 
-                      height={32} 
-                      loading="lazy" 
+                    <Image
+                      src={
+                        item.icon
+                          ? `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg`
+                          : `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg`
+                      }
+                      alt={item.title || "Feature"}
+                      width={60}
+                      height={32}
+                      loading="lazy"
                     />
                   </div>
                   <p className="text-black-600 font-bold">{item.title}</p>
                   {item.description && (
-                    <div 
-                      className="text-gray-500 text-sm mt-2"
+                    <div
+                      className="text-gray-500 text-xm mt-2"
                       dangerouslySetInnerHTML={{ __html: item.description }}
                     />
                   )}
@@ -544,19 +670,30 @@ const CourseClient: React.FC<CourseClientProps> = ({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {['one', 'two', 'three', 'four', 'five', 'six'].map((key, index) => {
-                const text = courseData.whyChoose?.[key];
-                if (!text) return null;
-                
-                return (
-                  <div key={key} className="bg-white rounded-lg p-6 text-center">
-                    <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
-                      <Image src={`/img/why-choose-ga-img-${index + 1}.svg`} alt="Feature" width={60} height={32} loading="lazy" />
+              {["one", "two", "three", "four", "five", "six"].map(
+                (key, index) => {
+                  const text = courseData.whyChoose?.[key];
+                  if (!text) return null;
+
+                  return (
+                    <div
+                      key={key}
+                      className="bg-white rounded-lg p-6 text-center"
+                    >
+                      <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
+                        <Image
+                          src={`/img/why-choose-ga-img-${index + 1}.svg`}
+                          alt="Feature"
+                          width={60}
+                          height={32}
+                          loading="lazy"
+                        />
+                      </div>
+                      <p className="text-black-600 font-bold">{text}</p>
                     </div>
-                    <p className="text-black-600 font-bold">{text}</p>
-                  </div>
-                );
-              })}
+                  );
+                },
+              )}
             </div>
           )}
         </div>
@@ -580,7 +717,10 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   Download
                 </button>
               ) : (
-                <button className="bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold cursor-not-allowed" disabled>
+                <button
+                  className="bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold cursor-not-allowed"
+                  disabled
+                >
                   Brochure Coming Soon
                 </button>
               )}
@@ -608,7 +748,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
           </h2>
 
           {!hasTestimonials ? (
-            <div className="text-center text-gray-500 py-8">No testimonials available</div>
+            <div className="text-center text-gray-500 py-8">
+              No testimonials available
+            </div>
           ) : (
             <div className="relative group">
               <div ref={sliderRef} className="keen-slider py-4">
@@ -622,14 +764,18 @@ const CourseClient: React.FC<CourseClientProps> = ({
                           </h6>
                           <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
                             {[1, 2, 3, 4, 5].map((star) => (
-                              <li key={star} className="text-amber-400 box-border caret-transparent">
+                              <li
+                                key={star}
+                                className="text-amber-400 box-border caret-transparent"
+                              >
                                 <Star className="w-[18px] h-[18px] fill-amber-400" />
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
-                          {test.content?.substring(0, 250) || 'No testimonial content available.'}
+                        <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                          {test.content?.substring(0, 250) ||
+                            "No testimonial content available."}
                         </p>
                       </div>
                       <div className="bg-red-600 box-border caret-transparent px-5 py-3.5 rounded-b-3xl md:px-[30px]"></div>
@@ -666,10 +812,10 @@ const CourseClient: React.FC<CourseClientProps> = ({
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-2">
-              {pricingContent?.sectionTitle || 'Plans & Pricing'}
+              {pricingContent?.sectionTitle || "Plans & Pricing"}
             </h2>
             {pricingContent?.description && (
-              <div 
+              <div
                 className="text-zinc-500 font-medium"
                 dangerouslySetInnerHTML={{ __html: pricingContent.description }}
               />
@@ -680,13 +826,13 @@ const CourseClient: React.FC<CourseClientProps> = ({
             {pricingContent?.plans && pricingContent.plans.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {pricingContent.plans.map((plan: any, index: number) => {
-                  const isHybrid = plan.type === 'hybrid';
-                  const isPopular = plan.badge === 'Most Popular';
-                  
+                  const isHybrid = plan.type === "hybrid";
+                  const isPopular = plan.badge === "Most Popular";
+
                   return (
-                    <div 
-                      key={index} 
-                      className={`px-4 md:px-6 ${isHybrid ? 'bg-red-600 shadow-2xl rounded-3xl p-6 md:p-8 md:-mt-20 relative' : ''}`}
+                    <div
+                      key={index}
+                      className={`px-4 md:px-6 ${isHybrid ? "bg-red-600 shadow-2xl rounded-3xl p-6 md:p-8 md:-mt-20 relative" : ""}`}
                     >
                       {isPopular && (
                         <div className="text-right mb-4">
@@ -695,7 +841,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
                           </span>
                         </div>
                       )}
-                      <h5 className={`text-2xl md:text-[28px] font-medium ${isHybrid ? 'text-white' : 'text-zinc-700'} mb-6`}>
+                      <h5
+                        className={`text-2xl md:text-[28px] font-medium ${isHybrid ? "text-white" : "text-zinc-700"} mb-6`}
+                      >
                         {plan.title}
                       </h5>
                       {plan.badge && !isPopular && (
@@ -703,29 +851,37 @@ const CourseClient: React.FC<CourseClientProps> = ({
                           {plan.badge}
                         </span>
                       )}
-                      {plan.price && plan.price !== 'Contact for Pricing' && (
-                        <p className={`text-xl font-bold ${isHybrid ? 'text-white' : 'text-zinc-700'} mb-2`}>
+                      {plan.price && plan.price !== "Contact for Pricing" && (
+                        <p
+                          className={`text-xl font-bold ${isHybrid ? "text-white" : "text-zinc-700"} mb-2`}
+                        >
                           {plan.price}
                         </p>
                       )}
                       {plan.duration && (
-                        <p className={`text-sm ${isHybrid ? 'text-white/80' : 'text-zinc-500'} mb-4`}>
+                        <p
+                          className={`text-xm ${isHybrid ? "text-white/80" : "text-zinc-500"} mb-4`}
+                        >
                           {plan.duration}
                         </p>
                       )}
                       <div className="mb-8">
-                        <div 
-                          className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-justify`}
+                        <div
+                          className={`${isHybrid ? "text-white" : "text-neutral-600"} font-medium text-justify`}
                           dangerouslySetInnerHTML={{ __html: plan.description }}
                         />
                         {plan.additionalDescription && (
-                          <div 
-                            className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-justify mt-2`}
-                            dangerouslySetInnerHTML={{ __html: plan.additionalDescription }}
+                          <div
+                            className={`${isHybrid ? "text-white" : "text-neutral-600"} font-medium text-justify mt-2`}
+                            dangerouslySetInnerHTML={{
+                              __html: plan.additionalDescription,
+                            }}
                           />
                         )}
                         {plan.features && (
-                          <p className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-sm mt-4`}>
+                          <p
+                            className={`${isHybrid ? "text-white" : "text-neutral-600"} font-medium text-xm mt-4`}
+                          >
                             {plan.features}
                           </p>
                         )}
@@ -739,9 +895,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
                               handleGetStarted();
                             }
                           }}
-                          className={`text-white text-base md:text-lg font-bold ${isHybrid ? 'bg-black hover:bg-gray-800' : 'bg-red-600 hover:bg-red-700'} shadow-lg px-12 py-3 rounded-full transition-colors duration-300`}
+                          className={`text-white text-base md:text-lg font-bold ${isHybrid ? "bg-black hover:bg-gray-800" : "bg-red-600 hover:bg-red-700"} shadow-lg px-12 py-3 rounded-full transition-colors duration-300`}
                         >
-                          {plan.buttonText || 'Choose Plan'}
+                          {plan.buttonText || "Choose Plan"}
                         </button>
                       </div>
                     </div>
@@ -750,7 +906,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center text-gray-500 col-span-3">No pricing data available</div>
+                <div className="text-center text-gray-500 col-span-3">
+                  No pricing data available
+                </div>
               </div>
             )}
           </div>
@@ -761,25 +919,31 @@ const CourseClient: React.FC<CourseClientProps> = ({
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-            {resourcesContent?.sectionTitle || `Free ${courseName} Prep Resources`}
+            {resourcesContent?.sectionTitle ||
+              `Free ${courseName} Prep Resources`}
           </h2>
 
           {resourcesContent?.items && resourcesContent.items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {resourcesContent.items.map((item: any, index: number) => (
-                <div key={index} className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center"
+                >
                   <div className="flex items-center justify-center mx-auto mb-6">
-                    <Image 
-                      src={item.file || `/img/resource-img-${index + 1}.svg`} 
-                      alt={item.title || 'Resource'} 
-                      width={350} 
-                      height={40} 
-                      loading="lazy" 
+                    <Image
+                      src={item.file || `/img/resource-img-${index + 1}.svg`}
+                      alt={item.title || "Resource"}
+                      width={350}
+                      height={40}
+                      loading="lazy"
                     />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h4>
+                  <h4 className="text-xl font-bold text-gray-900 mb-4">
+                    {item.title}
+                  </h4>
                   {item.description && (
-                    <div 
+                    <div
                       className="text-gray-600 mb-6"
                       dangerouslySetInnerHTML={{ __html: item.description }}
                     />
@@ -787,23 +951,31 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   <button
                     onClick={() => {
                       if (item.url) {
-                        const link = item.url.startsWith('http') ? item.url : getResourceLink(
-                          index === 0 ? 'practiceMaterial' : 
-                          index === 1 ? 'otherResources' : 
-                          'syllabus' as keyof typeof COURSE_LINKS
-                        );
+                        const link = item.url.startsWith("http")
+                          ? item.url
+                          : getResourceLink(
+                              index === 0
+                                ? "practiceMaterial"
+                                : index === 1
+                                  ? "otherResources"
+                                  : ("syllabus" as keyof typeof COURSE_LINKS),
+                            );
                         handleDownload(link);
                       } else {
-                        handleDownload(getResourceLink(
-                          index === 0 ? 'practiceMaterial' : 
-                          index === 1 ? 'otherResources' : 
-                          'syllabus' as keyof typeof COURSE_LINKS
-                        ));
+                        handleDownload(
+                          getResourceLink(
+                            index === 0
+                              ? "practiceMaterial"
+                              : index === 1
+                                ? "otherResources"
+                                : ("syllabus" as keyof typeof COURSE_LINKS),
+                          ),
+                        );
                       }
                     }}
                     className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 w-full"
                   >
-                    {item.buttonText || 'Access Resource'}
+                    {item.buttonText || "Access Resource"}
                   </button>
                 </div>
               ))}
@@ -813,14 +985,25 @@ const CourseClient: React.FC<CourseClientProps> = ({
               {/* Practice Material */}
               <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
                 <div className="flex items-center justify-center mx-auto mb-6">
-                  <Image src="/img/resource-img-1.svg" alt="Practice Material" width={350} height={40} loading="lazy" />
+                  <Image
+                    src="/img/resource-img-1.svg"
+                    alt="Practice Material"
+                    width={350}
+                    height={40}
+                    loading="lazy"
+                  />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Practice Material</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                  Practice Material
+                </h4>
                 <p className="text-gray-600 mb-6">
-                  Take the {courseName} practice material and begin your {courseName} preparation now
+                  Take the {courseName} practice material and begin your{" "}
+                  {courseName} preparation now
                 </p>
                 <button
-                  onClick={() => handleDownload(getResourceLink('practiceMaterial'))}
+                  onClick={() =>
+                    handleDownload(getResourceLink("practiceMaterial"))
+                  }
                   className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 w-full"
                 >
                   Take {courseName} Practice Material
@@ -830,14 +1013,26 @@ const CourseClient: React.FC<CourseClientProps> = ({
               {/* Other Resources */}
               <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
                 <div className="flex items-center justify-center mx-auto mb-6">
-                  <Image src="/img/resource-img-2.svg" alt="Other Resources" width={350} height={40} loading="lazy" />
+                  <Image
+                    src="/img/resource-img-2.svg"
+                    alt="Other Resources"
+                    width={350}
+                    height={40}
+                    loading="lazy"
+                  />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Other Resources</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                  Other Resources
+                </h4>
                 <p className="text-gray-600 mb-6">
-                  Begin your {courseName} coaching with this other resources prepared by our experts to help you with your {courseName} prep
+                  Begin your {courseName} coaching with this other resources
+                  prepared by our experts to help you with your {courseName}{" "}
+                  prep
                 </p>
                 <button
-                  onClick={() => handleDownload(getResourceLink('otherResources'))}
+                  onClick={() =>
+                    handleDownload(getResourceLink("otherResources"))
+                  }
                   className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 w-full"
                 >
                   Download {courseName} Other Resources
@@ -847,14 +1042,23 @@ const CourseClient: React.FC<CourseClientProps> = ({
               {/* Syllabus Download */}
               <div className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
                 <div className="flex items-center justify-center mx-auto mb-6">
-                  <Image src="/img/resource-img-3.svg" alt="Syllabus Download" width={350} height={40} loading="lazy" />
+                  <Image
+                    src="/img/resource-img-3.svg"
+                    alt="Syllabus Download"
+                    width={350}
+                    height={40}
+                    loading="lazy"
+                  />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Syllabus Download</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">
+                  Syllabus Download
+                </h4>
                 <p className="text-gray-600 mb-6">
-                  Download the {courseName} syllabus now and get a head start on your {courseName} preparation
+                  Download the {courseName} syllabus now and get a head start on
+                  your {courseName} preparation
                 </p>
                 <button
-                  onClick={() => handleDownload(getResourceLink('syllabus'))}
+                  onClick={() => handleDownload(getResourceLink("syllabus"))}
                   className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 w-full"
                 >
                   Download {courseName} Syllabus
@@ -866,84 +1070,104 @@ const CourseClient: React.FC<CourseClientProps> = ({
       </section>
 
       {/* Components Language Section */}
-      {
-        ComponentsLanguage?.sectionTitle && 
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              {ComponentsLanguage?.sectionTitle}
-            </h2>
+      {ComponentsLanguage?.sectionTitle && (
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                {ComponentsLanguage?.sectionTitle}
+              </h2>
 
-            {ComponentsLanguage?.sectionDescription && (
-              <p className="text-gray-600">
-                {ComponentsLanguage.sectionDescription}
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6">
-            <div className="lg:w-5/12">
-              <Image
-                src={pageData?.pageContent?.Scoresimg ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}` : "/placeholder.svg"}
-                alt={`${courseName} Countries`}
-                className="rounded-lg shadow-lg w-full max-w-md"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-            </div>
-
-            <div className="lg:w-7/12">
-              {ComponentsLanguage?.items?.length > 0 && (
-                <>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {ComponentsLanguage.items.map((item: any, index: number) => (
-                      <button
-                        key={`trigger-${item.section}-${index}`}
-                        className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
-                          activeTab === item.section
-                            ? "bg-red-600 text-white"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                        }`}
-                        onClick={() => setActiveTab(item.section)}
-                      >
-                        {item.section}
-                      </button>
-                    ))}
-                  </div>
-
-                  {ComponentsLanguage.items.map((item: any, index: number) => (
-                    <div
-                      key={`content-${item.section}-${index}`}
-                      className={activeTab === item.section ? "block" : "hidden"}
-                    >
-                      <div className="bg-white rounded-lg p-4 shadow-sm">
-                        {item.content && (
-                          <div
-                            className="text-gray-700 text-justify mb-3"
-                            dangerouslySetInnerHTML={{
-                              __html: item.content,
-                            }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </>
+              {ComponentsLanguage?.sectionDescription && (
+                <p className="text-gray-600">
+                  {ComponentsLanguage.sectionDescription}
+                </p>
               )}
             </div>
+
+            <div className="flex flex-col lg:flex-row gap-6">
+              <div className="lg:w-5/12">
+                <Image
+                  src={
+                    pageData?.pageContent?.Scoresimg
+                      ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}`
+                      : "/placeholder.svg"
+                  }
+                  alt={`${courseName} Countries`}
+                  className="rounded-lg shadow-lg w-full max-w-md"
+                  width={100}
+                  height={100}
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="lg:w-7/12">
+                {ComponentsLanguage?.items?.length > 0 && (
+                  <>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {ComponentsLanguage.items.map(
+                        (item: any, index: number) => (
+                          <button
+                            key={`trigger-${item.section}-${index}`}
+                            className={`px-3 py-2 rounded text-xm font-medium transition-colors ${
+                              activeTab === item.section
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                            }`}
+                            onClick={() => setActiveTab(item.section)}
+                          >
+                            {item.section}
+                          </button>
+                        ),
+                      )}
+                    </div>
+
+                    {ComponentsLanguage.items.map(
+                      (item: any, index: number) => (
+                        <div
+                          key={`content-${item.section}-${index}`}
+                          className={
+                            activeTab === item.section ? "block" : "hidden"
+                          }
+                        >
+                          <div className="bg-white rounded-lg p-4 shadow-sm">
+                            {item.content && (
+                              <div
+                                className="text-gray-700 text-justify mb-3"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.content,
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      ),
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-      }
+        </section>
+      )}
 
       {/* FAQ Section */}
       <section className="py-12 md:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
+
+        
+      <FAQSection
+        content={"Frequently Asked Questions"}
+        faq={faqData}
+      />
+
+        {/* <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently asked questions</h2>
-            <p className="text-gray-600">Can't find the answer you are looking for?</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Frequently asked questions
+            </h2>
+            <p className="text-gray-600">
+              Can't find the answer you are looking for?
+            </p>
           </div>
 
           <div className="max-w-7xl mx-auto">
@@ -957,14 +1181,14 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   <AccordionTrigger className="font-semibold py-4 hover:no-underline">
                     {f.title}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-700 pb-4 text-sm">
+                  <AccordionContent className="text-gray-700 pb-4 text-xm">
                     {f.content}
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Counselling Session Section */}
@@ -975,24 +1199,30 @@ const CourseClient: React.FC<CourseClientProps> = ({
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
                 <div className="text-center lg:text-left lg:pl-[17px]">
                   <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold text-[#D71635] mb-4 lg:leading-[37px]">
-                    {counsellingContent?.title || 'Avail A Complementary Counselling Session'}
+                    {counsellingContent?.title ||
+                      "Avail A Complementary Counselling Session"}
                   </h2>
                   {counsellingContent?.description && (
-                    <div 
+                    <div
                       className="text-base lg:text-[18px] text-[#666276] mb-4 sm:mb-6"
-                      dangerouslySetInnerHTML={{ __html: counsellingContent.description }}
+                      dangerouslySetInnerHTML={{
+                        __html: counsellingContent.description,
+                      }}
                     />
                   )}
                   <Link
-                    href={counsellingContent?.buttonUrl || '/contact'}
-                    className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
+                    href={counsellingContent?.buttonUrl || "/contact"}
+                    className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
                   >
-                    {counsellingContent?.buttonText || 'Contact us'}
+                    {counsellingContent?.buttonText || "Contact us"}
                   </Link>
                 </div>
                 <div className="flex justify-center">
                   <Image
-                    src={counsellingContent?.image || '/img/counselling-session.svg'}
+                    src={
+                      counsellingContent?.image ||
+                      "/img/counselling-session.svg"
+                    }
                     alt="Counselling Session"
                     width={400}
                     height={300}
@@ -1012,84 +1242,111 @@ const CourseClient: React.FC<CourseClientProps> = ({
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h3 className="text-xl font-bold text-gray-900">Get in touch</h3>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Get in touch
+                </h3>
                 <button
                   onClick={() => setShowModal(false)}
                   className="text-gray-400 hover:text-gray-600 transition-colors"
                   aria-label="Close modal"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
             </div>
 
             <div className="p-6">
-              <form onSubmit={handleSubmitContact(handleFormSubmit)} className="space-y-4">
+              <form
+                onSubmit={handleSubmitContact(handleFormSubmit)}
+                className="space-y-4"
+              >
                 <div>
                   <input
                     type="text"
-                    {...registerContact('name', { required: 'Name is required' })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.name ? 'border-red-500' : 'border-gray-300'}`}
+                    {...registerContact("name", {
+                      required: "Name is required",
+                    })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.name ? "border-red-500" : "border-gray-300"}`}
                     placeholder="Name"
                   />
                   {contactErrors.name && (
-                    <p className="text-red-500 text-sm mt-1">{contactErrors.name.message}</p>
+                    <p className="text-red-500 text-xm mt-1">
+                      {contactErrors.name.message}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <input
                     type="email"
-                    {...registerContact('email', {
-                      required: 'Email is required',
+                    {...registerContact("email", {
+                      required: "Email is required",
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Invalid email address',
+                        message: "Invalid email address",
                       },
                     })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.email ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.email ? "border-red-500" : "border-gray-300"}`}
                     placeholder="Email"
                   />
                   {contactErrors.email && (
-                    <p className="text-red-500 text-sm mt-1">{contactErrors.email.message}</p>
+                    <p className="text-red-500 text-xm mt-1">
+                      {contactErrors.email.message}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <input
                     type="text"
-                    {...registerContact('mobile', {
-                      required: 'Mobile No. is required',
+                    {...registerContact("mobile", {
+                      required: "Mobile No. is required",
                       pattern: {
                         value: /^\d{10,15}$/,
-                        message: 'Invalid phone number',
+                        message: "Invalid phone number",
                       },
                     })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.mobile ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.mobile ? "border-red-500" : "border-gray-300"}`}
                     placeholder="Mobile No."
                   />
                   {contactErrors.mobile && (
-                    <p className="text-red-500 text-sm mt-1">{contactErrors.mobile.message}</p>
+                    <p className="text-red-500 text-xm mt-1">
+                      {contactErrors.mobile.message}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <input
                     type="text"
-                    {...registerContact('city', { required: 'City is required' })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.city ? 'border-red-500' : 'border-gray-300'}`}
+                    {...registerContact("city", {
+                      required: "City is required",
+                    })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${contactErrors.city ? "border-red-500" : "border-gray-300"}`}
                     placeholder="City"
                   />
                   {contactErrors.city && (
-                    <p className="text-red-500 text-sm mt-1">{contactErrors.city.message}</p>
+                    <p className="text-red-500 text-xm mt-1">
+                      {contactErrors.city.message}
+                    </p>
                   )}
                 </div>
 
                 <div>
                   <textarea
-                    {...registerContact('message')}
+                    {...registerContact("message")}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     rows={3}
                     placeholder="Message"
@@ -1112,14 +1369,6 @@ const CourseClient: React.FC<CourseClientProps> = ({
 };
 
 export default CourseClient;
-
-
-
-
-
-
-
-
 
 
 
@@ -1237,28 +1486,20 @@ export default CourseClient;
 //     return section?.content || null;
 //   }, [pageData]);
 
-  
 //   const heroContent = useMemo(() => getSectionContent('hero'), [getSectionContent]);
-  
-  
+
 //   const whatIsContent = useMemo(() => getSectionContent('whatIsToefl'), [getSectionContent]);
-  
-  
+
 //   const whyChooseContent = useMemo(() => getSectionContent('whyChooseUs'), [getSectionContent]);
-  
-  
+
 //   const pricingContent = useMemo(() => getSectionContent('pricing'), [getSectionContent]);
-  
-  
+
 //   const resourcesContent = useMemo(() => getSectionContent('resources'), [getSectionContent]);
-  
-  
+
 //   const counsellingContent = useMemo(() => getSectionContent('counselling'), [getSectionContent]);
-  
-  
+
 //   const editorContent = useMemo(() => getSectionContent('editor'), [getSectionContent]);
-  
-  
+
 //   const scoreSectionContent = useMemo(() => getSectionContent('Scoresection'), [getSectionContent]);
 
 //   const ComponentsLanguage = useMemo(() => getSectionContent('ComponentsLanguage'),[getSectionContent]);
@@ -1266,8 +1507,7 @@ export default CourseClient;
 //   useEffect(() => {
 //     setActiveTab(ComponentsLanguage?.items[0]?.section)
 //   },[ComponentsLanguage])
-  
-  
+
 //   const splitString = useCallback((str) => {
 //     if (!str) return { first: '', second: '' };
 //     const parts = str.split(':');
@@ -1309,18 +1549,18 @@ export default CourseClient;
 
 //   const fetchCourseData = useCallback(async () => {
 //     if (!course) return;
-    
+
 //     setIsLoading(true);
 //     try {
 //       const response1 = await serverInstance.get(`/page/${course}?type=course_page`);
 //       const response = response1?.data;
-      
+
 //       if (response?.success === true) {
 //         const data = response.data;
 //         setPageData(data);
 //         setCourseName(data.title || data.pageName || '');
 //         setCourseData(data);
-        
+
 //         // Fetch related data
 //         const pageName = data.title || data.pageName || course;
 //         await Promise.all([
@@ -1349,7 +1589,7 @@ export default CourseClient;
 //         message,
 //         type: 'contact',
 //       });
-      
+
 //       if (response.status === 'success') {
 //         resetContactForm();
 //         setIsFormSubmitted(true);
@@ -1455,7 +1695,7 @@ export default CourseClient;
 
 //   return (
 //     <div>
-      
+
 //       <section className="hero-gradient min-h-screen py-12 md:py-20 relative overflow-hidden">
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 //           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
@@ -1480,8 +1720,8 @@ export default CourseClient;
 //                 </p>
 //               )}
 //               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-//                 <button 
-//                   onClick={handleGetStarted} 
+//                 <button
+//                   onClick={handleGetStarted}
 //                   className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-8 py-3 rounded-lg font-semibold transition-colors duration-300 text-center whitespace-nowrap"
 //                 >
 //                   Enroll Now
@@ -1492,9 +1732,9 @@ export default CourseClient;
 //             <div className="relative flex justify-center mt-8 md:mt-0">
 //                <Image
 //                 src={
-//                   pageData?.pageContent?.heroImage 
-//                     ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.heroImage}` 
-//                     : courseData.image2 
+//                   pageData?.pageContent?.heroImage
+//                     ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.heroImage}`
+//                     : courseData.image2
 //                       ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image2}`
 //                       : "/placeholder.svg"
 //                 }
@@ -1509,7 +1749,6 @@ export default CourseClient;
 //         </div>
 //       </section>
 
-
 //       {sliderData.length > 0 && (
 //         <section className="bg-[#1F1B2D] py-3">
 //           <div className="max-w-full sm:max-w-xl md:max-w-3xl lg:max-w-full mx-auto">
@@ -1523,12 +1762,12 @@ export default CourseClient;
 //                 } as React.CSSProperties}
 //               >
 //                 {sliderData.map((item) => (
-//                   <div key={item._id || item.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
+//                   <div key={item._id || item.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm">
 //                     {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
 //                   </div>
 //                 ))}
 //                 {sliderData.map((item) => (
-//                   <div key={`${item._id}-dup` || `${item.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
+//                   <div key={`${item._id}-dup` || `${item.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm">
 //                     {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
 //                   </div>
 //                 ))}
@@ -1538,16 +1777,16 @@ export default CourseClient;
 //                 .marquee-alternate {
 //                   animation: marqueeAlternate var(--marquee-duration, 25s) linear infinite var(--marquee-direction, alternate);
 //                 }
-                
+
 //                 .marquee-alternate:hover {
 //                   animation-play-state: paused;
 //                 }
-                
+
 //                 @keyframes marqueeAlternate {
 //                   0% { transform: translateX(0); }
 //                   100% { transform: translateX(-50%); }
 //                 }
-                
+
 //                 @media (max-width: 640px) {
 //                   .marquee-alternate {
 //                     gap: 1rem;
@@ -1567,9 +1806,9 @@ export default CourseClient;
 //             <div>
 //               <Image
 //                 src={
-//                   pageData?.pageContent?.WhatIsImage 
+//                   pageData?.pageContent?.WhatIsImage
 //                     ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.WhatIsImage}`
-//                     : courseData.image3 
+//                     : courseData.image3
 //                       ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image3}`
 //                       : '/placeholder.jpg'
 //                 }
@@ -1585,13 +1824,13 @@ export default CourseClient;
 //                 {whatIsContent?.sectionTitle || `What is ${courseName}?`}
 //               </h2>
 //               {whatIsContent?.description && (
-//                 <div 
+//                 <div
 //                   className="text-gray-600 leading-relaxed"
 //                   dangerouslySetInnerHTML={{ __html: whatIsContent.description }}
 //                 />
 //               )}
 //               {/* {whatIsContent?.whatIsOnToefl && (
-//                 <div 
+//                 <div
 //                   className="text-gray-600 leading-relaxed mt-4"
 //                   dangerouslySetInnerHTML={{ __html: whatIsContent.whatIsOnToefl }}
 //                 />
@@ -1605,24 +1844,24 @@ export default CourseClient;
 //               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
 //                 {editorContent?.title || `What is on the ${courseName}?`}
 //               </h2>
-              
+
 //               {editorContent?.items && editorContent.items.length > 0 ? (
 //                 <div className="flex flex-wrap justify-center gap-6">
 //                   {editorContent.items.map((item, index) => (
 //                     <div key={index} className="bg-white rounded-lg shadow-[0_0_20px_5px_rgba(0,0,0,0.1)] p-6 border border-gray-200 text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[300px]">
 //                       <div className="flex items-center justify-center mx-auto mb-4">
-//                         <Image 
+//                         <Image
 //                           src={item.icon ? `/img/gmat-descp-img-${index + 1}.svg` : `/img/gmat-descp-img-${index + 1}.svg`}
-//                           alt="Icon" 
-//                           width={60} 
+//                           alt="Icon"
+//                           width={60}
 //                           height={60}
 //                           loading="lazy"
 //                         />
 //                       </div>
 //                       <h5 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h5>
 //                       {item.description && (
-//                         <div 
-//                           className="text-black-600 font-bold text-sm"
+//                         <div
+//                           className="text-black-600 font-bold text-xm"
 //                           dangerouslySetInnerHTML={{ __html: item.description }}
 //                         />
 //                       )}
@@ -1632,7 +1871,7 @@ export default CourseClient;
 //               ) : (
 //                 // Fallback to whatIsOnToefl content
 //                 whatIsContent?.whatIsOnToefl && (
-//                   <div 
+//                   <div
 //                     className="w-full text-center text-gray-600"
 //                     dangerouslySetInnerHTML={{ __html: whatIsContent.whatIsOnToefl }}
 //                   />
@@ -1700,24 +1939,24 @@ export default CourseClient;
 //           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
 //             {whyChooseContent?.sectionTitle || `Why Choose Gateway Abroad for ${courseName} Test Prep?`}
 //           </h2>
-          
+
 //           {whyChooseContent?.items && whyChooseContent.items.length > 0 ? (
 //             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 //               {whyChooseContent.items.map((item, index) => (
 //                 <div key={index} className="bg-white rounded-lg p-6 text-center">
 //                   <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
-//                     <Image 
-//                       src={item.icon ? `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg` : `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg`} 
-//                       alt={item.title || 'Feature'} 
-//                       width={60} 
-//                       height={32} 
-//                       loading="lazy" 
+//                     <Image
+//                       src={item.icon ? `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg` : `/img/why-choose-ga-img-${Math.min(index + 1, 6)}.svg`}
+//                       alt={item.title || 'Feature'}
+//                       width={60}
+//                       height={32}
+//                       loading="lazy"
 //                     />
 //                   </div>
 //                   <p className="text-black-600 font-bold">{item.title}</p>
 //                   {item.description && (
-//                     <div 
-//                       className="text-gray-500 text-sm mt-2"
+//                     <div
+//                       className="text-gray-500 text-xm mt-2"
 //                       dangerouslySetInnerHTML={{ __html: item.description }}
 //                     />
 //                   )}
@@ -1730,7 +1969,7 @@ export default CourseClient;
 //               {['one', 'two', 'three', 'four', 'five', 'six'].map((key, index) => {
 //                 const text = courseData.whyChoose?.[key];
 //                 if (!text) return null;
-                
+
 //                 return (
 //                   <div key={key} className="bg-white rounded-lg p-6 text-center">
 //                     <div className="w-[90px] h-[90px] bg-[#D71635] rounded-full flex items-center justify-center mx-auto mb-5">
@@ -1772,8 +2011,6 @@ export default CourseClient;
 //         </div>
 //       </section>
 
-
-
 //       <section className="py-12 bg-gray-300 relative">
 //         <div className="absolute inset-0 z-0">
 //           <Image
@@ -1812,7 +2049,7 @@ export default CourseClient;
 //                             ))}
 //                           </ul>
 //                         </div>
-//                         <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+//                         <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
 //                           {test.content?.substring(0, 250) || 'No testimonial content available.'}
 //                         </p>
 //                       </div>
@@ -1845,7 +2082,6 @@ export default CourseClient;
 //         </div>
 //       </section>
 
-
 //       <section className="relative bg-gradient-to-b from-purple-400/20 to-red-600/20 py-12 md:py-20">
 //         <div className="max-w-7xl mx-auto px-4">
 //           <div className="mb-12">
@@ -1853,7 +2089,7 @@ export default CourseClient;
 //               {pricingContent?.sectionTitle || 'Plans & Pricing'}
 //             </h2>
 //             {pricingContent?.description && (
-//               <div 
+//               <div
 //                 className="text-zinc-500 font-medium"
 //                 dangerouslySetInnerHTML={{ __html: pricingContent.description }}
 //               />
@@ -1866,10 +2102,10 @@ export default CourseClient;
 //                 {pricingContent.plans.map((plan, index) => {
 //                   const isHybrid = plan.type === 'hybrid';
 //                   const isPopular = plan.badge === 'Most Popular';
-                  
+
 //                   return (
-//                     <div 
-//                       key={index} 
+//                     <div
+//                       key={index}
 //                       className={`px-4 md:px-6 ${isHybrid ? 'bg-red-600 shadow-2xl rounded-3xl p-6 md:p-8 md:-mt-20 relative' : ''}`}
 //                     >
 //                       {isPopular && (
@@ -1895,23 +2131,23 @@ export default CourseClient;
 //                       )}
 //                       {/* Show duration if available */}
 //                       {plan.duration && (
-//                         <p className={`text-sm ${isHybrid ? 'text-white/80' : 'text-zinc-500'} mb-4`}>
+//                         <p className={`text-xm ${isHybrid ? 'text-white/80' : 'text-zinc-500'} mb-4`}>
 //                           {plan.duration}
 //                         </p>
 //                       )}
 //                       <div className="mb-8">
-//                         <div 
+//                         <div
 //                           className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-justify`}
 //                           dangerouslySetInnerHTML={{ __html: plan.description }}
 //                         />
 //                         {plan.additionalDescription && (
-//                           <div 
+//                           <div
 //                             className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-justify mt-2`}
 //                             dangerouslySetInnerHTML={{ __html: plan.additionalDescription }}
 //                           />
 //                         )}
 //                         {plan.features && (
-//                           <p className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-sm mt-4`}>
+//                           <p className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-xm mt-4`}>
 //                             {plan.features}
 //                           </p>
 //                         )}
@@ -1957,17 +2193,17 @@ export default CourseClient;
 //               {resourcesContent.items.map((item, index) => (
 //                 <div key={index} className="bg-white rounded-2xl shadow-lg p-[1rem] border border-gray-200 text-center">
 //                   <div className="flex items-center justify-center mx-auto mb-6">
-//                     <Image 
-//                       src={item.file || `/img/resource-img-${index + 1}.svg`} 
-//                       alt={item.title || 'Resource'} 
-//                       width={350} 
-//                       height={40} 
-//                       loading="lazy" 
+//                     <Image
+//                       src={item.file || `/img/resource-img-${index + 1}.svg`}
+//                       alt={item.title || 'Resource'}
+//                       width={350}
+//                       height={40}
+//                       loading="lazy"
 //                     />
 //                   </div>
 //                   <h4 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h4>
 //                   {item.description && (
-//                     <div 
+//                     <div
 //                       className="text-gray-600 mb-6"
 //                       dangerouslySetInnerHTML={{ __html: item.description }}
 //                     />
@@ -1976,15 +2212,15 @@ export default CourseClient;
 //                     onClick={() => {
 //                       if (item.url) {
 //                         const link = item.url.startsWith('http') ? item.url : getResourceLink(
-//                           index === 0 ? 'practiceMaterial' : 
-//                           index === 1 ? 'otherResources' : 
+//                           index === 0 ? 'practiceMaterial' :
+//                           index === 1 ? 'otherResources' :
 //                           'syllabus'
 //                         );
 //                         handleDownload(link);
 //                       } else {
 //                         handleDownload(getResourceLink(
-//                           index === 0 ? 'practiceMaterial' : 
-//                           index === 1 ? 'otherResources' : 
+//                           index === 0 ? 'practiceMaterial' :
+//                           index === 1 ? 'otherResources' :
 //                           'syllabus'
 //                         ));
 //                       }
@@ -2069,7 +2305,7 @@ export default CourseClient;
 //     </div>
 
 //     <div className="flex flex-col lg:flex-row gap-6">
-      
+
 //       <div className="lg:w-5/12">
 //          <Image
 //                   src={ `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}` || "/placeholder.svg"}
@@ -2089,7 +2325,7 @@ export default CourseClient;
 //               {ComponentsLanguage.items.map((item: any, index: number) => (
 //                 <button
 //                   key={`trigger-${item.section}-${index}`}
-//                   className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
+//                   className={`px-3 py-2 rounded text-xm font-medium transition-colors ${
 //                     activeTab === item.section
 //                       ? "bg-red-600 text-white"
 //                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -2109,7 +2345,7 @@ export default CourseClient;
 //                 }
 //               >
 //                 <div className="bg-white rounded-lg p-4 shadow-sm">
-                  
+
 //                   {item.content && (
 //                     <div
 //                       className="text-gray-700 text-justify mb-3"
@@ -2147,7 +2383,7 @@ export default CourseClient;
 //                   <AccordionTrigger className="font-semibold py-4 hover:no-underline">
 //                     {f.title}
 //                   </AccordionTrigger>
-//                   <AccordionContent className="text-gray-700 pb-4 text-sm">
+//                   <AccordionContent className="text-gray-700 pb-4 text-xm">
 //                     {f.content}
 //                   </AccordionContent>
 //                 </AccordionItem>
@@ -2168,14 +2404,14 @@ export default CourseClient;
 //                     {counsellingContent?.title || 'Avail A Complementary Counselling Session'}
 //                   </h2>
 //                   {counsellingContent?.description && (
-//                     <div 
+//                     <div
 //                       className="text-base lg:text-[18px] text-[#666276] mb-4 sm:mb-6"
 //                       dangerouslySetInnerHTML={{ __html: counsellingContent.description }}
 //                     />
 //                   )}
 //                   <Link
 //                     href={counsellingContent?.buttonUrl || '/contact'}
-//                     className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
+//                     className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
 //                   >
 //                     {counsellingContent?.buttonText || 'Contact us'}
 //                   </Link>
@@ -2225,7 +2461,7 @@ export default CourseClient;
 //                     placeholder="Name"
 //                   />
 //                   {contactErrors.name && (
-//                     <p className="text-red-500 text-sm mt-1">{contactErrors.name.message}</p>
+//                     <p className="text-red-500 text-xm mt-1">{contactErrors.name.message}</p>
 //                   )}
 //                 </div>
 
@@ -2243,7 +2479,7 @@ export default CourseClient;
 //                     placeholder="Email"
 //                   />
 //                   {contactErrors.email && (
-//                     <p className="text-red-500 text-sm mt-1">{contactErrors.email.message}</p>
+//                     <p className="text-red-500 text-xm mt-1">{contactErrors.email.message}</p>
 //                   )}
 //                 </div>
 
@@ -2261,7 +2497,7 @@ export default CourseClient;
 //                     placeholder="Mobile No."
 //                   />
 //                   {contactErrors.mobile && (
-//                     <p className="text-red-500 text-sm mt-1">{contactErrors.mobile.message}</p>
+//                     <p className="text-red-500 text-xm mt-1">{contactErrors.mobile.message}</p>
 //                   )}
 //                 </div>
 
@@ -2273,7 +2509,7 @@ export default CourseClient;
 //                     placeholder="City"
 //                   />
 //                   {contactErrors.city && (
-//                     <p className="text-red-500 text-sm mt-1">{contactErrors.city.message}</p>
+//                     <p className="text-red-500 text-xm mt-1">{contactErrors.city.message}</p>
 //                   )}
 //                 </div>
 
@@ -2302,6 +2538,3 @@ export default CourseClient;
 // };
 
 // export default Course;
-
-
-

@@ -59,7 +59,7 @@ export default function BlogNew({ blog = [], layout = "grid" }) {
             {/* Content */}
             <div className="p-4">
               {/* Date */}
-              <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+              <div className="flex items-center gap-2 text-xm text-gray-500 mb-2">
                 <span>{formatDate(item.createdAt)}</span>
               </div>
 
@@ -72,7 +72,7 @@ export default function BlogNew({ blog = [], layout = "grid" }) {
 
               {/* Description */}
               <div
-                className="text-gray-600 text-sm line-clamp-2"
+                className="text-gray-600 text-xm line-clamp-2"
                 dangerouslySetInnerHTML={sanitizedData(item.blogDescription)}
               />
             </div>

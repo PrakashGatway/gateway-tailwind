@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import MultiStepForm from "@/components/pages/multiStep";
 import CardStackGridSection from "@/components/pages/cardStack";
@@ -17,10 +17,24 @@ import ProcessRoadmap, { DynamicIcon } from "../sections/processRoad";
 import { baseUrl } from "@/services/axiosInstance";
 import { Select } from "../ui/select";
 import ContactForm from "./UkForm";
-import WhyStudyUK, { GatewayAbroadProcess, HorizontalStackCards, ScrollStackIntakes, TopUKUniversities, UKScholarships, UKStudyCosts, UKUniversityIntakes } from "../ukpageComponent/whyStudyin";
+import WhyStudyUK, {
+  GatewayAbroadProcess,
+  HorizontalStackCards,
+  ScrollStackIntakes,
+  TopUKUniversities,
+  UKScholarships,
+  UKStudyCosts,
+  UKUniversityIntakes,
+} from "../ukpageComponent/whyStudyin";
 import BlogNew, { formatDate, sanitizedData } from "../blognew";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../ui/accordion";
 import { Star } from "lucide-react";
+import FAQSection from "../home/FaqSection";
 
 export const highlightText = (text) => {
   const parts = text.split("||");
@@ -32,10 +46,17 @@ export const highlightText = (text) => {
       </span>
     ) : (
       part
-    )
+    ),
   );
 };
-const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoStudednt, faq, articleres }: any) => {
+const StudyInUk = ({
+  content,
+  country,
+  teamMembers: member,
+  youtubeVideo: videoStudednt,
+  faq,
+  articleres,
+}: any) => {
   const [form, setform] = useState([]);
   // const { teamMembers: member, youtubeVideo: videoStudednt, } = useGlobal();
   const [blogData, setBlogData] = useState([]);
@@ -67,97 +88,103 @@ const StudyInUk = ({ content, country, teamMembers: member, youtubeVideo: videoS
     return () => clearInterval(interval);
   }, [currentSlide, autoPlay, blogData.length]);
 
-
   // Mouse hover pe pause karne ke liye
   const handleMouseEnter = () => setAutoPlay(false);
   const handleMouseLeave = () => setAutoPlay(true);
 
-const autoplayRef = useRef(null);
+  const autoplayRef = useRef(null);
 
-const startAutoplay = () => {
-  if (autoplayRef.current) {
-    clearInterval(autoplayRef.current);
-  }
+  const startAutoplay = () => {
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+    }
 
-  autoplayRef.current = setInterval(() => {
-    instanceRef.current?.next();
-  }, 3000);
-};
+    autoplayRef.current = setInterval(() => {
+      instanceRef.current?.next();
+    }, 3000);
+  };
 
-const stopAutoplay = () => {
-  if (autoplayRef.current) {
-    clearInterval(autoplayRef.current);
-    autoplayRef.current = null;
-  }
-};
-
+  const stopAutoplay = () => {
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+  };
 
   // Slider configuration update karein
-const [sliderRef, instanceRef] = useKeenSlider({
-  initial: 0,
-  loop: true,
+  const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0,
+    loop: true,
 
-  slideChanged(slider) {
-    setCurrentSlide(slider.track.details.rel);
-  },
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
 
-  created() {
-    setLoaded(true);
+    created() {
+      setLoaded(true);
 
-    setTimeout(() => {
-      startAutoplay();
-    }, 300);
-  },
+      setTimeout(() => {
+        startAutoplay();
+      }, 300);
+    },
 
-  slides: {
-    perView: 1,
-    spacing: 16,
-  },
+    slides: {
+      perView: 1,
+      spacing: 16,
+    },
 
-  breakpoints: {
-    "(min-width: 640px)": {
-      slides: {
-        perView: 2,
-        spacing: 16,
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: {
+          perView: 2,
+          spacing: 16,
+        },
+      },
+
+      "(min-width: 768px)": {
+        slides: {
+          perView: 3,
+          spacing: 20,
+        },
+      },
+
+      "(min-width: 1024px)": {
+        slides: {
+          perView: 2,
+          spacing: 20,
+        },
       },
     },
 
-    "(min-width: 768px)": {
-      slides: {
-        perView: 3,
-        spacing: 20,
-      },
+    drag: true,
+    rubberband: true,
+    mode: "snap",
+  });
+
+  const fetchBlogs = useCallback(
+    async (page = 1, category = country?.toUpperCase(), search = "") => {
+      try {
+        const res = await PageServices.getBlogData({
+          page,
+          limit: 3,
+          category,
+          search,
+        });
+        setBlogData(res.data.blog || []);
+      } catch (err) {
+        console.error("Error fetching blogs:", err);
+      }
     },
-
-    "(min-width: 1024px)": {
-      slides: {
-        perView: 2,
-        spacing: 20,
-      },
-    },
-  },
-
-  drag: true,
-  rubberband: true,
-  mode: "snap",
-});
-
-  const fetchBlogs = useCallback(async (page = 1, category = country?.toUpperCase(), search = '') => {
-    try {
-      const res = await PageServices.getBlogData({ page, limit: 3, category, search });
-      setBlogData(res.data.blog || []);
-    } catch (err) {
-      console.error('Error fetching blogs:', err);
-    }
-  }, [country]);
+    [country],
+  );
 
   useEffect(() => {
     const mergedData = [
-      ...(blogData || []).map(item => ({
+      ...(blogData || []).map((item) => ({
         ...item,
         type: "blog",
       })),
-      ...(articleres || []).map(item => ({
+      ...(articleres || []).map((item) => ({
         ...item,
         type: "article",
       })),
@@ -166,18 +193,14 @@ const [sliderRef, instanceRef] = useKeenSlider({
     setMergedData(mergedData);
   }, [blogData, articleres]);
 
-
-
-
-
   const getAllTestimonial = async (value: string) => {
     try {
       const response = await PageServices.getTestimonialByCat(value);
-      if (response.status === 'success') {
+      if (response.status === "success") {
         setTestimonial(response.data.testimonial || []);
       }
     } catch (error) {
-      console.error('Error fetching testimonials:', error);
+      console.error("Error fetching testimonials:", error);
     }
   };
 
@@ -186,25 +209,24 @@ const [sliderRef, instanceRef] = useKeenSlider({
   }, []);
 
   function getContentByType(type) {
-    const item = content && content.sections.find(obj => obj.type === type);
+    const item = content && content.sections.find((obj) => obj.type === type);
     return item ? item.content : undefined;
   }
 
   const getAllfaqData = async (value: string) => {
     try {
       const response = await PageServices.getAllFaqForFront(value);
-      if (response.status === 'success') {
+      if (response.status === "success") {
         setFaqData(response.data.faq || []);
       }
     } catch (error) {
-      console.error('Error fetching FAQ data:', error);
+      console.error("Error fetching FAQ data:", error);
     }
   };
 
   useEffect(() => {
     getAllfaqData("spokenEnglish");
   }, []);
-
 
   useEffect(() => {
     fetchBlogs();
@@ -220,10 +242,8 @@ const [sliderRef, instanceRef] = useKeenSlider({
   }, [member, videoStudednt]);
 
   const handleGetStarted = () => {
-
-    window.dispatchEvent(new CustomEvent('openFooterModal'));
+    window.dispatchEvent(new CustomEvent("openFooterModal"));
   };
-
 
   const getCoverImageUrl = (coverImage: string) => {
     if (!coverImage) return "/img/placeholder-blog.jpg";
@@ -231,17 +251,12 @@ const [sliderRef, instanceRef] = useKeenSlider({
     return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
   };
 
-
-
   return (
     <>
       {/* Hero Section */}
       <section className="bg-pink-100 pt-8 py-1 flex items-center relative overflow-hidden">
-
-
         <div className="max-w-7xl mx-auto px-4 py-12 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-
             <div className="space-y-4 w-full items-start lg:w-[62%]">
               <div className="">
                 <h1 className="text-3xl lg:text-5xl xl:text-[2.6rem] font-bold text-black !leading-[1.3]">
@@ -251,50 +266,73 @@ const [sliderRef, instanceRef] = useKeenSlider({
                   className="text-base lg:text-lg text-justify leading-relaxed mt-4"
                   style={{
                     color: "rgba(0, 0, 0, 0.9)",
-                    textShadow: "0 2px 8px rgba(255, 255, 255, 0.6)"
+                    textShadow: "0 2px 8px rgba(255, 255, 255, 0.6)",
                   }}
-                  dangerouslySetInnerHTML={{__html:content?.subTitle || "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities."}}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      content?.subTitle ||
+                      "Unlock your potential with world-class education in the United Kingdom. Experience academic excellence in historic universities.",
+                  }}
                 />
-              
               </div>
-              <div className="flex flex-wrap gap-2 text-sm">
-
-
-                {content?.sections[0]?.content?.points && content?.sections[0]?.content?.points?.map((item, i) => (
-                  <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
-                    <p className="font-semibold"> {item?.content}</p>
-                  </div>
-
-                ))}
-
-
+              <div className="flex flex-wrap gap-2 text-xm">
+                {content?.sections[0]?.content?.points &&
+                  content?.sections[0]?.content?.points?.map((item, i) => (
+                    <div className="px-4 py-1.5 flex rounded-full border bg-white/50 backdrop-blur-sm shadow border-1 border-gray-300 hover:shadow-md transition">
+                      <p className="font-semibold"> {item?.content}</p>
+                    </div>
+                  ))}
               </div>
               <div className=" grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 pt-4 flex-wrap">
                 {/* Stats Cards */}
-               {getContentByType('hero')?.stats[0] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[0]?.value} /><span className="text-red-600"></span>
-                  </h3>
-                  <p className="text-black font-semibold text-xs mb-0">Students Placed</p>
-                </div>}
+                {getContentByType("hero")?.stats[0] && (
+                  <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
+                      <CounterUp
+                        end={getContentByType("hero")?.stats[0]?.value}
+                      />
+                      <span className="text-red-600"></span>
+                    </h3>
+                    <p className="text-black font-semibold text-xs mb-0">
+                      Students Placed
+                    </p>
+                  </div>
+                )}
 
-              { getContentByType('hero')?.stats[1] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[1]?.value} /><span className="text-red-600"></span>
-                  </h3>
-                  <p className="text-black font-semibold text-xs mb-0">Universities</p>
-                </div>}
+                {getContentByType("hero")?.stats[1] && (
+                  <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
+                      <CounterUp
+                        end={getContentByType("hero")?.stats[1]?.value}
+                      />
+                      <span className="text-red-600"></span>
+                    </h3>
+                    <p className="text-black font-semibold text-xs mb-0">
+                      Universities
+                    </p>
+                  </div>
+                )}
 
-                {getContentByType('hero')?.stats[2] && <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
-                    <CounterUp end={getContentByType('hero')?.stats[2]?.value} /><span className="text-red-600"></span>
-                  </h3>
-                  <p className="text-black font-semibold text-xs mb-0">Cities</p>
-                </div>}
+                {getContentByType("hero")?.stats[2] && (
+                  <div className="border-2 border-red-300 rounded-[20px] px-3 py-2 min-w-[120px] sm:min-w-[140px] text-center flex-shrink-0">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl text-black font-semibold mb-1">
+                      <CounterUp
+                        end={getContentByType("hero")?.stats[2]?.value}
+                      />
+                      <span className="text-red-600"></span>
+                    </h3>
+                    <p className="text-black font-semibold text-xs mb-0">
+                      Cities
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                <button onClick={handleGetStarted} className="btn-primary inline-block text-center group">
+                <button
+                  onClick={handleGetStarted}
+                  className="btn-primary inline-block text-center group"
+                >
                   <span className="relative z-10">Get Started Today</span>
                 </button>
               </div>
@@ -331,7 +369,10 @@ const [sliderRef, instanceRef] = useKeenSlider({
       <WhyStudyUK content={content} country={country} />
       <MultiStepForm />
       {/* Why Choose Us Section */}
-      <TopUKUniversities content={content?.sections[2]?.content} country={country} />
+      <TopUKUniversities
+        content={content?.sections[2]?.content}
+        country={country}
+      />
       <UKStudyCosts content={content} country={country} />
       <UKUniversityIntakes content={content} />
       <GatewayAbroadProcess content={content} country={country} />
@@ -356,7 +397,9 @@ const [sliderRef, instanceRef] = useKeenSlider({
           </h2>
 
           {testimonials.length === 0 ? (
-            <div className="text-center text-gray-500 py-8">Loading testimonials...</div>
+            <div className="text-center text-gray-500 py-8">
+              Loading testimonials...
+            </div>
           ) : (
             <div className="relative group">
               <div ref={sliderRef} className="keen-slider">
@@ -370,13 +413,16 @@ const [sliderRef, instanceRef] = useKeenSlider({
                           </h6>
                           <ul className="box-border caret-transparent flex leading-[normal] list-none mb-4 pl-0">
                             {[1, 2, 3, 4, 5].map((star) => (
-                              <li key={star} className="text-amber-400 text-lg box-border caret-transparent">
+                              <li
+                                key={star}
+                                className="text-amber-400 text-lg box-border caret-transparent"
+                              >
                                 <Star className="w-[18px] h-[18px] fill-amber-400" />
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                        <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
                           {test.content}
                         </p>
                       </div>
@@ -424,7 +470,7 @@ const [sliderRef, instanceRef] = useKeenSlider({
                     </p>
                     <a
                       href="/contact"
-                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                     >
                       Contact us
                     </a>
@@ -445,103 +491,282 @@ const [sliderRef, instanceRef] = useKeenSlider({
           </div>
         </div>
       </section>
-      <section className="lg:py-12">
+
+<section className="py-8 sm:py-10 md:py-12 lg:py-16">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Header Section */}
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 lg:mb-10 xl:mb-12 gap-3 sm:gap-4">
+      <h2 className="heading text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-0 leading-tight">
+        Important Facts & Information
+      </h2>
+      <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-4 sm:px-5 md:px-[20px] py-2 sm:py-2.5 md:py-[10px] rounded-[30px] font-bold text-xm sm:text-base whitespace-nowrap flex-shrink-0">
+        <Link
+          href={`/blog?category=${country?.toUpperCase()}`}
+          className="site-btn ng-[] whitespace-nowrap"
+        >
+          Go to blog
+        </Link>
+      </button>
+    </div>
+
+    {/* Blog Cards Grid - Responsive */}
+    <div className="w-full min-w-0 max-w-full overflow-hidden">
+      {mergedData.length > 0 ? (
+        <>
+          {/* Desktop Slider View - Hidden on mobile/tablet */}
+          <div
+            ref={sliderRef}
+            className="hidden lg:block md:keen-slider md:!flex w-full min-w-0 max-w-full overflow-hidden"
+            onMouseEnter={stopAutoplay}
+            onMouseLeave={startAutoplay}
+          >
+            {mergedData.map((blog, index) => {
+              const imageUrl = blog?.image
+                ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+                : blog?.coverImage
+                  ? getCoverImageUrl(blog.coverImage)
+                  : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
+
+              return (
+                <div
+                  key={index}
+                  className="keen-slider__slide !min-w-0 !max-w-none cursor-pointer p-1.5 sm:p-2 lg:p-3"
+                  onClick={() =>
+                    router.push(
+                      blog?.Slug
+                        ? `/blog-description/${blog.Slug}`
+                        : `/article/${blog.slug}`,
+                    )
+                  }
+                >
+                  <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                    {/* Image */}
+                    <div className="relative h-36 sm:h-40 md:h-44 lg:h-48 xl:h-52 w-full shrink-0 bg-gray-100">
+                      <Image
+                        src={imageUrl}
+                        alt={blog?.blogTitle || blog?.title || "Blog"}
+                        fill
+                        className="object-cover w-full object-top"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 p-3 sm:p-4">
+                      {/* Date */}
+                      <div className="mb-1.5 sm:mb-2 flex items-center gap-2 text-xs sm:text-xm text-gray-500">
+                        <span>{formatDate(blog?.createdAt)}</span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="mb-1.5 sm:mb-2 line-clamp-2 text-base sm:text-lg md:text-xl font-bold text-gray-900 transition-colors hover:text-red-600">
+                        {blog?.blogTitle || blog?.title}
+                      </h3>
+
+                      {/* Description */}
+                      <div
+                        className="line-clamp-2 text-xs sm:text-xm text-gray-600"
+                        dangerouslySetInnerHTML={sanitizedData(
+                          blog?.blogDescription || blog?.description,
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Mobile/Tablet Grid View - Shows on smaller screens */}
+          <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            {mergedData.slice(0, 4).map((blog, index) => {
+              const imageUrl = blog?.image
+                ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+                : blog?.coverImage
+                  ? getCoverImageUrl(blog.coverImage)
+                  : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
+
+              return (
+                <div
+                  key={index}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    router.push(
+                      blog?.Slug
+                        ? `/blog-description/${blog.Slug}`
+                        : `/article/${blog.slug}`,
+                    )
+                  }
+                >
+                  <div className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                    
+                    <div className="relative h-48 sm:h-52 w-full shrink-0 bg-gray-100">
+                      <Image
+                        src={imageUrl}
+                        alt={blog?.blogTitle || blog?.title || "Blog"}
+                        fill
+                        className="object-cover w-full object-top"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    </div>
+
+                    <div className="flex-1 p-3 sm:p-4">
+                      
+                      <div className="mb-1.5 sm:mb-2 flex items-center gap-2 text-xs sm:text-xm text-gray-500">
+                        <span>{formatDate(blog?.createdAt)}</span>
+                      </div>
+
+                      
+                      <h3 className="mb-1.5 sm:mb-2 line-clamp-2 text-xm sm:text-base font-bold text-gray-900 transition-colors hover:text-red-600">
+                        {blog?.blogTitle || blog?.title}
+                      </h3>
+
+                      {/* Description */}
+                      <div
+                        className="line-clamp-2 text-xs sm:text-xm text-gray-600"
+                        dangerouslySetInnerHTML={sanitizedData(
+                          blog?.blogDescription || blog?.description,
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            
+            {/* Show more button on mobile if there are more than 4 items */}
+            {mergedData.length > 4 && (
+              <div className="col-span-1 sm:col-span-2 flex justify-center mt-2">
+                <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-6 py-2.5 rounded-[30px] font-bold text-xm">
+                  <Link
+                    href={`/blog?category=${country?.toUpperCase()}`}
+                    className="whitespace-nowrap"
+                  >
+                    View All Blogs
+                  </Link>
+                </button>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className="py-8 sm:py-12 text-center">
+          <p className="text-gray-500 text-xm sm:text-base">No blog posts available.</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+      {/* <section className="lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 lg:mb-12 gap-4">
-            <h2 className="heading text-4xl font-bold mb-0">Important Facts & Information</h2>
+            <h2 className="heading text-4xl font-bold mb-0">
+              Important Facts & Information
+            </h2>
             <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-[20px] py-[10px] rounded-[30px] font-bold">
-              <Link href={`/blog?category=${country?.toUpperCase()}`} className="site-btn ng-[] whitespace-nowrap">Go to blog</Link>
+              <Link
+                href={`/blog?category=${country?.toUpperCase()}`}
+                className="site-btn ng-[] whitespace-nowrap"
+              >
+                Go to blog
+              </Link>
             </button>
           </div>
 
           <div className="w-full min-w-0 max-w-full overflow-hidden">
-  {mergedData.length > 0 ? (
-    <>
-      <div
-        ref={sliderRef}
-        className="keen-slider !flex w-full min-w-0 max-w-full overflow-hidden"
-        onMouseEnter={stopAutoplay}
-        onMouseLeave={startAutoplay}
-      >
-        {mergedData.map((blog, index) => {
-          const imageUrl = blog?.image
-            ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
-            : blog?.coverImage
-              ? getCoverImageUrl(blog.coverImage)
-              : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
+            {mergedData.length > 0 ? (
+              <>
+                <div
+                  ref={sliderRef}
+                  className="keen-slider !flex w-full min-w-0 max-w-full overflow-hidden"
+                  onMouseEnter={stopAutoplay}
+                  onMouseLeave={startAutoplay}
+                >
+                  {mergedData.map((blog, index) => {
+                    const imageUrl = blog?.image
+                      ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+                      : blog?.coverImage
+                        ? getCoverImageUrl(blog.coverImage)
+                        : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
 
-          return (
-            <div
-              key={index}
-              className="keen-slider__slide !min-w-0 !max-w-none cursor-pointer p-2 lg:p-3"
-              onClick={() =>
-                router.push(
-                  blog?.Slug
-                    ? `/blog-description/${blog.Slug}`
-                    : `/article/${blog.slug}`
-                )
-              }
-            >
-              <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                    return (
+                      <div
+                        key={index}
+                        className="keen-slider__slide !min-w-0 !max-w-none cursor-pointer p-2 lg:p-3"
+                        onClick={() =>
+                          router.push(
+                            blog?.Slug
+                              ? `/blog-description/${blog.Slug}`
+                              : `/article/${blog.slug}`,
+                          )
+                        }
+                      >
+                        <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                          
+                          <div className="relative h-40 w-full shrink-0">
+                            <Image
+                              src={imageUrl}
+                              alt={blog?.blogTitle || blog?.title || "Blog"}
+                              fill
+                              className="object-cover w-full object-top"
+                              loading="lazy"
+                            />
+                          </div>
 
-                {/* Image */}
-                <div className="relative h-40 w-full shrink-0">
-                  <Image
-                    src={imageUrl}
-                    alt={blog?.blogTitle || blog?.title || "Blog"}
-                    fill
-                    className="object-cover w-full object-top"
-                    loading="lazy"
-                  />
+                          
+                          <div className="flex-1 p-4">
+                            
+                            <div className="mb-2 flex items-center gap-2 text-xm text-gray-500">
+                              <span>{formatDate(blog?.createdAt)}</span>
+                            </div>
+
+                            
+                            <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors hover:text-red-600">
+                              {blog?.blogTitle || blog?.title}
+                            </h3>
+
+                            
+                            <div
+                              className="line-clamp-2 text-xm text-gray-600"
+                              dangerouslySetInnerHTML={sanitizedData(
+                                blog?.blogDescription || blog?.description,
+                              )}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-
-                {/* Content */}
-                <div className="flex-1 p-4">
-
-                  {/* Date */}
-                  <div className="mb-2 flex items-center gap-2 text-sm text-gray-500">
-                    <span>
-                      {formatDate(blog?.createdAt)}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors hover:text-red-600">
-                    {blog?.blogTitle || blog?.title}
-                  </h3>
-
-                  {/* Description */}
-                  <div
-                    className="line-clamp-2 text-sm text-gray-600"
-                    dangerouslySetInnerHTML={sanitizedData(
-                      blog?.blogDescription || blog?.description
-                    )}
-                  />
-
-                </div>
+              </>
+            ) : (
+              <div className="py-12 text-center">
+                <p className="text-gray-500">No blog posts available.</p>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </>
-  ) : (
-    <div className="py-12 text-center">
-      <p className="text-gray-500">
-        No blog posts available.
-      </p>
-    </div>
-  )}
-</div>
+            )}
+          </div>
         </div>
-      </section>
+      </section> */}
       <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
+
+        
+              <FAQSection
+                content={"Frequently asked questions"}
+                faq={faq}
+              />
+        
+
+        {/* <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
               Frequently asked questions
             </h2>
-            <p className="text-gray-600">Can't find the answer you are looking for?</p>
+            <p className="text-gray-600">
+              Can't find the answer you are looking for?
+            </p>
           </div>
           <div className="max-w-7xl mx-auto">
             <Accordion type="single" collapsible className="w-full space-y-3">
@@ -554,15 +779,15 @@ const [sliderRef, instanceRef] = useKeenSlider({
                   <AccordionTrigger className="text-left py-3 hover:no-underline font-medium">
                     {f.title}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-700 pb-3 text-sm">
-                    {/* {f.content} */}
-                    <p dangerouslySetInnerHTML={{__html :f.content }} />
+                  <AccordionContent className="text-gray-700 pb-3 text-xm">
+                    
+                    <p dangerouslySetInnerHTML={{ __html: f.content }} />
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

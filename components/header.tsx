@@ -154,14 +154,14 @@ const Header = () => {
           <nav className="hidden xl:flex items-center space-x-3 2xl:space-x-4">
             <Link
               href="/"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
             >
               Home
             </Link>
 
             <Link
               href="/about"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
             >
               About Us
             </Link>
@@ -174,7 +174,7 @@ const Header = () => {
             >
               <button
                 onClick={() => handleClick("destination")}
-                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
               >
                 Destination
                 <ChevronDown
@@ -210,7 +210,7 @@ const Header = () => {
                               className="object-cover w-4 h-4 xl:w-5 xl:h-5 rounded-full shadow-lg"
                             />
                             <div className="my-auto">
-                              <h3 className="text-xs xl:text-sm font-medium text-gray-700 dark:text-white capitalize">
+                              <h3 className="text-xs xl:text-[14px]  font-medium text-gray-700 dark:text-white capitalize">
                                 Study In {country?.slug}
                               </h3>
                             </div>
@@ -238,7 +238,7 @@ const Header = () => {
             >
               <button
                 onClick={() => handleClick("testPrep")}
-                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+                className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
               >
                 Test Preparation
                 <ChevronDown
@@ -271,13 +271,13 @@ const Header = () => {
                             <Image
                               alt="course logo"
                               src={courseImage}
-                              width={60}
-                              height={20}
-                              className="rounded border-gray-200 dark:border-gray-600 w-8 h-8 xl:w-12 xl:h-12 
-                              object-contain"
+                              
+                              width={40}
+                              height={40}
+                              className="object-cover w-6 h-4 xl:w-auto xl:h-5 rounded "
                             />
                             <div className="my-auto min-w-0 flex-1">
-                              <h3 className="text-xs xl:text-sm font-bold text-gray-600 p-0 m-0 dark:text-white truncate">
+                              <h3 className="text-xs xl:text-[14px] font-semibold text-gray-600 p-0 m-0 dark:text-white truncate">
                                 {course.title}
                               </h3>
                               <p className="text-[10px] xl:text-xs m-0 p-0 text-gray-600 line-clamp-1 dark:text-gray-400">
@@ -295,21 +295,21 @@ const Header = () => {
 
             <Link
               href="/blog"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
             >
               Blogs
             </Link>
 
             <Link
               href="/career"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
             >
               Career
             </Link>
 
             <Link
               href="/contact"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm 2xl:text-base whitespace-nowrap"
             >
               Contact Us
             </Link>
@@ -323,7 +323,7 @@ const Header = () => {
                 <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-black group-hover:text-white" />
                 <Link
                   href={`tel:${contactNumber}`}
-                  className="text-black group-hover:text-white font-bold text-[10px] sm:text-xs md:text-sm truncate max-w-[80px] sm:max-w-[100px] md:max-w-[130px]"
+                  className="text-black group-hover:text-white font-bold text-[10px] sm:text-xs md:text-xm truncate max-w-[80px] sm:max-w-[100px] md:max-w-[130px]"
                 >
                   {contactNumber}
                 </Link>
@@ -382,7 +382,7 @@ const Header = () => {
                             className="rounded-full border-2 border-gray-200 dark:border-gray-600 w-8 h-8 md:w-10 md:h-10"
                           />
                           <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-gray-900 dark:text-white m-0 p-0 text-sm md:text-base truncate">
+                            <p className="font-semibold text-gray-900 dark:text-white m-0 p-0 text-xm md:text-base truncate">
                               {user?.name || "User"}
                             </p>
                             <p
@@ -403,7 +403,7 @@ const Header = () => {
                         <a
                           href="https://dashboard.gatewayabroadeducations.com/profile"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                           onClick={() => setOpenMenu(null)}
                         >
                           <User className="h-4 w-4 md:h-5 md:w-5" />
@@ -413,7 +413,7 @@ const Header = () => {
                         <a
                           href="https://dashboard.gatewayabroadeducations.com"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                           onClick={() => setOpenMenu(null)}
                         >
                           <LayoutDashboard className="h-4 w-4 md:h-5 md:w-5" />
@@ -422,7 +422,7 @@ const Header = () => {
 
                         <a
                           href="https://dashboard.gatewayabroadeducations.com/profile"
-                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                          className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                           onClick={() => setOpenMenu(null)}
                         >
                           <Settings className="h-4 w-4 md:h-5 md:w-5" />
@@ -432,7 +432,7 @@ const Header = () => {
                         <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
 
                         <button
-                          className="flex items-center space-x-3 px-4 py-2 w-full text-left text-[#E83A3A] dark:text-[#FF6B6B] hover:bg-red-50 dark:hover:bg-slate-700 transition-all duration-300 text-sm md:text-base"
+                          className="flex items-center space-x-3 px-4 py-2 w-full text-left text-[#E83A3A] dark:text-[#FF6B6B] hover:bg-red-50 dark:hover:bg-slate-700 transition-all duration-300 text-xm md:text-base"
                           onClick={() => {
                             setOpenMenu(null);
                             logout();
@@ -448,7 +448,7 @@ const Header = () => {
               </div>
             ) : (
               <button
-                className="hidden xl:flex btn-primary items-center justify-center !py-1.5 !px-2.5 md:!py-2 md:!px-3 space-x-1 text-xs md:text-sm"
+                className="hidden xl:flex btn-primary items-center justify-center !py-1.5 !px-2.5 md:!py-2 md:!px-3 space-x-1 text-xs md:text-xm"
                 onClick={() => setDrawer(!drawer)}
               >
                 <User className="h-4 w-4 md:h-5 md:w-5" />
@@ -514,7 +514,7 @@ const Header = () => {
                     className="rounded-full border-2 border-[#E83A3A] dark:border-[#FF6B6B] w-10 h-10"
                   />
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold text-gray-900 dark:text-white m-0 p-0 text-sm truncate">
+                    <p className="font-semibold text-gray-900 dark:text-white m-0 p-0 text-xm truncate">
                       {user?.name || "User"}
                     </p>
                     <p className="text-xs text-gray-600 dark:text-gray-400 m-0 p-0 truncate">
@@ -529,7 +529,7 @@ const Header = () => {
             <div className="flex flex-col space-y-1 px-2">
               <Link
                 href="/"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <GraduationCap className="h-5 w-5 flex-shrink-0" />
@@ -538,7 +538,7 @@ const Header = () => {
 
               <Link
                 href="/about"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <User className="h-5 w-5 flex-shrink-0" />
@@ -547,7 +547,7 @@ const Header = () => {
 
               <Link
                 href="/spoken-english"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Languages className="h-5 w-5 flex-shrink-0" />
@@ -557,7 +557,7 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => handleClick("destinationsMobile")}
-                  className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                  className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 >
                   <div className="flex items-center space-x-3 min-w-0">
                     <FileText className="h-5 w-5 flex-shrink-0" />
@@ -601,7 +601,7 @@ const Header = () => {
                                   className="object-cover w-5 h-5 rounded-full shadow-lg flex-shrink-0"
                                 />
                                 <div className="my-auto">
-                                  <h3 className="text-xs sm:text-sm font-medium text-gray-700 dark:text-white capitalize">
+                                  <h3 className="text-xs sm:text-xm font-medium text-gray-700 dark:text-white capitalize">
                                     Study In {country?.slug}
                                   </h3>
                                 </div>
@@ -625,7 +625,7 @@ const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => handleClick("testPrepMobile")}
-                  className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                  className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 >
                   <div className="flex items-center space-x-3 min-w-0">
                     <FileText className="h-5 w-5 flex-shrink-0" />
@@ -658,7 +658,7 @@ const Header = () => {
                           <Link
                             key={index}
                             href={slug === 'spoken-english' ? slug : `/course/${slug}`}
-                            className="block text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-colors flex items-center space-x-2 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
+                            className="block text-xm md:text-base text-gray-600 dark:text-gray-400 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-colors flex items-center space-x-2 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
                             onClick={() => {
                               setIsMenuOpen(false);
                               setOpenMenu(null);
@@ -676,7 +676,7 @@ const Header = () => {
 
               <Link
                 href="/blog"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FileText className="h-5 w-5 flex-shrink-0" />
@@ -685,7 +685,7 @@ const Header = () => {
 
               <Link
                 href="/career"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Award className="h-5 w-5 flex-shrink-0" />
@@ -694,7 +694,7 @@ const Header = () => {
 
               <Link
                 href="/gallery"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <ImageDownIcon className="h-5 w-5 flex-shrink-0" />
@@ -703,7 +703,7 @@ const Header = () => {
 
               <Link
                 href="/contact"
-                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-xm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <User className="h-5 w-5 flex-shrink-0" />
@@ -714,7 +714,7 @@ const Header = () => {
               <div className="my-3">
                 <Link
                   href={`tel:${contactNumber}`}
-                  className="flex btn-primary !m-0 items-center justify-center px-4 py-2.5 !bg-[#fbbf24] rounded-lg shadow-lg transition-all duration-300 text-sm md:text-base"
+                  className="flex btn-primary !m-0 items-center justify-center px-4 py-2.5 !bg-[#fbbf24] rounded-lg shadow-lg transition-all duration-300 text-xm md:text-base"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Phone className="h-5 w-5 text-white flex-shrink-0 mr-2" />
@@ -730,7 +730,7 @@ const Header = () => {
                   <a
                     href="https://dashboard.gatewayabroadeducations.com/profile"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                     onClick={() => setOpenMenu(null)}
                   >
                     <User className="h-5 w-5 flex-shrink-0" />
@@ -740,7 +740,7 @@ const Header = () => {
                   <a
                     href="https://dashboard.gatewayabroadeducations.com"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                     onClick={() => setOpenMenu(null)}
                   >
                     <LayoutDashboard className="h-5 w-5 flex-shrink-0" />
@@ -749,7 +749,7 @@ const Header = () => {
 
                   <a
                     href="https://dashboard.gatewayabroadeducations.com/profile"
-                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-sm md:text-base"
+                    className="flex items-center space-x-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-slate-700 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-all duration-300 text-xm md:text-base"
                     onClick={() => setOpenMenu(null)}
                   >
                     <Settings className="h-5 w-5 flex-shrink-0" />
@@ -759,7 +759,7 @@ const Header = () => {
                   <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
 
                   <button
-                    className="flex items-center space-x-3 text-red-600 dark:text-red-400 font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 w-full text-left text-sm md:text-base"
+                    className="flex items-center space-x-3 text-red-600 dark:text-red-400 font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 w-full text-left text-xm md:text-base"
                     onClick={() => {
                       setIsMenuOpen(false);
                       logout();
@@ -773,7 +773,7 @@ const Header = () => {
 
               {!user?.email && (
                 <button
-                  className="btn-primary flex items-center !py-2.5 justify-center text-sm md:text-base"
+                  className="btn-primary flex items-center !py-2.5 justify-center text-xm md:text-base"
                   onClick={() => setDrawer(!drawer)}
                 >
                   <User className="h-5 w-5 flex-shrink-0 mr-2" />
@@ -973,14 +973,14 @@ export default Header;
 //           <nav className="hidden lg:flex items-center space-x-4">
 //             <Link
 //               href="/"
-//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //             >
 //               Home
 //             </Link>
 
 //             <Link
 //               href="/about"
-//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //             >
 //               About Us
 //             </Link>
@@ -993,7 +993,7 @@ export default Header;
 //             >
 //               <button
 //                 onClick={() => handleClick("destination")}
-//                 className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//                 className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //               >
 //                 Destination
 //                 <ChevronDown
@@ -1031,7 +1031,7 @@ export default Header;
 //                               />
 //                             )}
 //                             <div className="my-auto">
-//                               <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+//                               <h3 className="text-xm font-medium text-gray-700 dark:text-white capitalize">
 //                                 Study In  {country?.slug}
 //                               </h3>
 
@@ -1062,7 +1062,7 @@ export default Header;
 //             >
 //               <button
 //                 onClick={() => handleClick("testPrep")}
-//                 className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//                 className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //               >
 //                 Test Preparation
 //                 <ChevronDown
@@ -1100,7 +1100,7 @@ export default Header;
 //                               />
 //                             )}
 //                             <div className="my-auto">
-//                               <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+//                               <h3 className="text-xm font-medium text-gray-700 dark:text-white capitalize">
 //                                 {country?.title}
 //                               </h3>
 
@@ -1129,7 +1129,7 @@ export default Header;
 //                             className="rounded-full border-2 border-gray-200 dark:border-gray-600"
 //                           />
 //                           <div className="my-auto">
-//                             <h3 className="text-sm font-bold text-gray-600 p-0 m-0 dark:text-white">
+//                             <h3 className="text-xm font-bold text-gray-600 p-0 m-0 dark:text-white">
 //                               {course.title}
 //                             </h3>
 //                             <p className="text-xs m-0 p-0 text-gray-600 line-clamp-1 dark:text-gray-400">
@@ -1150,7 +1150,7 @@ export default Header;
 //                           className="rounded-full border-2 border-gray-200 dark:border-gray-600"
 //                         />
 //                         <div className="my-auto">
-//                           <h3 className="text-sm font-bold text-gray-600 p-0 m-0 dark:text-white">
+//                           <h3 className="text-xm font-bold text-gray-600 p-0 m-0 dark:text-white">
 //                             {"Spoken English"}
 //                           </h3>
 //                           <p className="text-xs m-0 p-0 text-gray-600 dark:text-gray-400">
@@ -1160,7 +1160,7 @@ export default Header;
 //                       </Link> */}
 //                       {/* <Link
 //                         href="/spoken-english"
-//                         className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//                         className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //                       >
 //                         Spoken English
 //                       </Link> */}
@@ -1172,21 +1172,21 @@ export default Header;
 
 //             <Link
 //               href="/blog"
-//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //             >
 //               Blogs
 //             </Link>
 
 //             <Link
 //               href="/career"
-//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //             >
 //               Career
 //             </Link>
 
 //             <Link
 //               href="/contact"
-//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm "
+//               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-xm "
 //             >
 //               Contact Us
 //             </Link>
@@ -1331,7 +1331,7 @@ export default Header;
 //               </div>
 //             ) : (
 //               <button
-//                 className="flex btn-primary lg:flex text-sm hidden items-center justify-center !py-2 !px-3 space-x-1 "
+//                 className="flex btn-primary lg:flex text-xm hidden items-center justify-center !py-2 !px-3 space-x-1 "
 //                 onClick={() => setDrawer(!drawer)}
 //               >
 //                 <User className="h-5 w-5" />
@@ -1391,7 +1391,7 @@ export default Header;
 //                     <p className="font-semibold text-gray-900 dark:text-white m-0 p-0 mb-0">
 //                       {user?.name || "User"}
 //                     </p>
-//                     <p className="text-sm text-gray-600 dark:text-gray-400 m-0 p-0">
+//                     <p className="text-xm text-gray-600 dark:text-gray-400 m-0 p-0">
 //                       {user?.email}
 //                     </p>
 //                   </div>
@@ -1476,7 +1476,7 @@ export default Header;
 //                                   />
 //                                 )}
 //                                 <div className="my-auto">
-//                                   <h3 className="text-sm font-medium text-gray-700 dark:text-white capitalize">
+//                                   <h3 className="text-xm font-medium text-gray-700 dark:text-white capitalize">
 //                                     Study In  {country?.slug}
 //                                   </h3>
 
@@ -1529,7 +1529,7 @@ export default Header;
 //                           <Link
 //                             key={index}
 //                             href={`/course/${course.pageName.toLowerCase()}`}
-//                             className="block text-sm text-gray-600 dark:text-gray-400 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-colors flex items-center space-x-2 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
+//                             className="block text-xm text-gray-600 dark:text-gray-400 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] transition-colors flex items-center space-x-2 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800"
 //                             onClick={() => {
 //                               setIsMenuOpen(false);
 //                               setOpenMenu(null);

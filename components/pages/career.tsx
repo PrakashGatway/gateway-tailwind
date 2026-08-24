@@ -160,17 +160,17 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
                     </h6>
                     <div className="max-h-[21rem] overflow-y-auto overflow-x-hidden mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
                       <div className="text-[14px] leading-[20px] mb-2 break-words" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
-                      <div className="text-gray-700 text-sm break-words" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
+                      <div className="text-gray-700 text-xm break-words" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
                     </div>
                     <div>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-xm font-medium text-[#455A64]">
                           {job.jobType}
                         </span>
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-xm font-medium text-[#455A64]">
                           {job.jobExp} Year
                         </span>
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-xm font-medium text-[#455A64]">
                           {job.jobLevel} Level
                         </span>
                       </div>
@@ -217,7 +217,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
               <input 
                 type="text" 
                 name="name" 
-                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors "
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors "
                 onChange={(e) => setName(e.target.value)} 
                 placeholder="Name" 
               />
@@ -229,7 +229,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
               <input 
                 type="email" 
                 name="email" 
-                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 onChange={(e) => setEmail(e.target.value)} 
                 placeholder="Email" 
               />
@@ -241,7 +241,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
               <input 
                 type="text" 
                 name="phone" 
-                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 onChange={(e) => setPhone(e.target.value)} 
                 placeholder="Phone Number" 
               />
@@ -251,7 +251,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
             <div>
               
               <select 
-                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
+                className="w-full flex h-10 bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-[10px] border-2 border-gray-400 focus:border-red-500 w-full py-2  px-4 text-gray-900 transition-colors"
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
               >
@@ -315,7 +315,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
               </p>
               <a 
                 href="/contact" 
-                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
               >
                 Contact us
               </a>

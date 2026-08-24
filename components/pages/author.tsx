@@ -46,7 +46,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                             {/* Author Info */}
                                             <div className="flex-1 text-center md:text-left">
 
-                                                <span className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-md px-4 py-2 text-sm font-medium text-white border border-white/30">
+                                                <span className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-md px-4 py-2 text-xm font-medium text-white border border-white/30">
                                                     🎓 Teacher & Study Abroad Expert
                                                 </span>
 
@@ -63,21 +63,21 @@ export default function AuthorPage({ initialData, latestArticles }) {
 
                                                     <div className="bg-white/15 backdrop-blur-lg rounded-2xl px-2 py-4 text-center min-w-[120px] border border-white/20">
                                                         <h3 className="text-xl font-bold text-white">120+</h3>
-                                                        <p className="text-white/80 text-sm mt-1">
+                                                        <p className="text-white/80 text-xm mt-1">
                                                             Articles
                                                         </p>
                                                     </div>
 
                                                     <div className="bg-white/15 backdrop-blur-lg rounded-2xl px-2 py-4 text-center min-w-[120px] border border-white/20">
                                                         <h3 className="text-xl font-bold text-white">500K</h3>
-                                                        <p className="text-white/80 text-sm mt-1">
+                                                        <p className="text-white/80 text-xm mt-1">
                                                             Readers
                                                         </p>
                                                     </div>
 
                                                     <div className="bg-white/15 backdrop-blur-lg rounded-2xl px-2 py-4 text-center min-w-[120px] border border-white/20">
                                                         <h3 className="text-xl font-bold text-white">5+</h3>
-                                                        <p className="text-white/80 text-sm mt-1">
+                                                        <p className="text-white/80 text-xm mt-1">
                                                             Years Experience
                                                         </p>
                                                     </div>
@@ -162,7 +162,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                                             ].map((item) => (
                                                                 <span
                                                                     key={item}
-                                                                    className="px-4 py-2 rounded-full bg-red-50 text-[#D71635] text-sm font-medium"
+                                                                    className="px-4 py-2 rounded-full bg-red-50 text-[#D71635] text-xm font-medium"
                                                                 >
                                                                     {item}
                                                                 </span>
@@ -183,14 +183,14 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                             Recent Articles & Blogs
                                         </h2>
 
-                                        <span className="text-sm text-gray-500">
+                                        <span className="text-xm text-gray-500">
                                             Latest writings from this author
                                         </span>
                                     </div>
                                     <div className="inline-flex items-center p-1 bg-gray-100 rounded-2xl shadow-sm">
                                         <button
                                             onClick={() => setactive("blogs")}
-                                            className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${active === "blogs"
+                                            className={`relative px-6 py-3 rounded-xl text-xm font-semibold transition-all duration-300 ${active === "blogs"
                                                     ? "bg-[#D71635] text-white shadow-md scale-105"
                                                     : "text-gray-600 hover:text-[#D71635] hover:bg-white"
                                                 }`}
@@ -200,7 +200,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
 
                                         <button
                                             onClick={() => setactive("articles")}
-                                            className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${active === "articles"
+                                            className={`relative px-6 py-3 rounded-xl text-xm font-semibold transition-all duration-300 ${active === "articles"
                                                     ? "bg-[#D71635] text-white shadow-md scale-105"
                                                     : "text-gray-600 hover:text-[#D71635] hover:bg-white"
                                                 }`}
@@ -235,7 +235,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                                                     </span>
 
                                                                     {blog.createdAt && (
-                                                                        <span className="text-sm text-gray-400">
+                                                                        <span className="text-xm text-gray-400">
                                                                             {new Date(blog.createdAt).toLocaleDateString("en-IN")}
                                                                         </span>
                                                                     )}
@@ -278,7 +278,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                                                         </span>
 
                                                                         {article.createdAt && (
-                                                                            <span className="text-sm text-gray-400">
+                                                                            <span className="text-xm text-gray-400">
                                                                                 {new Date(article.createdAt).toLocaleDateString("en-IN")}
                                                                             </span>
                                                                         )}
@@ -321,7 +321,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                                         Newsletter
                                     </h3>
 
-                                    <p className="text-gray-500 text-sm mt-2">
+                                    <p className="text-gray-500 text-xm mt-2">
                                         Get latest blogs and study abroad
                                         updates directly in your inbox.
                                     </p>

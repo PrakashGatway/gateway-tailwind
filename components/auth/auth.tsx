@@ -229,7 +229,7 @@ export default function Auth({ toggleDrawer }: any) {
                                             className="rounded-3xl border-2 border-gray-400 focus:border-red-500 w-full py-3 px-4 text-gray-900 transition-colors"
                                         />
                                         {errors.email && (
-                                            <p className="text-red-500 text-sm mt-2 flex items-center">
+                                            <p className="text-red-500 text-xm mt-2 flex items-center">
                                                 <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                                                 {errors.email}
                                             </p>
@@ -325,7 +325,7 @@ export default function Auth({ toggleDrawer }: any) {
                                             className="rounded-3xl border-2 border-gray-400 focus:border-red-500 w-full py-3 px-4 transition-colors"
                                         />
                                         {errors.name && (
-                                            <p className="text-red-500 text-sm mt-2 flex items-center">
+                                            <p className="text-red-500 text-xm mt-2 flex items-center">
                                                 <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                                                 {errors.name}
                                             </p>
@@ -354,7 +354,7 @@ export default function Auth({ toggleDrawer }: any) {
                                             className="rounded-3xl border-2 border-gray-400 focus:border-red-500 w-full py-3 px-4 transition-colors"
                                         />
                                         {errors.phoneNumber && (
-                                            <p className="text-red-500 text-sm mt-2 flex items-center">
+                                            <p className="text-red-500 text-xm mt-2 flex items-center">
                                                 <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                                                 {errors.phoneNumber}
                                             </p>
@@ -381,7 +381,7 @@ export default function Auth({ toggleDrawer }: any) {
                                     </div>
 
                                     {errors.general && (
-                                        <p className="text-red-500 text-sm text-center bg-red-50 py-2 px-3 rounded-xl">
+                                        <p className="text-red-500 text-xm text-center bg-red-50 py-2 px-3 rounded-xl">
                                             {errors.general}
                                         </p>
                                     )}
@@ -455,7 +455,7 @@ export default function Auth({ toggleDrawer }: any) {
                                         className="rounded-3xl border-2 border-gray-400 focus:border-red-500 w-full py-3 px-4 text-center text-lg font-mono tracking-widest transition-colors"
                                     />
                                     {errors.otp && (
-                                        <p className="text-red-500 text-sm mt-2 flex items-center">
+                                        <p className="text-red-500 text-xm mt-2 flex items-center">
                                             <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                                             {errors.otp}
                                         </p>
@@ -466,7 +466,7 @@ export default function Auth({ toggleDrawer }: any) {
                                     <button
                                         type="button"
                                         onClick={sendOtp}
-                                        className="text-red-600 hover:text-red-700 font-medium text-sm transition-colors"
+                                        className="text-red-600 hover:text-red-700 font-medium text-xm transition-colors"
                                     >
                                         Didn't receive code? Resend OTP
                                     </button>
@@ -514,7 +514,7 @@ export default function Auth({ toggleDrawer }: any) {
                                 </p>
 
                                 <div className="bg-gray-50 rounded-2xl p-4">
-                                    <p className="text-sm text-gray-700">
+                                    <p className="text-xm text-gray-700">
                                         Redirecting to dashboard...
                                     </p>
                                 </div>

@@ -7,7 +7,7 @@ export default function LocationAvailability({ cities }) {
         <div className="row">
           <div className="col-12">
             <div className="mb-3">
-              <h3 className="text-sm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full ">Study Abroad Consultants in</h3>
+              <h3 className="text-xm font-semibold text-gray-800 inline-block px-1 py-1 rounded-full ">Study Abroad Consultants in</h3>
             </div>
 
             <div style={{borderColor:'#f1f1f14a!important'}} className="flex gap-1 flex-wrap justify-start items-center sm:gap-3 overflow-x-auto scrollbar-thin border-b scrollbar-thumb-gray-300 scrollbar-track-transparent pb-3">
@@ -15,7 +15,7 @@ export default function LocationAvailability({ cities }) {
                 <Link
                   key={index}
                   href={`/study-abroad/${city?.slug}`}
-                  className={`relative flex items-center justify-center px-3 sm:px-3 py-2 text-sm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-900 shadow-sm
+                  className={`relative flex items-center justify-center px-3 sm:px-3 py-2 text-xm md:text-xs font-medium capitalize whitespace-nowrap transition-all duration-300 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-900 shadow-sm
                  text-gray-700 `}
                 >
                   {city?.slug?.toUpperCase()}

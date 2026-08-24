@@ -184,7 +184,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-gray-900 text-lg mb-2">{data.title}</h3>
-                                        <p className="text-gray-600 text-sm leading-relaxed">
+                                        <p className="text-gray-600 text-xm leading-relaxed">
                                             {typeof data.content === 'string'
                                                 ? data.content
                                                 : data.content?.toString() || 'No description available.'}
@@ -236,7 +236,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                                         ))}
                                                     </ul>
                                                 </div>
-                                                <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                                                <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
                                                     {test.content}
                                                 </p>
                                             </div>
@@ -298,7 +298,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                             {spokenEnglishDetails.ComponentsLanguage.map((data: any) => (
                                                 <button
                                                     key={`trigger-${data.id}`}
-                                                    className={`px-3 py-2 rounded text-sm font-medium transition-colors ${activeTab === data.section
+                                                    className={`px-3 py-2 rounded text-xm font-medium transition-colors ${activeTab === data.section
                                                         ? 'bg-red-600 text-white'
                                                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                                         }`}
@@ -322,7 +322,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                                                 (innerData: any, idx: number) => (
                                                                     <p
                                                                         key={`${innerData.name}-${idx}`}
-                                                                        className="text-gray-700 text-justify text-sm"
+                                                                        className="text-gray-700 text-justify text-xm"
                                                                     >
                                                                         <strong className="font-semibold text-gray-800">
                                                                             {innerData.name}
@@ -363,7 +363,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                     <AccordionTrigger className="text-left py-3 hover:no-underline font-medium">
                                         {f.title}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-gray-700 pb-3 text-sm">
+                                    <AccordionContent className="text-gray-700 pb-3 text-xm">
                                         {f.content}
                                     </AccordionContent>
                                 </AccordionItem>
@@ -467,7 +467,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
                                         </p>
                                         <a
                                             href="/contact"
-                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                                         >
                                             Contact us
                                         </a>

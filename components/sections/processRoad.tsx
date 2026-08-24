@@ -112,7 +112,7 @@ const ProcessRoadmap = ({ content }: any) => {
             Your Study Abroad
             <span className="text-[#D71635]"> {content?.title.split(" ").slice(3).join(" ") || ""}</span>
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-full mx-auto">
+          <p className="text-xm sm:text-base text-gray-600 max-w-full mx-auto">
             Navigate your journey to studying abroad with our comprehensive 6-step process, designed to make your dreams a reality.
           </p>
         </div>
@@ -157,7 +157,7 @@ const ProcessRoadmap = ({ content }: any) => {
                     {/* Step Number & Title */}
                     <div className="text-center mb-1">
                       <span className="text-[10px] sm:text-xs font-semibold text-red-600 uppercase tracking-wide">Step {index + 1}</span>
-                      <h3 className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300 leading-tight">
+                      <h3 className="text-xs sm:text-xm font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300 leading-tight">
                         {step.name}
                       </h3>
                     </div>
@@ -226,11 +226,11 @@ const ProcessRoadmap = ({ content }: any) => {
                         <span className="text-[10px] sm:text-xs font-semibold text-red-600 uppercase tracking-wide">
                           Step {index + 1}
                         </span>
-                        <h3 className="text-sm sm:text-base font-bold text-gray-900">{step.name}</h3>
+                        <h3 className="text-xm sm:text-base font-bold text-gray-900">{step.name}</h3>
                       </div>
 
                       {/* Description */}
-                      <p className="text-gray-600 text-sm">{step.content}</p>
+                      <p className="text-gray-600 text-xm">{step.content}</p>
 
                       {/* Details */}
                       <div className="space-y-1 mt-2">

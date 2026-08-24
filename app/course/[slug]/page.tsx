@@ -151,7 +151,7 @@ async function fetchAllCourseData(course: string): Promise<CourseData> {
 
     return {
       pageData,
-      faqData: faqResponse?.status === 'success' ? faqResponse.data.faq || [] : [],
+      faqData: faqResponse?.status === 'success' ? faqResponse.data || [] : [],
       testimonials: testimonialResponse?.status === 'success' ? testimonialResponse.data.testimonial || [] : [],
       sliderData: sliderResponse?.data?.media || []
     };

@@ -198,12 +198,12 @@ export default function EnhancedMultiStepForm() {
                                   {...register("course", { required: "Please select a course" })}
                                   className="hidden"
                                 />
-                                <div className="font-medium text-sm sm:text-base lg:text-lg">{course}</div>
+                                <div className="font-medium text-xm sm:text-base lg:text-lg">{course}</div>
                               </motion.label>
                             ))}
                           </div>
                           {errors.course && (
-                            <p className="text-red-600 text-sm text-center sm:text-left mt-2">
+                            <p className="text-red-600 text-xm text-center sm:text-left mt-2">
                               {errors.course.message as string}
                             </p>
                           )}
@@ -237,12 +237,12 @@ export default function EnhancedMultiStepForm() {
                                   {...register("country", { required: "Please select a country" })}
                                   className="hidden"
                                 />
-                                <div className="font-medium text-sm sm:text-base">{country}</div>
+                                <div className="font-medium text-xm sm:text-base">{country}</div>
                               </motion.label>
                             ))}
                           </div>
                           {errors.country && (
-                            <p className="text-red-600 text-sm text-center sm:text-left mt-2">
+                            <p className="text-red-600 text-xm text-center sm:text-left mt-2">
                               {errors.country.message as string}
                             </p>
                           )}
@@ -276,12 +276,12 @@ export default function EnhancedMultiStepForm() {
                                   {...register("intake", { required: "Please select an intake month" })}
                                   className="hidden"
                                 />
-                                <div className="font-medium text-sm sm:text-base">{month}</div>
+                                <div className="font-medium text-xm sm:text-base">{month}</div>
                               </motion.label>
                             ))}
                           </div>
                           {errors.intake && (
-                            <p className="text-red-600 text-sm text-center sm:text-left mt-2">
+                            <p className="text-red-600 text-xm text-center sm:text-left mt-2">
                               {errors.intake.message as string}
                             </p>
                           )}
@@ -338,17 +338,17 @@ export default function EnhancedMultiStepForm() {
                                 transition={{ delay: index * 0.05 }}
                                 className={field.colSpan}
                               >
-                                <label className="block text-sm sm:text-base font-medium mb-1 sm:mb-2 text-gray-700">
+                                <label className="block text-xm sm:text-base font-medium mb-1 sm:mb-2 text-gray-700">
                                   {field.label}
                                 </label>
                                 <input
                                   type={field.type}
                                   {...register(field.name, field.validation)}
-                                  className="w-full p-3 sm:p-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#D71635] focus:ring-2 focus:ring-[#D71635]/20 transition-all duration-200 bg-white text-sm sm:text-base"
+                                  className="w-full p-3 sm:p-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#D71635] focus:ring-2 focus:ring-[#D71635]/20 transition-all duration-200 bg-white text-xm sm:text-base"
                                   placeholder={`Enter your ${field.label.toLowerCase()}`}
                                 />
                                 {errors[field.name] && (
-                                  <p className="text-red-600 text-xs sm:text-sm mt-1">
+                                  <p className="text-red-600 text-xs sm:text-xm mt-1">
                                     {errors[field.name]?.message as string}
                                   </p>
                                 )}
@@ -368,7 +368,7 @@ export default function EnhancedMultiStepForm() {
                         whileTap={{ scale: 0.98 }}
                         type="button"
                         onClick={onBack}
-                        className="flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 text-sm sm:text-base font-medium"
+                        className="flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 text-xm sm:text-base font-medium"
                       >
                         <ChevronLeft className="w-4 h-4 mr-1 sm:mr-2" />
                         Back
@@ -383,7 +383,7 @@ export default function EnhancedMultiStepForm() {
                         whileTap={{ scale: 0.98 }}
                         type="button"
                         onClick={onNext}
-                        className="flex items-center px-6 sm:px-8 py-2 sm:py-3 bg-[#D71635] text-white rounded-lg hover:bg-[#c11430] transition-colors duration-200 text-sm sm:text-base font-medium ml-auto"
+                        className="flex items-center px-6 sm:px-8 py-2 sm:py-3 bg-[#D71635] text-white rounded-lg hover:bg-[#c11430] transition-colors duration-200 text-xm sm:text-base font-medium ml-auto"
                       >
                         Next
                         <ChevronRight className="w-4 h-4 ml-1 sm:ml-2" />
@@ -393,7 +393,7 @@ export default function EnhancedMultiStepForm() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
-                        className="flex items-center px-6 sm:px-8 py-2 sm:py-3 bg-[#D71635] text-white rounded-lg hover:bg-[#c11430] transition-colors duration-200 text-sm sm:text-base font-medium ml-auto"
+                        className="flex items-center px-6 sm:px-8 py-2 sm:py-3 bg-[#D71635] text-white rounded-lg hover:bg-[#c11430] transition-colors duration-200 text-xm sm:text-base font-medium ml-auto"
                       >
                         Submit
                         <Check className="w-4 h-4 ml-1 sm:ml-2" />

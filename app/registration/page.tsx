@@ -160,7 +160,7 @@ const App: React.FC = () => {
           <div className="flex justify-start gap-4 mb-2">
             <h1 className="text-3xl font-semibold text-gray-800 tracking-tight">Gateway Abroad Education</h1>
           </div>
-          <p className="text-sm text-gray-600 uppercase tracking-wider">
+          <p className="text-xm text-gray-600 uppercase tracking-wider">
             (Confidential when filled) • All fields are mandatory
           </p>
         </div>
@@ -175,7 +175,7 @@ const App: React.FC = () => {
             <h2 className="text-2xl font-bold uppercase tracking-wide">
               STUDENT APPLICATION FORM
             </h2>
-            <p className="text-sm opacity-90 mt-1">Gateway Education Abroad Application</p>
+            <p className="text-xm opacity-90 mt-1">Gateway Education Abroad Application</p>
           </div>
 
           {/* Form Body */}
@@ -190,7 +190,7 @@ const App: React.FC = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Full Name <span className="text-[#D71635]">*</span>
                       </label>
                       <input
@@ -203,7 +203,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Date Of Birth <span className="text-[#D71635]">*</span>
                       </label>
                       <input
@@ -217,7 +217,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Age (in yrs.) <span className="text-[#D71635]">*</span>
                       </label>
                       <input
@@ -235,7 +235,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Marital Status
                       </label>
                       <div className="flex items-center gap-6 p-3 border-2 border-gray-300 bg-gray-50">
@@ -261,7 +261,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Mobile No. <span className="text-[#D71635]">*</span>
                       </label>
                       <input
@@ -281,7 +281,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Address
                       </label>
                       <input
@@ -291,7 +291,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Father's Name
                       </label>
                       <input
@@ -301,7 +301,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Father's No.
                       </label>
                       <input
@@ -312,7 +312,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Parent's Annual Income
                       </label>
                       <input
@@ -323,7 +323,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Parent's Occupation
                       </label>
                       <input
@@ -333,7 +333,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Budget (in ₹)
                       </label>
                       <input
@@ -353,7 +353,7 @@ const App: React.FC = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Email Address
                       </label>
                       <input
@@ -372,7 +372,7 @@ const App: React.FC = () => {
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         City
                       </label>
                       <input
@@ -393,7 +393,7 @@ const App: React.FC = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Course/Subject
                       </label>
                       <input
@@ -403,7 +403,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Experience
                       </label>
                       <input
@@ -413,7 +413,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Intake
                       </label>
                       <select
@@ -434,7 +434,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Level of Study
                       </label>
                       <div className="flex items-center gap-6 p-3 border-2 border-gray-300 bg-gray-50">
@@ -463,7 +463,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Bachelor's
                       </label>
                       <input
@@ -474,7 +474,7 @@ const App: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Masters
                       </label>
                       <input
@@ -495,7 +495,7 @@ const App: React.FC = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Preference 1
                       </label>
                       <input
@@ -506,7 +506,7 @@ const App: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Preference 2
                       </label>
                       <input
@@ -517,7 +517,7 @@ const App: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Preference 3
                       </label>
                       <input
@@ -528,7 +528,7 @@ const App: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-1">
+                      <label className="block text-xm font-bold text-gray-700 mb-1">
                         Preference 4
                       </label>
                       <input

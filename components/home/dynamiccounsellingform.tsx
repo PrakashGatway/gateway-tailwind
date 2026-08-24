@@ -1,6 +1,6 @@
 // components/CompactCounsellingForm.jsx
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { useForm } from "react-hook-form";
 
 const CompactCounsellingForm = ({ onSubmit }) => {
   const {
@@ -12,39 +12,39 @@ const CompactCounsellingForm = ({ onSubmit }) => {
     reset,
   } = useForm({
     defaultValues: {
-      service: 'Study Abroad', // Default tab
-      fullName: '',
-      email: '',
-      phone: '',
+      service: "Study Abroad", // Default tab
+      fullName: "",
+      email: "",
+      phone: "",
       // Study Abroad Specifics
-      programLevel: '',
-      destinationCountry: '',
-      intakeYear: '',
-      city: '',
+      programLevel: "",
+      destinationCountry: "",
+      intakeYear: "",
+      city: "",
       // Test Prep Specifics
-      testType: '',
-      targetScore: '',
-      preferredTestDate: '',
+      testType: "",
+      targetScore: "",
+      preferredTestDate: "",
       // Common
-      message: '',
-      englishTestScore: '',
+      message: "",
+      englishTestScore: "",
       agreeToContact: false,
     },
   });
 
-  const currentService = watch('service');
+  const currentService = watch("service");
 
   const handleTabChange = (service) => {
-    setValue('service', service);
+    setValue("service", service);
     // Optional: Reset specific fields when switching tabs to avoid confusion
-    if (service === 'Study Abroad') {
-      setValue('testType', '');
-      setValue('targetScore', '');
-      setValue('preferredTestDate', '');
+    if (service === "Study Abroad") {
+      setValue("testType", "");
+      setValue("targetScore", "");
+      setValue("preferredTestDate", "");
     } else {
-      setValue('programLevel', '');
-      setValue('destinationCountry', '');
-      setValue('intakeYear', '');
+      setValue("programLevel", "");
+      setValue("destinationCountry", "");
+      setValue("intakeYear", "");
     }
   };
 
@@ -53,52 +53,53 @@ const CompactCounsellingForm = ({ onSubmit }) => {
       if (onSubmit) {
         await onSubmit(data);
       } else {
-        alert('Thank you! Our counsellor will contact you within 24 hours.');
+        alert("Thank you! Our counsellor will contact you within 24 hours.");
       }
       reset();
     } catch (error) {
-      console.error('Submission failed:', error);
-      alert('Something went wrong. Please try again.');
+      console.error("Submission failed:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
   // --- Styles ---
-  const label = "block text-xs font-bold text-gray-700 mb-1 uppercase tracking-wide";
-  const baseInput = "w-full px-3 py-2 rounded-md border text-sm transition-all focus:outline-none focus:ring-2 focus:border-transparent";
+  const label =
+    "block text-xs font-bold text-gray-700 mb-1 uppercase tracking-wide";
+  const baseInput =
+    "w-full px-3 py-2 rounded-md border text-xm transition-all focus:outline-none focus:ring-2 focus:border-transparent";
   const validInput = `${baseInput} border-gray-300 focus:border-blue-500 focus:ring-blue-100`;
   const errorInput = `${baseInput} border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50`;
   const errorMsg = "text-[10px] text-red-500 mt-0.5";
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-      
-      {/* Top Tabs / Service Selector */}
+     
       <div className="flex border-b border-gray-200">
         <button
           type="button"
-          onClick={() => handleTabChange('Study Abroad')}
-          className={`flex-1 py-4 text-sm font-bold transition-colors relative ${
-            currentService === 'Study Abroad' 
-              ? 'text-white bg-[#DC2626]' 
-              : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+          onClick={() => handleTabChange("Study Abroad")}
+          className={`flex-1 py-4 text-xm font-bold transition-colors relative ${
+            currentService === "Study Abroad"
+              ? "text-white bg-[#DC2626]"
+              : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
           }`}
         >
           🎓 Study Abroad
-          {currentService === 'Study Abroad' && (
+          {currentService === "Study Abroad" && (
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></span>
           )}
         </button>
         <button
           type="button"
-          onClick={() => handleTabChange('Test Preparation')}
-          className={`flex-1 py-4 text-sm font-bold transition-colors relative ${
-            currentService === 'Test Preparation' 
-              ? 'text-red-600 bg-blue-50/50' 
-              : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+          onClick={() => handleTabChange("Test Preparation")}
+          className={`flex-1 py-4 text-xm font-bold transition-colors relative ${
+            currentService === "Test Preparation"
+              ? "text-red-600 bg-blue-50/50"
+              : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
           }`}
         >
           📝 Test Preparation
-          {currentService === 'Test Preparation' && (
+          {currentService === "Test Preparation" && (
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#DC2626]"></span>
           )}
         </button>
@@ -108,68 +109,89 @@ const CompactCounsellingForm = ({ onSubmit }) => {
         {/* Dynamic Header */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-800">
-            {currentService === 'Study Abroad' ? 'Start Your Global Journey' : 'Ace Your Exam'}
+            {currentService === "Study Abroad"
+              ? "Start Your Global Journey"
+              : "Ace Your Exam"}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            {currentService === 'Study Abroad' 
-              ? 'Get expert guidance on universities, visas, and scholarships.' 
-              : 'Book a demo class and get a personalized study plan.'}
+          <p className="text-xm text-gray-500 mt-1">
+            {currentService === "Study Abroad"
+              ? "Get expert guidance on universities, visas, and scholarships."
+              : "Book a demo class and get a personalized study plan."}
           </p>
         </div>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-          
           {/* ROW 1: Personal Info (3 Columns) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className={label}>Full Name <span className="text-red-500">*</span></label>
+              <label className={label}>
+                Full Name <span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
-                {...register('fullName', { required: 'Name is required' })}
+                {...register("fullName", { required: "Name is required" })}
                 placeholder="John Doe"
                 className={errors.fullName ? errorInput : validInput}
               />
-              {errors.fullName && <p className={errorMsg}>{errors.fullName.message}</p>}
+              {errors.fullName && (
+                <p className={errorMsg}>{errors.fullName.message}</p>
+              )}
             </div>
 
             <div>
-              <label className={label}>Email Address <span className="text-red-500">*</span></label>
+              <label className={label}>
+                Email Address <span className="text-red-500">*</span>
+              </label>
               <input
                 type="email"
-                {...register('email', { 
-                  required: 'Email is required',
-                  pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'Invalid email' }
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email",
+                  },
                 })}
                 placeholder="john@example.com"
                 className={errors.email ? errorInput : validInput}
               />
-              {errors.email && <p className={errorMsg}>{errors.email.message}</p>}
+              {errors.email && (
+                <p className={errorMsg}>{errors.email.message}</p>
+              )}
             </div>
 
             <div>
-              <label className={label}>Phone Number <span className="text-red-500">*</span></label>
+              <label className={label}>
+                Phone Number <span className="text-red-500">*</span>
+              </label>
               <input
                 type="tel"
-                {...register('phone', { 
-                  required: 'Phone is required',
-                  pattern: { value: /^\+?[0-9\s\-()]{7,15}$/, message: 'Invalid number' }
+                {...register("phone", {
+                  required: "Phone is required",
+                  pattern: {
+                    value: /^\+?[0-9\s\-()]{7,15}$/,
+                    message: "Invalid number",
+                  },
                 })}
                 placeholder="+1 234 567 890"
                 className={errors.phone ? errorInput : validInput}
               />
-              {errors.phone && <p className={errorMsg}>{errors.phone.message}</p>}
+              {errors.phone && (
+                <p className={errorMsg}>{errors.phone.message}</p>
+              )}
             </div>
           </div>
 
           {/* CONDITIONAL: STUDY ABROAD FIELDS */}
-          {currentService === 'Study Abroad' && (
+          {currentService === "Study Abroad" && (
             <>
               {/* ROW 2: Academic Details (3 Columns) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className={label}>Program Level <span className="text-red-500">*</span></label>
+                  <label className={label}>
+                    Program Level <span className="text-red-500">*</span>
+                  </label>
                   <select
-                    {...register('programLevel', { required: 'Required' })}
+                    {...register("programLevel", { required: "Required" })}
                     className={`${errors.programLevel ? errorInput : validInput} bg-white`}
                   >
                     <option value="">Select Level</option>
@@ -184,7 +206,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                   <label className={label}>Destination Country</label>
                   <input
                     type="text"
-                    {...register('destinationCountry')}
+                    {...register("destinationCountry")}
                     placeholder="e.g. UK, Canada"
                     className={validInput}
                   />
@@ -192,8 +214,8 @@ const CompactCounsellingForm = ({ onSubmit }) => {
 
                 <div>
                   <label className={label}>Intake Year</label>
-                   <select
-                    {...register('intakeYear', { required: 'Required' })}
+                  <select
+                    {...register("intakeYear", { required: "Required" })}
                     className={`${errors.intakeYear ? errorInput : validInput} bg-white`}
                   >
                     <option value="">Select Year</option>
@@ -202,27 +224,27 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                     <option value="2028">2028</option>
                     <option value="2029">2029</option>
                     <option value="2030">2030</option>
-                   
                   </select>
                 </div>
               </div>
 
               {/* ROW 3: Location (1 Column for City to balance layout or add more fields) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div className="md:col-span-1">
+                <div className="md:col-span-1">
                   <label className={label}>Current City</label>
                   <input
                     type="text"
-                    {...register('city')}
+                    {...register("city")}
                     placeholder="e.g. New Delhi"
                     className={validInput}
                   />
                 </div>
-                 <div>
-                  <label className={label}>Do you have an English test score?
- </label>
+                <div>
+                  <label className={label}>
+                    Do you have an English test score?
+                  </label>
                   <select
-                    {...register('englishTestScore')}
+                    {...register("englishTestScore")}
                     className={`${errors.englishTestScore ? errorInput : validInput} bg-white`}
                   >
                     <option value="">Select Option</option>
@@ -230,24 +252,28 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                     <option value="PTE">YES--PTE</option>
                     <option value="TOEFL">YES--TOEFL</option>
                     <option value="SAT">YES--DUOLINGO</option>
-                      <option value="NO">NO--need coaching first</option>
+                    <option value="NO">NO--need coaching first</option>
                     <option value="NO">NO--have MOI certificate</option>
                   </select>
-                  {errors.englishTestScore && <p className={errorMsg}>Required</p>}
+                  {errors.englishTestScore && (
+                    <p className={errorMsg}>Required</p>
+                  )}
                 </div>
               </div>
             </>
           )}
 
           {/* CONDITIONAL: TEST PREP FIELDS */}
-          {currentService === 'Test Preparation' && (
+          {currentService === "Test Preparation" && (
             <>
               {/* ROW 2: Test Details (3 Columns) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className={label}>Test Type <span className="text-red-500">*</span></label>
+                  <label className={label}>
+                    Test Type <span className="text-red-500">*</span>
+                  </label>
                   <select
-                    {...register('testType', { required: 'Required' })}
+                    {...register("testType", { required: "Required" })}
                     className={`${errors.testType ? errorInput : validInput} bg-white`}
                   >
                     <option value="">Select Test</option>
@@ -265,7 +291,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                   <label className={label}>Target Score</label>
                   <input
                     type="text"
-                    {...register('targetScore')}
+                    {...register("targetScore")}
                     placeholder="e.g. 7.5 Bands"
                     className={validInput}
                   />
@@ -275,29 +301,30 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                   <label className={label}>Preferred Date</label>
                   <input
                     type="date"
-                    {...register('preferredTestDate')}
+                    {...register("preferredTestDate")}
                     className={validInput}
                   />
                 </div>
               </div>
 
-               {/* ROW 3: Location */}
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div className="md:col-span-1">
+              {/* ROW 3: Location */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="md:col-span-1">
                   <label className={label}>Current City</label>
                   <input
                     type="text"
-                    {...register('city')}
+                    {...register("city")}
                     placeholder="e.g. Mumbai"
                     className={validInput}
                   />
                 </div>
                 <div>
-                  <label className={label}>Do you have an English test score?</label>
+                  <label className={label}>
+                    Do you have an English test score?
+                  </label>
 
- 
                   <select
-                    {...register('englishTestScore')}
+                    {...register("englishTestScore")}
                     className={`${errors.englishTestScore ? errorInput : validInput} bg-white`}
                   >
                     <option value="">Select Option</option>
@@ -307,26 +334,27 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                     <option value="SAT">YES--DUOLINGO</option>
                     <option value="NO">NO--need coaching first</option>
                     <option value="NO">NO--have MOI certificate</option>
-
-
                   </select>
-                  {errors.englishTestScore && <p className={errorMsg}>Required</p>}
+                  {errors.englishTestScore && (
+                    <p className={errorMsg}>Required</p>
+                  )}
                 </div>
-                 
               </div>
             </>
           )}
 
           {/* ROW 4: Contact & Message (Split 1 col + 2 cols) */}
           <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
-           
-
             <div className="md:col-span-2">
               <label className={label}>Short Message</label>
               <input
                 type="text"
-                {...register('message')}
-                placeholder={currentService === 'Study Abroad' ? "I'm interested in MS in USA..." : "I need help with IELTS Speaking..."}
+                {...register("message")}
+                placeholder={
+                  currentService === "Study Abroad"
+                    ? "I'm interested in MS in USA..."
+                    : "I need help with IELTS Speaking..."
+                }
                 className={validInput}
               />
             </div>
@@ -337,15 +365,23 @@ const CompactCounsellingForm = ({ onSubmit }) => {
             <div className="flex items-start gap-2 mb-4">
               <input
                 type="checkbox"
-                {...register('agreeToContact', { required: true })}
+                {...register("agreeToContact", { required: true })}
                 id="agree"
                 className="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
-              <label htmlFor="agree" className="text-sm text-gray-500 leading-tight">
-                I agree to be contacted via regarding my inquiry. <span className="text-red-500">*</span>
+              <label
+                htmlFor="agree"
+                className="text-xm text-gray-500 leading-tight"
+              >
+                I agree to be contacted via regarding my inquiry.{" "}
+                <span className="text-red-500">*</span>
               </label>
             </div>
-            {errors.agreeToContact && <p className="text-xs text-red-500 mb-2">Please agree to continue.</p>}
+            {errors.agreeToContact && (
+              <p className="text-xs text-red-500 mb-2">
+                Please agree to continue.
+              </p>
+            )}
 
             <button
               type="submit"
@@ -356,19 +392,32 @@ const CompactCounsellingForm = ({ onSubmit }) => {
                 <span>Processing...</span>
               ) : (
                 <>
-                  {currentService === 'Study Abroad' ? 'Get Free Counselling' : 'Book Free Demo Class'}
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  {currentService === "Study Abroad"
+                    ? "Get Free Counselling"
+                    : "Book Free Demo Class"}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
                   </svg>
                 </>
               )}
             </button>
-            
-            <p className="text-sm text-gray-400 text-center mt-3">
-              By submitting, you agree to our Terms of Service and Privacy Policy.
+
+            <p className="text-xm text-gray-400 text-center mt-3">
+              By submitting, you agree to our Terms of Service and Privacy
+              Policy.
             </p>
           </div>
-
         </form>
       </div>
     </div>

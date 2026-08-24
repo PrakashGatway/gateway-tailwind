@@ -178,7 +178,7 @@ export default function CardStackGridSection({ video: cards }) {
                 <div className="p-3 md:p-4 bg-gradient-to-br from-white to-gray-50 flex-1 flex flex-col justify-between min-h-[120px]">
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-gray-800 text-xs md:text-sm line-clamp-2 flex-1 mr-2">
+                      <h3 className="font-semibold text-gray-800 text-xs md:text-xm line-clamp-2 flex-1 mr-2">
                         {card.title || `Student Story ${index + 1}`}
                       </h3>
                       <div className="flex items-center gap-1 flex-shrink-0">

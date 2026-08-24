@@ -355,7 +355,7 @@
 //                                                     style={{ maxWidth: '100%' }}
 //                                                 >
 //                                                     <div className="flex items-start gap-3 flex-1 min-w-0">
-//                                                         <div className={`w-8 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${activeId === heading.id
+//                                                         <div className={`w-8 h-6 rounded flex items-center justify-center text-xm flex-shrink-0 mt-0.5 ${activeId === heading.id
 //                                                             ? 'bg-red-600 text-white'
 //                                                             : 'bg-gray-100 text-gray-600'
 //                                                             }`}>
@@ -418,7 +418,7 @@
 //                                                                     }`}>
 //                                                                     {h2Count}.{childIndex + 1}
 //                                                                 </div>
-//                                                                 <span className="text-sm text-left break-words whitespace-normal flex-1">
+//                                                                 <span className="text-xm text-left break-words whitespace-normal flex-1">
 //                                                                     {child.text}
 //                                                                 </span>
 //                                                             </button>
@@ -439,7 +439,7 @@
 //                                                         }`}
 //                                                     style={{ maxWidth: '100%' }}
 //                                                 >
-//                                                     <div className={`w-6 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 ${activeId === heading.id
+//                                                     <div className={`w-6 h-6 rounded flex items-center justify-center text-xm flex-shrink-0 mt-0.5 ${activeId === heading.id
 //                                                         ? 'bg-red-600 text-white'
 //                                                         : 'bg-gray-100 text-gray-600'
 //                                                         }`}>
@@ -816,7 +816,7 @@
 //             <section className="hero-gradient py-8">
 //                 <div className="max-w-7xl relative mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
 //                     {/* Breadcrumb */}
-//                     <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+//                     <nav className="flex items-center space-x-2 text-xm text-gray-600 mb-4">
 //                         <Link
 //                             href="/"
 //                             style={{
@@ -852,7 +852,7 @@
 //                     </h1>
 
 //                     {/* Article Meta */}
-//                     <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+//                     <div className="flex flex-wrap items-center gap-4 text-xm text-gray-600">
 //                         <div className="flex items-center space-x-2">
 //                             <span>📅</span>
 //                             <span>{formatDate(article.createdAt)}</span>
@@ -865,10 +865,10 @@
 //                             </div>
 //                         )}
 //                         <div>
-//                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View - {article.viewCount}</span>
+//                             <span className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold'>View - {article.viewCount}</span>
 //                         </div>
 //                         <div>
-//                             <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
+//                             <span className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
 //                         </div>
 //                         <div className='ml-auto'>
 //                             <span className='
@@ -876,7 +876,7 @@
 //   text-white
 //   px-5 py-2
 //   rounded-full
-//   text-sm font-bold
+//   text-xm font-bold
 //   shadow-lg
 //   hover:shadow-xl
 //   hover:from-[#FF6B6B]
@@ -962,7 +962,7 @@
 //                                                 </Link>
 //                                             </div>
 //                                             <div>
-//                                                 <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>~ By Admin</span>
+//                                                 <span className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold'>~ By Admin</span>
 //                                             </div>
 //                                         </div>
 //                                     </div>
@@ -978,7 +978,7 @@
 //                                     {comments.length > 0 && (
 //                                         <button
 //                                             onClick={() => document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' })}
-//                                             className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
+//                                             className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-xm font-medium"
 //                                         >
 //                                             Add Comment
 //                                         </button>
@@ -991,21 +991,21 @@
 //                                         {replyingTo ? 'Reply to Comment' : 'Leave a Comment'}
 //                                     </h4>
 //                                     {replyingTo && (
-//                                         <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
+//                                         <div className="mb-4 p-3 bg-blue-50 rounded-lg text-xm flex justify-between items-center">
 //                                             <span className="font-medium">Replying to: {commentForm.content.split(' ')[0]}</span>
 //                                             <button
 //                                                 onClick={handleCancelReply}
-//                                                 className="text-red-600 hover:text-red-800 text-sm font-medium"
+//                                                 className="text-red-600 hover:text-red-800 text-xm font-medium"
 //                                             >
 //                                                 Cancel Reply
 //                                             </button>
 //                                         </div>
 //                                     )}
-//                                     <p className="text-gray-600 text-sm mb-4">Your email address will not be published.</p>
+//                                     <p className="text-gray-600 text-xm mb-4">Your email address will not be published.</p>
 //                                     <form onSubmit={handleCommentSubmit} className="space-y-4">
 //                                         <textarea
 //                                             placeholder="Your Comment *"
-//                                             className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+//                                             className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
 //                                             value={commentForm.content}
 //                                             onChange={(e) => setCommentForm({ ...commentForm, content: e.target.value })}
 //                                             required
@@ -1032,7 +1032,7 @@
 //                                                     <span className="text-2xl">💬</span>
 //                                                 </div>
 //                                                 <p className="text-lg font-medium mb-2">No comments yet</p>
-//                                                 <p className="text-sm text-gray-600">Be the first to share your thoughts!</p>
+//                                                 <p className="text-xm text-gray-600">Be the first to share your thoughts!</p>
 //                                             </div>
 //                                         ) : (
 //                                             comments.slice(0, 5).map((comment) => (
@@ -1040,7 +1040,7 @@
 //                                                     <div className="flex items-start space-x-3">
 //                                                         <div className="flex-shrink-0">
 //                                                             <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
-//                                                                 <span className="text-red-600 font-bold text-sm">
+//                                                                 <span className="text-red-600 font-bold text-xm">
 //                                                                     {comment.author?.name?.charAt(0)?.toUpperCase() || 'A'}
 //                                                                 </span>
 //                                                             </div>
@@ -1060,19 +1060,19 @@
 //                                                                         onClick={() => handleLike(comment._id)}
 //                                                                         className="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition-colors"
 //                                                                     >
-//                                                                         <i className="fa fa-thumbs-up text-sm"></i>
-//                                                                         <span className="text-sm">{comment.likes?.length || 0}</span>
+//                                                                         <i className="fa fa-thumbs-up text-xm"></i>
+//                                                                         <span className="text-xm">{comment.likes?.length || 0}</span>
 //                                                                     </button>
 //                                                                     <button
 //                                                                         onClick={() => handleDislike(comment._id)}
 //                                                                         className="flex items-center space-x-1 text-gray-500 hover:text-red-600 transition-colors"
 //                                                                     >
-//                                                                         <i className="fa fa-thumbs-down text-sm"></i>
-//                                                                         <span className="text-sm">{comment.dislikes?.length || 0}</span>
+//                                                                         <i className="fa fa-thumbs-down text-xm"></i>
+//                                                                         <span className="text-xm">{comment.dislikes?.length || 0}</span>
 //                                                                     </button>
 //                                                                     <button
 //                                                                         onClick={() => handleReply(comment._id, comment.author?.name)}
-//                                                                         className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
+//                                                                         className="text-red-600 hover:text-red-800 transition-colors text-xm font-medium"
 //                                                                     >
 //                                                                         Reply
 //                                                                     </button>
@@ -1098,7 +1098,7 @@
 //                                                                             <div className="flex-1">
 //                                                                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
 //                                                                                     <div>
-//                                                                                         <span className="font-medium text-gray-900 text-sm">
+//                                                                                         <span className="font-medium text-gray-900 text-xm">
 //                                                                                             {reply.author?.name || 'Anonymous'}
 //                                                                                         </span>
 //                                                                                         <span className="text-xs text-gray-500 ml-2">
@@ -1122,7 +1122,7 @@
 //                                                                                         </button>
 //                                                                                     </div>
 //                                                                                 </div>
-//                                                                                 <p className="text-gray-600 text-sm">{reply.content}</p>
+//                                                                                 <p className="text-gray-600 text-xm">{reply.content}</p>
 //                                                                             </div>
 //                                                                         </div>
 //                                                                     ))}
@@ -1131,7 +1131,7 @@
 //                                                                     {comment.nestedReplies.length > 2 && (
 //                                                                         <button
 //                                                                             onClick={() => toggleReplies(comment._id)}
-//                                                                             className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
+//                                                                             className="mt-2 text-xm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
 //                                                                         >
 //                                                                             {showReplies[comment._id]
 //                                                                                 ? 'Hide replies'
@@ -1150,7 +1150,7 @@
 //                                         {comments.length > 5 && (
 //                                             <div className="text-center pt-4 border-t border-gray-200">
 //                                                 <button
-//                                                     className="text-red-600 hover:text-red-800 font-medium text-sm py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
+//                                                     className="text-red-600 hover:text-red-800 font-medium text-xm py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
 //                                                     onClick={() => alert('Showing all comments would require backend pagination implementation')}
 //                                                 >
 //                                                     Load more comments ({comments.length - 5} more)
@@ -1217,7 +1217,7 @@
 //                                                         />
 //                                                     </div>
 //                                                     <div className="flex-1 min-w-0">
-//                                                         <h6 className="font-semibold text-sm text-gray-900 group-hover:text-red-700 transition duration-200 leading-tight line-clamp-2 mb-1">
+//                                                         <h6 className="font-semibold text-xm text-gray-900 group-hover:text-red-700 transition duration-200 leading-tight line-clamp-2 mb-1">
 //                                                             {articleItem.title}
 //                                                         </h6>
 //                                                         <p className="text-xs text-gray-500 font-normal">
@@ -1228,10 +1228,10 @@
 //                                             ))
 //                                         ) : (
 //                                             <div className="text-center py-4">
-//                                                 <p className="text-sm text-gray-500 mb-2">No other articles available</p>
+//                                                 <p className="text-xm text-gray-500 mb-2">No other articles available</p>
 //                                                 <Link
 //                                                     href="/article"
-//                                                     className="text-red-600 text-sm hover:underline font-medium"
+//                                                     className="text-red-600 text-xm hover:underline font-medium"
 //                                                 >
 //                                                     Browse all articles
 //                                                 </Link>
@@ -1251,7 +1251,7 @@
 //                                             <Link
 //                                                 key={category}
 //                                                 href={`/article?category=${category}`}
-//                                                 className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200 text-sm font-medium"
+//                                                 className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200 text-xm font-medium"
 //                                             >
 //                                                 {category}
 //                                             </Link>
@@ -1270,7 +1270,7 @@
 //                                             <Link
 //                                                 key={tag}
 //                                                 href={`/article?tag=${tag.toLowerCase()}`}
-//                                                 className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-sm hover:bg-red-600 hover:text-white transition duration-200 font-medium"
+//                                                 className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-xm hover:bg-red-600 hover:text-white transition duration-200 font-medium"
 //                                             >
 //                                                 {tag}
 //                                             </Link>
@@ -1299,7 +1299,7 @@
 //                                         </p>
 //                                         <a
 //                                             href="/contact"
-//                                             className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300 hover:shadow-xl"
+//                                             className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300 hover:shadow-xl"
 //                                         >
 //                                             Help and Support
 //                                         </a>
@@ -1389,7 +1389,7 @@ function TableOfContents({ headings = [] }) {
                                                     className="w-full text-left p-0.5 rounded-lg transition-all duration-200 flex items-start justify-between group hover:bg-gray-50 text-gray-700"
                                                 >
                                                     <div className="flex items-start gap-3 flex-1 min-w-0">
-                                                        <div className="w-8 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 bg-gray-100 text-gray-600">
+                                                        <div className="w-8 h-6 rounded flex items-center justify-center text-xm flex-shrink-0 mt-0.5 bg-gray-100 text-gray-600">
                                                             {h2Count}.
                                                         </div>
                                                         <span className="font-medium text-left break-words whitespace-normal text-gray-800">
@@ -1407,7 +1407,7 @@ function TableOfContents({ headings = [] }) {
                                                     href={`#${heading.id}`}
                                                     className="w-full text-left p-0.5 rounded-lg transition-all duration-200 flex items-start gap-3 group hover:bg-gray-50 text-gray-700"
                                                 >
-                                                    <div className="w-6 h-6 rounded flex items-center justify-center text-sm flex-shrink-0 mt-0.5 bg-gray-100 text-gray-600">
+                                                    <div className="w-6 h-6 rounded flex items-center justify-center text-xm flex-shrink-0 mt-0.5 bg-gray-100 text-gray-600">
                                                         H3
                                                     </div>
                                                     <span className="font-medium text-left break-words whitespace-normal flex-1">
@@ -1644,7 +1644,7 @@ useEffect(() => {
             <section className="hero-gradient py-8 ">
                 <div className="max-w-7xl relative mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
                     {/* Breadcrumb */}
-                    <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                    <nav className="flex items-center space-x-2 text-xm text-gray-600 mb-4">
                         <Link
                             href="/"
                             className="hover:text-[#E12827] transition-colors"
@@ -1668,7 +1668,7 @@ useEffect(() => {
                     </h1>
 
                     {/* Article Meta */}
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                    <div className="flex flex-wrap items-center gap-4 text-xm text-gray-600">
                         <div className="flex items-center space-x-2">
                             <span>📅</span>
                             <span>{formatDate(article.createdAt)}</span>
@@ -1681,13 +1681,13 @@ useEffect(() => {
                             </div>
                         )}
                         <div>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>View -   {(1000 + (views ?? Number(views ?? 0))).toLocaleString()}
+                            <span className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold'>View -   {(1000 + (views ?? Number(views ?? 0))).toLocaleString()}
 </span>
                         </div>
                         {/* <div>
-                            <span className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
+                            <span className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold'>Read Time - {Math.ceil(article.readTime / 60)} min</span>
                         </div> */}
-                        <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10'>
+                        <Link href={"/author/sakshi-taneja"} className='text-[#E12827] px-3 py-1 rounded-full text-xm font-bold z-10'>
                Author - Sakshi Taneja
               </Link>
                     </div>
@@ -1862,7 +1862,7 @@ useEffect(() => {
                                     <div className="space-y-3 mt-4 border border-gray-200 p-4">
                                         <Link href="/author/sakshi-taneja">
                                             <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                                                <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
+                                                <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-xm font-bold">
                                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10" alt="" loading='lazy' />
                                                 </div>
 
@@ -1882,7 +1882,7 @@ useEffect(() => {
                                                 Content Writer & International Education Specialist
                                             </p>
 
-                                            <p className="mt-2 text-sm leading-7 text-gray-600">
+                                            <p className="mt-2 text-xm leading-7 text-gray-600">
                                                 Sakshi Taneja is a content writer specializing in international
                                                 education, study abroad opportunities, university admissions, student
                                                 visas, scholarships, and career guidance. She creates accurate,
@@ -1903,7 +1903,7 @@ useEffect(() => {
                                     {comments.length > 0 && (
                                         <button
                                             onClick={() => document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' })}
-                                            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
+                                            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-xm font-medium"
                                         >
                                             Add Comment
                                         </button>
@@ -1915,21 +1915,21 @@ useEffect(() => {
                                         {replyingTo ? 'Reply to Comment' : 'Leave a Comment'}
                                     </h4>
                                     {replyingTo && (
-                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
+                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg text-xm flex justify-between items-center">
                                             <span className="font-medium">Replying to: {commentForm.content.split(' ')[0]}</span>
                                             <button
                                                 onClick={handleCancelReply}
-                                                className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                                className="text-red-600 hover:text-red-800 text-xm font-medium"
                                             >
                                                 Cancel Reply
                                             </button>
                                         </div>
                                     )}
-                                    <p className="text-gray-600 text-sm mb-4">Your email address will not be published.</p>
+                                    <p className="text-gray-600 text-xm mb-4">Your email address will not be published.</p>
                                     <form onSubmit={handleCommentSubmit} className="space-y-4">
                                         <textarea
                                             placeholder="Your Comment *"
-                                            className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+                                            className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
                                             value={commentForm.content}
                                             onChange={(e) => setCommentForm({ ...commentForm, content: e.target.value })}
                                             required
@@ -1955,7 +1955,7 @@ useEffect(() => {
                                                     <span className="text-2xl">💬</span>
                                                 </div>
                                                 <p className="text-lg font-medium mb-2">No comments yet</p>
-                                                <p className="text-sm text-gray-600">Be the first to share your thoughts!</p>
+                                                <p className="text-xm text-gray-600">Be the first to share your thoughts!</p>
                                             </div>
                                         ) : (
                                             comments.slice(0, 5).map((comment) => (
@@ -1963,7 +1963,7 @@ useEffect(() => {
                                                     <div className="flex items-start space-x-3">
                                                         <div className="flex-shrink-0">
                                                             <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
-                                                                <span className="text-red-600 font-bold text-sm">
+                                                                <span className="text-red-600 font-bold text-xm">
                                                                     {comment.author?.name?.charAt(0)?.toUpperCase() || 'A'}
                                                                 </span>
                                                             </div>
@@ -1983,19 +1983,19 @@ useEffect(() => {
                                                                         onClick={() => handleLike(comment._id)}
                                                                         className="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition-colors"
                                                                     >
-                                                                        <i className="fa fa-thumbs-up text-sm"></i>
-                                                                        <span className="text-sm">{comment.likes?.length || 0}</span>
+                                                                        <i className="fa fa-thumbs-up text-xm"></i>
+                                                                        <span className="text-xm">{comment.likes?.length || 0}</span>
                                                                     </button>
                                                                     <button
                                                                         onClick={() => handleDislike(comment._id)}
                                                                         className="flex items-center space-x-1 text-gray-500 hover:text-red-600 transition-colors"
                                                                     >
-                                                                        <i className="fa fa-thumbs-down text-sm"></i>
-                                                                        <span className="text-sm">{comment.dislikes?.length || 0}</span>
+                                                                        <i className="fa fa-thumbs-down text-xm"></i>
+                                                                        <span className="text-xm">{comment.dislikes?.length || 0}</span>
                                                                     </button>
                                                                     <button
                                                                         onClick={() => handleReply(comment._id, comment.author?.name)}
-                                                                        className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
+                                                                        className="text-red-600 hover:text-red-800 transition-colors text-xm font-medium"
                                                                     >
                                                                         Reply
                                                                     </button>
@@ -2020,7 +2020,7 @@ useEffect(() => {
                                                                             <div className="flex-1">
                                                                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
                                                                                     <div>
-                                                                                        <span className="font-medium text-gray-900 text-sm">
+                                                                                        <span className="font-medium text-gray-900 text-xm">
                                                                                             {reply.author?.name || 'Anonymous'}
                                                                                         </span>
                                                                                         <span className="text-xs text-gray-500 ml-2">
@@ -2044,7 +2044,7 @@ useEffect(() => {
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
-                                                                                <p className="text-gray-600 text-sm">{reply.content}</p>
+                                                                                <p className="text-gray-600 text-xm">{reply.content}</p>
                                                                             </div>
                                                                         </div>
                                                                     ))}
@@ -2052,7 +2052,7 @@ useEffect(() => {
                                                                     {comment.nestedReplies.length > 2 && (
                                                                         <button
                                                                             onClick={() => toggleReplies(comment._id)}
-                                                                            className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
+                                                                            className="mt-2 text-xm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
                                                                         >
                                                                             {showReplies[comment._id]
                                                                                 ? 'Hide replies'
@@ -2071,7 +2071,7 @@ useEffect(() => {
                                         {comments.length > 5 && (
                                             <div className="text-center pt-4 border-t border-gray-200">
                                                 <button
-                                                    className="text-red-600 hover:text-red-800 font-medium text-sm py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
+                                                    className="text-red-600 hover:text-red-800 font-medium text-xm py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
                                                     onClick={() => alert('Showing all comments would require backend pagination implementation')}
                                                 >
                                                     Load more comments ({comments.length - 5} more)
@@ -2131,7 +2131,7 @@ useEffect(() => {
                                                         />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h6 className="font-semibold text-sm text-gray-900 group-hover:text-red-700 transition duration-200 leading-tight line-clamp-2 mb-1">
+                                                        <h6 className="font-semibold text-xm text-gray-900 group-hover:text-red-700 transition duration-200 leading-tight line-clamp-2 mb-1">
                                                             {articleItem.title}
                                                         </h6>
                                                         <p className="text-xs text-gray-500 font-normal">
@@ -2142,10 +2142,10 @@ useEffect(() => {
                                             ))
                                         ) : (
                                             <div className="text-center py-4">
-                                                <p className="text-sm text-gray-500 mb-2">No other articles available</p>
+                                                <p className="text-xm text-gray-500 mb-2">No other articles available</p>
                                                 <Link
                                                     href="/article"
-                                                    className="text-red-600 text-sm hover:underline font-medium"
+                                                    className="text-red-600 text-xm hover:underline font-medium"
                                                 >
                                                     Browse all articles
                                                 </Link>
@@ -2164,7 +2164,7 @@ useEffect(() => {
                                             <Link
                                                 key={i}
                                                 href={`/article?category=${category?._id}`}
-                                                className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200 text-sm font-medium"
+                                                className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-red-600 hover:text-white transition duration-200 text-xm font-medium"
                                             >
                                                 {category?.name}
                                             </Link>
@@ -2193,7 +2193,7 @@ useEffect(() => {
                                         </p>
                                         <a
                                             href="/contact"
-                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300 hover:shadow-xl"
+                                            className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300 hover:shadow-xl"
                                         >
                                             Help and Support
                                         </a>
