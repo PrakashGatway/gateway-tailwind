@@ -645,16 +645,14 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           <div className=" flex flex-col lg:flex-row gap-8 md:gap-12">
 
             {/* Student Info Column - MOBILE: FULL WIDTH, DESKTOP: HALF */}
-            <div className="w-full lg:w-[50%] order-2 lg:order-1 ">
-
-
+            {/* <div className="w-full lg:w-[50%] order-2 lg:order-1 ">
               {studentData.length > 0 && (
                 <div className="relative max-h-[320px]">
                   <div ref={studentInfoRef} className="keen-slider">
                     {homePageDetails?.sections[12]?.content?.aboutimage?.map((s, index) => (
                       <div key={index} className="keen-slider__slide">
                         <div className="relative">
-                          {/* Student Image - Responsive */}
+                        
                           <div className="flex justify-center">
                             <div className="relative">
                               <Image
@@ -668,17 +666,6 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                             </div>
                           </div>
 
-                          {/* Name and Score side by side - Responsive */}
-                          {/* <div className="absolute top-[200px] md:top-[240px] lg:top-[260px] lg:-left-30 flex items-center justify-center w-full">
-                            <div className="flex items-center w-[90%] md:w-[75%] lg:w-[68%] h-[70px] md:h-[84px]">
-                              <div className='w-[60%] bg-gray-300 h-full flex items-center justify-center'>
-                                <h5 className="font-bold text-gray-900 text-base md:text-lg lg:text-xl px-2 text-center">{s.name}</h5>
-                              </div>
-                           
-                            </div>
-                          </div> */}
-
-                          {/* Content below - Responsive */}
                           <div className="mt-[280px] md:mt-[340px] lg:mt-[380px] mb-8">
                             <p className="text-gray-600 leading-relaxed text-center text-sm md:text-base lg:text-lg">
                               {s.content}
@@ -690,7 +677,47 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                   </div>
                 </div>
               )}
+            </div> */}
+            <div className="w-full lg:w-1/2 order-2 lg:order-1 px-4 sm:px-6 lg:px-0">
+  {studentData?.length > 0 && (
+    <div className="relative w-full overflow-hidden">
+      <div ref={studentInfoRef} className="keen-slider w-full">
+        {homePageDetails?.sections?.[12]?.content?.aboutimage?.map(
+          (s, index) => (
+            <div
+              key={index}
+              className="keen-slider__slide w-full"
+            >
+              <div className="relative flex flex-col items-center w-full">
+                {/* Student Image */}
+                <div className="relative w-full flex justify-center">
+                  <div className="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[320px]">
+                    <Image
+                      src={`${baseUrl}/uploads/${s.image}`}
+                      alt={s.name || "Student"}
+                      width={300}
+                      height={300}
+                      priority={index === 0}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
+
+                {/* Student Content */}
+                {s?.content && 
+                <div className="w-full mt-5 sm:mt-6 md:mt-8 mb-6 sm:mb-8 px-2 sm:px-4">
+                  <p className="text-gray-600 leading-relaxed text-center text-sm sm:text-base md:text-lg lg:text-lg">
+                    {s.content}
+                  </p>
+                </div>}
+              </div>
             </div>
+          )
+        )}
+      </div>
+    </div>
+  )}
+</div>
 
             {/* Register Form Column - MOBILE: TOP, DESKTOP: RIGHT SIDE */}
             <div className="w-full lg:w-[50%] order-1 lg:order-2 flex justify-center lg:justify-start items-start">
@@ -709,14 +736,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
       {/* About Us Section */}
 
       <About content={homePageDetails?.sections[1]?.content} />
-      {/* <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8">About us</h2>
-          <div className="about-us-inner">
-            <AboutSection aboutUs={aboutPageData?.page} />
-          </div>
-        </div>
-      </section> */}
+      
 
       <DestinationsSection content={homePageDetails?.sections[2]?.content} />
 
@@ -750,7 +770,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
 
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            {homePageDetails?.sections[3]?.content?.testprepcourses?.map((exam) => {
+            {homePageDetails?.sections[3]?.content?.testprepcourses?.map((exam,idx): any => {
 
               const colorbgClass = exam?.coursetitle === "IELTS" ? "bg-red-500" :
                 exam?.coursetitle === "PTE" ? "bg-cyan-500" :
@@ -769,7 +789,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
                           exam?.coursetitle === "Duolingo" ? "text-[#76c442]" : "text-gray-500";
               return (
                 <div
-                  key={exam.id}
+                  key={idx}
                   className={`group relative bg-[#FFF7EE] border border-white/10 rounded-2xl p-5  hover:border-white/20 hover:-translate-y-1 transition-all duration-300 flex flex-col ${exam.wide ? 'md:col-span-2 lg:col-span-1 xl:col-span-1' : ''
                     }`}
                 >
@@ -886,7 +906,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-0 md:p-6">
             {homePageDetails.sections[4]?.content?.abroadconsulting?.map((service, index) => {
               return (
-                <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full">
+                <div key={index} className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full">
                   <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                     {service?.label}
                   </span>
@@ -920,7 +940,7 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {/* Card 2: Test Prep */}
             {homePageDetails.sections[4]?.content?.testprepcourses?.map((course, index) => {
               return (
-                <div className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full">
+                <div key={index} className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full">
                   <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                     {course?.label}
                   </span>
@@ -1065,10 +1085,8 @@ function Index({ homePage: homePageDetails, course: CourseData, aboutPage: about
             {homePageDetails?.sections[9]?.content?.cities?.map((loc: any, index: number) => {
               const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
               return (
-                <Link href={`/${loc?.slug}`}>
+                <Link key={index} href={`/${loc?.slug}`}>
                   <div
-                    key={index}
-
                     className={`
                 flex flex-col items-center justify-center text-center p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border
                 ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1
