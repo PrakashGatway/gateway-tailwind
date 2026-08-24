@@ -191,6 +191,8 @@ const EditorContent = ({ content_data }: EditorContentProps) => {
 
             [&_div]:my-4
 
+
+            
             [&_ul]:list-disc
             [&_ul]:pl-6
             [&_ul]:space-y-2
