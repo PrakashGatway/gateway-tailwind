@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import EditorContent from "../editorContent";
+import EditorContent from "../EditorContent";
 
 export default function ReadMoreSection({ content }: any) {
   const [isOpen, setIsOpen] = useState(false);
