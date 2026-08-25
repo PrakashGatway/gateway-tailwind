@@ -346,7 +346,7 @@ const Blog = () => {
                 <button
                   key={'all'}
                   onClick={(e) => handleCategoryChange(e, '')}
-                  className={`flex-shrink-0 px-4 py-2 rounded-full border text-xm font-medium transition-colors ${selectedCategory == '' || selectedCategory == null
+                  className={`flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors ${selectedCategory == '' || selectedCategory == null
                     ? 'bg-red-600 text-white border-red-600'
                     : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                     }`}
@@ -357,7 +357,7 @@ const Blog = () => {
                   <button
                     key={cat._id}
                     onClick={(e) => handleCategoryChange(e, cat._id)}
-                    className={`flex-shrink-0 px-4 py-2 rounded-full border text-xm font-medium transition-colors ${selectedCategory === cat._id
+                    className={`flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors ${selectedCategory === cat._id
                       ? 'bg-red-600 text-white border-red-600'
                       : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                       }`}
@@ -401,7 +401,7 @@ const Blog = () => {
                     </div>
                     <div className="p-4 pt-2 pb-2">
                       <div className="flex justify-between items-center mb-2">
-                        <div className="flex items-center space-x-2 text-xm text-gray-500">
+                        <div className="flex items-center space-x-2 text-sm text-gray-500">
                           <Image
                             src="/img/date-icon.svg"
                             alt="calendar"
@@ -414,7 +414,7 @@ const Blog = () => {
                       <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors duration-200">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600 text-xm line-clamp-2">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {article.description}
                       </p>
                     </div>

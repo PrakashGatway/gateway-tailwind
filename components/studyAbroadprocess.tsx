@@ -98,7 +98,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
             className="inline-flex  gap-2 bg-[#D81635] rounded-full  px-6 py-2  mb-6 border border-white/20"
           >
             <FileText className="w-4 h-4 text-white " />
-            <span className="text-white  font-semibold text-xm tracking-wide">OUR 6-STEP PROCESS</span>
+            <span className="text-white  font-semibold text-sm tracking-wide">OUR 6-STEP PROCESS</span>
           </motion.div>
 
           <motion.h2
@@ -235,7 +235,7 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
                   <h3 className="text-black font-bold text-xl mb-2 group-hover:text-[#D81635] transition-colors duration-300">
                     {step.title}
                   </h3>
-                  <p className="text-gray-800 text-xm leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                  <p className="text-gray-800 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
                     {step.description}
                   </p>
                 </div>

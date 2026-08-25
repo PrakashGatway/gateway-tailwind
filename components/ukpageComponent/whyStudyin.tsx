@@ -35,7 +35,7 @@ export default function WhyStudyUK({ content, country }) {
                 key={index}
                 className="group relative bg-gradient-to-br from-pink-100 to-amber-50 border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 hover:border-red-200 overflow-hidden"
               >
-                <p className="absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-xm py-2">
+                <p className="absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-sm py-2">
                   Free Counselling
                 </p>
 
@@ -56,7 +56,7 @@ export default function WhyStudyUK({ content, country }) {
                 </h3>
 
                 {/* Description */}
-                <p className="text-xm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed">
                   {reason.content}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function WhyStudyUK({ content, country }) {
               University
             </button>
 
-            <p className="mt-1 text-xs text-white/70 sm:text-xm">
+            <p className="mt-1 text-xs text-white/70 sm:text-sm">
               Discover universities that match your goals and preferences.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function WhyStudyUK({ content, country }) {
             bg-white
             px-5
             py-3
-            text-xm
+            text-sm
             font-bold
             text-[#C8102E]
             shadow-[0_5px_15px_rgba(0,0,0,0.12)]
@@ -199,7 +199,7 @@ export function TopUKUniversities({ content, country }) {
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="absolute top-0 right-0 bg-red-600 px-3 py-1.5 rounded-bl-2xl text-xm font-medium text-white ">
+                <div className="absolute top-0 right-0 bg-red-600 px-3 py-1.5 rounded-bl-2xl text-sm font-medium text-white ">
                   {uni.qsRank}
                 </div>
                 {/* Animated gradient overlay on hover */}
@@ -218,7 +218,7 @@ export function TopUKUniversities({ content, country }) {
 
                 {/* University Name & Location */}
                 <div className="relative z-10 mb-4">
-                  <div className="flex items-center gap-1.5 text-gray-500 text-xm">
+                  <div className="flex items-center gap-1.5 text-gray-500 text-sm">
                     <svg
                       className="w-4 h-4 text-gray-500"
                       fill="none"
@@ -240,7 +240,7 @@ export function TopUKUniversities({ content, country }) {
                     </svg>
                     {uni?.location}
                   </div>
-                  <p className="text-gray-500 text-xm mt-1"> {uni?.year}</p>
+                  <p className="text-gray-500 text-sm mt-1"> {uni?.year}</p>
                 </div>
                 <div className="relative z-10 flex flex-wrap gap-2 mb-5">
                   {/* {uni?.Courses && uni?.Courses?.map((course, i) => (
@@ -256,7 +256,7 @@ export function TopUKUniversities({ content, country }) {
                   {/* Apply Button */}
                   <button
                     onClick={handleGetStarted}
-                    className="px-10 text-center text-xm py-2 rounded-full bg-red-600 text-white font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
+                    className="px-10 text-center text-sm py-2 rounded-full bg-red-600 text-white font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
                   >
                     Apply
                   </button>
@@ -272,7 +272,7 @@ export function TopUKUniversities({ content, country }) {
                         : ""
                     }
                     onClick={!uni?.slug ? handleGetStarted : undefined}
-                    className="px-10 text-center text-xm py-2 rounded-full bg-[#F7E8FA] text-black font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
+                    className="px-10 text-center text-sm py-2 rounded-full bg-[#F7E8FA] text-black font-semibold  flex items-center disabled:opacity-70 cursor-pointer"
                   >
                     Visit
                   </Link>
@@ -327,7 +327,7 @@ export function TopUKUniversities({ content, country }) {
               University
             </button>
 
-            <p className="mt-1 text-xs text-white/70 sm:text-xm">
+            <p className="mt-1 text-xs text-white/70 sm:text-sm">
               Discover universities that match your goals and preferences.
             </p>
           </div>
@@ -345,7 +345,7 @@ export function TopUKUniversities({ content, country }) {
             bg-white
             px-5
             py-3
-            text-xm
+            text-sm
             font-bold
             text-[#C8102E]
             shadow-[0_5px_15px_rgba(0,0,0,0.12)]
@@ -438,13 +438,13 @@ export function UKStudyCosts({ content, country }) {
                             key={index}
                             className="hover:bg-red-50/50 transition-colors"
                           >
-                            <td className="px-6 py-4 text-xm font-medium text-gray-800">
+                            <td className="px-6 py-4 text-sm font-medium text-gray-800">
                               {col}
                             </td>
-                            <td className="px-6 py-4 text-xm font-bold text-red-600">
+                            <td className="px-6 py-4 text-sm font-bold text-red-600">
                               {item?.tablecolumn2?.split("||")[index]}
                             </td>
-                            <td className="px-6 py-4 text-xm text-gray-600">
+                            <td className="px-6 py-4 text-sm text-gray-600">
                               {item?.tablecolumn3?.split("||")[index]}
                             </td>
                           </tr>
@@ -461,7 +461,7 @@ export function UKStudyCosts({ content, country }) {
               <div className="flex gap-3">
                 <DynamicIcon name="Lightbulb" size={24} className="text-amber-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-xm text-gray-700 leading-relaxed">
+                  <p className="text-sm text-gray-700 leading-relaxed">
                     <strong className="text-red-700">Why UK is affordable despite higher fees:</strong> A 1-year UK master's typically costs <strong className="text-gray-900">£20,000–35,000 total</strong> vs a 2-year Australian master's costing AUD 80,000–100,000. Factor in the saved year of living costs — UK often works out cheaper for Indian students pursuing PG education.
                   </p>
                 </div>
@@ -496,7 +496,7 @@ export function UKStudyCosts({ content, country }) {
                     {loanOptions.map((loan, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-xm text-gray-600"
+                        className="flex items-start gap-2 text-sm text-gray-600"
                       >
                         <span className="text-red-500 font-bold mt-0.5">•</span>
                         {loan}
@@ -517,7 +517,7 @@ export function UKStudyCosts({ content, country }) {
               </div>
               <ul className="space-y-3">
                 {partTimeWork.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-xm">
+                  <li key={index} className="flex items-start gap-2 text-sm">
                     <span className="text-amber-500 font-bold mt-0.5">✓</span>
                     <span className="text-gray-600">
                       <strong className="text-gray-800">{item.label}:</strong> {item.value}
@@ -556,7 +556,7 @@ export function UKStudyCosts({ content, country }) {
                     {names.map((name, index) => (
                       <li
                         key={index}
-                        className="flex items-start gap-2 text-xm"
+                        className="flex items-start gap-2 text-sm"
                       >
                         <span className="text-green-500 font-bold mt-0.5">
                           ★
@@ -585,13 +585,13 @@ export function UKStudyCosts({ content, country }) {
             {/* Quick CTA Card */}
             <div className="bg-gradient-to-br from-red-600 to-pink-500 rounded-2xl p-5 text-white">
               <h4 className="font-bold text-lg mb-2">📊 Free Cost Analysis</h4>
-              <p className="text-xm text-white/80 mb-4">
+              <p className="text-sm text-white/80 mb-4">
                 Not sure if {country.toUpperCase()} fits your budget? Get a
                 personalised cost-benefit report.
               </p>
               <a
                 onClick={handleGetStarted}
-                className="inline-flex items-center gap-2 bg-white text-red-700 font-bold px-4 py-2.5 rounded-full text-xm hover:bg-amber-400 transition-colors"
+                className="inline-flex items-center gap-2 bg-white text-red-700 font-bold px-4 py-2.5 rounded-full text-sm hover:bg-amber-400 transition-colors"
               >
                 Get Free Estimate
                 <svg
@@ -680,10 +680,10 @@ export function GatewayAbroadProcess({ content, country }) {
 
               {/* Quick Stats */}
               <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
-                <h4 className="font-bold text-gray-800 mb-3 text-xm">
+                <h4 className="font-bold text-gray-800 mb-3 text-sm">
                   Why Choose Gateway Abroad?
                 </h4>
-                <ul className="space-y-2 text-xm text-gray-600">
+                <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                     16+ Years Experience
@@ -749,7 +749,7 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
             {/* Step Icon */}
             <div className="relative z-10 flex-shrink-0">
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xm border-4 border-white shadow-lg transition-all duration-300 ${
+                className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${
                   isActive
                     ? stepData.color + " text-white scale-110"
                     : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
@@ -785,7 +785,7 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
 
               {/* Description */}
               <p
-                className={`text-xm font-medium leading-relaxed ${
+                className={`text-sm font-medium leading-relaxed ${
                   isActive ? "text-gray-700" : "text-gray-500"
                 }`}
               >
@@ -1004,7 +1004,7 @@ function ScrollCard({ intake, index, totalCards, containerRef }) {
             </svg>
             <div>
               <p className="text-xs text-gray-500">Application Window</p>
-              <p className="font-semibold text-gray-800 text-xm">
+              <p className="font-semibold text-gray-800 text-sm">
                 {intake.applicationWindow}
               </p>
             </div>
@@ -1019,7 +1019,7 @@ function ScrollCard({ intake, index, totalCards, containerRef }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-2.5 text-xm text-gray-700"
+                className="flex items-start gap-2.5 text-sm text-gray-700"
               >
                 <span className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0 mt-1.5" />
                 {feature}
@@ -1029,7 +1029,7 @@ function ScrollCard({ intake, index, totalCards, containerRef }) {
 
           {/* Urgency Note */}
           <div className="mb-5 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-            <p className="text-xm text-amber-800 font-medium">
+            <p className="text-sm text-amber-800 font-medium">
               {intake.urgency}
             </p>
           </div>
@@ -1038,7 +1038,7 @@ function ScrollCard({ intake, index, totalCards, containerRef }) {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 px-4 rounded-xl font-bold text-xm text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-200 transition-all duration-300 flex items-center justify-center gap-2"
+            className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-200 transition-all duration-300 flex items-center justify-center gap-2"
           >
             {intake.cta}
             <svg
@@ -1058,7 +1058,7 @@ function ScrollCard({ intake, index, totalCards, containerRef }) {
         </div>
 
         {/* Card Number */}
-        <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xm shadow-lg">
+        <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">
           {index + 1}
         </div>
 
@@ -1176,7 +1176,7 @@ function ScholarshipCard({ content }) {
 
               {/* Tag */}
               {scholarship.tag && (
-                <div className="absolute bg-red-600 text-white text-xm rounded-bl-2xl font-bold px-3 py-2 top-0 right-0 z-10">
+                <div className="absolute bg-red-600 text-white text-sm rounded-bl-2xl font-bold px-3 py-2 top-0 right-0 z-10">
                   {scholarship.tag}
                 </div>
               )}
@@ -1187,14 +1187,14 @@ function ScholarshipCard({ content }) {
               </h3>
 
               {/* Description */}
-              <p className="relative z-10 text-xm font-medium text-gray-600 leading-relaxed mb-5 line-clamp-4">
+              <p className="relative z-10 text-sm font-medium text-gray-600 leading-relaxed mb-5 line-clamp-4">
                 {scholarship.description}
               </p>
 
               {/* Amount */}
               <div className="relative z-10 flex items-center justify-between">
                 <span
-                  className={`inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm ${scholarship.amountColor} font-bold text-xm px-4 py-2 rounded-full border border-gray-200 shadow-sm`}
+                  className={`inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm ${scholarship.amountColor} font-bold text-sm px-4 py-2 rounded-full border border-gray-200 shadow-sm`}
                 >
                   <DynamicIcon name="Coins" size={16} />
                   {scholarship.amount}
@@ -1328,19 +1328,19 @@ function IntakeCard({ content }) {
             />
 
             {/* Badge */}
-            <div className="absolute top-0 right-0 bg-red-600 rounded-bl-2xl text-white text-xm font-bold py-2 px-4 z-10">
+            <div className="absolute top-0 right-0 bg-red-600 rounded-bl-2xl text-white text-sm font-bold py-2 px-4 z-10">
               {intake.badge}
             </div>
 
             {/* Title */}
-            <h3 className="relative z-10 text-2xl lg:text-3xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors duration-300">
+            <h3 className="relative mt-3 z-10 text-xl lg:text-3xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition-colors duration-300">
               {intake.title}
             </h3>
 
             {/* Features */}
             <ul className="relative z-10 space-y-0 mt-3 mb-3">
               {intake.features.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-xm">
+                <li key={i} className="flex items-start gap-3 text-sm">
                   <span className="text-lg text-gray-400">•</span>
                   <span className="text-gray-600">{feature}</span>
                 </li>
@@ -1367,12 +1367,12 @@ function IntakeCard({ content }) {
             </div>
 
             <a onClick={handleGetStarted}
-              className="relative z-10 block w-full text-center text-xm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
+              className="relative z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
             >
               Apply Now
             </a>
 
-            <div className={`absolute top-0 left-0 p-2 px-4 rounded-br-2xl flex items-center justify-center font-bold text-xm shadow-lg
+            <div className={`absolute top-0 left-0 p-2 px-4 rounded-br-2xl flex items-center justify-center font-bold text-sm shadow-lg
             ${intake.isPrimary ? "bg-red-600 text-white" : "bg-gray-200 text-gray-500"}`}
             >
               {index + 1}

@@ -146,7 +146,7 @@ export default function TestimonialSlider() {
                         </svg>
                       ))}
                     </div>
-                    <span className="ml-2 text-xm text-gray-500">5/5</span>
+                    <span className="ml-2 text-sm text-gray-500">5/5</span>
                   </div>
                 </div>
               </div>

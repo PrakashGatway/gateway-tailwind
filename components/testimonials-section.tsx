@@ -134,7 +134,7 @@ export default function BlogSlider() {
                   
                   {/* Bottom Title */}
                   <div className="border-t border-gray-100 pt-4">
-                    <span className="text-xm font-medium text-gray-500">
+                    <span className="text-sm font-medium text-gray-500">
                       {blog.category} • Read More
                     </span>
                   </div>

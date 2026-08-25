@@ -103,7 +103,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
             className="inline-flex items-center gap-2 bg-red-100 px-4 py-2  rounded-full mb-6 shadow-sm border border-gray-200"
           >
             <Award className="w-4 h-4 text-[#EF4444]" />
-            <span className="text-[#D81635] py-1 rounded-full text-xs md:text-xm font-semibold uppercase tracking-wider">
+            <span className="text-[#D81635] py-1 rounded-full text-xs md:text-sm font-semibold uppercase tracking-wider">
               {content?.label}
             </span>
           </motion.div>
@@ -157,7 +157,7 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
                   >
                     <div className="text-center flex flex-col h-full justify-between">
                       <div>
-                        <span className="text-xs sm:text-xm font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
+                        <span className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
                           {item.courseName}
                         </span>
                         
@@ -216,12 +216,12 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
     
     {/* Text Content - minimum font sizes enforced */}
     <div className="flex-1">
-      {/* Minimum heading: text-xm on mobile */}
-      <p className="text-white text-xm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
+      {/* Minimum heading: text-sm on mobile */}
+      <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
         Want results like these?
       </p>
       {/* Minimum body: text-xs on mobile */}
-      <p className="text-gray-300 text-xs sm:text-xm md:text-base leading-relaxed">
+      <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
         Our coaches know exactly what it takes to crack your exam.
       </p>
     </div>
@@ -232,14 +232,14 @@ const StudentScoresSection = ({ content, studentslider }: { content: any, studen
     <a
       href="/onboarding"
       // Minimum touch target: 44px height, full width on mobile
-      className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-xm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
+      className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
     >
       🎯 Get Free Country Match
     </a>
     <a
       href="tel:+91-8302092630"
       // Secondary button - same responsive treatment
-      className="w-xs sm:w-auto border-2 border-white/30 hover:border-amber-400 text-white font-semibold text-xm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
+      className="w-xs sm:w-auto border-2 border-white/30 hover:border-amber-400 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
     >
       📞 Call Our Expert
     </a>

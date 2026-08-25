@@ -128,7 +128,7 @@ export default function Testimonial() {
                                     <h3 className="font-semibold text-lg mb-2 line-clamp-2">{video.title}</h3>
                                     <div className="flex justify-between items-center mt-auto">
                                         <span className="text-gray-700 font-medium">{video.student}</span>
-                                        <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xm font-semibold">
+                                        <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
                                             {video.score}
                                         </span>
                                     </div>

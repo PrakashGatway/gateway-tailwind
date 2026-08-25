@@ -284,7 +284,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
                   <button
                     key={cat.name}
                     onClick={(e) => handleCategoryChange(e, cat.value)}
-                    className={`flex-shrink-0 px-4 py-2 rounded-full border text-xm font-medium transition-colors ${selectedCategory === cat.value
+                    className={`flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors ${selectedCategory === cat.value
                       ? 'bg-red-600 text-white border-red-600'
                       : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                       }`}

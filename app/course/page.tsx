@@ -153,17 +153,17 @@ export default function TestPreparationPage() {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-2xl font-bold text-gray-900">{test.name}</h3>
-                    <span className="text-xm text-gray-500">{test.duration}</span>
+                    <span className="text-sm text-gray-500">{test.duration}</span>
                   </div>
 
-                  <p className="text-xm text-gray-600 mb-2">{test.fullName}</p>
+                  <p className="text-sm text-gray-600 mb-2">{test.fullName}</p>
                   <p className="text-gray-600 mb-4">{test.description}</p>
 
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 mb-2">Test Sections:</h4>
                     <div className="flex flex-wrap gap-2">
                       {test.sections.map((section, idx) => (
-                        <span key={idx} className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xm">
+                        <span key={idx} className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">
                           {section}
                         </span>
                       ))}

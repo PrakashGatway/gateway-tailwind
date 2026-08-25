@@ -194,7 +194,7 @@ function About({ aboutPage: data }: any) {
                       </h4>
                       <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-white mb-2">+</span>
                     </div>
-                    <p className="text-black dark:text-white text-xm sm:text-base font-medium dark:font-semibold">{item.sectionTitle}</p>
+                    <p className="text-black dark:text-white text-sm sm:text-base font-medium dark:font-semibold">{item.sectionTitle}</p>
                   </div>
                 ))}
               </div>
@@ -218,7 +218,7 @@ function About({ aboutPage: data }: any) {
                       <div className="p-4 sm:p-6">
                         <div className="h-48 sm:h-[260px] overflow-y-auto pe-3 sm:pe-[15px]">
                           <div 
-                            className="text-[#666276] text-justify text-xm sm:text-base font-medium leading-5 sm:leading-6"
+                            className="text-[#666276] text-justify text-sm sm:text-base font-medium leading-5 sm:leading-6"
                             dangerouslySetInnerHTML={{ __html: member.description }}
                           />
                         </div>
@@ -247,7 +247,7 @@ function About({ aboutPage: data }: any) {
                         </p>
                         <a
                           href={counsellingData.buttonUrl || '/contact'}
-                          className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                          className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                         >
                           {counsellingData.buttonText || 'Contact us'}
                         </a>
@@ -456,7 +456,7 @@ export default About;
 //                   </h4>
 //                   <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-white mb-2">+</span>
 //                 </div>
-//                 <p className="text-black dark:text-white text-xm sm:text-base font-medium dark:font-semibold">National Office</p>
+//                 <p className="text-black dark:text-white text-sm sm:text-base font-medium dark:font-semibold">National Office</p>
 //               </div>
 
 //               {/* International Office Counter */}
@@ -470,7 +470,7 @@ export default About;
 //                   </h4>
 //                   <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-white mb-2">+</span>
 //                 </div>
-//                 <p className="text-black dark:text-white text-xm sm:text-base font-medium dark:font-semibold">International Office</p>
+//                 <p className="text-black dark:text-white text-sm sm:text-base font-medium dark:font-semibold">International Office</p>
 //               </div>
 
 //               {/* Students Counter */}
@@ -484,7 +484,7 @@ export default About;
 //                   </h4>
 //                   <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-white mb-2">+</span>
 //                 </div>
-//                 <p className="text-black dark:text-white text-xm sm:text-base font-medium dark:font-semibold">Students</p>
+//                 <p className="text-black dark:text-white text-sm sm:text-base font-medium dark:font-semibold">Students</p>
 //               </div>
 
 //               {/* Experience Counter */}
@@ -498,7 +498,7 @@ export default About;
 //                   </h4>
 //                   <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-white mb-2">+</span>
 //                 </div>
-//                 <p className="text-black dark:text-white text-xm sm:text-base font-medium dark:font-semibold">Experience</p>
+//                 <p className="text-black dark:text-white text-sm sm:text-base font-medium dark:font-semibold">Experience</p>
 //               </div>
 //             </div>
 //           </div>
@@ -522,7 +522,7 @@ export default About;
 //                     {/* Content */}
 //                     <div className="p-4 sm:p-6">
 //                       <div className="h-48 sm:h-[260px] overflow-y-auto pe-3 sm:pe-[15px]">
-//                         <p className="text-[#666276] text-justify text-xm sm:text-base font-medium leading-5 sm:leading-6">
+//                         <p className="text-[#666276] text-justify text-sm sm:text-base font-medium leading-5 sm:leading-6">
 //                           {m.content}
 //                         </p>
 //                       </div>
@@ -551,7 +551,7 @@ export default About;
 //                       </p>
 //                       <a
 //                         href="/contact"
-//                         className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+//                         className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
 //                       >
 //                         Contact us
 //                       </a>

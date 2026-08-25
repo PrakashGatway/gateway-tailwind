@@ -45,7 +45,7 @@ export default async function CommentsSection({ articleId, slug }) {
         {comments.length > 0 && (
           <button
             onClick={() => document.getElementById('comment-form')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-xm font-medium"
+            className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
           >
             Add Comment
           </button>

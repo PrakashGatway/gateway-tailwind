@@ -171,7 +171,7 @@ export default function PartnerSection() {
                     <input
                       type="text"
                       {...register('name', { required: 'First Name is required' })}
-                      className={`form-control text-xm ${errors.name ? 'is-invalid' : ''}`}
+                      className={`form-control text-sm ${errors.name ? 'is-invalid' : ''}`}
                       placeholder="First Name"
                     />
                     {errors.name && (

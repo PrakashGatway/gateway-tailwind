@@ -647,7 +647,7 @@ function Index({
 
                             {s?.content && (
                               <div className="w-full mt-5 sm:mt-6 md:mt-8 mb-6 sm:mb-8 px-2 sm:px-4">
-                                <p className="text-gray-600 leading-relaxed text-center text-xm sm:text-base md:text-lg lg:text-lg">
+                                <p className="text-gray-600 leading-relaxed text-center text-sm sm:text-base md:text-lg lg:text-lg">
                                   {s.content}
                                 </p>
                               </div>
@@ -692,7 +692,7 @@ function Index({
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-red-100  border border-[#F4A62A]/20 rounded-full px-4 py-1.5 mb-4">
-              <span className="text-[#C41430] text-xm md:text-xm font-bold uppercase tracking-wider">
+              <span className="text-[#C41430] text-sm md:text-sm font-bold uppercase tracking-wider">
                 {homePageDetails?.sections[3]?.content?.label}
               </span>
             </div>
@@ -700,7 +700,7 @@ function Index({
               {homePageDetails?.sections[3]?.content?.title}
             </h2>
             <p
-              className="text-gray-600 text-xm md:text-base max-w-2xl mx-auto leading-relaxed"
+              className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[3]?.content?.description,
               }}
@@ -760,7 +760,7 @@ function Index({
 
                     {/* Category Badge */}
                     <span
-                      className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-xm md:text-[11px] font-bold uppercase tracking-wide mb-3`}
+                      className={`inline-block w-fit px-3 py-1 rounded-full ${exam.badgeClass} text-sm md:text-[11px] font-bold uppercase tracking-wide mb-3`}
                     >
                       {exam.category}
                     </span>
@@ -779,7 +779,7 @@ function Index({
                     {/* Features List */}
                     {/* <ul className="space-y-2 mb-6 flex-grow">
                 {exam.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-gray-600 text-xm">
+                  <li key={idx} className="flex items-start gap-2 text-gray-600 text-sm">
                     <span className={`w-1.5 h-1.5 rounded-full bg-[#F4A62A] mt-1.5 shrink-0`} />
                     <span>{feature}</span>
                   </li>
@@ -801,7 +801,7 @@ function Index({
 
           {/* Bottom CTA */}
           <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-center">
-            <p className="text-black text-xm md:text-base">
+            <p className="text-black text-sm md:text-base">
               <strong className="text-black">
                 Not sure which test to take?
               </strong>{" "}
@@ -834,7 +834,7 @@ function Index({
                     className="object-contain"
                   />
                 </div>
-                <p className="text-xm md:text-base text-gray-800 leading-relaxed font-medium">
+                <p className="text-sm md:text-base text-gray-800 leading-relaxed font-medium">
                   {x.text1}
                   {x.text2 && <br />}
                   {x.text2}
@@ -856,7 +856,7 @@ function Index({
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="mb-8 md:mb-12">
-            <span className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xm md:text-xm tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4">
+            <span className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-sm md:text-sm tracking-wider uppercase px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-emerald-900/20 mb-4">
               {homePageDetails?.sections[4]?.content?.label}
             </span>
 
@@ -865,7 +865,7 @@ function Index({
             </h2>
 
             <p
-              className="text-gray-600 text-xm sm:text-base md:text-base mb-8 md:mb-12"
+              className="text-gray-600 text-sm sm:text-base md:text-base mb-8 md:mb-12"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[4]?.content?.subTitle,
               }}
@@ -881,7 +881,7 @@ function Index({
                     key={index}
                     className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-white border-2 border-[#D81635] shadow-lg duration-300 ease-in-out  flex flex-col h-full"
                   >
-                    <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-xm md:text-xm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                    <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                       {service?.label}
                     </span>
 
@@ -899,7 +899,7 @@ function Index({
 
                     <button
                       onClick={handleGetStarted}
-                      className="w-full md:w-auto bg-[#D81635] text-white px-6 py-3 rounded-full font-semibold text-xm md:text-base hover:bg-yellow-300 hover:text-black transition-colors duration-300 mt-auto"
+                      className="w-full md:w-auto bg-[#D81635] text-white px-6 py-3 rounded-full font-semibold text-sm md:text-base hover:bg-yellow-300 hover:text-black transition-colors duration-300 mt-auto"
                     >
                       {service?.buttontext}
                     </button>
@@ -918,19 +918,19 @@ function Index({
                     key={index}
                     className="rounded-xl md:rounded-2xl p-5 md:p-8 bg-[#FFF7EE] border-2 border-black shadow-lg duration-300 ease-in-out  flex flex-col h-full"
                   >
-                    <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-xm md:text-xm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
+                    <span className="inline-block mb-4 px-3 py-1 md:px-4 md:py-1 text-sm md:text-sm font-semibold bg-black text-white rounded-full tracking-wide w-fit">
                       {course?.label}
                     </span>
 
                     <p
-                      className="text-xm sm:text-xm md:text-base text-black mb-4 md:mb-6 leading-relaxed"
+                      className="text-sm sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: course?.content,
                       }}
                     ></p>
 
                     <Link href="/onboarding">
-                      <button className="w-full md:w-full border border-black/10 px-6 py-3 rounded-full bg-[#D81635] text-white font-semibold text-xm md:text-base hover:bg-black hover:text-white transition-all duration-300 mt-auto">
+                      <button className="w-full md:w-full border border-black/10 px-6 py-3 rounded-full bg-[#D81635] text-white font-semibold text-sm md:text-base hover:bg-black hover:text-white transition-all duration-300 mt-auto">
                         {course?.buttontext}
                       </button>
                     </Link>
@@ -946,7 +946,7 @@ function Index({
         <div className="max-w-7xl mx-auto">
           {/* Badge */}
           <div className="flex  mb-3">
-            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xm md:text-xm font-semibold uppercase tracking-wider">
+            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-sm md:text-sm font-semibold uppercase tracking-wider">
               {homePageDetails?.sections[5]?.content?.label}
             </span>
           </div>
@@ -958,7 +958,7 @@ function Index({
 
           {/* Subtext */}
           <p
-            className=" text-gray-500 mt-3 md:mt-4  text-xm md:text-base"
+            className=" text-gray-500 mt-3 md:mt-4  text-sm md:text-base"
             dangerouslySetInnerHTML={{
               __html: homePageDetails?.sections[5]?.content?.subTitle,
             }}
@@ -1001,7 +1001,7 @@ function Index({
 
                   {/* Description */}
                   <p
-                    className="text-gray-500 text-xm md:text-base mt-1 md:mt-2 leading-relaxed"
+                    className="text-gray-500 text-sm md:text-base mt-1 md:mt-2 leading-relaxed"
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}
@@ -1025,7 +1025,7 @@ function Index({
           {/* Header Section */}
           <div className="mb-10 md:mb-14">
             {/* Badge */}
-            <span className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xm sm:text-xm font-semibold uppercase tracking-wider mb-4">
+            <span className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-sm sm:text-sm font-semibold uppercase tracking-wider mb-4">
               <span className="w-1.5 h-1.5 bg-red-500 uppercase rounded-full"></span>
               {homePageDetails?.sections[9]?.content?.label}
             </span>
@@ -1037,7 +1037,7 @@ function Index({
 
             {/* Subtext */}
             <p
-              className="text-xm sm:text-base md:text-base text-gray-800 leading-relaxed"
+              className="text-sm sm:text-base md:text-base text-gray-800 leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[9]?.content?.subTitle,
               }}
@@ -1075,7 +1075,7 @@ function Index({
                       </h3>
 
                       <p
-                        className={`text-xm sm:text-base leading-snug ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? "text-white" : "text-gray-500"}`}
+                        className={`text-sm sm:text-base leading-snug ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? "text-white" : "text-gray-500"}`}
                         dangerouslySetInnerHTML={{
                           __html: loc.description,
                         }}
@@ -1090,7 +1090,7 @@ function Index({
           {/* SEO Text Block with Side Border */}
           <div className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2">
             <p
-              className="text-xm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
+              className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
               dangerouslySetInnerHTML={{
                 __html:
                   homePageDetails?.sections[9]?.content?.sectiondescription,
@@ -1154,7 +1154,7 @@ function Index({
                         {/* Step Number Dot */}
                         <div className="relative z-10 flex-shrink-0">
                           <div
-                            className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xm border-4 border-white shadow-lg transition-all duration-300 ${
+                            className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${
                               isActive
                                 ? item?.color + " text-white scale-110"
                                 : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
@@ -1173,7 +1173,7 @@ function Index({
                           }`}
                         >
                           {/* Tag */}
-                          <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xm sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
+                          <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-sm sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
                             {item?.tag}
                           </span>
 
@@ -1190,7 +1190,7 @@ function Index({
 
                           {/* Description */}
                           <p
-                            className={`text-xm font-medium leading-relaxed transition-colors duration-300 ${
+                            className={`text-sm font-medium leading-relaxed transition-colors duration-300 ${
                               isActive ? "text-gray-700" : "text-gray-500"
                             }`}
                           >
@@ -1218,12 +1218,12 @@ function Index({
 
                 {/* Contact Info Card */}
                 <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">
-                  <p className="text-gray-600 text-xm uppercase font-bold mb-2">
+                  <p className="text-gray-600 text-sm uppercase font-bold mb-2">
                     Call / WhatsApp
                   </p>
                   <a
                     href="tel:+918302092630"
-                    className=" text-xm lg:text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
+                    className=" text-sm lg:text-2xl font-black text-[#C9A84C] block hover:text-[#EDD68A] transition-colors"
                   >
                     +91 8302092630
                   </a>
@@ -1231,10 +1231,10 @@ function Index({
 
                 {/* Quick Stats */}
                 <div className="bg-gradient-to-br from-red-50 to-amber-50 border border-red-100 rounded-xl p-5">
-                  <h3 className="font-bold text-gray-800 mb-3 text-xm">
+                  <h3 className="font-bold text-gray-800 mb-3 text-sm">
                     Why Choose Gateway Abroad?
                   </h3>
-                  <ul className="space-y-2 text-xm text-gray-600">
+                  <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                       16+ Years Experience
@@ -1304,7 +1304,7 @@ function Index({
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="mb-10 sm:mb-12 lg:mb-16">
             <div className="inline-flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full mb-4 sm:mb-6">
-              <span className="text-[#C41430] font-bold text-xm sm:text-xm tracking-wider uppercase">
+              <span className="text-[#C41430] font-bold text-sm sm:text-sm tracking-wider uppercase">
                 {homePageDetails?.sections[8]?.content?.label}
               </span>
             </div>
@@ -1357,7 +1357,7 @@ function Index({
                           {/* Content */}
                           <div>
                             <p
-                              className="text-zinc-500 text-xm font-medium box-border caret-transparent 
+                              className="text-zinc-500 text-sm font-medium box-border caret-transparent 
         max-w-full text-left mb-14   
         overflow-hidden line-clamp-3"
                             >
@@ -1366,10 +1366,10 @@ function Index({
 
                             {/* Tags */}
                             <div className="flex justify-between mb-4">
-                              <span className="px-4 py-2 mt-2 rounded-full text-xm font-semibold bg-red-500 text-white">
+                              <span className="px-4 py-2 mt-2 rounded-full text-sm font-semibold bg-red-500 text-white">
                                 {test?.univercity}
                               </span>
-                              <span className="inline-block mt-2 px-4 py-2 rounded-full text-xm font-semibold bg-gray-200 text-gray-700">
+                              <span className="inline-block mt-2 px-4 py-2 rounded-full text-sm font-semibold bg-gray-200 text-gray-700">
                                 {test?.type}
                               </span>
                             </div>
@@ -1398,12 +1398,12 @@ function Index({
 
               {/* Text Content - minimum font sizes enforced */}
               <div className="flex-1">
-                {/* Minimum heading: text-xm (14px) on mobile */}
-                <p className="text-white text-xm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
+                {/* Minimum heading: text-sm (14px) on mobile */}
+                <p className="text-white text-sm sm:text-base md:text-lg font-semibold mb-0.5 sm:mb-1 leading-tight">
                   Want results like these?
                 </p>
-                {/* Minimum body: text-xm (12px) on mobile */}
-                <p className="text-gray-300 text-xm sm:text-xm md:text-base leading-relaxed">
+                {/* Minimum body: text-sm (12px) on mobile */}
+                <p className="text-gray-300 text-sm sm:text-sm md:text-base leading-relaxed">
                   Our coaches know exactly what it takes to crack your exam.
                 </p>
               </div>
@@ -1414,14 +1414,14 @@ function Index({
               <button
                 onClick={handleGetStarted}
                 // Primary button: full-width mobile, min 44px touch target
-                className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 active:bg-amber-500 text-gray-900 font-bold text-xm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
+                className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 active:bg-amber-500 text-gray-900 font-bold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all transform hover:scale-105 active:scale-95 shadow-lg min-h-[44px] flex items-center justify-center whitespace-nowrap"
               >
                 🎯 Get in Touch
               </button>
               <a
                 href={`tel:${contactNumber}`}
                 // Secondary button: same responsive treatment
-                className="w-full sm:w-auto border-2 border-white/30 hover:border-amber-400 active:border-amber-500 text-white font-semibold text-xm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
+                className="w-full sm:w-auto border-2 border-white/30 hover:border-amber-400 active:border-amber-500 text-white font-semibold text-sm sm:text-base px-4 sm:px-6 py-3 rounded-full transition-all min-h-[44px] flex items-center justify-center whitespace-nowrap"
               >
                 📞 Call Our Expert
               </a>
@@ -1482,7 +1482,7 @@ function Index({
                     </p>
                     <button
                       onClick={handleGetStarted}
-                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[red] transition-all duration-300"
                     >
                       Apply Now
                     </button>
@@ -1543,7 +1543,7 @@ function Index({
                       placeholder="First Name"
                     />
                     {partnerErrors.name && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.name.message}
                       </p>
                     )}
@@ -1564,7 +1564,7 @@ function Index({
                       placeholder="Last Name"
                     />
                     {partnerErrors.lastName && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.lastName.message}
                       </p>
                     )}
@@ -1589,7 +1589,7 @@ function Index({
                       placeholder="Email"
                     />
                     {partnerErrors.email && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.email.message}
                       </p>
                     )}
@@ -1614,7 +1614,7 @@ function Index({
                       placeholder="Mobile No."
                     />
                     {partnerErrors.mobile && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.mobile.message}
                       </p>
                     )}
@@ -1655,7 +1655,7 @@ function Index({
                       placeholder="City"
                     />
                     {partnerErrors.city && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.city.message}
                       </p>
                     )}
@@ -1676,7 +1676,7 @@ function Index({
                       placeholder="What is your current Occupation?"
                     />
                     {partnerErrors.occupation && (
-                      <p className="text-red-500 text-xm mt-1">
+                      <p className="text-red-500 text-sm mt-1">
                         {partnerErrors.occupation.message}
                       </p>
                     )}
@@ -1698,7 +1698,7 @@ function Index({
                     placeholder="Your Address"
                   />
                   {partnerErrors.adress && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {partnerErrors.adress.message}
                     </p>
                   )}
@@ -1733,7 +1733,7 @@ function Index({
                     <option value="other">Other</option>
                   </select>
                   {partnerErrors.howDidyouKnow && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {partnerErrors.howDidyouKnow.message}
                     </p>
                   )}
@@ -1754,7 +1754,7 @@ function Index({
                     placeholder="What are your Educational Qualifications?"
                   />
                   {partnerErrors.qualifications && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {partnerErrors.qualifications.message}
                     </p>
                   )}
@@ -1773,7 +1773,7 @@ function Index({
                     placeholder="Please provide a Brief Introduction about yourself"
                   />
                   {partnerErrors.query && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {partnerErrors.query.message}
                     </p>
                   )}

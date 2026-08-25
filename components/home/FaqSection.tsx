@@ -18,7 +18,7 @@ const FAQSection = ({ content,faq }) => {
         
         {/* Header */}
         <div className="mb-10 md:mb-14 text-center md:text-left">
-          <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-xm tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
+          <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-sm tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
             {content?.label || "Frequently Asked Question"}
           </span>
           
@@ -38,7 +38,7 @@ const FAQSection = ({ content,faq }) => {
               onClick={() => toggleFAQ(index)}
             >
               <div className="flex justify-between items-start gap-4">
-                <h3 className="text-xm sm:text-base md:text-lg font-semibold text-gray-900 leading-snug flex-1">
+                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 leading-snug flex-1">
                   {faq.title}
                 </h3>
                 <button 
@@ -54,7 +54,7 @@ const FAQSection = ({ content,faq }) => {
               {/* Answer - Only visible when open */}
               {openIndex === index && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="text-xs sm:text-xm md:text-base text-gray-700 leading-relaxed"
+                  <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed"
                    dangerouslySetInnerHTML={{__html : faq.content}}/>
                     {/* {faq.content}
                   </p> */}
@@ -66,7 +66,7 @@ const FAQSection = ({ content,faq }) => {
 
         {/* Bottom CTA Button */}
         <div className="mt-10 md:mt-14 flex justify-center">
-          <button onClick={handleGetStarted} className="bg-[#f59e0b]  text-black font-bold px-4 py-2 rounded-full text-xm sm:text-base md:text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/30 flex items-center gap-2">
+          <button onClick={handleGetStarted} className="bg-[#f59e0b]  text-black font-bold px-4 py-2 rounded-full text-sm sm:text-base md:text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/30 flex items-center gap-2">
             💬 Have More Questions? Ask Us Free
           </button>
         </div>

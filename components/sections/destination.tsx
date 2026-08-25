@@ -205,7 +205,7 @@ export default function DestinationsSection({ content }: DestinationsSectionProp
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 rounded-full px-4 py-2 mb-4">
                         <Globe className="w-4 h-4 text-red-600" />
-                        <span className="text-xm font-medium text-red-700">Global Study Destinations</span>
+                        <span className="text-sm font-medium text-red-700">Global Study Destinations</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-red-800 bg-clip-text text-transparent mb-4">
                         {content?.title || "Discover Your Dream Study Destination"}
@@ -261,7 +261,7 @@ export default function DestinationsSection({ content }: DestinationsSectionProp
                                                 {/* Country Badge */}
                                                 <div className="absolute top-4 left-4 z-20">
                                                     <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-3 py-2 shadow-lg">
-                                                        <h3 className="font-bold text-gray-900 text-xm flex items-center gap-1">
+                                                        <h3 className="font-bold text-gray-900 text-sm flex items-center gap-1">
                                                             <MapPin className="w-3 h-3 text-red-600" />
                                                             {destination?.sliderData?.label || destination.slug}
                                                         </h3>
@@ -300,7 +300,7 @@ export default function DestinationsSection({ content }: DestinationsSectionProp
                                                 <h4 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-1">
                                                     {destination?.sliderData?.title || "World-class Education"}
                                                 </h4>
-                                                <p className="text-gray-600 text-xm leading-relaxed mb-4 line-clamp-2">
+                                                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-2">
                                                     {destination?.sliderData?.subTitle || "Experience exceptional academic programs and vibrant campus life in your dream study destination."}
                                                 </p>
 

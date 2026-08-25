@@ -182,21 +182,21 @@ export default function PrivacyPolicy() {
                     <Lock className="w-6 h-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-green-800 mb-2">Encryption</h4>
-                  <p className="text-green-700 text-xm">SSL encryption for data transmission</p>
+                  <p className="text-green-700 text-sm">SSL encryption for data transmission</p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Shield className="w-6 h-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-green-800 mb-2">Access Control</h4>
-                  <p className="text-green-700 text-xm">Strict access controls and authentication</p>
+                  <p className="text-green-700 text-sm">Strict access controls and authentication</p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Eye className="w-6 h-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-green-800 mb-2">Regular Audits</h4>
-                  <p className="text-green-700 text-xm">Regular security assessments and updates</p>
+                  <p className="text-green-700 text-sm">Regular security assessments and updates</p>
                 </div>
               </div>
             </div>

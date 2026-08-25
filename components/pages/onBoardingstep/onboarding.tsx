@@ -231,12 +231,12 @@ export default function Onboarding() {
                 }`}
             >
               <img src={opt.image} className="w-10 h-10 rounded-sm mb-2 object-cover" alt={opt.label} />
-              <span className="text-xm font-medium text-gray-800">{opt.label}</span>
+              <span className="text-sm font-medium text-gray-800">{opt.label}</span>
             </motion.div>
           ))}
         </div>
         {errors.countryInterested && (
-          <p className="text-xm text-red-500 text-center -mt-4">{errors.countryInterested.message}</p>
+          <p className="text-sm text-red-500 text-center -mt-4">{errors.countryInterested.message}</p>
         )}
       </div>
     );
@@ -249,7 +249,7 @@ export default function Onboarding() {
         <div className="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center text-lg shrink-0">🎓</div>
         <div>
           <h2 className="font-bold text-lg text-gray-900">What do you want to study?</h2>
-          <p className="text-xm text-gray-500">Select your preferred field.</p>
+          <p className="text-sm text-gray-500">Select your preferred field.</p>
         </div>
       </div>
 
@@ -280,7 +280,7 @@ export default function Onboarding() {
                     <select
                       {...formField}  // ← Use formField here
                       value={formField.value || ""}
-                      className="w-full pl-9 pr-8 py-3 text-xm bg-transparent outline-none appearance-none rounded-xl text-gray-800 cursor-pointer"
+                      className="w-full pl-9 pr-8 py-3 text-sm bg-transparent outline-none appearance-none rounded-xl text-gray-800 cursor-pointer"
                     >
                       <option value="">Select {studyField.label}</option>  // ← Use studyField.label
                       {studyField.options.map((opt, i) => (  // ← Use studyField.options
@@ -350,7 +350,7 @@ export default function Onboarding() {
           ))}
         </div>
         {errors.studyLevel && (
-          <p className="text-xm text-red-500 text-center">{errors.studyLevel.message}</p>
+          <p className="text-sm text-red-500 text-center">{errors.studyLevel.message}</p>
         )}
       </div>
     );
@@ -366,7 +366,7 @@ export default function Onboarding() {
           <div className="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center text-lg shrink-0">🌍</div>
           <div>
             <h2 className="font-bold text-lg text-gray-900">Your Nationality</h2>
-            <p className="text-xm text-gray-500">This helps us determine visa requirements.</p>
+            <p className="text-sm text-gray-500">This helps us determine visa requirements.</p>
           </div>
         </div>
 
@@ -384,7 +384,7 @@ export default function Onboarding() {
               render={({ field }) => (
                 <select
                   {...field}
-                  className="w-full px-4 py-3 text-xm bg-transparent outline-none appearance-none rounded-xl text-gray-800"
+                  className="w-full px-4 py-3 text-sm bg-transparent outline-none appearance-none rounded-xl text-gray-800"
                 >
                   <option value="">Select your nationality</option>
                   {NATIONALITIES.map((n) => (
@@ -420,7 +420,7 @@ export default function Onboarding() {
 
         <div>
           <h2 className="font-bold text-xl text-gray-900">English Proficiency</h2>
-          <p className="text-xm text-gray-500 mt-1">Have you taken an English proficiency test?</p>
+          <p className="text-sm text-gray-500 mt-1">Have you taken an English proficiency test?</p>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -431,7 +431,7 @@ export default function Onboarding() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setValue("englishProficiency", val, { shouldValidate: true, shouldDirty: true })}
-              className={`border-2 rounded-2xl py-5 text-xm font-semibold transition-all capitalize ${selected === val
+              className={`border-2 rounded-2xl py-5 text-sm font-semibold transition-all capitalize ${selected === val
                   ? "border-blue-600 bg-blue-50 text-blue-700 shadow-md"
                   : "border-gray-200 text-gray-500 hover:border-blue-300 bg-white"
                 }`}
@@ -441,7 +441,7 @@ export default function Onboarding() {
           ))}
         </div>
         {errors.englishProficiency && (
-          <p className="text-xm text-red-500 text-center">{errors.englishProficiency.message}</p>
+          <p className="text-sm text-red-500 text-center">{errors.englishProficiency.message}</p>
         )}
 
         <AnimatePresence>
@@ -461,7 +461,7 @@ export default function Onboarding() {
                   render={({ field }) => (
                     <select
                       {...field}
-                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 text-xm bg-white"
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 text-sm bg-white"
                     >
                       <option value="">Select Test</option>
                       <option value="ielts">IELTS</option>
@@ -486,7 +486,7 @@ export default function Onboarding() {
                       step="0.5"
                       min="0"
                       max="9"
-                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 text-xm focus:border-blue-500 outline-none bg-white"
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 text-sm focus:border-blue-500 outline-none bg-white"
                     />
                   )}
                 />
@@ -510,7 +510,7 @@ export default function Onboarding() {
 
         <div className="text-center">
           <h2 className="font-bold text-xl text-gray-900">Budget Estimate</h2>
-          <p className="text-xm text-gray-500">How much can you spend per year?</p>
+          <p className="text-sm text-gray-500">How much can you spend per year?</p>
         </div>
 
         <div className="flex justify-center">
@@ -575,7 +575,7 @@ export default function Onboarding() {
           <User className="w-6 h-6" />
         </div>
         <h2 className="text-xl font-bold text-gray-900">Final Step: Your Details</h2>
-        <p className="text-xm text-gray-500">Enter your contact information to receive your study plan.</p>
+        <p className="text-sm text-gray-500">Enter your contact information to receive your study plan.</p>
       </div>
 
       {/* API Error Display */}
@@ -583,7 +583,7 @@ export default function Onboarding() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-xm flex items-center gap-2"
+          className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm flex items-center gap-2"
         >
           <span>⚠️</span>
           {submitError}
@@ -604,7 +604,7 @@ export default function Onboarding() {
                   {...field}
                   type="text"
                   placeholder="John Doe"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-xm bg-white ${errors.fullName ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-sm bg-white ${errors.fullName ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
                     }`}
                 />
               )}
@@ -629,7 +629,7 @@ export default function Onboarding() {
                   {...field}
                   type="email"
                   placeholder="john@example.com"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-xm bg-white ${errors.email ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-sm bg-white ${errors.email ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
                     }`}
                 />
               )}
@@ -654,7 +654,7 @@ export default function Onboarding() {
                   {...field}
                   type="tel"
                   placeholder="+1 (555) 000-0000"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-xm bg-white ${errors.phone ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-sm bg-white ${errors.phone ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
                     }`}
                 />
               )}
@@ -679,7 +679,7 @@ export default function Onboarding() {
                   {...field}
                   type="text"
                   placeholder="123 Main St, City"
-                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-xm bg-white ${errors.city ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
+                  className={`w-full pl-10 pr-4 py-3 border-2 rounded-xl outline-none transition-colors text-sm bg-white ${errors.city ? "border-red-300 focus:border-red-500" : "border-gray-200 focus:border-blue-500"
                     }`}
                 />
               )}
@@ -720,8 +720,8 @@ export default function Onboarding() {
       </div>
 
       <div className="bg-blue-50 rounded-2xl p-5 text-left space-y-4 border border-blue-100">
-        <h3 className="font-semibold text-blue-900 text-xm uppercase tracking-wider">Your Profile Summary</h3>
-        <div className="grid grid-cols-2 gap-4 text-xm">
+        <h3 className="font-semibold text-blue-900 text-sm uppercase tracking-wider">Your Profile Summary</h3>
+        <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
             <p className="text-gray-500 text-xs">Name</p>
             <p className="font-medium text-gray-900">{watch("fullName") || "—"}</p>
@@ -803,7 +803,7 @@ export default function Onboarding() {
                 type="button"
                 onClick={handlePrev}
                 disabled={currentStep === 0 || isSubmitting}
-                className={`px-6 py-2 rounded-xl text-xm font-medium transition-colors ${currentStep === 0 || isSubmitting
+                className={`px-6 py-2 rounded-xl text-sm font-medium transition-colors ${currentStep === 0 || isSubmitting
                     ? "text-gray-300 cursor-not-allowed"
                     : "text-gray-600 hover:bg-gray-100"
                   }`}
@@ -815,7 +815,7 @@ export default function Onboarding() {
                 type="button"
                 onClick={handleNext}
                 disabled={isSubmitting}
-                className="px-8 py-2 bg-gray-900 text-white rounded-xl text-xm font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-8 py-2 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isSubmitting ? (
                   <>

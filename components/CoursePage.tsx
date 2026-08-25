@@ -422,7 +422,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                 {sliderData.map((item: any) => (
                   <div
                     key={item._id || item.id}
-                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm"
+                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm"
                   >
                     {item.name} {item.courseName}{" "}
                     <span className="text-red-400 font-bold">{item.rank}</span>
@@ -431,7 +431,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                 {sliderData.map((item: any) => (
                   <div
                     key={`${item._id}-dup` || `${item.id}-dup`}
-                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm"
+                    className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm"
                   >
                     {item.name} {item.courseName}{" "}
                     <span className="text-red-400 font-bold">{item.rank}</span>
@@ -540,7 +540,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                         </h5>
                         {item.description && (
                           <div
-                            className="text-black-600 text-justify text-xm"
+                            className="text-black-600 text-justify text-sm"
                             dangerouslySetInnerHTML={{
                               __html: item.description,
                             }}
@@ -661,7 +661,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   <p className="text-black-600 font-bold">{item.title}</p>
                   {item.description && (
                     <div
-                      className="text-gray-500 text-xm mt-2"
+                      className="text-gray-500 text-sm mt-2"
                       dangerouslySetInnerHTML={{ __html: item.description }}
                     />
                   )}
@@ -773,7 +773,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                             ))}
                           </ul>
                         </div>
-                        <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+                        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
                           {test.content?.substring(0, 250) ||
                             "No testimonial content available."}
                         </p>
@@ -860,7 +860,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                       )}
                       {plan.duration && (
                         <p
-                          className={`text-xm ${isHybrid ? "text-white/80" : "text-zinc-500"} mb-4`}
+                          className={`text-sm ${isHybrid ? "text-white/80" : "text-zinc-500"} mb-4`}
                         >
                           {plan.duration}
                         </p>
@@ -880,7 +880,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                         )}
                         {plan.features && (
                           <p
-                            className={`${isHybrid ? "text-white" : "text-neutral-600"} font-medium text-xm mt-4`}
+                            className={`${isHybrid ? "text-white" : "text-neutral-600"} font-medium text-sm mt-4`}
                           >
                             {plan.features}
                           </p>
@@ -1109,7 +1109,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                         (item: any, index: number) => (
                           <button
                             key={`trigger-${item.section}-${index}`}
-                            className={`px-3 py-2 rounded text-xm font-medium transition-colors ${
+                            className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
                               activeTab === item.section
                                 ? "bg-red-600 text-white"
                                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -1181,7 +1181,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   <AccordionTrigger className="font-semibold py-4 hover:no-underline">
                     {f.title}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-700 pb-4 text-xm">
+                  <AccordionContent className="text-gray-700 pb-4 text-sm">
                     {f.content}
                   </AccordionContent>
                 </AccordionItem>
@@ -1212,7 +1212,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                   )}
                   <Link
                     href={counsellingContent?.buttonUrl || "/contact"}
-                    className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
+                    className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
                   >
                     {counsellingContent?.buttonText || "Contact us"}
                   </Link>
@@ -1282,7 +1282,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                     placeholder="Name"
                   />
                   {contactErrors.name && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {contactErrors.name.message}
                     </p>
                   )}
@@ -1302,7 +1302,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                     placeholder="Email"
                   />
                   {contactErrors.email && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {contactErrors.email.message}
                     </p>
                   )}
@@ -1322,7 +1322,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                     placeholder="Mobile No."
                   />
                   {contactErrors.mobile && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {contactErrors.mobile.message}
                     </p>
                   )}
@@ -1338,7 +1338,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                     placeholder="City"
                   />
                   {contactErrors.city && (
-                    <p className="text-red-500 text-xm mt-1">
+                    <p className="text-red-500 text-sm mt-1">
                       {contactErrors.city.message}
                     </p>
                   )}
@@ -1762,12 +1762,12 @@ export default CourseClient;
 //                 } as React.CSSProperties}
 //               >
 //                 {sliderData.map((item) => (
-//                   <div key={item._id || item.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm">
+//                   <div key={item._id || item.id} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
 //                     {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
 //                   </div>
 //                 ))}
 //                 {sliderData.map((item) => (
-//                   <div key={`${item._id}-dup` || `${item.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-xm">
+//                   <div key={`${item._id}-dup` || `${item.id}-dup`} className="flex-shrink-0 text-white font-medium whitespace-nowrap text-xs sm:text-sm">
 //                     {item.name} {item.courseName} <span className="text-red-400 font-bold">{item.rank}</span>
 //                   </div>
 //                 ))}
@@ -1861,7 +1861,7 @@ export default CourseClient;
 //                       <h5 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h5>
 //                       {item.description && (
 //                         <div
-//                           className="text-black-600 font-bold text-xm"
+//                           className="text-black-600 font-bold text-sm"
 //                           dangerouslySetInnerHTML={{ __html: item.description }}
 //                         />
 //                       )}
@@ -1956,7 +1956,7 @@ export default CourseClient;
 //                   <p className="text-black-600 font-bold">{item.title}</p>
 //                   {item.description && (
 //                     <div
-//                       className="text-gray-500 text-xm mt-2"
+//                       className="text-gray-500 text-sm mt-2"
 //                       dangerouslySetInnerHTML={{ __html: item.description }}
 //                     />
 //                   )}
@@ -2049,7 +2049,7 @@ export default CourseClient;
 //                             ))}
 //                           </ul>
 //                         </div>
-//                         <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+//                         <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
 //                           {test.content?.substring(0, 250) || 'No testimonial content available.'}
 //                         </p>
 //                       </div>
@@ -2131,7 +2131,7 @@ export default CourseClient;
 //                       )}
 //                       {/* Show duration if available */}
 //                       {plan.duration && (
-//                         <p className={`text-xm ${isHybrid ? 'text-white/80' : 'text-zinc-500'} mb-4`}>
+//                         <p className={`text-sm ${isHybrid ? 'text-white/80' : 'text-zinc-500'} mb-4`}>
 //                           {plan.duration}
 //                         </p>
 //                       )}
@@ -2147,7 +2147,7 @@ export default CourseClient;
 //                           />
 //                         )}
 //                         {plan.features && (
-//                           <p className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-xm mt-4`}>
+//                           <p className={`${isHybrid ? 'text-white' : 'text-neutral-600'} font-medium text-sm mt-4`}>
 //                             {plan.features}
 //                           </p>
 //                         )}
@@ -2325,7 +2325,7 @@ export default CourseClient;
 //               {ComponentsLanguage.items.map((item: any, index: number) => (
 //                 <button
 //                   key={`trigger-${item.section}-${index}`}
-//                   className={`px-3 py-2 rounded text-xm font-medium transition-colors ${
+//                   className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
 //                     activeTab === item.section
 //                       ? "bg-red-600 text-white"
 //                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -2383,7 +2383,7 @@ export default CourseClient;
 //                   <AccordionTrigger className="font-semibold py-4 hover:no-underline">
 //                     {f.title}
 //                   </AccordionTrigger>
-//                   <AccordionContent className="text-gray-700 pb-4 text-xm">
+//                   <AccordionContent className="text-gray-700 pb-4 text-sm">
 //                     {f.content}
 //                   </AccordionContent>
 //                 </AccordionItem>
@@ -2411,7 +2411,7 @@ export default CourseClient;
 //                   )}
 //                   <Link
 //                     href={counsellingContent?.buttonUrl || '/contact'}
-//                     className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
+//                     className="inline-block bg-[#d71635] hover:bg-[#b5122b] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] transition-all duration-300"
 //                   >
 //                     {counsellingContent?.buttonText || 'Contact us'}
 //                   </Link>
@@ -2461,7 +2461,7 @@ export default CourseClient;
 //                     placeholder="Name"
 //                   />
 //                   {contactErrors.name && (
-//                     <p className="text-red-500 text-xm mt-1">{contactErrors.name.message}</p>
+//                     <p className="text-red-500 text-sm mt-1">{contactErrors.name.message}</p>
 //                   )}
 //                 </div>
 
@@ -2479,7 +2479,7 @@ export default CourseClient;
 //                     placeholder="Email"
 //                   />
 //                   {contactErrors.email && (
-//                     <p className="text-red-500 text-xm mt-1">{contactErrors.email.message}</p>
+//                     <p className="text-red-500 text-sm mt-1">{contactErrors.email.message}</p>
 //                   )}
 //                 </div>
 
@@ -2497,7 +2497,7 @@ export default CourseClient;
 //                     placeholder="Mobile No."
 //                   />
 //                   {contactErrors.mobile && (
-//                     <p className="text-red-500 text-xm mt-1">{contactErrors.mobile.message}</p>
+//                     <p className="text-red-500 text-sm mt-1">{contactErrors.mobile.message}</p>
 //                   )}
 //                 </div>
 
@@ -2509,7 +2509,7 @@ export default CourseClient;
 //                     placeholder="City"
 //                   />
 //                   {contactErrors.city && (
-//                     <p className="text-red-500 text-xm mt-1">{contactErrors.city.message}</p>
+//                     <p className="text-red-500 text-sm mt-1">{contactErrors.city.message}</p>
 //                   )}
 //                 </div>
 

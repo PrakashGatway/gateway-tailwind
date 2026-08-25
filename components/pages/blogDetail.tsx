@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
 import { Eye, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useGlobal } from "@/hooks/AppStateContext";
+import EditorContent from "../EditorContent";
 
 export default function SingleBlogPage({
   blogData,
@@ -166,7 +167,7 @@ export default function SingleBlogPage({
         <section className="hero-gradient py-8 relative z-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
-            <nav className="flex items-center space-x-2 text-xm text-gray-600 mb-4 relative z-10">
+            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4 relative z-10">
               <Link href="/" className="hover:text-[#E12827] transition-colors">
                 Home
               </Link>
@@ -190,7 +191,7 @@ export default function SingleBlogPage({
 
 
             {/* Blog Meta Information */}
-            <div className="flex flex-wrap items-center gap-4 text-xm text-gray-600">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
                 <span>📅</span>
                 <span>
@@ -213,7 +214,7 @@ export default function SingleBlogPage({
                     Views
                   </span>
 
-                  <span className="text-xm font-bold text-[#E12827]">
+                  <span className="text-sm font-bold text-[#E12827]">
                     {(
                       1000 + (viewCount ?? Number(viewCount?.viewCount ?? 0))
                     ).toLocaleString()}
@@ -222,7 +223,7 @@ export default function SingleBlogPage({
               }
               <Link
                 href={"/author/sakshi-taneja"}
-                className="text-[#E12827] px-3 py-1 rounded-full text-xm font-bold z-10"
+                className="text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10"
               >
                 Author - Sakshi Taneja
               </Link>
@@ -251,7 +252,7 @@ export default function SingleBlogPage({
                   {/* Blog Content */}
                   <div className="px-6 pb-8">
                     <div>
-                      <style>{`
+                      {/* <style>{`
     .blog-html table {
       width: 100%;
       border-collapse: collapse;
@@ -333,7 +334,9 @@ export default function SingleBlogPage({
                       <div
                         className="prose prose-lg max-w-none blog-html"
                         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-                      />
+                      /> */}
+
+                      <EditorContent content_data={sanitizedContent}/>
                     </div>
 
                     {/* Blog Navigation */}
@@ -406,7 +409,7 @@ export default function SingleBlogPage({
                     <div className="space-y-3 mt-4 border border-gray-200 p-4">
                       <Link href="/author/sakshi-taneja">
                         <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                          <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-xm font-bold">
+                          <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
                             <img
                               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10"
                               alt=""
@@ -430,7 +433,7 @@ export default function SingleBlogPage({
                           Content Writer & International Education Specialist
                         </p>
 
-                        <p className="mt-2 text-xm leading-7 text-gray-600">
+                        <p className="mt-2 text-sm leading-7 text-gray-600">
                           Sakshi Taneja is a content writer specializing in
                           international education, study abroad opportunities,
                           university admissions, student visas, scholarships,
@@ -457,7 +460,7 @@ export default function SingleBlogPage({
                             .getElementById("comment-form")
                             ?.scrollIntoView({ behavior: "smooth" })
                         }
-                        className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-xm font-medium"
+                        className="bg-[#E12827] text-white px-4 py-2 rounded-lg hover:bg-[#c82322] transition-colors text-sm font-medium"
                       >
                         Add Comment
                       </button>
@@ -472,25 +475,25 @@ export default function SingleBlogPage({
                       {replyingTo ? "Reply to Comment" : "Leave a Comment"}
                     </h4>
                     {replyingTo && (
-                      <div className="mb-4 p-3 bg-blue-50 rounded-lg text-xm flex justify-between items-center">
+                      <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
                         <span className="font-medium">
                           Replying to: {replyingToName}
                         </span>
                         <button
                           onClick={handleCancelReply}
-                          className="text-red-600 hover:text-red-800 text-xm font-medium"
+                          className="text-red-600 hover:text-red-800 text-sm font-medium"
                         >
                           Cancel Reply
                         </button>
                       </div>
                     )}
-                    <p className="text-gray-600 text-xm mb-4">
+                    <p className="text-gray-600 text-sm mb-4">
                       Your email address will not be published.
                     </p>
                     <form onSubmit={handleCommentSubmit} className="space-y-4">
                       <textarea
                         placeholder="Your Comment *"
-                        className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-xm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-xm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+                        className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
                         value={commentForm.content}
                         onChange={(e) =>
                           setCommentForm({
@@ -523,7 +526,7 @@ export default function SingleBlogPage({
                           <p className="text-lg font-medium mb-2">
                             No comments yet
                           </p>
-                          <p className="text-xm text-gray-600">
+                          <p className="text-sm text-gray-600">
                             Be the first to share your thoughts!
                           </p>
                         </div>
@@ -536,7 +539,7 @@ export default function SingleBlogPage({
                             <div className="flex items-start space-x-3">
                               <div className="flex-shrink-0">
                                 <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-50 rounded-full flex items-center justify-center shadow-sm">
-                                  <span className="text-red-600 font-bold text-xm">
+                                  <span className="text-red-600 font-bold text-sm">
                                     {comment.author?.name
                                       ?.charAt(0)
                                       ?.toUpperCase() || "A"}
@@ -561,7 +564,7 @@ export default function SingleBlogPage({
                                           comment.author?.name,
                                         )
                                       }
-                                      className="text-red-600 hover:text-red-800 transition-colors text-xm font-medium"
+                                      className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
                                     >
                                       Reply
                                     </button>
@@ -594,7 +597,7 @@ export default function SingleBlogPage({
                                           <div className="flex-1">
                                             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
                                               <div>
-                                                <span className="font-medium text-gray-900 text-xm">
+                                                <span className="font-medium text-gray-900 text-sm">
                                                   {reply.author?.name ||
                                                     "Anonymous"}
                                                 </span>
@@ -603,7 +606,7 @@ export default function SingleBlogPage({
                                                 </span>
                                               </div>
                                             </div>
-                                            <p className="text-gray-600 text-xm">
+                                            <p className="text-gray-600 text-sm">
                                               {reply.content}
                                             </p>
                                           </div>
@@ -615,7 +618,7 @@ export default function SingleBlogPage({
                                           onClick={() =>
                                             toggleReplies(comment._id)
                                           }
-                                          className="mt-2 text-xm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
+                                          className="mt-2 text-sm text-red-600 hover:text-red-800 transition-colors flex items-center font-medium"
                                         >
                                           {showReplies[comment._id]
                                             ? "Hide replies"
@@ -710,7 +713,7 @@ export default function SingleBlogPage({
                             />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h6 className="font-semibold text-xm text-gray-900 group-hover:text-[#E12827] transition duration-200 leading-tight line-clamp-2 mb-1">
+                            <h6 className="font-semibold text-sm text-gray-900 group-hover:text-[#E12827] transition duration-200 leading-tight line-clamp-2 mb-1">
                               {blog.blogTitle}
                             </h6>
                             <p className="text-xs text-gray-500 font-normal">
@@ -766,7 +769,7 @@ export default function SingleBlogPage({
                         <Link
                           key={tag}
                           href={`/blog?tag=${tag.toLowerCase()}`}
-                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xm hover:bg-[#E12827] hover:text-white transition duration-200 font-normal"
+                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-[#E12827] hover:text-white transition duration-200 font-normal"
                         >
                           {tag}
                         </Link>
@@ -796,7 +799,7 @@ export default function SingleBlogPage({
                       </p>
                       <a
                         href="/contact"
-                        className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                        className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                       >
                         Help and Support
                       </a>

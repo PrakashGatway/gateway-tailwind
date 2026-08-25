@@ -100,19 +100,19 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
                   <div className="text-2xl lg:text-3xl font-bold text-gradient group-hover:scale-110 transition-transform duration-300">
                     500+
                   </div>
-                  <p className="text-gray-600 text-xm">Students Placed</p>
+                  <p className="text-gray-600 text-sm">Students Placed</p>
                 </div>
                 <div className="text-center group">
                   <div className="text-2xl lg:text-3xl font-bold text-gradient group-hover:scale-110 transition-transform duration-300">
                     15+
                   </div>
-                  <p className="text-gray-600 text-xm">Countries</p>
+                  <p className="text-gray-600 text-sm">Countries</p>
                 </div>
                 <div className="text-center group">
                   <div className="text-2xl lg:text-3xl font-bold text-gradient group-hover:scale-110 transition-transform duration-300">
                     98%
                   </div>
-                  <p className="text-gray-600 text-xm">Success Rate</p>
+                  <p className="text-gray-600 text-sm">Success Rate</p>
                 </div>
               </div> */}
             </div>

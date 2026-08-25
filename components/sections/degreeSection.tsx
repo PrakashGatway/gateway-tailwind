@@ -194,7 +194,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
                           </div>
                           <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full">
                             <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                            <span className="text-xm font-semibold text-gray-700">{program?.rating || 4.5}</span>
+                            <span className="text-sm font-semibold text-gray-700">{program?.rating || 4.5}</span>
                           </div>
                         </div>
 
@@ -206,7 +206,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
                           <p className="text-red-600 text-base font-medium mb-2">{program?.subTitle || "Program Subtitle"}</p>
                           <div className="flex items-center gap-2 text-gray-600">
                             <Clock className="w-4 h-4" />
-                            <span className="text-xm font-medium">{program?.duration || "2-4 years"}</span>
+                            <span className="text-sm font-medium">{program?.duration || "2-4 years"}</span>
                           </div>
                         </div>
 
@@ -217,14 +217,14 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
 
                         {/* Features */}
                         <div className="mb-3">
-                          <h3 className="text-xm font-semibold text-gray-900 mb-2">Key Features:</h3>
+                          <h3 className="text-sm font-semibold text-gray-900 mb-2">Key Features:</h3>
                           <div className="space-y-2">
                             {(program?.keyFeatures || [
                               "Industry-relevant curriculum",
                               "Experienced faculty",
                               "Hands-on learning"
                             ]).slice(0, 3).map((feature, idx) => (
-                              <div key={idx} className="flex items-center gap-2 text-xm text-gray-800">
+                              <div key={idx} className="flex items-center gap-2 text-sm text-gray-800">
                                 <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
                                 {feature}
                               </div>
@@ -236,7 +236,7 @@ export default function DegreesSection({ content }: DegreesSectionProps) {
                         <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                           <div className="flex items-center gap-2 text-gray-600">
                             <Users className="w-4 h-4" />
-                            <span className="text-xm font-medium">{program?.studentCount || "500+ students"}</span>
+                            <span className="text-sm font-medium">{program?.studentCount || "500+ students"}</span>
                           </div>
                           <button onClick={() => Router.push(`${program?.slug}`)} className="btn-primary py-2">
                             Learn More

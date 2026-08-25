@@ -151,7 +151,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xs lg:text-xm tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
+                    className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] font-semibold text-xs lg:text-sm tracking-wider uppercase px-4 py-2 rounded-full border border-emerald-900/20 mb-4"
                 >
                     {content?.label || "Study Abroad Destinations"}
                 </motion.span>
@@ -298,7 +298,7 @@ function DesktopCard({
             )}
              <div className="absolute -bottom-14 left-0 right-0 z-20 p-5 text-white transition-all duration-300 ease-out group-hover:bottom-0">
                 <h3 className=" text-2xl font-bold leading-tight"> {dest.name}</h3>
-                <p className="text-xm text-white/90 mt-1 line-clamp-2">{dest.description}</p>
+                <p className="text-sm text-white/90 mt-1 line-clamp-2">{dest.description}</p>
                 
                 {/* 
                     3. Updated Button Logic:

@@ -384,7 +384,7 @@ const onSubmit = async (data: FormData) => {
             </div>
             <h1 className="text-4xl font-bold text-gray-800 tracking-tight">GATEWAY ABROAD</h1>
           </div>
-          <p className="text-xm text-gray-600 uppercase tracking-wider">
+          <p className="text-sm text-gray-600 uppercase tracking-wider">
             (Confidential when filled) • All fields are mandatory
           </p>
           <div className="mt-4 flex items-center justify-center gap-2">
@@ -422,7 +422,7 @@ const onSubmit = async (data: FormData) => {
               {step === 2 && "SECTION B: WORK EXPERIENCE & EDUCATION"}
               {step === 3 && "SECTION C: TESTS & REFERRAL"}
             </h2>
-            <p className="text-xm opacity-90 mt-1">Gateway Education Abroad Application</p>
+            <p className="text-sm opacity-90 mt-1">Gateway Education Abroad Application</p>
           </div>
 
           {/* Form Body */}
@@ -441,7 +441,7 @@ const onSubmit = async (data: FormData) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {/* Personal Details Fields */}
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Full Name <span className="text-[#D71635]">*</span>
                         </label>
                         <input
@@ -454,7 +454,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Date Of Birth <span className="text-[#D71635]">*</span>
                         </label>
                         <input
@@ -468,7 +468,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Age (in yrs.) <span className="text-[#D71635]">*</span>
                         </label>
                         <input
@@ -482,7 +482,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Marital Status
                         </label>
                         <div className="flex items-center gap-6 p-3 border-2 border-gray-300 bg-gray-50">
@@ -509,7 +509,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Mobile No. <span className="text-[#D71635]">*</span>
                         </label>
                         <input
@@ -523,7 +523,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Address
                         </label>
                         <input
@@ -534,7 +534,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Father's Name
                         </label>
                         <input
@@ -545,7 +545,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Father's No.
                         </label>
                         <input
@@ -557,7 +557,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Parent's Annual Income
                         </label>
                         <input
@@ -569,7 +569,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Parent's Occupation
                         </label>
                         <input
@@ -580,7 +580,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Budget (in ₹)
                         </label>
                         <input
@@ -604,7 +604,7 @@ const onSubmit = async (data: FormData) => {
                   <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Course/Subject
                         </label>
                         <input
@@ -613,7 +613,7 @@ const onSubmit = async (data: FormData) => {
                         />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Experience
                         </label>
                         <input
@@ -622,7 +622,7 @@ const onSubmit = async (data: FormData) => {
                         />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Intake
                         </label>
                         <input
@@ -632,7 +632,7 @@ const onSubmit = async (data: FormData) => {
                       </div>
 
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
                           Level of Study
 
                         </label>
@@ -742,15 +742,15 @@ const onSubmit = async (data: FormData) => {
                   <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Company Name</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Company Name</label>
                         <input {...register("companyName")} className="w-full p-3 border-2 border-gray-300 focus:border-[#D71635] outline-none bg-gray-50" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Designation</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Designation</label>
                         <input {...register("designation")} className="w-full p-3 border-2 border-gray-300 focus:border-[#D71635] outline-none bg-gray-50" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Total Experience (yrs)</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Total Experience (yrs)</label>
                         <input type="number" {...register("totalExperience")} className="w-full p-3 border-2 border-gray-300 focus:border-[#D71635] outline-none bg-gray-50" />
                       </div>
                     </div>
@@ -903,23 +903,23 @@ const onSubmit = async (data: FormData) => {
                   <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Internet</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Internet</label>
                         <input type="radio" value="Internet" {...register("heardAboutUs")} className="mr-2" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Advertisement</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Advertisement</label>
                         <input type="radio" value="Advertisement" {...register("heardAboutUs")} className="mr-2" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Friend</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Friend</label>
                         <input type="radio" value="Friend" {...register("heardAboutUs")} className="mr-2" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Counsellor</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Counsellor</label>
                         <input type="radio" value="Counsellor" {...register("heardAboutUs")} className="mr-2" />
                       </div>
                       <div>
-                        <label className="block text-xm font-bold text-gray-700 mb-1">Other</label>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">Other</label>
                         <input type="radio" value="Other" {...register("heardAboutUs")} className="mr-2" />
                       </div>
                     </div>

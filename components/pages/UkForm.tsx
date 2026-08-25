@@ -84,7 +84,7 @@ export default function ContactForm({ type }) {
                     </div>
                     <h3 className="text-xl font-bold text-gray-800 mb-2">Thank You!</h3>
                     <p className="text-gray-600 mb-4">Your details have been submitted successfully.</p>
-                    <p className="text-xm text-gray-500">Our counsellor will contact you within 24 hours.</p>
+                    <p className="text-sm text-gray-500">Our counsellor will contact you within 24 hours.</p>
                     <button
                         type="button"
                         onClick={() => setIsSuccess(false)}
@@ -101,14 +101,14 @@ export default function ContactForm({ type }) {
     return (
         <div className="w-full relatvie max-w-2xl  overflow-hidden border border-gray-500  bg-gray-50 backdrop-blur-sm rounded-3xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-red-700">Contact Details</h2>
-            <p className="text-gray-500 text-xm mb-3">Please provide your contact information</p>
+            <p className="text-gray-500 text-sm mb-3">Please provide your contact information</p>
 
-            <p className='absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-xm py-3'>
+            <p className='absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-sm py-3'>
                 Free Counselling
             </p>
 
             {submitError && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xm">
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                     {submitError}
                 </div>
             )}
@@ -116,7 +116,7 @@ export default function ContactForm({ type }) {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                 {/* Full Name */}
                 <div>
-                    <label className="block text-xm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                         Full Name *
                     </label>
                     <input
@@ -132,7 +132,7 @@ export default function ContactForm({ type }) {
 
                 {/* Email */}
                 <div>
-                    <label className="block text-xm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                         Email Address *
                     </label>
                     <input
@@ -154,7 +154,7 @@ export default function ContactForm({ type }) {
 
                 {/* Phone */}
                 {type != "article" && <div>
-                    <label className="block text-xm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                         Phone Number *
                     </label>
                     <input
@@ -179,7 +179,7 @@ export default function ContactForm({ type }) {
                 {/* Program Level + City Grid */}
                 <div className="grid grid-cols-2 gap-2">
                     {type === "article" ? <div>
-                        <label className="block text-xm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                             Phone Number *
                         </label>
                         <input
@@ -198,7 +198,7 @@ export default function ContactForm({ type }) {
                             <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
                         )}
                     </div> : <div>
-                        <label className="block text-xm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                            Preferred Program level *
                         </label>
                         <select
@@ -220,7 +220,7 @@ export default function ContactForm({ type }) {
 
 
                       <div>
-                        <label className="block text-xm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                             Preferred Destination *
                         </label>
                         <select
@@ -247,7 +247,7 @@ export default function ContactForm({ type }) {
                     </div>
 
                     <div>
-                        <label className="block text-xm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                             City
                         </label>
                         <input
@@ -259,7 +259,7 @@ export default function ContactForm({ type }) {
                     </div>
                 </div>
                 {type === "article" && <div>
-                    <label className="block text-xm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                         Message
                     </label>
                     <input

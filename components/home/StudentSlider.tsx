@@ -114,7 +114,7 @@ const StudentInfoSection = () => {
                             <div className="flex justify-between items-start">
                               <div>
                                 <h5 className="text-gray-800 font-bold text-lg">{student.name}</h5>
-                                <p className="text-gray-600 text-xm">{student.courseName} Student</p>
+                                <p className="text-gray-600 text-sm">{student.courseName} Student</p>
                               </div>
                               <div className="text-right bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg px-3 py-2 text-white">
                                 <p className="text-white/90 text-xs font-medium">SCORE</p>
@@ -125,7 +125,7 @@ const StudentInfoSection = () => {
                         </div>
                         <div className="flex items-start mb-3">
                           <i className='bx bxs-quote-alt-left text-purple-500 text-2xl mr-2'></i>
-                          <p className="text-gray-700 text-xm leading-relaxed flex-1">{student.content}</p>
+                          <p className="text-gray-700 text-sm leading-relaxed flex-1">{student.content}</p>
                         </div>
                         <div className="flex justify-end">
                           <i className='bx bxs-quote-alt-right text-purple-500 text-2xl'></i>
@@ -187,7 +187,7 @@ const StudentInfoSection = () => {
                 <h3 className="text-2xl font-bold text-gray-800 uppercase tracking-wide mb-2">
                   Register Now
                 </h3>
-                <p className="text-gray-600 text-xm">Start your journey to success</p>
+                <p className="text-gray-600 text-sm">Start your journey to success</p>
               </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">

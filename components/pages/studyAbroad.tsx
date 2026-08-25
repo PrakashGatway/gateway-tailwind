@@ -121,7 +121,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                   Learn More
                 </Link> */}
               </div>
-              <div className="mt-6 flex items-center gap-3 text-xm sm:text-base text-muted-foreground">
+              <div className="mt-6 flex items-center gap-3 text-sm sm:text-base text-muted-foreground">
                 <Star className="text-yellow-500 fill-yellow-500" /> Trusted by
                 5,000+ students | 4.9/5 reviews
               </div>
@@ -137,7 +137,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                 <h3 className="text-lg sm:text-xl m-0 font-bold text-center">
                   99.99%
                 </h3>
-                <p className="text-xs sm:text-xm m-0 text-center">
+                <p className="text-xs sm:text-sm m-0 text-center">
                   Success Rate
                 </p>
               </div>
@@ -213,7 +213,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
         <div className="max-w-7xl mx-auto">
           {/* Badge */}
           <div className="flex  mb-3">
-            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-xm font-bold uppercase">
+            <span className="bg-red-100 text-[#D81635] px-4 py-1 rounded-full text-xs md:text-sm font-bold uppercase">
               {getContentByType("whychooseus")?.label}
             </span>
           </div>
@@ -225,7 +225,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
           {/* Subtext */}
           <p
-            className=" text-gray-500 mt-3 md:mt-4 w-full  text-xm md:text-base"
+            className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-base"
             dangerouslySetInnerHTML={{
               __html: getContentByType("whychooseus")?.subTitle,
             }}
@@ -272,7 +272,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
 
                     {/* Description */}
                     <p
-                      className="text-gray-500 text-xs md:text-xm mt-1 md:mt-2 leading-relaxed"
+                      className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: item?.description,
                       }}
@@ -328,7 +328,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                       </h3>
 
                       <p
-                        className="text-xm text-gray-800  leading-[1.6]"
+                        className="text-sm text-gray-800  leading-[1.6]"
                         dangerouslySetInnerHTML={{
                           __html: item.subtitle,
                         }}
@@ -357,9 +357,9 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-xm font-bold tracking-wider mb-4"
+              className="inline-flex items-center gap-2 bg-red-100 text-[#C41430] px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold tracking-wider mb-4"
             >
-              <span className="w-1.5 h-1.5 bg-red-500 text-xm uppercase font-bold rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-red-500 text-sm uppercase font-bold rounded-full"></span>
               {getContentByType("citysection")?.label}
             </motion.span>
 
@@ -378,7 +378,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-xm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("citysection")?.subTitle,
               }}
@@ -418,7 +418,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                       </h3>
 
                       <p
-                        className={`text-xs sm:text-xm leading-snug ${index === loc.length - 1 ? "text-green-100" : "text-gray-500"}`}
+                        className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? "text-green-100" : "text-gray-500"}`}
                         dangerouslySetInnerHTML={{
                           __html: loc.description,
                         }}
@@ -438,7 +438,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
             <p
-              className="text-xm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
+              className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("citysection")?.sectiondescription,
               }}
@@ -453,6 +453,58 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
       <Component />
 
       <ReadMoreSection content={getContentByType("content")} />
+
+    <section className="w-full bg-[#fff1f1] px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
+
+        {/* Heading */}
+        <h1 className="max-w-5xl text-[32px] font-bold leading-[1.2] text-[#dc2626] sm:text-[40px] md:text-[46px] lg:text-[48px]">
+          Study Abroad in {slug} – Visit Gateway
+          <br className="hidden sm:block" />
+          Abroad Today!
+        </h1>
+
+        {/* Description */}
+        <p className="mt-6 max-w-5xl text-[18px] font-medium leading-[1.6] text-[#374151] sm:text-[20px] md:text-[22px]">
+          Get expert guidance for{" "}
+          <strong>Study Abroad Admissions, Student Visa, IELTS/PTE Coaching,</strong>
+          <br className="hidden md:block" />
+          and top universities worldwide.
+        </p>
+
+        {/* Countries / Services */}
+        <p className="mt-5 text-[14px] font-medium leading-7 text-[#6b7280] sm:text-[16px] md:text-[17px]">
+          UK • Canada • Australia • USA • Germany | IELTS • PTE • TOEFL |
+          Scholarships & Visa Assistance in {slug}
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-7 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
+
+          {/* Consultation Button */}
+          <button
+            type="button"
+            className="w-full rounded-full bg-[#f04444] px-9 py-4 text-[17px] font-bold text-white shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#dc3838] hover:shadow-[0_12px_25px_rgba(0,0,0,0.18)] sm:w-auto"
+          >
+            Book a Free Consultation
+          </button>
+
+          {/* Expert Button */}
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 rounded-full bg-[#e7e8ff] px-9 py-4 text-[17px] font-bold text-[#111827] shadow-[0_8px_20px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#dedfff] hover:shadow-[0_12px_25px_rgba(0,0,0,0.16)] sm:w-auto"
+          >
+            <Icons.Phone
+              size={20}
+              strokeWidth={2.5}
+              className="fill-[#e83e8c] text-[#e83e8c]"
+            />
+            Connect With an Expert
+          </button>
+
+        </div>
+      </div>
+    </section>
 
       <FAQSection faq={faq?.data || []} content={""} />
 
@@ -499,7 +551,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                     </p>
                     <a
                       href="/contact"
-                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-xm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
+                      className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                     >
                       Contact us
                     </a>

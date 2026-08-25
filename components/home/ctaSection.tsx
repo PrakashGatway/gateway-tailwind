@@ -50,7 +50,7 @@ const LandingPage = ({ content }) => {
         </div>
 
         {/* Subheadline */}
-        <p className="text-gray-800 text-xm sm:text-base md:text-base lg:text-base max-w-2xl mx-auto leading-relaxed font-semibold" dangerouslySetInnerHTML={{ __html: content?.subTitle }}>
+        <p className="text-gray-800 text-sm sm:text-base md:text-base lg:text-base max-w-2xl mx-auto leading-relaxed font-semibold" dangerouslySetInnerHTML={{ __html: content?.subTitle }}>
 
         </p>
 

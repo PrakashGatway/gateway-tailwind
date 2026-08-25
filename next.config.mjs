@@ -29,9 +29,9 @@ const nextConfig = {
       "keen-slider"],
   },
 
-  compiler: {
-    removeConsole: true,
-  },
+  // compiler: {
+  //   removeConsole: true,
+  // },
 
   compress: true,
 

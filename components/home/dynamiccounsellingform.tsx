@@ -66,7 +66,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
   const label =
     "block text-xs font-bold text-gray-700 mb-1 uppercase tracking-wide";
   const baseInput =
-    "w-full px-3 py-2 rounded-md border text-xm transition-all focus:outline-none focus:ring-2 focus:border-transparent";
+    "w-full px-3 py-2 rounded-md border text-sm transition-all focus:outline-none focus:ring-2 focus:border-transparent";
   const validInput = `${baseInput} border-gray-300 focus:border-blue-500 focus:ring-blue-100`;
   const errorInput = `${baseInput} border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50`;
   const errorMsg = "text-[10px] text-red-500 mt-0.5";
@@ -78,7 +78,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
         <button
           type="button"
           onClick={() => handleTabChange("Study Abroad")}
-          className={`flex-1 py-4 text-xm font-bold transition-colors relative ${
+          className={`flex-1 py-4 text-sm font-bold transition-colors relative ${
             currentService === "Study Abroad"
               ? "text-white bg-[#DC2626]"
               : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
@@ -92,7 +92,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
         <button
           type="button"
           onClick={() => handleTabChange("Test Preparation")}
-          className={`flex-1 py-4 text-xm font-bold transition-colors relative ${
+          className={`flex-1 py-4 text-sm font-bold transition-colors relative ${
             currentService === "Test Preparation"
               ? "text-red-600 bg-blue-50/50"
               : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
@@ -113,7 +113,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
               ? "Start Your Global Journey"
               : "Ace Your Exam"}
           </h2>
-          <p className="text-xm text-gray-500 mt-1">
+          <p className="text-sm text-gray-500 mt-1">
             {currentService === "Study Abroad"
               ? "Get expert guidance on universities, visas, and scholarships."
               : "Book a demo class and get a personalized study plan."}
@@ -371,7 +371,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
               />
               <label
                 htmlFor="agree"
-                className="text-xm text-gray-500 leading-tight"
+                className="text-sm text-gray-500 leading-tight"
               >
                 I agree to be contacted via regarding my inquiry.{" "}
                 <span className="text-red-500">*</span>
@@ -413,7 +413,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
               )}
             </button>
 
-            <p className="text-xm text-gray-400 text-center mt-3">
+            <p className="text-sm text-gray-400 text-center mt-3">
               By submitting, you agree to our Terms of Service and Privacy
               Policy.
             </p>

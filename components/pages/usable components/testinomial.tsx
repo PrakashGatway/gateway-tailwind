@@ -22,7 +22,7 @@ export const TestimonialCard = (props: TestimonialCardProps) => {
             ))}
           </ul>
         </div>
-        <p className="text-zinc-500 text-xm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
+        <p className="text-zinc-500 text-sm font-medium box-border caret-transparent max-w-[90%] min-h-0 text-left mb-4 py-[15px] md:max-w-none md:min-h-[198px]">
           {props.testimonialText}
         </p>
       </div>

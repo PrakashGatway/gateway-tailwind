@@ -32,7 +32,7 @@ const TestPreparation = ({CourseData}) => {
               <h2 className="text-2xl md:text-2xl font-bold mb-3 text-center transition-all duration-600 group-hover:scale-105">
                 {test.pageName}
               </h2>
-              <p className="text-xm md:text-base leading-relaxed text-center transition-all duration-600 opacity-90 group-hover:opacity-100">
+              <p className="text-sm md:text-base leading-relaxed text-center transition-all duration-600 opacity-90 group-hover:opacity-100">
                 {test.pageTitle}
               </p>
             </div>

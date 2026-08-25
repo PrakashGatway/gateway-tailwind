@@ -338,7 +338,7 @@ export const Footer = () => {
                       >
                         <Link
                           href={link.href}
-                          className="text-zinc-800 text-xm font-medium inline-block hover:text-red-600 transition-colors duration-200"
+                          className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
                         >
                           {link.text}
                         </Link>
@@ -362,7 +362,7 @@ export const Footer = () => {
                       >
                         <Link
                           href={`/course/${course.pageName.toLowerCase()}`}
-                          className="text-zinc-800 text-xm font-medium inline-block hover:text-red-600 transition-colors duration-200"
+                          className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
                         >
                           {course.pageName}
                         </Link>
@@ -384,7 +384,7 @@ export const Footer = () => {
                         <Link
                           target="_blank"
                           href="https://maps.app.goo.gl/XZp6cb52r6DjjBf4A"
-                          className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+                          className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
                         >
                           {contactLinks.address}
                         </Link>
@@ -396,7 +396,7 @@ export const Footer = () => {
                         {contactLinks.whatsapp && (
                           <Link
                             href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(contactLinks.whatsapp)}`}
-                            className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 
+                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 
                             transition-colors duration-200"
                           >
                             {contactLinks.whatsapp}
@@ -405,7 +405,7 @@ export const Footer = () => {
                         {contactLinks.phone1 && (
                           <Link
                             href={`tel:${contactLinks.phone1}`}
-                            className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200 ml-1"
+                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200 ml-1"
                           >
                             {contactLinks.phone1}
                           </Link>
@@ -413,7 +413,7 @@ export const Footer = () => {
                         {contactLinks.phone2 && (
                           <Link
                             href={`tel:${contactLinks.phone2}`}
-                            className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200 ml-1"
+                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200 ml-1"
                           >
                             {contactLinks.phone2}
                           </Link>
@@ -426,7 +426,7 @@ export const Footer = () => {
                         {contactLinks.email && (
                           <Link
                             href={`mailto:${contactLinks.email}`}
-                            className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+                            className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
                           >
                             {contactLinks.email}
                           </Link>
@@ -455,7 +455,7 @@ export const Footer = () => {
                         aria-label="Newsletter email"
                       />
                       {newsletterErrors.newsEmail && (
-                        <div className="text-red-500 text-xm mb-2" role="alert">
+                        <div className="text-red-500 text-sm mb-2" role="alert">
                           {newsletterErrors.newsEmail.message}
                         </div>
                       )}
@@ -591,7 +591,7 @@ export const Footer = () => {
                             {...registerContact("name", {
                               required: "Name is required",
                             })}
-                            className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
+                            className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
                               contactErrors.name
                                 ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                                 : "border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20"
@@ -643,7 +643,7 @@ export const Footer = () => {
                                 message: "Invalid email",
                               },
                             })}
-                            className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
+                            className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
                               contactErrors.email
                                 ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                                 : "border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20"
@@ -694,7 +694,7 @@ export const Footer = () => {
                                 message: "Invalid number",
                               },
                             })}
-                            className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
+                            className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
                               contactErrors.mobile
                                 ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                                 : "border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20"
@@ -745,7 +745,7 @@ export const Footer = () => {
                             {...registerContact("city", {
                               required: "City is required",
                             })}
-                            className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
+                            className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 ${
                               contactErrors.city
                                 ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
                                 : "border-gray-200 focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20"
@@ -793,7 +793,7 @@ export const Footer = () => {
                           </label>
                           <textarea
                             {...registerContact("message")}
-                            className="w-full px-3.5 py-2.5 text-xm bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
+                            className="w-full px-3.5 py-2.5 text-sm bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
                             rows="3"
                             placeholder="Tell us about your requirements..."
                             aria-label="Your message"
@@ -834,11 +834,11 @@ export const Footer = () => {
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                   />
                                 </svg>
-                                <span className="text-xm">Submitting...</span>
+                                <span className="text-sm">Submitting...</span>
                               </>
                             ) : (
                               <>
-                                <span className="text-xm">Send Message</span>
+                                <span className="text-sm">Send Message</span>
                                 <svg
                                   className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
                                   fill="none"
@@ -1182,7 +1182,7 @@ export default Footer;
 //                       >
 //                         <Link
 //                           href={link.href}
-//                           className="text-zinc-800 text-xm font-medium inline-block hover:text-red-600 transition-colors duration-200"
+//                           className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
 //                         >
 //                           {link.text}
 //                         </Link>
@@ -1207,7 +1207,7 @@ export default Footer;
 //                       >
 //                         <Link
 //                           href={`/course/${course.pageName.toLowerCase()}`}
-//                           className="text-zinc-800 text-xm font-medium inline-block hover:text-red-600 transition-colors duration-200"
+//                           className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
 //                         >
 //                           {course.pageName}
 //                         </Link>
@@ -1229,7 +1229,7 @@ export default Footer;
 //                         <Link
 //                           target="_blank"
 //                           href={`https://maps.app.goo.gl/XZp6cb52r6DjjBf4A`}
-//                           className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+//                           className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
 //                         >
 //                           {contactData.officeAdress || "Address not available"}
 //                         </Link>
@@ -1241,7 +1241,7 @@ export default Footer;
 //                         {contactData.contectOne && (
 //                           <Link
 //                             href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(contactData.contectOne)}`}
-//                             className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+//                             className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
 //                           >
 //                             {contactData.contectOne}
 //                           </Link>
@@ -1249,7 +1249,7 @@ export default Footer;
 //                         {contactData.contectTwo && (
 //                           <Link
 //                             href={`tel:${contactData.contectTwo}`}
-//                             className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 
+//                             className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 
 //                             transition-colors duration-200"
 //                           >
 //                             {contactData.contectTwo}
@@ -1258,7 +1258,7 @@ export default Footer;
 //                         {contactData.contectThree && (
 //                           <Link
 //                             href={`tel:${contactData.contectThree}`}
-//                             className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+//                             className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
 //                           >
 //                             {contactData.contectThree}
 //                           </Link>
@@ -1271,7 +1271,7 @@ export default Footer;
 //                         {contactData.email && (
 //                           <Link
 //                             href={`mailto:${contactData.email}`}
-//                             className="text-zinc-800 text-base font-medium inline-block md:text-xm hover:text-red-600 transition-colors duration-200"
+//                             className="text-zinc-800 text-base font-medium inline-block md:text-sm hover:text-red-600 transition-colors duration-200"
 //                           >
 //                             {contactData.email}
 //                           </Link>
@@ -1299,7 +1299,7 @@ export default Footer;
 //                         placeholder="Enter your email"
 //                       />
 //                       {newsletterErrors.newsEmail && (
-//                         <div className="text-red-500 text-xm mb-2">
+//                         <div className="text-red-500 text-sm mb-2">
 //                           {newsletterErrors.newsEmail.message}
 //                         </div>
 //                       )}
@@ -1443,7 +1443,7 @@ export default Footer;
 //                             {...registerContact("name", {
 //                               required: "Name is required",
 //                             })}
-//                             className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+//                             className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
 //                 ${
 //                   contactErrors.name
 //                     ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
@@ -1495,7 +1495,7 @@ export default Footer;
 //                                 message: "Invalid email",
 //                               },
 //                             })}
-//                             className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+//                             className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
 //                 ${
 //                   contactErrors.email
 //                     ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
@@ -1546,7 +1546,7 @@ export default Footer;
 //                                 message: "Invalid number",
 //                               },
 //                             })}
-//                             className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+//                             className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
 //                 ${
 //                   contactErrors.mobile
 //                     ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
@@ -1597,7 +1597,7 @@ export default Footer;
 //                             {...registerContact("city", {
 //                               required: "City is required",
 //                             })}
-//                             className={`w-full px-3.5 py-2.5 text-xm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
+//                             className={`w-full px-3.5 py-2.5 text-sm bg-white border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400
 //                 ${
 //                   contactErrors.city
 //                     ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
@@ -1644,7 +1644,7 @@ export default Footer;
 //                           </label>
 //                           <textarea
 //                             {...registerContact("message")}
-//                             className="w-full px-3.5 py-2.5 text-xm bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
+//                             className="w-full px-3.5 py-2.5 text-sm bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
 //                             rows="3"
 //                             placeholder="Tell us about your requirements..."
 //                           ></textarea>
@@ -1684,11 +1684,11 @@ export default Footer;
 //                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 //                                   ></path>
 //                                 </svg>
-//                                 <span className="text-xm">Submitting...</span>
+//                                 <span className="text-sm">Submitting...</span>
 //                               </>
 //                             ) : (
 //                               <>
-//                                 <span className="text-xm">Send Message</span>
+//                                 <span className="text-sm">Send Message</span>
 //                                 <svg
 //                                   className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
 //                                   fill="none"

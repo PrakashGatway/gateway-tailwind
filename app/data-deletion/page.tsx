@@ -149,7 +149,7 @@ export default function DataDeletionRequestPage() {
         <div className="text-center mb-8 md:mb-10">
           <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-indigo-100 mb-5">
             <Shield className="w-4 h-4 text-indigo-600" />
-            <span className="text-xm font-medium text-gray-700">Meta Verification Requirement</span>
+            <span className="text-sm font-medium text-gray-700">Meta Verification Requirement</span>
             <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">GDPR / CCPA Ready</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 flex items-center justify-center gap-2 flex-wrap">
@@ -169,7 +169,7 @@ export default function DataDeletionRequestPage() {
           {/* Compliance Info Banner */}
           <div className="bg-indigo-50/80 px-6 py-4 border-b border-indigo-100 flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-            <div className="text-xm text-indigo-800">
+            <div className="text-sm text-indigo-800">
               <span className="font-semibold">Data Deletion Callback Compliance:</span> Your request will be logged via our deletion pipeline. 
               A confirmation email will be sent to your registered address. This action is irreversible.
             </div>
@@ -181,7 +181,7 @@ export default function DataDeletionRequestPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
-                  <label htmlFor="fullName" className="block text-xm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
                     <User className="w-4 h-4 text-gray-400" />
                     Full Name <span className="text-red-500">*</span>
                   </label>
@@ -200,7 +200,7 @@ export default function DataDeletionRequestPage() {
 
                 {/* Email Address */}
                 <div>
-                  <label htmlFor="email" className="block text-xm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
                     <Mail className="w-4 h-4 text-gray-400" />
                     Email Address <span className="text-red-500">*</span>
                   </label>
@@ -219,7 +219,7 @@ export default function DataDeletionRequestPage() {
 
                 {/* User ID (optional) */}
                 <div>
-                  <label htmlFor="userId" className="block text-xm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
+                  <label htmlFor="userId" className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
                     <span className="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded">ID</span>
                     User ID (Optional)
                   </label>
@@ -237,7 +237,7 @@ export default function DataDeletionRequestPage() {
 
                 {/* Reason for deletion (optional) */}
                 <div>
-                  <label htmlFor="reason" className="block text-xm font-semibold text-gray-700 mb-1.5">
+                  <label htmlFor="reason" className="block text-sm font-semibold text-gray-700 mb-1.5">
                     Reason (Optional)
                   </label>
                   <textarea
@@ -261,7 +261,7 @@ export default function DataDeletionRequestPage() {
                     onChange={handleInputChange}
                     className="mt-1 w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
                   />
-                  <label htmlFor="confirmationChecked" className="text-xm text-gray-700 leading-relaxed">
+                  <label htmlFor="confirmationChecked" className="text-sm text-gray-700 leading-relaxed">
                     I understand that <span className="font-semibold text-red-600">this action is permanent and irreversible</span>. 
                     All my personal data, activity history, and associated records will be removed from our systems 
                     within 30 days as per Meta's data deletion policy. I confirm that I want my data deleted.
@@ -270,7 +270,7 @@ export default function DataDeletionRequestPage() {
 
                 {/* Error Display */}
                 {submitError && (
-                  <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xm">
+                  <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                     <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span>{submitError}</span>
                   </div>
@@ -320,11 +320,11 @@ export default function DataDeletionRequestPage() {
                   {apiResponse?.requestId && (
                     <div className="mt-4 bg-gray-100 px-4 py-2 rounded-lg inline-block">
                       <span className="text-xs text-gray-500">Request ID:</span>
-                      <code className="ml-2 font-mono text-xm font-semibold text-indigo-700">{apiResponse.requestId}</code>
+                      <code className="ml-2 font-mono text-sm font-semibold text-indigo-700">{apiResponse.requestId}</code>
                     </div>
                   )}
                   <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 text-left w-full">
-                    <div className="flex gap-2 text-xm text-blue-800">
+                    <div className="flex gap-2 text-sm text-blue-800">
                       <Shield className="w-5 h-5 flex-shrink-0" />
                       <div>
                         <p className="font-medium">What happens next?</p>
@@ -339,7 +339,7 @@ export default function DataDeletionRequestPage() {
                   </div>
                   <button
                     onClick={handleReset}
-                    className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 border border-indigo-300 text-indigo-700 bg-white rounded-xl hover:bg-indigo-50 transition-colors font-medium text-xm"
+                    className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 border border-indigo-300 text-indigo-700 bg-white rounded-xl hover:bg-indigo-50 transition-colors font-medium text-sm"
                   >
                     Submit another request
                   </button>
