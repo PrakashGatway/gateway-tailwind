@@ -395,7 +395,7 @@ const Blog = () => {
                         src={getCoverImageUrl(article.coverImage)}
                         alt={article.title}
                         fill
-                        className="object-cover object-top transition-transform duration-300"
+                        className="object-fit object-top transition-transform duration-300"
                         onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
                       />
                     </div>

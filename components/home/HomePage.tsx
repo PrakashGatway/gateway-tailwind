@@ -1429,6 +1429,7 @@ function Index({
           </div>
         </div>
       </section>
+      
       {/* Blog Section */}
       <section className="py-12 md:py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">

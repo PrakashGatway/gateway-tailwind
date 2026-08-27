@@ -1,3 +1,4 @@
+
 "use client";
 
 import MultiStepForm from "@/components/pages/multiStep";
@@ -32,7 +33,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import FAQSection from "../home/FaqSection";
 
 // Type Definitions
@@ -120,9 +121,10 @@ const StudyInUk = ({
   const [testimonials, setTestimonial] = useState<Testimonial[]>([]);
 
   const router = useRouter();
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const testimonialAutoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const blogAutoplayRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Testimonial Slider Configuration
+  // Testimonial Slider Configuration with autoplay
   const [testimonialSliderRef, testimonialInstanceRef] = useKeenSlider({
     initial: 0,
     loop: true,
@@ -131,6 +133,12 @@ const StudyInUk = ({
     },
     created() {
       setLoaded(true);
+      if (testimonials.length > 1) {
+        startTestimonialAutoplay();
+      }
+    },
+    destroyed() {
+      stopTestimonialAutoplay();
     },
     slides: {
       perView: 1,
@@ -161,7 +169,7 @@ const StudyInUk = ({
     mode: "snap",
   });
 
-  // Blog Slider Configuration
+  // Blog Slider Configuration with autoplay
   const [blogSliderRef, blogInstanceRef] = useKeenSlider({
     initial: 0,
     loop: true,
@@ -192,42 +200,63 @@ const StudyInUk = ({
     drag: true,
     rubberband: true,
     mode: "snap",
+    created(slider) {
+      if (mergedData.length > 1) {
+        startBlogAutoplay(slider);
+      }
+    },
+    destroyed() {
+      stopBlogAutoplay();
+    },
   });
 
-  // Autoplay Functions
-  const startAutoplay = useCallback((): void => {
-    if (autoplayRef.current) {
-      clearInterval(autoplayRef.current);
-    }
+  // Autoplay functions
+  const startTestimonialAutoplay = useCallback(() => {
+    if (testimonialAutoplayRef.current) clearInterval(testimonialAutoplayRef.current);
+    testimonialAutoplayRef.current = setInterval(() => {
+      testimonialInstanceRef.current?.next();
+    }, 4000);
+  }, [testimonialInstanceRef]);
 
-    if (!blogInstanceRef.current) return;
-
-    autoplayRef.current = setInterval(() => {
-      blogInstanceRef.current?.next();
-    }, 3000);
-  }, [blogInstanceRef]);
-
-  const stopAutoplay = useCallback((): void => {
-    if (autoplayRef.current) {
-      clearInterval(autoplayRef.current);
-      autoplayRef.current = null;
+  const stopTestimonialAutoplay = useCallback(() => {
+    if (testimonialAutoplayRef.current) {
+      clearInterval(testimonialAutoplayRef.current);
+      testimonialAutoplayRef.current = null;
     }
   }, []);
 
-  // Auto slide effect for blog
-  useEffect(() => {
-    if (!autoPlay || !blogInstanceRef.current || blogData.length <= 1) return;
-
-    const interval = setInterval(() => {
-      const totalSlides = blogInstanceRef.current?.track.details.slides.length || 0;
-      const nextSlide = (currentSlide + 1) % totalSlides;
-
-      blogInstanceRef.current?.moveToIdx(nextSlide);
-      setCurrentSlide(nextSlide);
+  const startBlogAutoplay = useCallback((slider?: any) => {
+    if (blogAutoplayRef.current) clearInterval(blogAutoplayRef.current);
+    const instance = slider || blogInstanceRef.current;
+    if (!instance) return;
+    blogAutoplayRef.current = setInterval(() => {
+      instance.next();
     }, 3000);
+  }, [blogInstanceRef]);
 
-    return () => clearInterval(interval);
-  }, [currentSlide, autoPlay, blogData.length, blogInstanceRef]);
+  const stopBlogAutoplay = useCallback(() => {
+    if (blogAutoplayRef.current) {
+      clearInterval(blogAutoplayRef.current);
+      blogAutoplayRef.current = null;
+    }
+  }, []);
+
+  // Update sliders when data changes
+  useEffect(() => {
+    if (testimonialInstanceRef.current) testimonialInstanceRef.current.update();
+  }, [testimonials, testimonialInstanceRef]);
+
+  useEffect(() => {
+    if (blogInstanceRef.current) blogInstanceRef.current.update();
+  }, [mergedData, blogInstanceRef]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopTestimonialAutoplay();
+      stopBlogAutoplay();
+    };
+  }, [stopTestimonialAutoplay, stopBlogAutoplay]);
 
   // API Functions
   const fetchBlogs = useCallback(
@@ -307,8 +336,6 @@ const StudyInUk = ({
     setMergedData(merged);
   }, [blogData, articleres]);
 
-  console.log(articleres,'blog',blogData,mergedData)
-
   useEffect(() => {
     getAllTestimonial("spokenEnglish");
   }, [getAllTestimonial]);
@@ -325,6 +352,12 @@ const StudyInUk = ({
       setForm(member.member || []);
     }
   }, [member, videoStudednt]);
+
+  // Navigation handlers
+  const goToPrevTestimonial = () => testimonialInstanceRef.current?.prev();
+  const goToNextTestimonial = () => testimonialInstanceRef.current?.next();
+  const goToPrevBlog = () => blogInstanceRef.current?.prev();
+  const goToNextBlog = () => blogInstanceRef.current?.next();
 
   // Render Helper for Blog Card
   const renderBlogCard = (blog: BlogArticle, index: number) => {
@@ -348,7 +381,9 @@ const StudyInUk = ({
         className="keen-slider__slide min-w-0 cursor-pointer p-3"
         onClick={() => {
           if (slug !== "#") {
-            router.push(slug);
+            if (typeof window !== "undefined") {
+              window.open(slug, "_blank", "noopener,noreferrer");
+            }
           }
         }}
       >
@@ -358,9 +393,8 @@ const StudyInUk = ({
               src={imageUrl}
               alt={title}
               fill
-              className="w-full object-cover object-top transition-transform duration-500 hover:scale-105"
+              className="w-full object-fit object-top transition-transform duration-500 hover:scale-105"
               loading="lazy"
-              // sizes="(max-width: 1024px) 100vw, 33vw"
             />
           </div>
           <div className="flex flex-1 flex-col p-4">
@@ -407,7 +441,7 @@ const StudyInUk = ({
               src={imageUrl}
               alt={blog?.blogTitle || blog?.title || "Blog"}
               fill
-              className="object-cover w-full object-top"
+              className="object-contain w-full object-top"
               loading="lazy"
               sizes="(max-width: 640px) 100vw, 50vw"
             />
@@ -544,7 +578,7 @@ const StudyInUk = ({
       <UKScholarships content={content} />
       <ProcessRoadmap />
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section with Arrows */}
       <section className="py-12 bg-gray-300 relative">
         <div className="absolute inset-0 z-0">
           <Image
@@ -597,6 +631,22 @@ const StudyInUk = ({
                   </div>
                 ))}
               </div>
+
+              {/* Arrow buttons for testimonials */}
+              <button
+                onClick={goToPrevTestimonial}
+                className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md transition"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={goToNextTestimonial}
+                className="hidden md:block absolute -right-14 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md transition"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
             </div>
           )}
         </div>
@@ -640,7 +690,7 @@ const StudyInUk = ({
         </div>
       </section>
 
-      {/* Blog Section */}
+      {/* Blog Section with Arrows */}
       <section className="py-8 sm:py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 lg:mb-10 xl:mb-12 gap-3 sm:gap-4">
@@ -657,17 +707,36 @@ const StudyInUk = ({
             </button>
           </div>
 
-          <div className="w-full min-w-0 max-w-full overflow-hidden">
+          <div className="w-full min-w-0 max-w-full ">
             {mergedData.length > 0 ? (
               <>
-                {/* Desktop Blog Slider */}
-                <div
-                  className=" hidden w-full min-w-0 max-w-full overflow-hidden lg:flex"
-                >
-                  
+                <div className="relative group">
+                  <div
+                    ref={blogSliderRef}
+                    className="keen-slider hidden md:flex"
+                    onMouseEnter={stopBlogAutoplay}
+                    onMouseLeave={() => {
+                      if (autoPlay) startBlogAutoplay();
+                    }}
+                  >
+                    {mergedData.map((blog, index) => renderBlogCard(blog, index))}
+                  </div>
 
-                  <BlogNew blog={mergedData} layout="slider" />
-
+                  {/* Arrow buttons for blog slider (desktop) */}
+                  <button
+                    onClick={goToPrevBlog}
+                    className="hidden md:block absolute -left-10 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black text-white rounded-full p-2 shadow-md transition"
+                    aria-label="Previous blog"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={goToNextBlog}
+                    className="hidden md:block absolute -right-10 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black text-white rounded-full p-2 shadow-md transition"
+                    aria-label="Next blog"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
                 </div>
 
                 {/* Mobile/Tablet Grid View */}
@@ -709,8 +778,6 @@ const StudyInUk = ({
 };
 
 export default StudyInUk;
-
-
 
 
 
@@ -766,6 +833,8 @@ export default StudyInUk;
 //     ),
 //   );
 // };
+
+
 // const StudyInUk = ({
 //   content,
 //   country,
@@ -1248,6 +1317,7 @@ export default StudyInUk;
 //               <>
                
 //                {/* Desktop Blog Slider - Visible only on large screens */}
+           
 // <div
 //   ref={sliderRef}
 //   className="keen-slider hidden w-full min-w-0 max-w-full overflow-hidden lg:flex"
@@ -1281,7 +1351,7 @@ export default StudyInUk;
 //       >
 //         <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-//           {/* Image */}
+        
 //           <div className="relative h-48 w-full shrink-0 overflow-hidden bg-gray-100 xl:h-52">
 //             <Image
 //               src={imageUrl}
@@ -1293,20 +1363,20 @@ export default StudyInUk;
 //             />
 //           </div>
 
-//           {/* Content */}
+          
 //           <div className="flex flex-1 flex-col p-4">
 
-//             {/* Date */}
+          
 //             <div className="mb-2 flex items-center gap-2 text-xs text-gray-500">
 //               <span>{formatDate((blog as BlogArticle)?.createdAt)}</span>
 //             </div>
 
-//             {/* Title */}
+
 //             <h3 className="mb-2 line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition-colors duration-300 hover:text-red-600">
 //               {title}
 //             </h3>
 
-//             {/* Description */}
+
 //             <div
 //               className="line-clamp-2 text-sm leading-6 text-gray-600"
 //               dangerouslySetInnerHTML={sanitizedData(
