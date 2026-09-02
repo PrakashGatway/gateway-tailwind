@@ -53,6 +53,7 @@ import LandingPage from "../home/ctaSection";
 import FAQSection from "../home/FaqSection";
 import { Html } from "next/document";
 import { TopUKUniversities } from "../ukpageComponent/whyStudyin";
+import { useRouter } from "next/navigation";
 
 const StudyAbroadPage = ({ content, faq, slug }: any) => {
   if (!content) {
@@ -76,6 +77,8 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
     { icon: "", value: "FREE", label: "First Counselling Session" },
     { icon: "", value: "16 Yrs", label: "In Business Since 2008" },
   ];
+
+  const Router = useRouter();
 
   return (
     <>
@@ -203,6 +206,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             }
           }
         `}</style>
+
       </div>
 
       <EnhancedMultiStepForm />
@@ -229,9 +233,8 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             dangerouslySetInnerHTML={{
               __html: getContentByType("whychooseus")?.subTitle,
             }}
-          ></p>
+          />
 
-          {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
             {/* Loop through features */}
             {getContentByType("whychooseus")?.cards &&
@@ -241,19 +244,19 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                   <div
                     key={item._id}
                     className="
-    relative bg-[#F7F4EE] rounded-xl md:rounded-2xl p-5 md:p-6 
-    shadow-sm transition-all duration-300
-    hover:shadow-md hover:-translate-y-1
+                      relative bg-[#F7F4EE] rounded-xl md:rounded-2xl p-5 md:p-6 
+                      shadow-sm transition-all duration-300
+                      hover:shadow-md hover:-translate-y-1
 
-    /* Bottom line */
-    after:absolute after:left-0 after:bottom-0
-    after:h-[3px] after:w-0
-    after:bg-[#D81635]
-    after:transition-all after:duration-300
-    after:rounded-b-xl
+                      /* Bottom line */
+                      after:absolute after:left-0 after:bottom-0
+                      after:h-[3px] after:w-0
+                      after:bg-[#D81635]
+                      after:transition-all after:duration-300
+                      after:rounded-b-xl
 
-    hover:after:w-full
-  "
+                      hover:after:w-full
+                    "
                   >
                     {/* Background Number */}
                     <span className="absolute top-3 right-4 md:top-4 md:right-6 text-4xl md:text-5xl font-bold text-[#E7E9E1]">
@@ -276,7 +279,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                       dangerouslySetInnerHTML={{
                         __html: item?.description,
                       }}
-                    ></p>
+                    />
                   </div>
                 );
               })}
@@ -302,7 +305,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
               dangerouslySetInnerHTML={{
                 __html: getContentByType("servicesection")?.subtitle,
               }}
-            ></p>
+            />
           </div>
 
           {/* Grid */}
@@ -332,7 +335,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                         dangerouslySetInnerHTML={{
                           __html: item.subtitle,
                         }}
-                      ></p>
+                      />
 
                       <a
                         href="#lead-form"
@@ -422,7 +425,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                         dangerouslySetInnerHTML={{
                           __html: loc.description,
                         }}
-                      ></p>
+                      />
                     </motion.div>
                   </Link>
                 );
@@ -441,8 +444,8 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
               className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("citysection")?.sectiondescription,
-              }}
-            ></p>
+              }} />
+              
           </motion.div>
         </div>
       </section>
@@ -458,40 +461,38 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
       <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
 
         {/* Heading */}
-        <h1 className="max-w-5xl text-[32px] font-bold leading-[1.2] text-[#dc2626] sm:text-[40px] md:text-[46px] lg:text-[48px]">
-          Study Abroad in {slug} – Visit Gateway
+        <h2 className="max-w-5xl text-[32px] font-bold leading-[1.2] text-[#dc2626] sm:text-[40px] md:text-[46px] lg:text-[48px]"
+        dangerouslySetInnerHTML={{__html : getContentByType("Banner")?.title || `Study Abroad in {slug} – Visit Gateway
           <br className="hidden sm:block" />
           Abroad Today!
-        </h1>
+        `}}
+        />
+        
 
         {/* Description */}
-        <p className="mt-6 max-w-5xl text-[18px] font-medium leading-[1.6] text-[#374151] sm:text-[20px] md:text-[22px]">
-          Get expert guidance for{" "}
+        <p className="mt-6 max-w-5xl text-[18px] font-medium leading-[1.6] text-[#374151] sm:text-[20px] md:text-[22px]"
+          dangerouslySetInnerHTML={{__html : getContentByType('Banner')?.content || `Get expert guidance for{" "}
           <strong>Study Abroad Admissions, Student Visa, IELTS/PTE Coaching,</strong>
           <br className="hidden md:block" />
-          and top universities worldwide.
-        </p>
-
-        {/* Countries / Services */}
-        <p className="mt-5 text-[14px] font-medium leading-7 text-[#6b7280] sm:text-[16px] md:text-[17px]">
-          UK • Canada • Australia • USA • Germany | IELTS • PTE • TOEFL |
-          Scholarships & Visa Assistance in {slug}
-        </p>
-
+          and top universities worldwide.`}}
+        />
+          
         {/* Buttons */}
         <div className="mt-7 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
 
           {/* Consultation Button */}
           <button
             type="button"
+            onClick={() => Router.push(getContentByType('Banner')?.url || '#') }
             className="w-full rounded-full bg-[#f04444] px-9 py-4 text-[17px] font-bold text-white shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#dc3838] hover:shadow-[0_12px_25px_rgba(0,0,0,0.18)] sm:w-auto"
           >
-            Book a Free Consultation
+            {getContentByType('Banner')?.buttonText || "Book a Free Consultation"}
           </button>
 
           {/* Expert Button */}
           <button
             type="button"
+            onClick={() => Router.push('/contact')}
             className="flex w-full items-center justify-center gap-3 rounded-full bg-[#e7e8ff] px-9 py-4 text-[17px] font-bold text-[#111827] shadow-[0_8px_20px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#dedfff] hover:shadow-[0_12px_25px_rgba(0,0,0,0.16)] sm:w-auto"
           >
             <Icons.Phone
