@@ -341,7 +341,6 @@ html {
 /* Gradient backgrounds */
 .hero-gradient {
   background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fef3c7 100%);
-  position: relative;
 }
 
 .header-gradient {
