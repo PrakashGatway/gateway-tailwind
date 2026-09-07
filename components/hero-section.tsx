@@ -12,7 +12,7 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
 
 
   return (
-    <section className="hero-gradient  py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
+    <section className=" bg-[#f3e8ff] py-12 flex items-center relative overflow-hidden w-full"> {/* Full width background */}
       {/* Animated background elements */}
       {/* <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-28 left-10 w-4 h-4 bg-red-500 rounded-full animate-bounce-slow"></div>
