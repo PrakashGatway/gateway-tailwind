@@ -339,7 +339,7 @@ html {
 }
 
 /* Gradient backgrounds */
-.hero-gradient {
+/* .hero-gradient {
   background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fef3c7 100%);
 }
 
@@ -349,6 +349,18 @@ html {
 
 [data-theme="dark"] .hero-gradient {
   background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1f2937 100%);
+} */
+
+.hero-gradient {
+  background-color: #f3e8ff;
+}
+
+.header-gradient {
+  background-color: #f3e8ff;
+}
+
+[data-theme="dark"] .hero-gradient {
+  background-color: #f3e8ff;
 }
 
 /* .hero-gradient::before {
