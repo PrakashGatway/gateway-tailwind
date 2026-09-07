@@ -71,7 +71,7 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
     <div>
 
       {/* ====== Hero Section ====== */}
-      <section className="hero-gradient">
+      <section className="bg-[#f3e8ff]">
         <div className="px-4 min-h-[40vh] max-w-7xl mx-auto">
           <div className="text-center mx-auto max-w-4xl pt-32 pb-8">
             <h1 className="text-3xl lg:text-[2.6rem] font-bold text-gray-900 mb-6">

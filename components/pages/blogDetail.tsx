@@ -164,7 +164,7 @@ export default function SingleBlogPage({
     <>
       <div>
         {/* Hero Section with New Design */}
-        <section className="hero-gradient py-8 relative z-1">
+        <section className="bg-[#f3e8ff] py-8 relative z-1">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4 relative z-10">

@@ -275,7 +275,7 @@ const Blog = () => {
 
   return (
     <>
-      <section className="hero-gradient py-12 md:py-20">
+      <section className="bg-[#f3e8ff] py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="lg:w-1/2 text-center lg:text-left">

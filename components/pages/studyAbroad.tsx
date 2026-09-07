@@ -288,7 +288,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
       </section>
       {/* <CardLayout content={getContentByType('WhyChooseUs')} /> */}
 
-      <section id="services" className="hero-gradient">
+      <section id="services" className="bg-[#f3e8ff]">
         <div className="max-w-7xl mx-auto px-4 py-12 md:py-12">
           {/* Heading */}
           <div className="text-center">

@@ -253,7 +253,7 @@ const handleGetStarted = () => {
   return (
     <div>
   {/* Hero Section with responsive fixes */}
-<section className="hero-gradient min-h-screen py-12 md:py-20 relative overflow-hidden">
+<section className="bg-[#f3e8ff] min-h-screen py-12 md:py-20 relative overflow-hidden">
  
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">

@@ -350,7 +350,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
   return (
     <div>
       {/* Hero Section */}
-      <section className="hero-gradient min-h-screen py-12 md:py-20 relative overflow-hidden">
+      <section className="bg-[#f3e8ff] min-h-screen py-12 md:py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
             <div className="space-y-4 md:space-y-6 text-center lg:text-left">

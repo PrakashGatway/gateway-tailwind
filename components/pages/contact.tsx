@@ -107,7 +107,7 @@ function Contact({
   return (
     <div>
       {/* Hero Section */}
-      <section className="hero-gradient pt-[25px]">
+      <section className="bg-[#f3e8ff] pt-[25px]">
         <div className="min-h-[40vh] flex items-center">
           <div className="max-w-7xl mx-auto px-4 w-full text-center py-16">
             <h1 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">

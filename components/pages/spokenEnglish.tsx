@@ -113,7 +113,7 @@ function SpokenEnglish({spokenEnglish: spokenEnglishDetails}:any) {
     return (
         <div>
             {/* Hero Section */}
-            <section className="hero-gradient py-16 md:py-20 relative overflow-hidden">
+            <section className="bg-[#f3e8ff] py-16 md:py-20 relative overflow-hidden">
 
 
                 <div className="max-w-7xl mx-auto px-4 relative z-10">
