@@ -576,7 +576,7 @@ const StudyInUk = ({
       <UKUniversityIntakes content={content} />
       <GatewayAbroadProcess content={content} country={country} />
       <UKScholarships content={content} />
-      <ProcessRoadmap />
+      {/* <ProcessRoadmap /> */}
 
       {/* Testimonials Section with Arrows */}
       <section className="py-12 bg-gray-300 relative">
