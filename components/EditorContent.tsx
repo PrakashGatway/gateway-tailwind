@@ -71,94 +71,124 @@ const EditorContent = ({ content_data }: EditorContentProps) => {
 
   return (
     <>
-      <style>{`
-        .blog-html {
-          line-height: 1.7;
-        }
+          <style>{`
+   .blog-html table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 24px 0;
+  font-size: 15px;
+  overflow: hidden;
+  border: 1px solid #f1c4ca;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(214, 31, 62, 0.08);
+}
 
-        .blog-html table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 20px 0;
-          font-size: 15px;
-          table-layout: fixed;
-        }
+.blog-html th,
+.blog-html td {
+  padding: 4px 10px;
+  text-align: left;
+  vertical-align: top;
+  border-right: 1px solid #f4d9dd;
+  border-bottom: 1px solid #f4d9dd;
+}
 
-        .blog-html figure.table {
-          overflow-x: auto;
-          margin: 20px 0;
-        }
+.blog-html th {
+  background: #fdecef;
+  color: #a81730;
+  font-weight: 600;
+  border-bottom: 2px solid #f3c1c9;
+}
 
-        
-        .blog-html td {
-          padding: 12px;
-          border: 1px solid #e5e7eb;
-          word-break: break-word;
-          vertical-align: top;
-        }
+.blog-html td {
+  color: #374151;
+  background: #ffffff;
+}
 
-        .blog-html thead th {
-          background: #d61536;
-          color: white;
-          font-weight: 600;
-          text-align: center;
-        }
+.blog-html tr:nth-child(even) td {
+  background: #fff8f9;
+}
 
-        .blog-html tr:nth-child(even) {
-          background-color: #f3ebeb;
-        }
+.blog-html tr:hover td {
+  background: #fcecef;
+}
 
-        .blog-html h2 {
+/* Remove last borders */
+.blog-html tr:last-child td {
+  border-bottom: none;
+}
+
+.blog-html th:last-child,
+.blog-html td:last-child {
+  border-right: none;
+}
+      .blog-html * a {
+    text-decoration: none;
+    color : blue
+}
+
+    .blog-html th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .blog-html tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    .blog-html h2 span,
+          .blog-html h2 strong,
+          .blog-html h2 {
           font-size: 26px;
           margin: 28px 0 12px;
           font-weight: 700;
           color: #00306a;
         }
 
-        .blog-html h3 {
-          font-size: 20px;
-          margin: 22px 0 10px;
-          font-weight: 600;
-          color: #00306a;
-        }
+    .blog-html h3 {
+      font-size: 20px;
+      margin: 22px 0 10px;
+      font-weight: 600;
+    }
 
-        .blog-html h4 {
-          font-size: 18px;
-          margin: 18px 0 8px;
-          font-weight: 600;
-        }
+    .blog-html h4 {
+      font-size: 18px;
+      margin: 18px 0 8px;
+      font-weight: 600;
+    }
 
-        .blog-html a {
-          color: #240dbd;
-        }
+    .blog-html p {
+      margin: 12px 0;
+      line-height: 1.8;
+    }
 
-        .blog-html p {
-          line-height: 1.8;
-          margin-bottom: 1rem;
-        }
+    .blog-html ul {
+      margin-left: 22px;
+      list-style: disc;
+    }
 
-        .blog-html ul {
-          margin-left: 22px;
-          list-style: disc;
-        }
+    .blog-html ol {
+      margin-left: 22px;
+      list-style: decimal;
+    }
 
-        .blog-html ol {
-          margin-left: 22px;
-          list-style: decimal;
-        }
+    .blog-html li {
+      margin: 6px 0;
+    }
 
-        .blog-html li {
-          margin: 6px 0;
-        }
+    .blog-html figure.table {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
 
-        .blog-html strong {
-          font-weight: 600;
-        }
-
-        html {
-          scroll-behavior: smooth;
-        }
-      `}</style>
+    .blog-html strong {
+      font-weight: 600;
+    }
+      html {
+      scroll-behavior: smooth;
+    }
+  `}</style>
 
       {content_data && (
         <div
