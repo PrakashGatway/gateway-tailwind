@@ -10,19 +10,21 @@ const pageContentPromise = async ({ slug }) => {
     console.error("Error fetching data:", error);
     return null; // or handle the error as needed
   }
-}
+};
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const pageContent = await pageContentPromise({ slug });
 
   return {
-    metadataBase: new URL('https://www.gatewayabroadeducations.com'),
+    metadataBase: new URL("https://www.gatewayabroadeducations.com"),
     title: pageContent?.metaTitle || "Default Study Abroad Title",
-    description: pageContent?.metaDescription || "Default study abroad description.",
+    description:
+      pageContent?.metaDescription || "Default study abroad description.",
     openGraph: {
       title: pageContent?.metaTitle || "Study Abroad",
-      description: pageContent?.metaDescription || "Learn about study abroad programs",
+      description:
+        pageContent?.metaDescription || "Learn about study abroad programs",
       images: [
         {
           url: "img/ga-logo.svg",
@@ -38,6 +40,10 @@ export async function generateMetadata({ params }) {
       description: pageContent.metaDescription,
       images: ["img/ga-logo.svg"],
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
     keywords: pageContent?.keywords || "study abroad, international education",
     alternates: {
       canonical: pageContent.canonicalUrl,
@@ -51,7 +57,6 @@ export default async function StudyAbroad({
 }) {
   const { slug } = await params;
 
-
   const pageContent = await pageContentPromise({
     slug,
   });
@@ -63,11 +68,10 @@ export default async function StudyAbroad({
 
   const faq = await PageServices.getAllFaqForFront(slug);
 
-
   return (
     <>
       {/* Educational Organization Schema */}
-      {(slug == "bangalore" || slug == "jaipur") &&
+      {(slug == "bangalore" || slug == "jaipur") && (
         <script
           id="organization-schema"
           type="application/ld+json"
@@ -93,17 +97,20 @@ export default async function StudyAbroad({
 
               address: {
                 "@type": "PostalAddress",
-                streetAddress: slug == "bangalore" ? "Mahalakshmi Chambers, 29 ,1st floor BHIVE Work space, Mahatma Gandhi Rd, near Trinity Metro Station" : "105A, first floor, Geetanjali Towers Geetanjali Tower, Ajmer Rd, Jai Ambey Colony, Civil Lines",
+                streetAddress:
+                  slug == "bangalore"
+                    ? "Mahalakshmi Chambers, 29 ,1st floor BHIVE Work space, Mahatma Gandhi Rd, near Trinity Metro Station"
+                    : "105A, first floor, Geetanjali Towers Geetanjali Tower, Ajmer Rd, Jai Ambey Colony, Civil Lines",
                 addressLocality: pageContent?.slug,
                 addressRegion: slug == "bangalore" ? "Karnataka" : "Rajasthan",
                 postalCode: slug == "bangalore" ? "560001" : "302006",
-                addressCountry: "IN"
+                addressCountry: "IN",
               },
 
               sameAs: [
                 "https://www.facebook.com/Gatewayabroadjeducation1/",
                 "https://www.instagram.com/gatewayabroadeducation",
-                "https://www.linkedin.com/company/gateway-abroad-jaipur1"
+                "https://www.linkedin.com/company/gateway-abroad-jaipur1",
               ],
 
               aggregateRating: {
@@ -111,85 +118,85 @@ export default async function StudyAbroad({
                 ratingValue: "5",
                 ratingCount: "1599",
                 bestRating: "5",
-                worstRating: "1"
-              }
+                worstRating: "1",
+              },
             }),
           }}
         />
-      }
+      )}
 
-      {(slug == "bangalore" || slug == "jaipur") && <script
-        id="professional-service-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
+      {(slug == "bangalore" || slug == "jaipur") && (
+        <script
+          id="professional-service-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
 
-            "@id": `${pageUrl}#service`,
+              "@id": `${pageUrl}#service`,
 
-            name: "Gateway Abroad Education",
+              name: "Gateway Abroad Education",
 
-            url: pageUrl,
+              url: pageUrl,
 
-            image: logo,
+              image: logo,
 
-            logo: logo,
+              logo: logo,
 
-            telephone: "+91-8302092630",
+              telephone: "+91-8302092630",
 
-            priceRange: "$$",
+              priceRange: "$$",
 
-            parentOrganization: {
-              "@id": `${pageUrl}#organization`
-            },
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: slug == "bangalore" ? "Mahalakshmi Chambers, 29 ,1st floor BHIVE Work space, Mahatma Gandhi Rd, near Trinity Metro Station" : "105A, first floor, Geetanjali Towers Geetanjali Tower, Ajmer Rd, Jai Ambey Colony, Civil Lines",
-              addressLocality: pageContent?.slug,
-              addressRegion: slug == "bangalore" ? "Karnataka" : "Rajasthan",
-              postalCode: slug == "bangalore" ? "560001" : "302006",
-              addressCountry: "IN"
-            },
-            // geo: {
-            //   "@type": "GeoCoordinates",
+              parentOrganization: {
+                "@id": `${pageUrl}#organization`,
+              },
+              address: {
+                "@type": "PostalAddress",
+                streetAddress:
+                  slug == "bangalore"
+                    ? "Mahalakshmi Chambers, 29 ,1st floor BHIVE Work space, Mahatma Gandhi Rd, near Trinity Metro Station"
+                    : "105A, first floor, Geetanjali Towers Geetanjali Tower, Ajmer Rd, Jai Ambey Colony, Civil Lines",
+                addressLocality: pageContent?.slug,
+                addressRegion: slug == "bangalore" ? "Karnataka" : "Rajasthan",
+                postalCode: slug == "bangalore" ? "560001" : "302006",
+                addressCountry: "IN",
+              },
+              // geo: {
+              //   "@type": "GeoCoordinates",
 
-            //   latitude: pageContent?.latitude,
+              //   latitude: pageContent?.latitude,
 
-            //   longitude: pageContent?.longitude
-            // },
+              //   longitude: pageContent?.longitude
+              // },
 
-            openingHoursSpecification: [
-              {
-                "@type": "OpeningHoursSpecification",
-                dayOfWeek: [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday"
-                ],
-                opens: "09:00",
-                closes: "18:00"
-              }
-            ],
+              openingHoursSpecification: [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                  ],
+                  opens: "09:00",
+                  closes: "18:00",
+                },
+              ],
 
-            sameAs: [
-              "https://www.facebook.com/Gatewayabroadjeducation1/",
-              "https://www.instagram.com/gatewayabroadeducation",
-              "https://www.linkedin.com/company/gateway-abroad-jaipur1"
-            ]
-          }),
-        }}
-      />
-      }
+              sameAs: [
+                "https://www.facebook.com/Gatewayabroadjeducation1/",
+                "https://www.instagram.com/gatewayabroadeducation",
+                "https://www.linkedin.com/company/gateway-abroad-jaipur1",
+              ],
+            }),
+          }}
+        />
+      )}
 
-      <StudyAbroadPage
-        content={pageContent}
-        faq={faq}
-        slug={slug}
-      />
+      <StudyAbroadPage content={pageContent} faq={faq} slug={slug} />
     </>
   );
 }

@@ -26,15 +26,6 @@ import UniversitySliderClient from "../universityslider";
 import DestinationsSection from "./DestinationSection";
 import StudyAbroadProcess from "../studyAbroadprocess";
 import StudentScoresSection from "./studentScoreSection";
-import TestimonialsSection from "./testimonialSection";
-import {
-  Building2,
-  GraduationCap,
-  Landmark,
-  MapPin,
-  Monitor,
-  Sun,
-} from "lucide-react";
 import * as Icons from "lucide-react";
 import ctasection from "./ctaSection";
 import LandingPage from "./ctaSection";
@@ -206,7 +197,7 @@ function Index({
       tag: "2–3 Months Before Travel",
       title: "Student Visa Application (Tier 4 / Student Route)",
       description:
-        "We prepare your complete visa package — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock visa interview preparation.",
+        "We prepare your complete — CAS, bank statements, IHS payment, DS-160 equivalent documents — and conduct mock interview preparation.",
       icon: "🛂",
       color: "bg-blue-500",
     },
@@ -1243,10 +1234,7 @@ function Index({
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                       500+ Students Placed in UK
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                      96% Visa Success Rate
-                    </li>
+                   
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                       Russell Group Specialists

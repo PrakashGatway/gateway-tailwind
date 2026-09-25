@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { cache } from 'react';
-import { notFound } from 'next/navigation';
-import Script from 'next/script';
-import CourseClient from '@/components/CoursePage';
-import { serverInstance } from '@/services/axiosInstance';
-import PageServices from '@/services/PageServices';
+import { Metadata } from "next";
+import { cache } from "react";
+import { notFound } from "next/navigation";
+import Script from "next/script";
+import CourseClient from "@/components/CoursePage";
+import { serverInstance } from "@/services/axiosInstance";
+import PageServices from "@/services/PageServices";
 
 interface PageProps {
   params: Promise<{ slug: string[] | string }>;
@@ -22,9 +22,9 @@ interface SchemaData {
   product: Record<string, any>;
 }
 
-const BASE_URL = 'https://www.gatewayabroadeducations.com';
-const API_BASE_URL = 'https://uat.gatewayabroadeducations.com';
-const DEFAULT_COURSE = 'sat';
+const BASE_URL = "https://www.gatewayabroadeducations.com";
+const API_BASE_URL = "https://uat.gatewayabroadeducations.com";
+const DEFAULT_COURSE = "sat";
 
 const getLastSlug = (slug: string[] | string): string => {
   if (Array.isArray(slug)) {
@@ -35,44 +35,44 @@ const getLastSlug = (slug: string[] | string): string => {
 
 const formatSlugForDisplay = (slug: string): string => {
   return slug
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 };
 
 const generateBreadcrumbItems = (slugs: string[] | string, pageData: any) => {
   const items = [];
-  
+
   items.push({
-    '@type': 'ListItem',
+    "@type": "ListItem",
     position: 1,
-    name: 'Home',
-    item: BASE_URL
+    name: "Home",
+    item: BASE_URL,
   });
 
   let slugArray: string[] = [];
-  
+
   if (Array.isArray(slugs)) {
     slugArray = slugs;
   } else if (slugs) {
     slugArray = [slugs];
   }
 
-  let currentPath = '';
+  let currentPath = "";
   slugArray.forEach((slug, index) => {
     currentPath += `/${slug}`;
-    
+
     let displayName = formatSlugForDisplay(slug);
-    
+
     if (index === slugArray.length - 1 && pageData) {
       displayName = pageData.title || pageData.metaTitle || displayName;
     }
-    
+
     items.push({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 2,
       name: displayName,
-      item: `${BASE_URL}${currentPath}`
+      item: `${BASE_URL}${currentPath}`,
     });
   });
 
@@ -81,7 +81,9 @@ const generateBreadcrumbItems = (slugs: string[] | string, pageData: any) => {
 
 const getBaseCourseData = cache(async (course: string) => {
   try {
-    const response = await serverInstance.get(`/page/${course}?type=course_page`);
+    const response = await serverInstance.get(
+      `/page/${course}?type=course_page`,
+    );
     return response?.data?.data || null;
   } catch (error) {
     console.error(`Error fetching base course data for ${course}:`, error);
@@ -89,19 +91,26 @@ const getBaseCourseData = cache(async (course: string) => {
   }
 });
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const course = getLastSlug(slug).toLowerCase();
 
   const data = await getBaseCourseData(course);
 
   if (data) {
-    const title = data.metaTitle || data.title || `${course.toUpperCase()} Preparation`;
-    const description = data.metaDescription || data.subTitle || `Best ${course} preparation course`;
-    const keywords = data.keywords?.join(', ') || `${course}, preparation, course`;
-    const baseUrl = `${BASE_URL}/${Array.isArray(slug) ? slug.join('/') : slug}`;
-    const imageUrl = data.pageContent?.heroImage 
-      ? `${API_BASE_URL}/uploads/${data.pageContent.heroImage}` 
+    const title =
+      data.metaTitle || data.title || `${course.toUpperCase()} Preparation`;
+    const description =
+      data.metaDescription ||
+      data.subTitle ||
+      `Best ${course} preparation course`;
+    const keywords =
+      data.keywords?.join(", ") || `${course}, preparation, course`;
+    const baseUrl = `${BASE_URL}/${Array.isArray(slug) ? slug.join("/") : slug}`;
+    const imageUrl = data.pageContent?.heroImage
+      ? `${API_BASE_URL}/uploads/${data.pageContent.heroImage}`
       : null;
 
     return {
@@ -111,12 +120,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title,
         description,
-        type: 'website',
+        type: "website",
         url: baseUrl,
-        images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630, alt: title }] : [],
+        images: imageUrl
+          ? [{ url: imageUrl, width: 1200, height: 630, alt: title }]
+          : [],
       },
       twitter: {
-        card: 'summary_large_image',
+        card: "summary_large_image",
         title,
         description,
         images: imageUrl ? [imageUrl] : [],
@@ -143,99 +154,122 @@ async function fetchAllCourseData(course: string): Promise<CourseData> {
   const pageName = pageData.title || pageData.pageName || course;
 
   try {
-    const [faqResponse, testimonialResponse, sliderResponse] = await Promise.all([
-      PageServices.getAllFaqForFront(pageName).catch(() => ({ status: 'error', data: { faq: [] } })),
-      PageServices.getTestimonialByCat(pageName).catch(() => ({ status: 'error', data: { testimonial: [] } })),
-      PageServices.getStudent().catch(() => ({ data: { media: [] } }))
-    ]);
+    const [faqResponse, testimonialResponse, sliderResponse] =
+      await Promise.all([
+        serverInstance
+          .get(`web/faq?page=1&limit=50&category=${course}`)
+          .catch(() => ({ status: "error", data: { faq: [] } })),
+        PageServices.getTestimonialByCat(pageName).catch(() => ({
+          status: "error",
+          data: { testimonial: [] },
+        })),
+        PageServices.getStudent().catch(() => ({ data: { media: [] } })),
+      ]);
+
+    console.log("djfkdjkfkj", course);
 
     return {
       pageData,
-      faqData: faqResponse?.status === 'success' ? faqResponse.data || [] : [],
-      testimonials: testimonialResponse?.status === 'success' ? testimonialResponse.data.testimonial || [] : [],
-      sliderData: sliderResponse?.data?.media || []
+      faqData: faqResponse.data || [],
+      testimonials:
+        testimonialResponse?.status === "success"
+          ? testimonialResponse.data.testimonial || []
+          : [],
+      sliderData: sliderResponse?.data?.media || [],
     };
   } catch (error) {
-    console.error('Error fetching supplementary course data:', error);
+    console.error("Error fetching supplementary course data:", error);
     return { pageData, faqData: [], testimonials: [], sliderData: [] };
   }
 }
 
-const generateProductSchema = (pageData: any, course: string, currentUrl: string) => {
+const generateProductSchema = (
+  pageData: any,
+  course: string,
+  currentUrl: string,
+) => {
   const courseUpper = course?.toUpperCase();
-  
-  const name = pageData.title || pageData.metaTitle || `${courseUpper} Coaching Class`;
-  const description = pageData.metaDescription || pageData.subTitle || `Best ${course} preparation course at Gateway Abroad`;
-  
-  const image = pageData.pageContent?.heroImage 
+
+  const name =
+    pageData.title || pageData.metaTitle || `${courseUpper} Coaching Class`;
+  const description =
+    pageData.metaDescription ||
+    pageData.subTitle ||
+    `Best ${course} preparation course at Gateway Abroad`;
+
+  const image = pageData.pageContent?.heroImage
     ? `${API_BASE_URL}/uploads/${pageData.pageContent.heroImage}`
     : `${BASE_URL}/img/ga-logo.svg`;
 
   const keywords = pageData.keywords || [course];
 
   return {
-    '@context': 'https://schema.org/',
-    '@type': 'Product',
+    "@context": "https://schema.org/",
+    "@type": "Product",
     name: name,
     image: image,
     description: description,
     brand: {
-      '@type': 'Brand',
-      name: 'Gateway Abroad Education'
+      "@type": "Brand",
+      name: "Gateway Abroad Education",
     },
     offers: {
-      '@type': 'AggregateOffer',
+      "@type": "AggregateOffer",
       url: currentUrl,
-      priceCurrency: 'INR',
-      lowPrice: pageData.priceRange?.low || '5000',
-      highPrice: pageData.priceRange?.high || '19000',
-      offerCount: pageData.offerCount || '20'
+      priceCurrency: "INR",
+      lowPrice: pageData.priceRange?.low || "5000",
+      highPrice: pageData.priceRange?.high || "19000",
+      offerCount: pageData.offerCount || "20",
     },
     aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: pageData.rating?.value || '5',
-      bestRating: '5',
-      worstRating: '1',
-      ratingCount: pageData.rating?.count || '1000'
+      "@type": "AggregateRating",
+      ratingValue: pageData.rating?.value || "5",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: pageData.rating?.count || "1000",
     },
-    keywords: Array.isArray(keywords) ? keywords.join(', ') : keywords
+    keywords: Array.isArray(keywords) ? keywords.join(", ") : keywords,
   };
 };
 
-const getCourseSchema = (pageData: any, slugs: string[] | string): SchemaData => {
-  const fullPath = Array.isArray(slugs) ? slugs.join('/') : slugs;
+const getCourseSchema = (
+  pageData: any,
+  slugs: string[] | string,
+): SchemaData => {
+  const fullPath = Array.isArray(slugs) ? slugs.join("/") : slugs;
   const currentUrl = `${BASE_URL}/${fullPath}`;
-  
+
   const course = getLastSlug(slugs);
   const breadcrumbItems = generateBreadcrumbItems(slugs, pageData);
   const productSchema = generateProductSchema(pageData, course, currentUrl);
 
   return {
     breadcrumb: {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: breadcrumbItems
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbItems,
     },
-    product: productSchema
+    product: productSchema,
   };
 };
 
 export default async function CoursePage({ params }: PageProps) {
   const { slug } = await params;
-  
+
   if (!slug) {
     notFound();
   }
 
   const course = getLastSlug(slug).toLowerCase();
-  const { pageData, faqData, testimonials, sliderData } = await fetchAllCourseData(course);
-  
+  const { pageData, faqData, testimonials, sliderData } =
+    await fetchAllCourseData(course);
+
   if (!pageData) {
     notFound();
   }
-  
+
   const schema = getCourseSchema(pageData, slug);
-  const pathId = Array.isArray(slug) ? slug.join('-') : slug;
+  const pathId = Array.isArray(slug) ? slug.join("-") : slug;
 
   return (
     <>
@@ -260,24 +294,13 @@ export default async function CoursePage({ params }: PageProps) {
       <CourseClient
         initialData={pageData}
         courseSlug={course}
-        initialFaqData={faqData}
+        initialFaqData={{"faq":faqData.data}}
         initialTestimonials={testimonials}
         initialSliderData={sliderData}
       />
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Metadata } from 'next';
 // import { cache } from 'react'; // 1. Added for Axios deduplication
@@ -389,6 +412,3 @@ export default async function CoursePage({ params }: PageProps) {
 //     />
 //   );
 // }
-
-
-

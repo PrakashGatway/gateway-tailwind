@@ -1,43 +1,44 @@
-import Index from "@/components/home/HomePage"
+import Index from "@/components/home/HomePage";
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
 
-
 export async function generateMetadata() {
-  const seoData = {
-    title: "Gateway Abroad Education | Study Abroad Consultants, Test Prep, Visa Support",
-    description: "Gateway Abroad Education is trusted study abroad consultants, offering expert counseling, test prep, visa support, and admissions to top global universities",
-    keywords: "study abroad, test preparation, visa support, overseas education",
-    ogTitle: "Gateway Abroad Education, Study Abroad and Test Preparation",
-    ogDescription: "Planning to study abroad from India? Gateway Abroad offers expert test prep, visa support & admissions for Canada, UK, USA, Germany & more.",
-    ogImage: "/img/ga-logo.svg",
-    twitterTitle: "Gateway Abroad Education | Study Abroad Consultants in India",
-    twitterDescription: "Complete your overseas education dreams with the best Study Abroad Consultants in India. Higher studies in the USA, UK, Canada, Australia, Dubai.",
-    twitterImage: "/img/ga-logo.svg",
-    canonical: "https://www.gatewayabroadeducations.com"
-  }
+  const response = await serverInstance.get(`/page/home?type=home_page`);
+
+  const pageContent = response.data.data;
 
   return {
-    metadataBase: new URL('https://www.gatewayabroadeducations.com'),
-    title: seoData.title,
-    description: seoData.description,
-    keywords: seoData.keywords,
+    metadataBase: new URL("https://www.gatewayabroadeducations.com"),
+    title: pageContent?.metaTitle || "Default Study Abroad Title",
+    description:
+      pageContent?.metaDescription || "Default study abroad description.",
     openGraph: {
-      title: seoData.ogTitle,
-      description: seoData.ogDescription,
-      images: [seoData.ogImage],
-      url: seoData.canonical,
-      type: "website",
-      site_name: "Gateway Abroad Education",
+      title: pageContent?.metaTitle || "Study Abroad",
+      description:
+        pageContent?.metaDescription || "Learn about study abroad programs",
+      images: [
+        {
+          url: "img/ga-logo.svg",
+          width: 1200,
+          height: 630,
+          alt: pageContent?.metaTitle || "Study Abroad",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: seoData.twitterTitle,
-      description: seoData.twitterDescription,
-      images: [seoData.twitterImage],
+      title: pageContent.metaTitle,
+      description: pageContent.metaDescription,
+      images: ["img/ga-logo.svg"],
     },
-    alternates: { canonical: seoData.canonical },
-    // icons: seoData.icons,
+    robots: {
+      index: true,
+      follow: true,
+    },
+    keywords: pageContent?.keywords || "study abroad, international education",
+    alternates: {
+      canonical: pageContent.canonicalUrl,
+    },
   };
 }
 
@@ -48,39 +49,41 @@ export default async function Home({ slug }) {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": "https://www.gatewayabroadeducations.com/#organization",
-    "name": "Gateway Abroad Education",
-    "url": "https://www.gatewayabroadeducations.com/",
-    "logo": "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
-    "image": "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
-    "telephone": "+91-8302092630",
-    "address": {
+    name: "Gateway Abroad Education",
+    url: "https://www.gatewayabroadeducations.com/",
+    logo: "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
+    image:
+      "https://api.gatewayabroadeducations.com/api/uploads/1766116981292-730003835.jpg",
+    telephone: "+91-8302092630",
+    address: {
       "@type": "PostalAddress",
-      "streetAddress": "105, First Floor, Geetanjali Tower, Ajmer Road, Civil Lines",
-      "addressLocality": "Jaipur",
-      "addressRegion": "Rajasthan",
-      "postalCode": "302006",
-      "addressCountry": "IN"
+      streetAddress:
+        "105, First Floor, Geetanjali Tower, Ajmer Road, Civil Lines",
+      addressLocality: "Jaipur",
+      addressRegion: "Rajasthan",
+      postalCode: "302006",
+      addressCountry: "IN",
     },
-    "openingHoursSpecification": [
+    openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
+        dayOfWeek: [
           "Monday",
           "Tuesday",
           "Wednesday",
           "Thursday",
           "Friday",
-          "Saturday"
+          "Saturday",
         ],
-        "opens": "09:00",
-        "closes": "18:00"
-      }
+        opens: "09:00",
+        closes: "18:00",
+      },
     ],
-    "sameAs": [
+    sameAs: [
       "https://www.facebook.com/Gatewayabroadjeducation1/",
       "https://www.instagram.com/gatewayabroadeducation",
-      "https://www.linkedin.com/company/gateway-abroad-jaipur1"
-    ]
+      "https://www.linkedin.com/company/gateway-abroad-jaipur1",
+    ],
   };
 
   const [
@@ -90,22 +93,32 @@ export default async function Home({ slug }) {
     youtubeVideo,
     studentSlider,
     studentHome,
-    faq
+    faq,
   ] = await Promise.all([
-    PageServices.getAboutPageById().then(res => res?.data || null).catch(() => null),
-    PageServices.getCourse().then(res => res?.data || null).catch(() => null),
-    PageServices.getTestimonial().then(res => res?.data || null).catch(() => null),
-    PageServices.getYoutubeVideo().then(res => res?.data || null).catch(() => null),
-    PageServices.getStudentSlider().then(res => res?.data || null).catch(() => null),
-    PageServices.getStudentHome().then(res => res?.data || null).catch(() => null),
-    PageServices.getAllFaqForFront("home").then(res => res?.data || null).catch(() => null)
+    PageServices.getAboutPageById()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getCourse()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getTestimonial()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getYoutubeVideo()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getStudentSlider()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getStudentHome()
+      .then((res) => res?.data || null)
+      .catch(() => null),
+    PageServices.getAllFaqForFront("home")
+      .then((res) => res?.data || null)
+      .catch(() => null),
   ]);
 
-
   const response = await serverInstance.get(`/page/home?type=home_page`);
-
-
-
 
   return (
     <>
@@ -116,8 +129,8 @@ export default async function Home({ slug }) {
         }}
       />
 
-
-      <Index aboutPage={aboutPage}
+      <Index
+        aboutPage={aboutPage}
         homePage={response?.data?.data}
         course={course}
         testimonials={testimonials}
@@ -129,4 +142,3 @@ export default async function Home({ slug }) {
     </>
   );
 }
-

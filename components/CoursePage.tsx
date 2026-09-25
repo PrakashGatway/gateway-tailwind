@@ -24,6 +24,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import FAQSection from "./home/FaqSection";
+import InnerContent from "./content/InnerContent";
 
 // Constants
 const COURSE_LINKS = {
@@ -98,6 +99,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
   const [isLoading, setIsLoading] = useState(!initialData);
   const [pageData, setPageData] = useState(initialData);
   const [activeTab, setActiveTab] = useState<string | null>(null);
+
 
   // Hooks
   const {
@@ -520,7 +522,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                       <div
                         key={index}
                         className="bg-white rounded-lg shadow-[0_0_20px_5px_rgba(0,0,0,0.1)] p-6 border border-gray-200 
-                        text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] max-w-[300px]"
+                        text-center w-full sm:w-[calc(50%-12px)] lg:w-[calc(30%-18px)] max-w-[400px]"
                       >
                         <div className="flex items-center justify-center mx-auto mb-4">
                           <Image
@@ -535,16 +537,11 @@ const CourseClient: React.FC<CourseClientProps> = ({
                             loading="lazy"
                           />
                         </div>
-                        <h5 className="text-lg font-bold text-gray-900 mb-8">
+                        <h5 className="text-lg font-bold text-gray-900 mb-2">
                           {item.title}
                         </h5>
                         {item.description && (
-                          <div
-                            className="text-black-600 text-justify text-sm"
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
-                            }}
-                          />
+                          <InnerContent cleanedHtml ={item.description} text={'12px'}/>
                         )}
                       </div>
                     ))}
