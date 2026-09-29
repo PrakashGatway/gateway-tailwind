@@ -166,7 +166,6 @@ async function fetchAllCourseData(course: string): Promise<CourseData> {
         PageServices.getStudent().catch(() => ({ data: { media: [] } })),
       ]);
 
-    console.log("djfkdjkfkj", course);
 
     return {
       pageData,

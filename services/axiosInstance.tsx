@@ -48,4 +48,6 @@ axiosInstance.interceptors.response.use(
     }
 );
 
+export const imageBaseUrl = "https://uat.gatewayabroadeducations.com/uploads"
+
 export default axiosInstance;

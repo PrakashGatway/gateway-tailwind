@@ -17,7 +17,7 @@ const FAQSection = ({ content,faq }) => {
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="mb-10 md:mb-14 text-center md:text-left">
+        <div className="mb-10 text-center md:text-left">
           <span className="inline-flex items-center gap-2 bg-red-100 text-[#DC2626] font-semibold text-sm tracking-wider uppercase px-4 py-2 rounded-full border border-red-200 mb-4">
             {content?.label || "Frequently Asked Question"}
           </span>
@@ -28,7 +28,7 @@ const FAQSection = ({ content,faq }) => {
         </div>
 
         {/* FAQ Grid - 2 cols on desktop, 1 col on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {faq?.faq?.map((faq, index) => (
             <div 
               key={index}

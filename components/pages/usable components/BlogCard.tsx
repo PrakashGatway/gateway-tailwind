@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { constant } from "@/constant/index.constant";
+import Link from "next/link";
 
 const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) => {
   // If loading, return skeleton
@@ -40,8 +41,8 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
   });
 
   return (
-    <div
-      onClick={onClick}
+    <Link
+      href={`/blog-description/${blog.Slug}`}
       className="bg-white rounded-2xl cursor-pointer pb-2  transition-all duration-300 transform hover:translate-x hover:border-red-600  overflow-hidden"
     >
       {/* Image Section */}
@@ -82,7 +83,7 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
 
        
       </div>
-    </div>
+    </Link>
   );
 };
 
