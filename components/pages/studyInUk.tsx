@@ -468,6 +468,8 @@ const StudyInUk = ({
   const heroContent = getContentByType("hero");
   const stats = heroContent?.stats || [];
 
+  console.log(content)
+
   return (
     <>
       {/* Hero Section */}
@@ -544,7 +546,7 @@ const StudyInUk = ({
                   onClick={handleGetStarted}
                   className="btn-primary inline-block text-center group"
                 >
-                  <span className="relative z-10">Get Started Today</span>
+                  <span className="relative z-10">{heroContent.title||"Get Started Today"}</span>
                 </button>
               </div>
             </div>
@@ -573,7 +575,7 @@ const StudyInUk = ({
         country={country}
       />
       <UKStudyCosts content={content} country={country} />
-      <UKUniversityIntakes content={content} />
+      <UKUniversityIntakes content={content} country={country} />
       <GatewayAbroadProcess content={content} country={country} />
       <UKScholarships content={content} />
       {/* <ProcessRoadmap /> */}

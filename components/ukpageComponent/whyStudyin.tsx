@@ -7,9 +7,7 @@ import { highlightText } from "../pages/studyInUk";
 import { DynamicIcon } from "../sections/processRoad";
 
 export default function WhyStudyUK({ content, country }) {
-  const handleGetStarted = () => {
-    window.dispatchEvent(new CustomEvent("openFooterModal"));
-  };
+
 
   return (
     <section className="bg-white py-12 px-5">
@@ -28,12 +26,12 @@ export default function WhyStudyUK({ content, country }) {
         </p>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12 ">
           {content?.sections[1]?.content?.Cards &&
             content?.sections[1]?.content?.Cards?.map((reason, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-pink-100 to-amber-50 border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 hover:border-red-200 overflow-hidden"
+                className="group relative bg-gradient-to-br from-pink-100 to-amber-50 border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-black/5 hover:border-red-200 overflow-hidden "
               >
                 <p className="absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-sm py-2">
                   Free Counselling
@@ -56,25 +54,35 @@ export default function WhyStudyUK({ content, country }) {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed xl:h-[90px] overflow-y-auto scrollbar-hide">
                   {reason.content}
                 </p>
               </div>
             ))}
         </div>
         {/* Bottom CTA - Enhanced */}
-        <div
-          className="
+        <Ctabutton country={country} />
+
+      </div>
+    </section>
+  );
+}
+
+export function Ctabutton({ country }) {
+  const handleGetStarted = () => {
+    window.dispatchEvent(new CustomEvent("openFooterModal"));
+  };
+  return (
+    <>
+      <div
+        className="
         group
         flex w-7xl
         items-center
         justify-between
         gap-6
         rounded-[28px]
-        bg-gradient-to-r
-        from-[#C8102E]
-        via-[#D7193F]
-        to-[#B30D28]
+        bg-[#D61636]
         px-6
         py-5
         text-white
@@ -86,13 +94,13 @@ export default function WhyStudyUK({ content, country }) {
         sm:py-6
         lg:px-10
     "
-        >
-          {/* Content */}
-          <div className="min-w-0 flex-1">
-            <button
-              type="button"
-              onClick={handleGetStarted}
-              className="
+      >
+        {/* Content */}
+        <div className="min-w-0 flex-1">
+          <button
+            type="button"
+            onClick={handleGetStarted}
+            className="
                 text-left
                 text-base
                 font-bold
@@ -103,22 +111,22 @@ export default function WhyStudyUK({ content, country }) {
                 sm:text-lg
                 lg:text-xl
             "
-            >
-              Get Matched to the Right{" "}
-              <span className="text-[#FFD6DC]">{country?.toUpperCase()}</span>{" "}
-              University
-            </button>
+          >
+            Get Matched to the Right{" "}
+            <span className="text-[#FFD6DC]">{country?.toUpperCase()}</span>{" "}
+            University
+          </button>
 
-            <p className="mt-1 text-xs text-white/70 sm:text-sm">
-              Discover universities that match your goals and preferences.
-            </p>
-          </div>
+          <p className="mt-1 text-xs text-white/70 sm:text-sm">
+            Discover universities that match your goals and preferences.
+          </p>
+        </div>
 
-          {/* CTA Button */}
-          <button
-            type="button"
-            onClick={handleGetStarted}
-            className="
+        {/* CTA Button */}
+        <button
+          type="button"
+          onClick={handleGetStarted}
+          className="
             flex
             shrink-0
             items-center
@@ -139,31 +147,31 @@ export default function WhyStudyUK({ content, country }) {
             sm:px-6
             sm:py-3.5
         "
-          >
-            Explore
-            <svg
-              className="
+        >
+          Explore
+          <svg
+            className="
                 h-4 w-4
                 transition-transform
                 duration-300
                 group-hover:translate-x-1
             "
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.5"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </button>
-        </div>
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </button>
       </div>
-    </section>
-  );
+
+    </>
+  )
 }
 
 export function TopUKUniversities({ content, country }) {
@@ -193,7 +201,7 @@ export function TopUKUniversities({ content, country }) {
             content?.Cards?.map((uni, index) => (
               <div
                 key={index}
-                className={`group relative bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 overflow-hidden
+                className={`group relative flex flex-col bg-white border border-black/10 border-inner rounded-2xl p-6 transition-all duration-500 overflow-hidden
                 ${hoveredCard === index ? "scale-[1.02] shadow-2xl shadow-[#C9A84C]/10 border-[#C9A84C]/40" : "hover:border-[#C9A84C]/30"}
               `}
                 onMouseEnter={() => setHoveredCard(index)}
@@ -252,7 +260,7 @@ export function TopUKUniversities({ content, country }) {
                                     </span>
                                 ))} */}
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-3 mt-auto">
                   {/* Apply Button */}
                   <button
                     onClick={handleGetStarted}
@@ -281,104 +289,7 @@ export function TopUKUniversities({ content, country }) {
             ))}
         </div>
         {/* Bottom CTA - Enhanced */}
-        <div
-          className="
-        group
-        flex w-7xl
-        items-center
-        justify-between
-        gap-6
-        rounded-[28px]
-        bg-gradient-to-r
-        from-[#C8102E]
-        via-[#D7193F]
-        to-[#B30D28]
-        px-6
-        py-5
-        text-white
-        shadow-[0_12px_30px_rgba(200,16,46,0.22)]
-        transition-all
-        duration-300
-        hover:shadow-[0_16px_40px_rgba(200,16,46,0.30)]
-        sm:px-8
-        sm:py-6
-        lg:px-10
-    "
-        >
-          {/* Content */}
-          <div className="min-w-0 flex-1">
-            <button
-              type="button"
-              onClick={handleGetStarted}
-              className="
-                text-left
-                text-base
-                font-bold
-                leading-snug
-                text-white
-                transition-colors
-                hover:text-white/90
-                sm:text-lg
-                lg:text-xl
-            "
-            >
-              Get Matched to the Right{" "}
-              <span className="text-[#FFD6DC]">{country?.toUpperCase()}</span>{" "}
-              University
-            </button>
-
-            <p className="mt-1 text-xs text-white/70 sm:text-sm">
-              Discover universities that match your goals and preferences.
-            </p>
-          </div>
-
-          {/* CTA Button */}
-          <button
-            type="button"
-            onClick={handleGetStarted}
-            className="
-            flex
-            shrink-0
-            items-center
-            gap-2
-            rounded-full
-            bg-white
-            px-5
-            py-3
-            text-sm
-            font-bold
-            text-[#C8102E]
-            shadow-[0_5px_15px_rgba(0,0,0,0.12)]
-            transition-all
-            duration-300
-            hover:scale-[1.03]
-            hover:bg-[#FFF5F6]
-            active:scale-95
-            sm:px-6
-            sm:py-3.5
-        "
-          >
-            Explore
-            <svg
-              className="
-                h-4 w-4
-                transition-transform
-                duration-300
-                group-hover:translate-x-1
-            "
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.5"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </button>
-        </div>
+      <Ctabutton country={country}/>
       </div>
     </section>
   );
@@ -740,20 +651,18 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
         return (
           <div
             key={index}
-            className={`relative flex gap-4 lg:gap-6 group cursor-pointer transition-all duration-300 ${
-              isActive ? "scale-[1.01]" : ""
-            }`}
+            className={`relative flex gap-4 lg:gap-6 group cursor-pointer transition-all duration-300 ${isActive ? "scale-[1.01]" : ""
+              }`}
             onMouseEnter={() => setActiveStep(index)}
             onMouseLeave={() => setActiveStep(null)}
           >
             {/* Step Icon */}
             <div className="relative z-10 flex-shrink-0">
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${
-                  isActive
+                className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-sm border-4 border-white shadow-lg transition-all duration-300 ${isActive
                     ? stepData.color + " text-white scale-110"
                     : "bg-white text-gray-400 border-gray-200 group-hover:border-red-300"
-                }`}
+                  }`}
               >
                 {stepData.icon}
               </div>
@@ -761,11 +670,10 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
 
             {/* Content Card */}
             <div
-              className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${
-                isActive
+              className={`flex-1 relative bg-white shadow-md border rounded-xl p-5 pt-6 overflow-hidden transition-all duration-300 ${isActive
                   ? "border-red-300 shadow-lg shadow-red-100/50"
                   : "border-gray-200 hover:border-red-200 hover:shadow-md"
-              }`}
+                }`}
             >
               {/* Tag */}
               <span className="absolute top-0 right-0 px-2 py-1 bg-red-600 inline-block text-xs sm:text-[9px] font-bold uppercase text-white rounded-bl-xl">
@@ -774,20 +682,18 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
 
               {/* Title */}
               <h4
-                className={`font-bold text-base lg:text-lg mb-2 ${
-                  isActive
+                className={`font-bold text-base lg:text-lg mb-2 ${isActive
                     ? "text-gray-900"
                     : "text-gray-700 group-hover:text-gray-900"
-                }`}
+                  }`}
               >
                 {stepData.title}
               </h4>
 
               {/* Description */}
               <p
-                className={`text-sm font-medium leading-relaxed ${
-                  isActive ? "text-gray-700" : "text-gray-500"
-                }`}
+                className={`text-sm font-medium leading-relaxed ${isActive ? "text-gray-700" : "text-gray-500"
+                  }`}
               >
                 {stepData.description}
               </p>
@@ -795,9 +701,8 @@ export function ProcessStep({ index, activeStep, setActiveStep, content }) {
 
             {/* Hover Glow */}
             <div
-              className={`absolute inset-0 rounded-xl bg-gradient-to-r ${
-                stepData.color
-              }/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`}
+              className={`absolute inset-0 rounded-xl bg-gradient-to-r ${stepData.color
+                }/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10`}
             />
           </div>
         );
@@ -1228,7 +1133,7 @@ function ScholarshipCard({ content }) {
   );
 }
 
-export function UKUniversityIntakes({ content }) {
+export function UKUniversityIntakes({ content,country }) {
   // Determine grid layout based on number of cards
   const getGridClass = (count) => {
     if (count === 1) return "grid-cols-1 max-w-2xl mx-auto";
@@ -1262,27 +1167,7 @@ export function UKUniversityIntakes({ content }) {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center">
-          <a
-            onClick={handleGetStarted}
-            className="inline-flex items-center text-base gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-lg shadow-red-200 hover:shadow-red-300 hover:-translate-y-1 group"
-          >
-            Get Free Intake Counselling
-            <svg
-              className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.5"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
-        </div>
+       <Ctabutton country={country} />
       </div>
     </section>
   );
@@ -1311,20 +1196,18 @@ function IntakeCard({ content }) {
         return (
           <div
             key={index}
-            className={`group relative bg-white border-2 rounded-2xl p-6 lg:p-8 transition-all duration-500 overflow-hidden hover:-translate-y-2
-            ${
-              intake.isPrimary
+            className={`group flex flex-col h-full relative bg-white border-2 rounded-2xl p-6 lg:p-8 transition-all duration-500 overflow-hidden hover:-translate-y-2
+            ${intake.isPrimary
                 ? "border-red-200 hover:border-red-400 hover:shadow-2xl hover:shadow-red-100/50"
                 : "border-gray-200 hover:border-gray-300 hover:shadow-xl"
-            }
+              }
             `}
           >
             <div
-              className={`absolute inset-0 bg-gradient-to-br ${
-                intake.isPrimary
+              className={`absolute inset-0 bg-gradient-to-br ${intake.isPrimary
                   ? "from-red-50/80 to-amber-50/50"
                   : "from-gray-50/80 to-white/50"
-              } opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                } opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
             />
 
             {/* Badge */}
@@ -1348,7 +1231,8 @@ function IntakeCard({ content }) {
             </ul>
 
             {/* Universities */}
-            <div className="relative z-10 mb-3">
+              <div className="mt-auto">
+            <div className="relative z-10 mb-3 ">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
                 <DynamicIcon name="Building" size={12} />
                 Featured Universities
@@ -1364,13 +1248,15 @@ function IntakeCard({ content }) {
                   </span>
                 ))}
               </div>
+            
+          
             </div>
-
-            <a onClick={handleGetStarted}
-              className="relative z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
+              <a onClick={handleGetStarted}
+              className="relative  z-10 block w-full text-center text-sm bg-red-600 text-white font-bold py-2.5 px-6 rounded-full transition-all duration-300 shadow-lg"
             >
               Apply Now
-            </a>
+            </a></div>
+
 
             <div className={`absolute top-0 left-0 p-2 px-4 rounded-br-2xl flex items-center justify-center font-bold text-sm shadow-lg
             ${intake.isPrimary ? "bg-red-600 text-white" : "bg-gray-200 text-gray-500"}`}
