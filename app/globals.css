@@ -40,11 +40,6 @@
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-a {
-  color:blue;
-  text-decoration: none ;
-}
-
 /* For bullet lists */
 .descp ul {
   list-style: disc !important;
