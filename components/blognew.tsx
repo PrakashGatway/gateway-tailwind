@@ -45,10 +45,14 @@ export default function BlogNew({ blog = [], layout = "grid" }) {
             <div className="relative h-52">
               <Image
                 src={
-                  item.image
-                    ? `https://api.gatewayabroadeducations.com/api/uploads/${item.image}`
-                    : item?.coverImage ? `https://uat.gatewayabroadeducations.com/uploads/${item.coverImage}` : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg"
-                }
+  item.image
+    ? /^https?:\/\//i.test(item.image)
+      ? item.image
+      : `https://api.gatewayabroadeducations.com/api/uploads/${item.image}`
+    : item?.coverImage
+    ? `https://uat.gatewayabroadeducations.com/uploads/${item.coverImage}`
+    : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg"
+}
                 alt={item.blogTitle || item.title}
                 fill
                 className="object-cover object-top"

@@ -268,7 +268,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[#fff] md:bg-[url('/img/footer-bg.webp')] bg-no-repeat bg-cover bg-bottom relative z-10">
+      <footer className="bg-gradient-to-b from-[#fce8eb] via-[#f6a0ad] to-[#ae1b31] relative z-10">
         {pathname?.includes("study-abroad")}
 
         {cityPage.length > 0 && <LocationAvailability cities={cityPage} />}

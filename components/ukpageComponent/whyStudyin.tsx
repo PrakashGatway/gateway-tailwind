@@ -1073,7 +1073,7 @@ function ScholarshipCard({ content }) {
           >
             <div
               key={index}
-              className={`group relative bg-gradient-to-br ${scholarship.bgColor} border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-200/50 hover:border-gray-300 overflow-hidden`}
+              className={`group relative bg-gradient-to-br ${scholarship.bgColor} border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-200/50 hover:border-gray-300 overflow-hidden h-full flex flex-col`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Hover Gradient */}
@@ -1097,7 +1097,7 @@ function ScholarshipCard({ content }) {
               </p>
 
               {/* Amount */}
-              <div className="relative z-10 flex items-center justify-between">
+              <div className="relative z-10 flex items-center justify-between mt-auto">
                 <span
                   className={`inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm ${scholarship.amountColor} font-bold text-sm px-4 py-2 rounded-full border border-gray-200 shadow-sm`}
                 >

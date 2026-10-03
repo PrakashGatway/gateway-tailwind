@@ -112,9 +112,14 @@ export default function EnhancedMultiStepForm() {
         </h3>
 
         {/* Main Form Container */}
-        <div className="bg-pink-100 relative mx-auto w-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/30 overflow-hidden px-4 sm:px-6 lg:px-8 pt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 sm:gap-4 items-center">
-            
+        <div className=" border border-[#d51435] relative mx-auto w-full rounded-xl sm:rounded-2xl lg:rounded-3xl border border-white/30 overflow-hidden px-4 sm:px-6 lg:px-8 pt-6">
+           <div className="absolute top-0 left-0 z-20 hidden xl:bloack">
+  <div className="inline-flex items-center px-5 py-2.5 bg-[#fbbf24] text-gray-900 rounded-tl-3xl rounded-br-3xl shadow-md font-semibold text-lg">
+    Start Your Journey
+  </div>
+</div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 sm:gap-4 items-center relative">
             {/* Form Section - Full width on mobile/tablet, 4 cols on desktop */}
             <div className="lg:col-span-4">
               
@@ -161,7 +166,7 @@ export default function EnhancedMultiStepForm() {
 
               {/* Form Content */}
               <div className="bg-white/0 rounded-xl sm:rounded-2xl p-4 sm:p-6 border-white/0">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-2">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={step}
@@ -290,10 +295,8 @@ export default function EnhancedMultiStepForm() {
 
                       {/* Step 4: Personal Details */}
                       {step === 3 && (
-                        <div className="space-y-4">
-                          <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-4 text-center sm:text-left">
-                            Basic Details
-                          </h2>
+                        <div className="">
+                        
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             {[
                               {
@@ -301,7 +304,7 @@ export default function EnhancedMultiStepForm() {
                                 label: "Full Name",
                                 type: "text",
                                 validation: { required: "Name is required" },
-                                colSpan: "sm:col-span-2"
+                                colSpan: ""
                               },
                               {
                                 name: "city",
@@ -328,7 +331,7 @@ export default function EnhancedMultiStepForm() {
                                   required: "Email is required",
                                   pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" },
                                 },
-                                colSpan: "sm:col-span-2"
+                                colSpan: ""
                               },
                             ].map((field, index) => (
                               <motion.div
@@ -344,7 +347,7 @@ export default function EnhancedMultiStepForm() {
                                 <input
                                   type={field.type}
                                   {...register(field.name, field.validation)}
-                                  className="w-full p-3 sm:p-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#D71635] focus:ring-2 focus:ring-[#D71635]/20 transition-all duration-200 bg-white text-sm sm:text-base"
+                                  className="w-full p-3 sm:p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#D71635] focus:ring-2 focus:ring-[#D71635]/20 transition-all duration-200 bg-white text-sm sm:text-base"
                                   placeholder={`Enter your ${field.label.toLowerCase()}`}
                                 />
                                 {errors[field.name] && (
@@ -361,7 +364,7 @@ export default function EnhancedMultiStepForm() {
                   </AnimatePresence>
 
                   {/* Navigation Buttons */}
-                  <div className="flex justify-between items-center pt-4 sm:pt-6">
+                  <div className={`flex justify-between items-center   ${step === 3 ? "sm:pt-0" : "sm:pt-8" }`}>
                     {step > 0 ? (
                       <motion.button
                         whileHover={{ scale: 1.02 }}
@@ -403,9 +406,10 @@ export default function EnhancedMultiStepForm() {
                 </form>
               </div>
             </div>
+         
 
             {/* Image Section - Hidden on mobile & tablet, shown on desktop */}
-            <div className="lg:col-span-2 hidden lg:flex justify-center relative">
+            <div className="lg:col-span-2 hidden lg:flex justify-center relative xl:block">
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
                 <div className="w-48 h-48 bg-white opacity-20 blur-2xl rounded-full"></div>
               </div>
@@ -414,9 +418,9 @@ export default function EnhancedMultiStepForm() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1.3 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
-                src="/anime/formsid.png"
+                src="/img/study-form.webp"
                 alt="University Illustration"
-                className="w-full max-w-[300px] s xl:max-w-[360px] h-auto object-contain drop-shadow-xl relative z-10"
+                className="w-full max-w-[300px] s xl:max-w-[400px] h-full object-contain drop-shadow-xl relative z-10"
                 loading="lazy"
               />
             </div>

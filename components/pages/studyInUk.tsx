@@ -1,4 +1,3 @@
-
 "use client";
 
 import MultiStepForm from "@/components/pages/multiStep";
@@ -97,7 +96,7 @@ export const highlightText = (text: string): (string | JSX.Element)[] => {
       </span>
     ) : (
       part
-    )
+    ),
   );
 };
 
@@ -212,7 +211,8 @@ const StudyInUk = ({
 
   // Autoplay functions
   const startTestimonialAutoplay = useCallback(() => {
-    if (testimonialAutoplayRef.current) clearInterval(testimonialAutoplayRef.current);
+    if (testimonialAutoplayRef.current)
+      clearInterval(testimonialAutoplayRef.current);
     testimonialAutoplayRef.current = setInterval(() => {
       testimonialInstanceRef.current?.next();
     }, 4000);
@@ -225,14 +225,17 @@ const StudyInUk = ({
     }
   }, []);
 
-  const startBlogAutoplay = useCallback((slider?: any) => {
-    if (blogAutoplayRef.current) clearInterval(blogAutoplayRef.current);
-    const instance = slider || blogInstanceRef.current;
-    if (!instance) return;
-    blogAutoplayRef.current = setInterval(() => {
-      instance.next();
-    }, 3000);
-  }, [blogInstanceRef]);
+  const startBlogAutoplay = useCallback(
+    (slider?: any) => {
+      if (blogAutoplayRef.current) clearInterval(blogAutoplayRef.current);
+      const instance = slider || blogInstanceRef.current;
+      if (!instance) return;
+      blogAutoplayRef.current = setInterval(() => {
+        instance.next();
+      }, 3000);
+    },
+    [blogInstanceRef],
+  );
 
   const stopBlogAutoplay = useCallback(() => {
     if (blogAutoplayRef.current) {
@@ -273,19 +276,22 @@ const StudyInUk = ({
         console.error("Error fetching blogs:", err);
       }
     },
-    [country]
+    [country],
   );
 
-  const getAllTestimonial = useCallback(async (value: string): Promise<void> => {
-    try {
-      const response = await PageServices.getTestimonialByCat(value);
-      if (response.status === "success") {
-        setTestimonial(response.data.testimonial || []);
+  const getAllTestimonial = useCallback(
+    async (value: string): Promise<void> => {
+      try {
+        const response = await PageServices.getTestimonialByCat(value);
+        if (response.status === "success") {
+          setTestimonial(response.data.testimonial || []);
+        }
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
       }
-    } catch (error) {
-      console.error("Error fetching testimonials:", error);
-    }
-  }, []);
+    },
+    [],
+  );
 
   const getAllFaqData = useCallback(async (value: string): Promise<void> => {
     try {
@@ -303,10 +309,11 @@ const StudyInUk = ({
       const item = content?.sections?.find((obj) => obj.type === type);
       return item ? item.content : undefined;
     },
-    [content]
+    [content],
   );
 
   const getCoverImageUrl = useCallback((coverImage: string): string => {
+    console.log("Cover Image:", coverImage);
     if (!coverImage) return "/img/placeholder-blog.jpg";
     if (coverImage.startsWith("http")) return coverImage;
     return `https://uat.gatewayabroadeducations.com/uploads/${coverImage}`;
@@ -361,10 +368,12 @@ const StudyInUk = ({
 
   // Render Helper for Blog Card
   const renderBlogCard = (blog: BlogArticle, index: number) => {
-    const imageUrl =
-      blog?.image
-        ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
-        : blog?.coverImage
+    console.log("Rendering blog card:", blog?.image);
+    const imageUrl = blog?.image
+      ? /^https?:\/\//i.test(blog.image)
+        ? blog.image
+        : `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+      : blog?.coverImage
         ? getCoverImageUrl(blog.coverImage)
         : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
 
@@ -372,8 +381,8 @@ const StudyInUk = ({
     const slug = blog?.Slug
       ? `/blog-description/${blog.Slug}`
       : blog?.slug
-      ? `/article/${blog.slug}`
-      : "#";
+        ? `/article/${blog.slug}`
+        : "#";
 
     return (
       <div
@@ -407,7 +416,7 @@ const StudyInUk = ({
             <div
               className="line-clamp-2 text-sm leading-6 text-gray-600"
               dangerouslySetInnerHTML={sanitizedData(
-                blog?.blogDescription || blog?.description || ""
+                blog?.blogDescription || blog?.description || "",
               )}
             />
           </div>
@@ -417,10 +426,9 @@ const StudyInUk = ({
   };
 
   const renderMobileBlogCard = (blog: BlogArticle, index: number) => {
-    const imageUrl =
-      blog?.image
-        ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
-        : blog?.coverImage
+    const imageUrl = blog?.image
+      ? `https://api.gatewayabroadeducations.com/api/uploads/${blog.image}`
+      : blog?.coverImage
         ? getCoverImageUrl(blog.coverImage)
         : "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg";
 
@@ -456,7 +464,7 @@ const StudyInUk = ({
             <div
               className="line-clamp-2 text-xs sm:text-sm text-gray-600"
               dangerouslySetInnerHTML={sanitizedData(
-                blog?.blogDescription || blog?.description || ""
+                blog?.blogDescription || blog?.description || "",
               )}
             />
           </div>
@@ -468,7 +476,7 @@ const StudyInUk = ({
   const heroContent = getContentByType("hero");
   const stats = heroContent?.stats || [];
 
-  console.log(content)
+  console.log(content);
 
   return (
     <>
@@ -503,7 +511,7 @@ const StudyInUk = ({
                     >
                       <p className="font-semibold">{item?.content}</p>
                     </div>
-                  )
+                  ),
                 )}
               </div>
               <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 pt-4 flex-wrap">
@@ -546,7 +554,9 @@ const StudyInUk = ({
                   onClick={handleGetStarted}
                   className="btn-primary inline-block text-center group"
                 >
-                  <span className="relative z-10">{heroContent.title||"Get Started Today"}</span>
+                  <span className="relative z-10">
+                    {heroContent.title || "Get Started Today"}
+                  </span>
                 </button>
               </div>
             </div>
@@ -699,10 +709,10 @@ const StudyInUk = ({
             <h2 className="heading text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-0 leading-tight">
               Important Facts & Information
             </h2>
-            <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-4 sm:px-5 md:px-[20px] py-2 sm:py-2.5 md:py-[10px] rounded-[30px] font-bold text-sm sm:text-base whitespace-nowrap flex-shrink-0">
+            <button className="bg-[#da1634] !text-white hover:scale-105 duration-200 transform transition px-4 sm:px-5 md:px-[20px] py-2 sm:py-2.5 md:py-[10px] rounded-[30px] font-bold text-sm sm:text-base whitespace-nowrap flex-shrink-0">
               <Link
                 href={`/blog?category=${country?.toUpperCase()}`}
-                className="site-btn ng-[] whitespace-nowrap"
+                className=" ng-[] whitespace-nowrap"
               >
                 Go to blog
               </Link>
@@ -721,7 +731,9 @@ const StudyInUk = ({
                       if (autoPlay) startBlogAutoplay();
                     }}
                   >
-                    {mergedData.map((blog, index) => renderBlogCard(blog, index))}
+                    {mergedData.map((blog, index) =>
+                      renderBlogCard(blog, index),
+                    )}
                   </div>
 
                   {/* Arrow buttons for blog slider (desktop) */}
@@ -743,9 +755,9 @@ const StudyInUk = ({
 
                 {/* Mobile/Tablet Grid View */}
                 <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {mergedData.slice(0, 4).map((blog, index) =>
-                    renderMobileBlogCard(blog, index)
-                  )}
+                  {mergedData
+                    .slice(0, 4)
+                    .map((blog, index) => renderMobileBlogCard(blog, index))}
                   {mergedData.length > 4 && (
                     <div className="col-span-1 sm:col-span-2 flex justify-center mt-2">
                       <button className="bg-[#da1634] text-white hover:scale-105 duration-200 transform transition px-6 py-2.5 rounded-[30px] font-bold text-sm">
@@ -780,9 +792,6 @@ const StudyInUk = ({
 };
 
 export default StudyInUk;
-
-
-
 
 // "use client";
 
@@ -835,7 +844,6 @@ export default StudyInUk;
 //     ),
 //   );
 // };
-
 
 // const StudyInUk = ({
 //   content,
@@ -1317,9 +1325,9 @@ export default StudyInUk;
 //           <div className="w-full min-w-0 max-w-full overflow-hidden">
 //             {mergedData.length > 0 ? (
 //               <>
-               
+
 //                {/* Desktop Blog Slider - Visible only on large screens */}
-           
+
 // <div
 //   ref={sliderRef}
 //   className="keen-slider hidden w-full min-w-0 max-w-full overflow-hidden lg:flex"
@@ -1353,7 +1361,6 @@ export default StudyInUk;
 //       >
 //         <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-        
 //           <div className="relative h-48 w-full shrink-0 overflow-hidden bg-gray-100 xl:h-52">
 //             <Image
 //               src={imageUrl}
@@ -1365,19 +1372,15 @@ export default StudyInUk;
 //             />
 //           </div>
 
-          
 //           <div className="flex flex-1 flex-col p-4">
 
-          
 //             <div className="mb-2 flex items-center gap-2 text-xs text-gray-500">
 //               <span>{formatDate((blog as BlogArticle)?.createdAt)}</span>
 //             </div>
 
-
 //             <h3 className="mb-2 line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition-colors duration-300 hover:text-red-600">
 //               {title}
 //             </h3>
-
 
 //             <div
 //               className="line-clamp-2 text-sm leading-6 text-gray-600"
@@ -1518,7 +1521,7 @@ export default StudyInUk;
 //                         }
 //                       >
 //                         <div className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                          
+
 //                           <div className="relative h-40 w-full shrink-0">
 //                             <Image
 //                               src={imageUrl}
@@ -1529,19 +1532,16 @@ export default StudyInUk;
 //                             />
 //                           </div>
 
-                          
 //                           <div className="flex-1 p-4">
-                            
+
 //                             <div className="mb-2 flex items-center gap-2 text-sm text-gray-500">
 //                               <span>{formatDate(blog?.createdAt)}</span>
 //                             </div>
 
-                            
 //                             <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors hover:text-red-600">
 //                               {blog?.blogTitle || blog?.title}
 //                             </h3>
 
-                            
 //                             <div
 //                               className="line-clamp-2 text-sm text-gray-600"
 //                               dangerouslySetInnerHTML={sanitizedData(
@@ -1587,7 +1587,7 @@ export default StudyInUk;
 //                     {f.title}
 //                   </AccordionTrigger>
 //                   <AccordionContent className="text-gray-700 pb-3 text-sm">
-                    
+
 //                     <p dangerouslySetInnerHTML={{ __html: f.content }} />
 //                   </AccordionContent>
 //                 </AccordionItem>
