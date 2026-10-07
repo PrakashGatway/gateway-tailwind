@@ -202,6 +202,8 @@ const generateProductSchema = (
 
   const keywords = pageData.keywords || [course];
 
+  console.log("Generating product schema with the following data:", pageData)
+
   return {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -225,7 +227,7 @@ const generateProductSchema = (
       ratingValue: pageData.rating?.value || "5",
       bestRating: "5",
       worstRating: "1",
-      ratingCount: pageData.rating?.count || "1000",
+      ratingCount: pageData.rating?.count || "5000",
     },
     keywords: Array.isArray(keywords) ? keywords.join(", ") : keywords,
   };

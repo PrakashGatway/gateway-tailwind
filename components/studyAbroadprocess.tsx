@@ -110,17 +110,12 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
             {content?.title}
           </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+          <div
             className="text-gray-800 text-lg md:text-base max-w-3xl leading-relaxed"
             dangerouslySetInnerHTML={{
               __html : content.subTitle
             }}
-          >
-            
-          </motion.p>
+          />
         </motion.div>
 
         {/* Desktop Timeline */}
@@ -181,14 +176,11 @@ const StudyAbroadProcess = ({ content }: { content: any }) => {
                     {step.title}
                   </motion.h3>
                   
-                  <motion.p
-                    variants={itemVariants}
+                  <div
                     className="text-gray-800 text-base leading-relaxed group-hover:text-gray-800 transition-colors duration-300"
                   dangerouslySetInnerHTML={{
                       __html: step.description
-                    }} >
-                   
-                  </motion.p>
+                    }} />
                 </motion.div>
               );
             })}

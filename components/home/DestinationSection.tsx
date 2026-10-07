@@ -165,10 +165,7 @@ export default function DestinationsSection({ content }: { content: any }) {
                     {content?.title || "Choose Your Country"}
                 </motion.h2>
 
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.15 }}
+                <div
                     className="text-gray-600 w-full text-base sm:text-base mb-8 sm:mb-12 text-justify"
                     dangerouslySetInnerHTML={{
                         __html : content.subTitle || ""

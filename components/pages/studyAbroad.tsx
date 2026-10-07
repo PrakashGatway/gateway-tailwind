@@ -228,7 +228,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
           </h2>
 
           {/* Subtext */}
-          <p
+          <div
             className=" text-gray-500 mt-3 md:mt-4 w-full  text-sm md:text-base"
             dangerouslySetInnerHTML={{
               __html: getContentByType("whychooseus")?.subTitle,
@@ -274,7 +274,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                     </h3>
 
                     {/* Description */}
-                    <p
+                    <div
                       className="text-gray-500 text-xs md:text-sm mt-1 md:mt-2 leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: item?.description,
@@ -300,7 +300,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
               {getContentByType("servicesection")?.title}
             </h2>
 
-            <p
+            <div
               className="mt-3 text-base md:text-base text-gray-800 mx-auto"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("servicesection")?.subtitle,
@@ -330,7 +330,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                         {item.title}
                       </h3>
 
-                      <p
+                      <div
                         className="text-sm text-gray-800  leading-[1.6]"
                         dangerouslySetInnerHTML={{
                           __html: item.subtitle,
@@ -377,15 +377,12 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             </motion.h2>
 
             {/* Subtext */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+            <div
               className="text-sm sm:text-base md:text-lg text-gray-800 w-full leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("citysection")?.subTitle,
               }}
-            ></motion.p>
+            />
           </div>
 
           {/* Location Grid */}
@@ -420,7 +417,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
                         {loc.name}
                       </h3>
 
-                      <p
+                      <div
                         className={`text-xs sm:text-sm leading-snug ${index === loc.length - 1 ? "text-green-100" : "text-gray-500"}`}
                         dangerouslySetInnerHTML={{
                           __html: loc.description,
@@ -440,7 +437,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             transition={{ delay: 0.5 }}
             className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2"
           >
-            <p
+            <div
               className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
               dangerouslySetInnerHTML={{
                 __html: getContentByType("citysection")?.sectiondescription,
@@ -461,7 +458,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
       <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
 
         {/* Heading */}
-        <h2 className="max-w-5xl text-[32px] font-bold leading-[1.2] text-[#dc2626] sm:text-[40px] md:text-[46px] lg:text-[48px]"
+        <div className="max-w-5xl text-[32px] font-bold leading-[1.2] text-[#dc2626] sm:text-[40px] md:text-[46px] lg:text-[48px]"
         dangerouslySetInnerHTML={{__html : getContentByType("Banner")?.title || `Study Abroad in {slug} – Visit Gateway
           <br className="hidden sm:block" />
           Abroad Today!
@@ -470,7 +467,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
         
 
         {/* Description */}
-        <p className="mt-6 max-w-5xl text-[18px] font-medium leading-[1.6] text-[#374151] sm:text-[20px] md:text-[22px]"
+        <div className="mt-6 max-w-5xl text-[18px] font-medium leading-[1.6] text-[#374151] sm:text-[20px] md:text-[22px]"
           dangerouslySetInnerHTML={{__html : getContentByType('Banner')?.content || `Get expert guidance for{" "}
           <strong>Study Abroad Admissions, Student Visa, IELTS/PTE Coaching,</strong>
           <br className="hidden md:block" />

@@ -690,12 +690,12 @@ function Index({
             <h2 className=" text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-4">
               {homePageDetails?.sections[3]?.content?.title}
             </h2>
-            <p
+            <div
               className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[3]?.content?.description,
               }}
-            ></p>
+            />
           </div>
 
           {/* Grid */}
@@ -762,7 +762,7 @@ function Index({
                     >
                       {exam.coursetitle}
                     </h3>
-                    <p
+                    <div
                       className=" h-full lg:text-base mb-2"
                       dangerouslySetInnerHTML={{ __html: exam.coursesubtitle }}
                     />
@@ -855,12 +855,12 @@ function Index({
               {homePageDetails?.sections[4]?.content?.title}
             </h2>
 
-            <p
+            <div
               className="text-gray-600 text-sm sm:text-base md:text-base mb-8 md:mb-12"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[4]?.content?.subTitle,
               }}
-            ></p>
+            />
           </div>
 
           {/* Cards Grid */}
@@ -876,7 +876,7 @@ function Index({
                       {service?.label}
                     </span>
 
-                    <p
+                    <div
                       className="
                         [&_ul]:list-disc
                         [&_ul]:pl-5
@@ -913,12 +913,12 @@ function Index({
                       {course?.label}
                     </span>
 
-                    <p
+                    <div
                       className="text-sm sm:text-sm md:text-base text-black mb-4 md:mb-6 leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: course?.content,
                       }}
-                    ></p>
+                    />
 
                     <Link href="/onboarding">
                       <button className="w-full md:w-full border border-black/10 px-6 py-3 rounded-full bg-[#D81635] text-white font-semibold text-sm md:text-base hover:bg-black hover:text-white transition-all duration-300 mt-auto">
@@ -948,12 +948,12 @@ function Index({
           </h2>
 
           {/* Subtext */}
-          <p
-            className=" text-gray-500 mt-3 md:mt-4  text-sm md:text-base"
+          <div
+            className=" text-gray-500 mt-3 md:mt-4 text-sm md:text-base"
             dangerouslySetInnerHTML={{
               __html: homePageDetails?.sections[5]?.content?.subTitle,
             }}
-          ></p>
+          />
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
@@ -991,12 +991,12 @@ function Index({
                   </h3>
 
                   {/* Description */}
-                  <p
+                  <div
                     className="text-gray-500 text-sm md:text-base mt-1 md:mt-2 leading-relaxed"
                     dangerouslySetInnerHTML={{
                       __html: item.description,
                     }}
-                  ></p>
+                  />
                 </div>
               );
             })}
@@ -1027,12 +1027,12 @@ function Index({
             </h2>
 
             {/* Subtext */}
-            <p
+            <div
               className="text-sm sm:text-base md:text-base text-gray-800 leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[9]?.content?.subTitle,
               }}
-            ></p>
+            />
           </div>
 
           {/* Location Grid */}
@@ -1065,12 +1065,12 @@ function Index({
                         {loc.name}
                       </h3>
 
-                      <p
+                      <div
                         className={`text-sm sm:text-base leading-snug ${index === homePageDetails?.sections[9]?.content?.cities?.length - 1 ? "text-white" : "text-gray-500"}`}
                         dangerouslySetInnerHTML={{
                           __html: loc.description,
                         }}
-                      ></p>
+                      />
                     </div>
                   </Link>
                 );
@@ -1080,13 +1080,13 @@ function Index({
 
           {/* SEO Text Block with Side Border */}
           <div className="border-l-4 border-[#C41430] pl-4 md:pl-6 py-2">
-            <p
+            <div
               className="text-sm md:text-base text-gray-700 leading-relaxed font-medium text-justify"
               dangerouslySetInnerHTML={{
                 __html:
                   homePageDetails?.sections[9]?.content?.sectiondescription,
               }}
-            ></p>
+            />
           </div>
         </div>
       </section>
@@ -1301,12 +1301,12 @@ function Index({
               {homePageDetails?.sections[8]?.content?.title}
             </h2>
 
-            <p
+            <div
               className="text-gray-600 text-base sm:text-base leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: homePageDetails?.sections[8]?.content?.subTitle,
               }}
-            ></p>
+            />
           </div>
 
           {!testimonials?.testimonial ||

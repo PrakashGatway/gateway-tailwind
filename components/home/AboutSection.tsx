@@ -95,7 +95,7 @@ const About = ({ content }) => {
                   </div>
                   <h3 className="text-base sm:text-base font-bold  mb-3">{pillar.title}</h3>
                 </div>
-                <p className="text-sm sm:text-sm " dangerouslySetInnerHTML={{
+                <div className="text-sm sm:text-sm " dangerouslySetInnerHTML={{
                   __html: pillar.description || ""
                 }} />
               </div>

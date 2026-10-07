@@ -367,9 +367,9 @@ const CourseClient: React.FC<CourseClientProps> = ({
                 </p>
               )}
               {heroContent?.description && (
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed break-words">
+                <div className="text-gray-600 text-base md:text-lg leading-relaxed break-words">
                   {stripHtml(heroContent.description)}
-                </p>
+                </div>
               )}
               {pageData?.subTitle && !heroContent?.highlightText && (
                 <p className="text-gray-600 text-base md:text-lg leading-relaxed break-words">

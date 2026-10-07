@@ -549,7 +549,7 @@ export function GatewayAbroadProcess({ content, country }) {
 
             {/* SEO Text Block */}
             <div className="bg-pink-50 border-l-4 border-red-500 rounded-r-xl p-6 mb-10">
-              <p
+              <div
                 dangerouslySetInnerHTML={{
                   __html: content?.sections[5]?.content?.sectioncontent || "",
                 }}
