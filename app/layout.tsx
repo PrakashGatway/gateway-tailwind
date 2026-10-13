@@ -2,31 +2,36 @@ import type { ReactNode } from "react";
 import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "@/components/home/mainLayout";
-import BreadcrumbSchema from "@/components/BreadcrumbSchema"
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Poppins, Rubik } from "next/font/google";
-
-
-
 
 export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
-  description: "Discover the best consultant for studying abroad..."
+  description: "Discover the best consultant for studying abroad...",
 };
- const poppins = Poppins({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
 });
 
-export default function RootLayout({ children ,params }: { children: ReactNode , params : any}) {
-
+export default function RootLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: any;
+}) {
   return (
     <html lang="en" className={poppins.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         {/* <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" /> */}
-        <meta name="google-site-verification" content="TupPl-3FF3IFmClspLl1nNOTl9IjjES7HRWUZi5qJyQ" />
-        
+        <meta
+          name="google-site-verification"
+          content="TupPl-3FF3IFmClspLl1nNOTl9IjjES7HRWUZi5qJyQ"
+        />
+
         {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,7 +103,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           }}
         /> */}
 
-     {/*   <Script
+        {/*   <Script
           id="facebook-pixel"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -361,7 +366,10 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           `}
         </Script>
 
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-6SL4VEMM29" />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-6SL4VEMM29"
+        />
         <Script id="ga-script" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -372,9 +380,7 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           `}
         </Script>
 
-
         {/* <BreadcrumbSchema params = {params} /> */}
-
       </head>
       <body suppressHydrationWarning>
         <noscript>
@@ -386,7 +392,16 @@ export default function RootLayout({ children ,params }: { children: ReactNode ,
           />
         </noscript>
         <ClientLayout>{children}</ClientLayout>
-     </body>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "86ec71cd93d340a4b8f44371395504b5");
+          `}
+        </Script>
+      </body>
     </html>
   );
 }
