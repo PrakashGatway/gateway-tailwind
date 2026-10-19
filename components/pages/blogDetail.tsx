@@ -10,6 +10,7 @@ import PageServices from "@/services/PageServices";
 import { Eye, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useGlobal } from "@/hooks/AppStateContext";
 import EditorContent from "../EditorContent";
+import { useBannerCategory } from "@/components/BannerCategoryContext";
 
 export default function SingleBlogPage({
   blogData,
@@ -19,6 +20,15 @@ export default function SingleBlogPage({
   slug,
 }: any) {
   const { prevBlog, nextBlog } = adjacentBlogs || {};
+  const pathname = usePathname() || "/";
+  const { setCategoryForPath } = useBannerCategory();
+
+  useEffect(() => {
+    const name = typeof blogData?.category === "string"
+      ? blogData.category
+      : blogData?.category?.name;
+    setCategoryForPath(pathname, name || null);
+  }, [blogData?.category, pathname, setCategoryForPath]);
 
   const [viewCount, setviewCount] = useState(null);
   const [comments, setComments] = useState([]);
@@ -133,8 +143,6 @@ export default function SingleBlogPage({
       </div>
     );
   }
-
-  const pathname = usePathname();
 
   useEffect(() => {
     if (!blogData?.Slug) return;
@@ -368,7 +376,8 @@ export default function SingleBlogPage({
                     <h3 className="text-2xl font-bold text-gray-900">
                       Comments ({comments.length})
                     </h3>
-                    {comments.length > 0 && (
+                    {/* Comment entry point depends on login and is temporarily disabled. */}
+                    {false && comments.length > 0 && (
                       <button
                         onClick={() =>
                           document
@@ -382,7 +391,8 @@ export default function SingleBlogPage({
                     )}
                   </div>
 
-                  <div
+                  {/* Comment form depends on login and is temporarily disabled. */}
+                  {false && <div
                     id="comment-form"
                     className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
                   >
@@ -425,7 +435,7 @@ export default function SingleBlogPage({
                         POST {replyingTo ? "REPLY" : "COMMENT"}
                       </button>
                     </form>
-                  </div>
+                  </div>}
 
                   {loading ? (
                     <div className="flex justify-center py-8">
@@ -442,7 +452,7 @@ export default function SingleBlogPage({
                             No comments yet
                           </p>
                           <p className="text-sm text-gray-600">
-                            Be the first to share your thoughts!
+                            Comments are temporarily closed.
                           </p>
                         </div>
                       ) : (
@@ -472,7 +482,8 @@ export default function SingleBlogPage({
                                     </span>
                                   </div>
                                   <div className="flex items-center space-x-3 mt-1 sm:mt-0">
-                                    <button
+                                     {/* Reply depends on login and is temporarily disabled. */}
+                                     {false && <button
                                       onClick={() =>
                                         handleReply(
                                           comment._id,
@@ -482,7 +493,7 @@ export default function SingleBlogPage({
                                       className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
                                     >
                                       Reply
-                                    </button>
+                                     </button>}
                                   </div>
                                 </div>
                                 <p className="text-gray-700 mb-3">

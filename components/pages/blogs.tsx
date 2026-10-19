@@ -8,14 +8,20 @@ import { constant } from "@/constant/index.constant";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/loader";
 import BlogCard from "./usable components/BlogCard";
+import { useBannerCategory } from "@/components/BannerCategoryContext";
 
 
 export default function AllBlogs({ initialData, searchParams }: any) {
 
   const router = useRouter();
+  const pathname = usePathname() || "/";
+  const { setCategoryForPath } = useBannerCategory();
   // const searchParams = useSearchParams();
 
   const categoryParam = searchParams?.category || "All";
+  useEffect(() => {
+    setCategoryForPath(pathname, categoryParam === "All" ? null : categoryParam);
+  }, [categoryParam, pathname, setCategoryForPath]);
   const pageParam = Number(searchParams?.page || 1);
   const searchParam = searchParams?.search || "";
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useBannerCategory } from "@/components/BannerCategoryContext";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/loader";
@@ -44,6 +45,8 @@ const BlogCardSkeleton = () => (
 
 const Blog = () => {
   const router = useRouter();
+  const pathname = usePathname() || "/";
+  const { setCategoryForPath } = useBannerCategory();
   const searchParams = useSearchParams();
 
   const categoryParam = searchParams.get("category") || "";
@@ -70,7 +73,22 @@ const Blog = () => {
   const [searchQuery, setSearchQuery] = useState(initialSearchFromUrl);
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(initialSearchFromUrl);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any[]>([]);
+
+  const getArticleCategoryName = (article: any) => {
+    const value = article?.category;
+    if (!value) return null;
+    if (typeof value === "string") {
+      return categories.find((cat) => cat._id === value)?.name ||
+        (/^[a-f0-9]{24}$/i.test(value) ? null : value);
+    }
+    return value.name || categories.find((cat) => cat._id === value._id)?.name || null;
+  };
+
+  useEffect(() => {
+    const selected = categories.find((cat: any) => cat._id === categoryParam);
+    setCategoryForPath(pathname, selected?.name || null);
+  }, [categories, categoryParam, pathname, setCategoryForPath]);
 
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(true);
@@ -391,6 +409,11 @@ const Blog = () => {
                 >
                   <div className="bg-white rounded-2xl pb-6 overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 ">
                     <div className="relative h-52 overflow-hidden">
+                      {getArticleCategoryName(article) && (
+                        <span className="absolute left-3 top-3 z-10 max-w-[calc(100%-24px)] truncate rounded-full border border-white/70 bg-white/95 px-3 py-1 text-xs font-bold text-[#bd1b3a] shadow-sm">
+                          {getArticleCategoryName(article)}
+                        </span>
+                      )}
                       <Image
                         src={getCoverImageUrl(article.coverImage)}
                         alt={article.title}

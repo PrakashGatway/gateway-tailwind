@@ -7,11 +7,15 @@ import { usePathname } from "next/navigation";
 import Loader from "../loader";
 import Header from "../header";
 import { Footer } from "../footer";
+import ContactDock from "../ContactDock";
+import RouteBannerPopup from "../RouteBannerPopup";
+import { BannerCategoryProvider } from "../BannerCategoryContext";
 
 
 // const Header = lazy(() => import("@/components/header"));
 // const Footer = lazy(() => import("@/components/footer"));
-const AuthDrawer = lazy(() => import("../auth/drawer"));
+// Login is temporarily disabled. Restore this import with the drawer below.
+// const AuthDrawer = lazy(() => import("../auth/drawer"));
 
 const hideLayoutOnPaths = ['/thank-you'];
 
@@ -25,9 +29,11 @@ function LoaderWrapper({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
+      {/* Login drawer temporarily disabled.
       <Suspense fallback={null}>
         <AuthDrawer isOpen={drawer} setIsOpen={setDrawer} />
       </Suspense>
+      */}
     </>
   );
 }
@@ -39,6 +45,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider defaultTheme="light" storageKey="gateway-theme">
         <GlobalProvider>
+          <BannerCategoryProvider>
           <LoaderWrapper>
             {!shouldHideLayout && (
                 <Header />
@@ -47,7 +54,10 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             {!shouldHideLayout && (
                 <Footer />
             )}
+            <ContactDock />
+            <RouteBannerPopup />
           </LoaderWrapper>
+          </BannerCategoryProvider>
         </GlobalProvider>
     </ThemeProvider>
   );

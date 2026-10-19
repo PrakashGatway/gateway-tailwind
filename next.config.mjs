@@ -75,7 +75,17 @@ const nextConfig = {
       destination:
         "/blog-description/hindi-to-english-translation-app",
       permanent: true,
-    }
+    },
+    {
+      source: "/blog-description/Study-Abroad-Consultants-in-Mumbai",
+      destination: "/study-abroad/mumbai",
+      permanent: true,
+    },
+    {
+      source: "/blog-description/leading-study-abroad-consultants-in-jaipur",
+      destination: "/study-abroad/jaipur",
+      permanent: true,
+    },
   ]
 }
 

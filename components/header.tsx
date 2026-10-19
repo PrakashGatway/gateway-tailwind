@@ -301,6 +301,13 @@ const Header = () => {
             </Link>
 
             <Link
+              href="/article"
+              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
+            >
+              Articles
+            </Link>
+
+            <Link
               href="/career"
               className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
             >
@@ -333,7 +340,8 @@ const Header = () => {
               </p>
             </div>
 
-            {user?.email ? (
+            {/* Login and account menu temporarily disabled. */}
+            {false && (user?.email ? (
               <div
                 className="relative"
                 ref={userMenuRef}
@@ -454,7 +462,7 @@ const Header = () => {
                 <User className="h-4 w-4 md:h-5 md:w-5" />
                 <span>Login</span>
               </button>
-            )}
+            ))}
 
             {/* Mobile Menu Button */}
             <button
@@ -684,6 +692,15 @@ const Header = () => {
               </Link>
 
               <Link
+                href="/article"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FileText className="h-5 w-5 flex-shrink-0" />
+                <span>Articles</span>
+              </Link>
+
+              <Link
                 href="/career"
                 className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
@@ -722,8 +739,8 @@ const Header = () => {
                 </Link>
               </div>
 
-              {/* Mobile User Menu */}
-              {user?.email && (
+              {/* Mobile login and account menu temporarily disabled. */}
+              {false && user?.email && (
                 <>
                   <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
 
@@ -771,7 +788,7 @@ const Header = () => {
                 </>
               )}
 
-              {!user?.email && (
+              {false && !user?.email && (
                 <button
                   className="btn-primary flex items-center !py-2.5 justify-center text-sm md:text-base"
                   onClick={() => setDrawer(!drawer)}

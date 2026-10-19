@@ -58,9 +58,11 @@ export default function CardLayout({ content }: any) {
                                 {content.Cards[3].content || "Learn at your own pace with lifetime access to course materials. Our flexible schedules fit into your busy life, allowing you to balance learning with work and personal commitments."}
                             </p>
                         </div>
+                        {/* Login entry point temporarily disabled.
                         <button onClick={() => setDrawer(!drawer)} className="mt-4 sm:mt-6 btn-primary border border-white py-2 px-3 sm:py-2 sm:px-4 text-sm">
                             Start Your Journey →
                         </button>
+                        */}
                     </div>
                 )}
             </div>

@@ -39,6 +39,9 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
   const sanitizedData = (content) => ({
     __html: content,
   });
+  const categoryName = typeof blog.category === "string"
+    ? blog.category
+    : blog.category?.name;
 
   return (
     <Link
@@ -47,6 +50,11 @@ const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) =>
     >
       {/* Image Section */}
       <div className="relative h-52 overflow-hidden">
+        {categoryName && (
+          <span className="absolute left-3 top-3 z-10 max-w-[calc(100%-24px)] truncate rounded-full border border-white/70 bg-white/95 px-3 py-1 text-xs font-bold text-[#bd1b3a] shadow-sm">
+            {categoryName}
+          </span>
+        )}
         <Image
           src={blog.image.startsWith('http') ? blog.image : `${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
           alt={blog.blogTitle}

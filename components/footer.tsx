@@ -10,10 +10,11 @@ import { useForm } from "react-hook-form";
 import LocationAvailability from "./sections/cityLocation";
 import axiosInstance from "@/services/axiosInstance";
 import {
-  ArrowDown,
   ChevronUp,
   Mail,
   MessageCircle,
+  X,
+  Send,
 } from "lucide-react";
 import {
   FaFacebookF,
@@ -493,82 +494,59 @@ export const Footer = () => {
         </button>
       </div>
 
-      {/* Get in Touch Sidebar */}
-      <div className="fixed top-1/2 -right-[63px] transform -translate-y-1/2 z-40 rotate-90">
-        <button
-          onClick={openModal}
-          className="bg-[#d71635] text-white px-3 py-3 rounded-br-lg hover:bg-red-700 transition-colors duration-200 flex items-center relative group"
-          aria-label="Get in touch"
-        >
-          <span className="mr-2 bg-black p-[4px] rounded-bl-lg rounded-br-lg absolute -left-8 top-0 h-full flex items-center justify-center">
-            <ArrowDown size={30} className="text-white mt-8 rotate-180" />
-          </span>
-          <span className="flex items-center gap-2 pb-[30px] rotate-180">
-            <Mail size={18} className="text-white" />
-            Get in touch
-          </span>
-        </button>
-      </div>
-
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-[9999] modal-overlay">
+        <div className="fixed inset-0 z-[9999] modal-overlay" role="presentation">
           <div
-            className="fixed inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/30 backdrop-blur-md"
+            className="fixed inset-0 bg-[#182235]/60 backdrop-blur-[5px]"
             onClick={closeModal}
           />
 
-          <div className="fixed inset-0 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
-            <div className="relative w-full max-w-[95vw] sm:max-w-md md:max-w-[26rem] my-4 sm:my-0">
+          <div className="fixed inset-0 flex items-start lg:items-center justify-center overflow-y-auto p-3 sm:p-6 lg:p-8">
+            <div className="relative my-auto w-full max-w-[1040px]">
               <form onSubmit={handleSubmitContact(handleContactSubmit)}>
-                <div className="relative bg-white rounded-2xl shadow-[0_8px_40px_-12px_rgba(212,24,51,0.15)] overflow-hidden border border-gray-100">
+                <div role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" className="relative grid max-h-[calc(100vh-24px)] overflow-y-auto rounded-[28px] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.3)] sm:max-h-[calc(100vh-48px)] lg:grid-cols-[42%_58%] lg:overflow-hidden lg:rounded-[32px]">
+                  <aside className="relative hidden min-h-[570px] overflow-hidden bg-[#fff4f5] px-9 pb-7 pt-9 lg:block xl:px-10">
+                    <div className="pointer-events-none absolute -right-24 -top-[12%] h-[125%] w-36 rounded-[50%] bg-white" />
+                    <div className="relative z-10 max-w-[365px]">
+                      <h2 className="text-[30px] font-bold leading-[1.16] tracking-tight text-[#25252d] xl:text-[33px]">
+                        Guidance for Your <span className="block text-[#d71635]">Global Future</span>
+                      </h2>
+                      <div className="mt-8 space-y-5">
+                        <div className="flex gap-3"><span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#d71635]" /><div><p className="text-base font-semibold text-[#25252d]">16+ Years of Guidance</p><p className="mt-1 text-sm leading-5 text-[#5b6472]">Helping students turn study abroad goals into real opportunities.</p></div></div>
+                        <div className="flex gap-3"><span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#d71635]" /><div><p className="text-base font-semibold text-[#25252d]">Support at Every Step</p><p className="mt-1 text-sm leading-5 text-[#5b6472]">Personalized help from course choices to admissions and visas.</p></div></div>
+                        <div className="flex gap-3"><span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#d71635]" /><div><p className="text-base font-semibold text-[#25252d]">450+ University Partners</p><p className="mt-1 text-sm leading-5 text-[#5b6472]">Explore the right university and program for your future.</p></div></div>
+                      </div>
+                    </div>
+                    <img src="/img/career-form-img.svg" alt="Student planning a study abroad journey" className="pointer-events-none absolute bottom-0 left-7 h-[115px] w-auto object-contain xl:left-10" />
+                  </aside>
+                  <div className="min-w-0 bg-white lg:max-h-[calc(100vh-64px)] lg:overflow-y-auto">
                   {/* Header */}
-                  <div className="relative px-5 py-4">
-                    <div className="relative flex items-center justify-between">
-                      <div className="flex items-center space-x-2.5 bg-gradient-to-r from-[#d41833] to-[#b8122a] px-4 py-3 rounded-tl-2xl rounded-br-2xl lg:-mt-5 lg:-ml-5">
-                        <h5 className="text-base font-bold text-white tracking-tight">
-                          Get In Touch
-                        </h5>
+                  <div className="relative px-6 pb-1 pt-6 sm:px-8 lg:px-10 lg:pt-8">
+                    <div className="relative flex items-start justify-between gap-4">
+                      <div>
+                        <p className="mb-1 text-xs font-bold uppercase tracking-[0.2em] text-[#d71635] lg:hidden">Get in touch</p>
+                        <h2 id="contact-modal-title" className="text-2xl font-bold leading-tight tracking-tight text-[#25252d] sm:text-[29px] lg:text-[30px]">
+                          Book Your Free Consultation
+                        </h2>
                       </div>
 
                       <button
                         type="button"
                         onClick={closeModal}
-                        className="group w-8 h-8 rounded-lg hover:bg-white/20 flex items-center justify-center transition-all duration-300"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f3f4f6] text-slate-600 transition-colors hover:bg-[#ffe8ec] hover:text-[#d71635] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d71635]"
                         aria-label="Close modal"
                       >
-                        <svg
-                          className="w-5 h-5 text-black group-hover:rotate-90 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2.5"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
+                        <X className="h-5 w-5" strokeWidth={2} />
                       </button>
                     </div>
                   </div>
 
                   {/* Body */}
-                  <div className="relative p-5 sm:px-3 bg-gradient-to-b from-white to-gray-50/80">
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d71635' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                          backgroundSize: "20px",
-                        }}
-                      />
-                    </div>
-
-                    <div className="relative space-y-1.5">
+                  <div className="relative px-6 pb-6 pt-3 sm:px-8 lg:px-10 lg:pb-7">
+                    <div className="relative grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
                       {/* Name Field */}
-                      <div className="relative group">
+                      <div className="relative group order-1">
                         <div className="relative">
                           <label className="flex items-center mb-1.5 ml-1">
                             <svg
@@ -582,8 +560,8 @@ export const Footer = () => {
                                 clipRule="evenodd"
                               />
                             </svg>
-                            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
-                              Full Name
+                            <span className="text-sm font-medium text-[#343943]">
+                              Full Name <span className="text-[#d71635]">*</span>
                             </span>
                           </label>
                           <input
@@ -619,7 +597,7 @@ export const Footer = () => {
                       </div>
 
                       {/* Email Field */}
-                      <div className="relative group">
+                      <div className="relative group order-3 sm:col-span-2">
                         <div className="relative">
                           <label className="flex items-center mb-1.5 ml-1">
                             <svg
@@ -630,8 +608,8 @@ export const Footer = () => {
                               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                             </svg>
-                            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
-                              Email Address
+                            <span className="text-sm font-medium text-[#343943]">
+                              Email Address <span className="text-[#d71635]">*</span>
                             </span>
                           </label>
                           <input
@@ -671,7 +649,7 @@ export const Footer = () => {
                       </div>
 
                       {/* Mobile Field */}
-                      <div className="relative group">
+                      <div className="relative group order-2">
                         <div className="relative">
                           <label className="flex items-center mb-1.5 ml-1">
                             <svg
@@ -681,8 +659,8 @@ export const Footer = () => {
                             >
                               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                             </svg>
-                            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
-                              Mobile Number
+                            <span className="text-sm font-medium text-[#343943]">
+                              Mobile Number <span className="text-[#d71635]">*</span>
                             </span>
                           </label>
                           <input
@@ -722,7 +700,7 @@ export const Footer = () => {
                       </div>
 
                       {/* City Field */}
-                      <div className="relative group">
+                      <div className="relative group order-4 sm:col-span-2">
                         <div className="relative">
                           <label className="flex items-center mb-1.5 ml-1">
                             <svg
@@ -736,8 +714,8 @@ export const Footer = () => {
                                 clipRule="evenodd"
                               />
                             </svg>
-                            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
-                              City
+                            <span className="text-sm font-medium text-[#343943]">
+                              City <span className="text-[#d71635]">*</span>
                             </span>
                           </label>
                           <input
@@ -773,7 +751,7 @@ export const Footer = () => {
                       </div>
 
                       {/* Message Field */}
-                      <div className="relative group">
+                      <div className="relative group order-5 sm:col-span-2">
                         <div className="relative">
                           <label className="flex items-center mb-1.5 ml-1">
                             <svg
@@ -787,14 +765,14 @@ export const Footer = () => {
                                 clipRule="evenodd"
                               />
                             </svg>
-                            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
+                            <span className="text-sm font-medium text-[#343943]">
                               Your Message
                             </span>
                           </label>
                           <textarea
                             {...registerContact("message")}
                             className="w-full px-3.5 py-2.5 text-sm bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#d71635] focus:ring-2 focus:ring-[#d71635]/20 transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none"
-                            rows="3"
+                            rows="2"
                             placeholder="Tell us about your requirements..."
                             aria-label="Your message"
                           />
@@ -802,16 +780,16 @@ export const Footer = () => {
                       </div>
 
                       {/* Submit Button */}
-                      <div className="flex justify-center mt-6">
+                      <div className="order-6 mt-1 sm:col-span-2">
                         <button
                           type="submit"
                           disabled={loading}
-                          className={`group relative overflow-hidden bg-gradient-to-r from-[#d41833] to-[#c0142d] font-semibold text-white py-2.5 px-6 rounded-xl shadow-lg shadow-[#d41833]/25 transition-all duration-300 transform hover:scale-[1.01] hover:shadow-[#d41833]/40 ${
+                          className={`group flex min-h-12 w-full items-center justify-center rounded-2xl bg-gradient-to-r from-[#d71635] to-[#b8122a] px-6 py-3 text-base font-bold text-white shadow-[0_12px_24px_rgba(215,22,53,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:from-[#c61331] hover:to-[#a81027] hover:shadow-[0_16px_30px_rgba(215,22,53,0.3)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d71635]/30 ${
                             loading ? "opacity-70 cursor-not-allowed" : ""
                           }`}
-                          aria-label="Send message"
+                          aria-label="Book free consultation"
                         >
-                          <div className="relative flex items-center justify-center space-x-2 z-10">
+                          <div className="relative z-10 flex items-center justify-center gap-3">
                             {loading ? (
                               <>
                                 <svg
@@ -834,30 +812,19 @@ export const Footer = () => {
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                   />
                                 </svg>
-                                <span className="text-sm">Submitting...</span>
+                                <span>Submitting...</span>
                               </>
                             ) : (
                               <>
-                                <span className="text-sm">Send Message</span>
-                                <svg
-                                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2.5"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                  />
-                                </svg>
+                                <span>Book Free Consultation</span>
+                                <Send className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                               </>
                             )}
                           </div>
                         </button>
                       </div>
                     </div>
+                  </div>
                   </div>
                 </div>
               </form>

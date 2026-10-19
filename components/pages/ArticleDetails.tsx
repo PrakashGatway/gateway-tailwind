@@ -7,6 +7,8 @@ import axiosInstance from "@/services/axiosInstance";
 import ContactForm from "./UkForm";
 import { useGlobal } from "@/hooks/AppStateContext";
 import EditorContent from "../EditorContent";
+import { usePathname } from "next/navigation";
+import { useBannerCategory } from "@/components/BannerCategoryContext";
 // import { useEffect, useState } from 'react';
 // import axiosInstance from '@/services/axiosInstance';
 // import { useGlobal } from '@/hooks/AppStateContext';
@@ -126,6 +128,15 @@ export default function ArticleClient({
   slug,
 }: any) {
   const [category, setCategories] = useState([]);
+  const pathname = usePathname() || "/";
+  const { setCategoryForPath } = useBannerCategory();
+
+  useEffect(() => {
+    const name = typeof article?.category === "string"
+      ? article.category
+      : article?.category?.name;
+    setCategoryForPath(pathname, name || null);
+  }, [article?.category, pathname, setCategoryForPath]);
 
   console.log("article", article);
 
@@ -490,7 +501,8 @@ export default function ArticleClient({
                   <h3 className="text-2xl font-bold text-gray-900">
                     Comments ({comments.length})
                   </h3>
-                  {comments.length > 0 && (
+                  {/* Comment entry point depends on login and is temporarily disabled. */}
+                  {false && comments.length > 0 && (
                     <button
                       onClick={() =>
                         document
@@ -504,7 +516,8 @@ export default function ArticleClient({
                   )}
                 </div>
 
-                <div
+                {/* Comment form depends on login and is temporarily disabled. */}
+                {false && <div
                   id="comment-form"
                   className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
                 >
@@ -547,7 +560,7 @@ export default function ArticleClient({
                       POST {replyingTo ? "REPLY" : "COMMENT"}
                     </button>
                   </form>
-                </div>
+                </div>}
 
                 {loading ? (
                   <div className="flex justify-center py-8">
@@ -564,7 +577,7 @@ export default function ArticleClient({
                           No comments yet
                         </p>
                         <p className="text-sm text-gray-600">
-                          Be the first to share your thoughts!
+                          Comments are temporarily closed.
                         </p>
                       </div>
                     ) : (
@@ -594,7 +607,8 @@ export default function ArticleClient({
                                   </span>
                                 </div>
                                 <div className="flex items-center space-x-3 mt-1 sm:mt-0">
-                                  <button
+                                  {/* Voting depends on login and is temporarily disabled. */}
+                                  {false && <button
                                     onClick={() => handleLike(comment._id)}
                                     className="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition-colors"
                                   >
@@ -602,8 +616,8 @@ export default function ArticleClient({
                                     <span className="text-sm">
                                       {comment.likes?.length || 0}
                                     </span>
-                                  </button>
-                                  <button
+                                  </button>}
+                                  {false && <button
                                     onClick={() => handleDislike(comment._id)}
                                     className="flex items-center space-x-1 text-gray-500 hover:text-red-600 transition-colors"
                                   >
@@ -611,8 +625,9 @@ export default function ArticleClient({
                                     <span className="text-sm">
                                       {comment.dislikes?.length || 0}
                                     </span>
-                                  </button>
-                                  <button
+                                  </button>}
+                                  {/* Reply depends on login and is temporarily disabled. */}
+                                  {false && <button
                                     onClick={() =>
                                       handleReply(
                                         comment._id,
@@ -622,7 +637,7 @@ export default function ArticleClient({
                                     className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
                                   >
                                     Reply
-                                  </button>
+                                  </button>}
                                 </div>
                               </div>
                               <p className="text-gray-700 mb-3">
@@ -661,7 +676,8 @@ export default function ArticleClient({
                                               </span>
                                             </div>
                                             <div className="flex items-center space-x-2 mt-1 sm:mt-0">
-                                              <button
+                                              {/* Reply voting is temporarily disabled with login. */}
+                                              {false && <button
                                                 onClick={() =>
                                                   handleLike(reply._id)
                                                 }
@@ -671,8 +687,8 @@ export default function ArticleClient({
                                                 <span className="text-xs">
                                                   {reply.likes?.length || 0}
                                                 </span>
-                                              </button>
-                                              <button
+                                              </button>}
+                                              {false && <button
                                                 onClick={() =>
                                                   handleDislike(reply._id)
                                                 }
@@ -682,7 +698,7 @@ export default function ArticleClient({
                                                 <span className="text-xs">
                                                   {reply.dislikes?.length || 0}
                                                 </span>
-                                              </button>
+                                              </button>}
                                             </div>
                                           </div>
                                           <p className="text-gray-600 text-sm">
