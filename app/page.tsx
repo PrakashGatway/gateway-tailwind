@@ -1,11 +1,15 @@
 import Index from "@/components/home/HomePage";
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
+import { cache } from "react";
+
+const getHomePageContent = cache(async () => {
+  const response = await serverInstance.get(`/page/home?type=home_page`);
+  return response.data.data;
+});
 
 export async function generateMetadata() {
-  const response = await serverInstance.get(`/page/home?type=home_page`);
-
-  const pageContent = response.data.data;
+  const pageContent = await getHomePageContent();
 
   return {
     metadataBase: new URL("https://www.gatewayabroadeducations.com"),
@@ -42,7 +46,7 @@ export async function generateMetadata() {
   };
 }
 
-export const revalidate = 60; // revalidate every 6 hours
+export const revalidate = 60; // revalidate every minute
 
 export default async function Home({ slug }) {
   const localBusinessSchema = {
@@ -94,6 +98,7 @@ export default async function Home({ slug }) {
     studentSlider,
     studentHome,
     faq,
+    homePageContent,
   ] = await Promise.all([
     PageServices.getAboutPageById()
       .then((res) => res?.data || null)
@@ -116,9 +121,8 @@ export default async function Home({ slug }) {
     PageServices.getAllFaqForFront("home")
       .then((res) => res?.data || null)
       .catch(() => null),
+    getHomePageContent(),
   ]);
-
-  const response = await serverInstance.get(`/page/home?type=home_page`);
 
   return (
     <>
@@ -131,7 +135,7 @@ export default async function Home({ slug }) {
 
       <Index
         aboutPage={aboutPage}
-        homePage={response?.data?.data}
+        homePage={homePageContent}
         course={course}
         testimonials={testimonials}
         youtubeVideo={youtubeVideo}

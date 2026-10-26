@@ -126,7 +126,8 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
                   width={type == "about" ? 490 : 430}
                   height={400}
                   className="drop-shadow-xl"
-                  loading="lazy"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 490px"
                 />
               </div>
 

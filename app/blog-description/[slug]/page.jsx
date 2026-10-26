@@ -1,34 +1,18 @@
 import SingleBlogPage from "@/components/pages/blogDetail";
 import DOMPurify from 'isomorphic-dompurify';
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
-export async function generateStaticParams() {
-  try {
-    const res = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?all=true", {
-     
-    })
-    const data = await res.json();
-
-    const blogs = data?.data?.blog;
-    return blogs
-      .filter((b) => typeof b?.Slug === "string" && b.Slug.trim() !== "")
-      .map((b) => ({
-        slug: b.Slug,
-      }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
+const getBlogBySlug = cache(async (slug) => {
+  const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`);
+  if (!res.ok) throw new Error(`Failed to fetch blog: ${res.status}`);
+  return (await res.json())?.data?.blog;
+});
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
-    const res = await fetch(
-      `https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`
-    );
-    const data = await res.json();
-    const seoData = data?.data?.blog;
+    const seoData = await getBlogBySlug(slug);
 
     const defaultTitle = "Blog - Gateway Abroad | Study Abroad Tips & Updates";
     const defaultDescription = "Stay updated with the latest study abroad news, visa updates, test prep tips, and student success stories from Gateway Abroad.";
@@ -126,16 +110,10 @@ export default async function SingleBlog({ params }) {
   
   try {
     // Fetch current blog data
-    const res = await fetch(`https://api.gatewayabroadeducations.com/api/v1/blog/${slug}`, { 
-    
-    });
-    
-    if (!res.ok) {
-      throw new Error(`Failed to fetch blog: ${res.status}`);
-    }
-    
-    const data = await res.json();
-    const blogData = data?.data?.blog;
+    const [blogData, allBlogsRes] = await Promise.all([
+      getBlogBySlug(slug),
+      fetch("https://api.gatewayabroadeducations.com/api/v1/blog?limit=5"),
+    ]);
 
 
 
@@ -146,10 +124,6 @@ export default async function SingleBlog({ params }) {
     }
     
     // Fetch all blogs for similar blogs and navigation
-    const allBlogsRes = await fetch("https://api.gatewayabroadeducations.com/api/v1/blog?limit=5", {
-    
-    });
-    
     const allBlogsData = await allBlogsRes.json();
     const allBlogs = allBlogsData?.data?.blog || [];
     

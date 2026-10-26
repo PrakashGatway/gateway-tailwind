@@ -13,26 +13,63 @@ import AboutSection from "../about-section";
 
 import TestPreparation from "../TestPreparationSection";
 // import { useGlobal } from '@/hooks/AppStateContext';
-import Swal from "sweetalert2";
 import StudentRankSection from "./StudentSlider";
 import Image from "next/image";
 import BlogCard from "../pages/usable components/BlogCard";
 import axiosInstance, { baseUrl } from "@/services/axiosInstance";
 import BlogNew from "../blognew";
-import { error } from "console";
 import ContactForm from "../pages/UkForm";
 import { ProcessStep } from "../ukpageComponent/whyStudyin";
 import UniversitySliderClient from "../universityslider";
 import DestinationsSection from "./DestinationSection";
 import StudyAbroadProcess from "../studyAbroadprocess";
 import StudentScoresSection from "./studentScoreSection";
-import * as Icons from "lucide-react";
+import {
+  ArrowUpDown,
+  BadgeDollarSign,
+  BaggageClaim,
+  BookCheck,
+  BookOpen,
+  BookOpenCheck,
+  CircleDollarSign,
+  CircleUserRound,
+  ContactRound,
+  FileCog,
+  Handshake,
+  Landmark,
+  NotebookPen,
+  NotebookText,
+  Plane,
+  Target,
+  University,
+  Warehouse,
+  type LucideIcon,
+} from "lucide-react";
 import ctasection from "./ctaSection";
 import LandingPage from "./ctaSection";
 import FAQSection from "./FaqSection";
 import { SingleSlider } from "../pages/partnerSlider";
 import About from "./AboutSection";
 import DynamicCounsellingForm from "./dynamiccounsellingform";
+
+const homeIcons: Record<string, LucideIcon> = {
+  ArrowUpDown,
+  BadgeDollarSign,
+  BaggageClaim,
+  BookCheck,
+  BookOpenCheck,
+  CircleDollarSign,
+  CircleUserRound,
+  ContactRound,
+  FileCog,
+  Handshake,
+  Landmark,
+  NotebookPen,
+  NotebookText,
+  Plane,
+  University,
+  Warehouse,
+};
 
 export const highlightText = (text) => {
   const parts = text.split("||");
@@ -46,6 +83,12 @@ export const highlightText = (text) => {
       part
     ),
   );
+};
+
+// The partner form is below the fold; load its dialog only after submission.
+const showPartnerAlert = async (title, text, icon: "success" | "error") => {
+  const { default: Swal } = await import("sweetalert2");
+  return Swal.fire({ title, text, icon });
 };
 
 function Index({
@@ -574,25 +617,13 @@ function Index({
         if (modalEl?.open) modalEl.close();
         document.body.style.overflow = "auto";
 
-        Swal.fire({
-          title: "Success",
-          text: "Thanks for your submission!",
-          icon: "success",
-        });
+        await showPartnerAlert("Success", "Thanks for your submission!", "success");
       } else {
-        Swal.fire({
-          title: "Error",
-          text: "Something went wrong. Please try again.",
-          icon: "error",
-        });
+        await showPartnerAlert("Error", "Something went wrong. Please try again.", "error");
       }
     } catch (error) {
       console.error("Partner form error:", error);
-      Swal.fire({
-        title: "Error",
-        text: "An error occurred. Please try again later.",
-        icon: "error",
-      });
+      await showPartnerAlert("Error", "An error occurred. Please try again later.", "error");
     }
   };
 
@@ -959,7 +990,7 @@ function Index({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-14">
             {/* Loop through features */}
             {homePageDetails?.sections[5]?.content?.cards?.map((item, idx) => {
-              const IconComponent = Icons[item.icon] || Icons.Target;
+              const IconComponent = homeIcons[item.icon] || Target;
               return (
                 <div
                   key={idx}
@@ -1039,7 +1070,7 @@ function Index({
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
             {homePageDetails?.sections[9]?.content?.cities?.map(
               (loc: any, index: number) => {
-                const IconComponent = Icons[loc.icon] || Icons.Target; // Fallback to a default icon if not found
+                const IconComponent = homeIcons[loc.icon] || Target;
                 return (
                   <Link key={index} href={`/${loc?.slug}`}>
                     <div
@@ -1263,6 +1294,7 @@ function Index({
                       <iframe
                         src={`https://www.youtube.com/embed/${videoItem.mediaLink}`}
                         title="YouTube video player"
+                        loading="lazy"
                         className="w-full h-64 md:h-80"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -1381,7 +1413,7 @@ function Index({
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 w-full">
               {/* Icon Container - minimum touch target */}
               <div className="flex-shrink-0 bg-white/10 p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center">
-                <Icons.BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
               </div>
 
               {/* Text Content - minimum font sizes enforced */}

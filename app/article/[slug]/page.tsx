@@ -215,37 +215,21 @@ export default async function BlogPostPage({ params }) {
   // Extract table of contents
   const tableOfContents = extractTableOfContents(sanitizedContent);
 
-  // Fetch latest articles
-  let latestArticles = [];
-  try {
-    const latestRes = await fetch(
-      'https://uat.gatewayabroadeducations.com/api/v1/web/blog?page=1&limit=5',
-      { next: { revalidate: 21600 } }
-    );
-    if (latestRes.ok) {
-      const latestData = await latestRes.json();
-      latestArticles = latestData?.data?.filter(
-        articleItem => articleItem.slug !== slug
-      ) || [];
-    }
-  } catch (error) {
-    console.error('Error fetching latest articles:', error);
-  }
-
-  // Fetch comments
-  let comments = [];
-  try {
-    const commentsRes = await fetch(
-      `https://uat.gatewayabroadeducations.com/api/v1/web/comments/${article._id}`,
-      { next: { revalidate: 3600 } }
-    );
-    if (commentsRes.ok) {
-      const commentsData = await commentsRes.json();
-      comments = commentsData?.data?.comments || [];
-    }
-  } catch (error) {
-    console.error('Error fetching comments:', error);
-  }
+  // Related articles and comments are independent; fetch them together.
+  const [latestArticles, comments] = await Promise.all([
+    fetch('https://uat.gatewayabroadeducations.com/api/v1/web/blog?page=1&limit=5',
+      { next: { revalidate: 21600 } })
+      .then(async latestRes => latestRes.ok
+        ? (await latestRes.json())?.data?.filter(articleItem => articleItem.slug !== slug) || []
+        : [])
+      .catch(error => { console.error('Error fetching latest articles:', error); return []; }),
+    fetch(`https://uat.gatewayabroadeducations.com/api/v1/web/comments/${article._id}`,
+      { next: { revalidate: 3600 } })
+      .then(async commentsRes => commentsRes.ok
+        ? (await commentsRes.json())?.data?.comments || []
+        : [])
+      .catch(error => { console.error('Error fetching comments:', error); return []; }),
+  ]);
 
  
 

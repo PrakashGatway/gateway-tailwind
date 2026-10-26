@@ -1,8 +1,9 @@
 import StudyAbroadPage from "@/components/pages/studyAbroad";
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
+import { cache } from "react";
 
-const pageContentPromise = async ({ slug }) => {
+const pageContentPromise = cache(async (slug: string) => {
   try {
     const response = await serverInstance.get(`/page/${slug}?type=city_page`);
     return response.data?.data;
@@ -10,11 +11,11 @@ const pageContentPromise = async ({ slug }) => {
     console.error("Error fetching data:", error);
     return null; // or handle the error as needed
   }
-};
+});
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const pageContent = await pageContentPromise({ slug });
+  const pageContent = await pageContentPromise(slug);
 
   return {
     metadataBase: new URL("https://www.gatewayabroadeducations.com"),
@@ -57,16 +58,15 @@ export default async function StudyAbroad({
 }) {
   const { slug } = await params;
 
-  const pageContent = await pageContentPromise({
-    slug,
-  });
+  const [pageContent, faq] = await Promise.all([
+    pageContentPromise(slug),
+    PageServices.getAllFaqForFront(slug),
+  ]);
 
   const pageUrl = `https://www.gatewayabroadeducations.com/study-abroad/bangalore`;
 
   const logo =
     "https://api.gatewayabroadeducations.com/api/uploads/1778565858071-59950305.webp";
-
-  const faq = await PageServices.getAllFaqForFront(slug);
 
   return (
     <>

@@ -1,15 +1,16 @@
 import StudyAbroadPage from "@/components/pages/studyAbroad";
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
+import { cache } from "react";
 
-const pageContentPromise = async () => {
+const pageContentPromise = cache(async () => {
     try {
         const response = await serverInstance.get(`/page/main?type=city_page`);
         return response.data?.data;
     } catch (error) {
         return null; // or handle the error as needed
     }
-}
+});
 
 export const revalidate = 21600;
 
@@ -47,9 +48,10 @@ export async function generateMetadata() {
 }
 
 export default async function StudyAbroad() {
-    const pageContent = await pageContentPromise();
-    
-    const faq = await PageServices.getAllFaqForFront(`main`);
+    const [pageContent, faq] = await Promise.all([
+        pageContentPromise(),
+        PageServices.getAllFaqForFront(`main`),
+    ]);
     // return null
     return <StudyAbroadPage content={pageContent} faq = {faq} />;
 }

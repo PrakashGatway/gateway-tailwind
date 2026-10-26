@@ -3,21 +3,22 @@ import StudyInUk from "@/components/pages/studyInUk";
 import { serverInstance } from "@/services/axiosInstance";
 import PageServices from "@/services/PageServices";
 import Script from "next/script";
+import { cache } from "react";
 
-const pageContentPromise = async ({ country }) => {
+const pageContentPromise = cache(async (country: string) => {
   try {
     const response = await serverInstance.get(`/page/${country}?type=country_page`);
     return response.data?.data;
   } catch (error) {
     return null; // or handle the error as needed
   }
-}
+});
 
 export const revalidate = 21600;
 
 export async function generateMetadata({ params }) {
   const { country } = await params;
-  const pageContent = await pageContentPromise({ country });
+  const pageContent = await pageContentPromise(country);
   return {
     metadataBase: new URL('https://www.gatewayabroadeducations.com'),
     title: pageContent?.metaTitle || "Default Study Abroad Title",
@@ -49,17 +50,16 @@ export async function generateMetadata({ params }) {
 
 const UkPage = async ({ params }) => {
   const { country } = await params;
-  const pageContent = await pageContentPromise({ country });
+  const pageContent = await pageContentPromise(country);
   if (!pageContent) {
     return <NotFound />;
   }
 
-  const [
-    youtubeVideo,
-    teamMembers
-  ] = await Promise.all([
+  const [youtubeVideo, teamMembers, faq, articleres] = await Promise.all([
     PageServices.getYoutubeVideo().then(res => res?.data || null).catch(() => null),
-    PageServices.getMember().then(res => res?.data || null).catch(() => null)
+    PageServices.getMember().then(res => res?.data || null).catch(() => null),
+    PageServices.getAllFaqForFront(country.toLowerCase()),
+    serverInstance.get(`/web/blog?category=${country}&limit=10`),
   ]);
 
   const studyUkSchema = {
@@ -99,13 +99,6 @@ const UkPage = async ({ params }) => {
       },
     },
   };
-
-   const faq =
-    await PageServices.getAllFaqForFront(country.toLowerCase());
-
-
-
-  const articleres = await serverInstance.get(`/web/blog?category=${country}&limit=10`);
 
   return (
     

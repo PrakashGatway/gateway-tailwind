@@ -3,11 +3,16 @@
 
 import About from "@/components/pages/aboutUs";
 import { serverInstance } from "@/services/axiosInstance";
+import { cache } from "react";
+
+const getAboutPage = cache(async () => {
+  const response = await serverInstance.get(`/page/about?type=about_page`);
+  return response?.data?.data;
+});
 
 export async function generateMetadata() {
   try {
-    const response = await serverInstance.get(`/page/about?type=about_page`);
-    const pageData = response?.data?.data;
+    const pageData = await getAboutPage();
 
     const seoData = {
       title: pageData?.metaTitle || "About Gateway Abroad Education | Overseas Education Consultants in India",
@@ -71,8 +76,7 @@ export const revalidate = 21600;
 
 async function AboutPage() {
   try {
-    const response = await serverInstance.get(`/page/about?type=about_page`);
-    const aboutPageData = response?.data?.data;
+    const aboutPageData = await getAboutPage();
     
     return <About aboutPage={aboutPageData} />;
   } catch (error) {

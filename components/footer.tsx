@@ -1,11 +1,10 @@
 
 "use client";
 
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import PageServices from "../services/PageServices";
-import useAsync from "../hooks/useAsync";
 import { useForm } from "react-hook-form";
 import LocationAvailability from "./sections/cityLocation";
 import axiosInstance from "@/services/axiosInstance";
@@ -65,10 +64,25 @@ export const Footer = () => {
   const [cityPage, setCityPage] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadFooterData, setLoadFooterData] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
 
-  // Data fetching
-  const { data: settingData } = useAsync(PageServices.getSettingData);
-  const { data: courseDataResponse } = useAsync(PageServices.getCourse);
+  // Footer links are below the fold on most routes. Fetch shortly before they are visible.
+  useEffect(() => {
+    if (loadFooterData || !footerRef.current) return;
+    if (!('IntersectionObserver' in window)) {
+      setLoadFooterData(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setLoadFooterData(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '800px' });
+    observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, [loadFooterData, pathname]);
 
   // Form hooks
   const {
@@ -97,16 +111,6 @@ export const Footer = () => {
     },
   });
 
-  // Data setters
-  useEffect(() => {
-    if (courseDataResponse?.data?.page) {
-      setCourseData(courseDataResponse.data.page);
-    }
-    if (settingData?.data?.setting) {
-      setContactData(settingData.data.setting);
-    }
-  }, [settingData, courseDataResponse]);
-
   // Fetch page data
   const getPageData = useCallback(async (type, setState) => {
     try {
@@ -122,8 +126,17 @@ export const Footer = () => {
   }, []);
 
   useEffect(() => {
+    if (!loadFooterData) return;
+    let active = true;
+    PageServices.getCourse()
+      .then(res => { if (active && res?.data?.page) setCourseData(res.data.page); })
+      .catch(() => {});
+    PageServices.getSettingData()
+      .then(res => { if (active && res?.data?.setting) setContactData(res.data.setting); })
+      .catch(() => {});
     getPageData("city_page", setCityPage);
-  }, [getPageData]);
+    return () => { active = false; };
+  }, [loadFooterData, getPageData]);
 
   // Modal handlers
   const closeModal = useCallback(() => {
@@ -269,7 +282,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="bg-gradient-to-b from-[#fce8eb] via-[#f6a0ad] to-[#ae1b31] relative z-10">
+      <footer ref={footerRef} className="bg-gradient-to-b from-[#fce8eb] via-[#f6a0ad] to-[#ae1b31] relative z-10">
         {pathname?.includes("study-abroad")}
 
         {cityPage.length > 0 && <LocationAvailability cities={cityPage} />}

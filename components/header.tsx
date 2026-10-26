@@ -32,6 +32,9 @@ const Header = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   const [countryPage, setCountyPage] = useState([]);
+  const [loadingCountries, setLoadingCountries] = useState(false);
+  const [loadingCourses, setLoadingCourses] = useState(false);
+  const requestedMenus = useRef({ countries: false, courses: false });
 
   const destinationRef = useRef(null);
   const studyAbroadRef = useRef(null);
@@ -67,9 +70,21 @@ const Header = () => {
   }
 
   useEffect(() => {
-    getPageData('country_page', setCountyPage);
-    getPageData('course_page', setCourseData);
-  }, []);
+    if ((openMenu === "destination" || openMenu === "destinationsMobile") && !requestedMenus.current.countries) {
+      requestedMenus.current.countries = true;
+      setLoadingCountries(true);
+      getPageData("country_page", setCountyPage)
+        .catch(() => { requestedMenus.current.countries = false; })
+        .finally(() => setLoadingCountries(false));
+    }
+    if ((openMenu === "testPrep" || openMenu === "testPrepMobile") && !requestedMenus.current.courses) {
+      requestedMenus.current.courses = true;
+      setLoadingCourses(true);
+      getPageData("course_page", setCourseData)
+        .catch(() => { requestedMenus.current.courses = false; })
+        .finally(() => setLoadingCourses(false));
+    }
+  }, [openMenu]);
 
   // Set mounted state to avoid hydration errors
   useEffect(() => {
@@ -220,7 +235,7 @@ const Header = () => {
 
                       {countryPage.length === 0 && (
                         <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-2 xl:col-span-3">
-                          No countries available
+                          {loadingCountries ? "Loading destinations…" : "No countries available"}
                         </div>
                       )}
                     </div>
@@ -287,6 +302,11 @@ const Header = () => {
                           </Link>
                         )
                       })}
+                      {CourseData.length === 0 && (
+                        <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-2">
+                          {loadingCourses ? "Loading courses…" : "No courses available"}
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -619,7 +639,7 @@ const Header = () => {
 
                           {countryPage.length === 0 && (
                             <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-1 sm:col-span-2">
-                              No countries available
+                              {loadingCountries ? "Loading destinations…" : "No countries available"}
                             </div>
                           )}
                         </div>
@@ -676,6 +696,11 @@ const Header = () => {
                             <span className="truncate">{course.title}</span>
                           </Link>
                         )})}
+                        {CourseData.length === 0 && (
+                          <div className="py-4 text-sm text-gray-500 dark:text-gray-400">
+                            {loadingCourses ? "Loading courses…" : "No courses available"}
+                          </div>
+                        )}
                       </div>
                     </motion.div>
                   )}
