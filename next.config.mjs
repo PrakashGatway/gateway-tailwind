@@ -86,6 +86,11 @@ const nextConfig = {
       destination: "/study-abroad/jaipur",
       permanent: true,
     },
+    {
+      source: "/blog-description/what_is_the_good_score_for_pte",
+      destination: "/blog-description/pte-good-score",
+      permanent: true,
+    },
   ]
 }
 
