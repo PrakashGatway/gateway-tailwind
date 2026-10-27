@@ -10,6 +10,7 @@ import { Footer } from "../footer";
 import ContactDock from "../ContactDock";
 import RouteBannerPopup from "../RouteBannerPopup";
 import { BannerCategoryProvider } from "../BannerCategoryContext";
+import VisitorTracker from "@/components/analytics/VisitorTracker";
 
 
 // const Header = lazy(() => import("@/components/header"));
@@ -40,6 +41,9 @@ function LoaderWrapper({ children }: { children: ReactNode }) {
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  if (pathname === "/admin" || pathname?.startsWith("/admin/")) {
+    return <main className="min-h-screen">{children}</main>;
+  }
   const shouldHideLayout = hideLayoutOnPaths.includes(pathname || '');
 
   return (
@@ -47,6 +51,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <GlobalProvider>
           <BannerCategoryProvider>
           <LoaderWrapper>
+            <VisitorTracker />
             {!shouldHideLayout && (
                 <Header />
             )}

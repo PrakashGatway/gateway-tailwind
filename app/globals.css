@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.admin-font,
+.admin-font button,
+.admin-font input,
+.admin-font select,
+.admin-font textarea {
+  font-family: "Montserrat Variable", "Montserrat", sans-serif;
+}
+
 
 
 

@@ -164,7 +164,7 @@ export default function PartnerSection() {
             </div>
 
             <div className="modal-body rounded bg-gray-200">
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form data-track-form="Partner enquiry" onSubmit={handleSubmit(onSubmit)}>
                 <div className="row g-2">
                   {/* First Name */}
                   <div className="col-md-6">

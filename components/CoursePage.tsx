@@ -1271,6 +1271,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
 
             <div className="p-6">
               <form
+                data-track-form="Course enquiry"
                 onSubmit={handleSubmitContact(handleFormSubmit)}
                 className="space-y-4"
               >

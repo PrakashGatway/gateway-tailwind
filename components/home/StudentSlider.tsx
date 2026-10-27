@@ -190,7 +190,7 @@ const StudentInfoSection = () => {
                 <p className="text-gray-600 text-sm">Start your journey to success</p>
               </div>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form data-track-form="Student story enquiry" onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Field */}
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

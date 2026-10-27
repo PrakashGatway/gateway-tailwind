@@ -167,6 +167,7 @@ const App: React.FC = () => {
 
         {/* Form with Government Style */}
         <form
+          data-track-form="Student registration"
           onSubmit={handleSubmit(onSubmit)}
           className="bg-white border-2 border-gray-200 shadow-2xl"
         >

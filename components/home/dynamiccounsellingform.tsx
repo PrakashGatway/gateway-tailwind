@@ -120,7 +120,7 @@ const CompactCounsellingForm = ({ onSubmit }) => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+        <form data-track-form="Counselling enquiry" onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {/* ROW 1: Personal Info (3 Columns) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>

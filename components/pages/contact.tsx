@@ -426,7 +426,7 @@ function Contact({
             {/* Right Form */}
             <div className="lg:w-1/2">
               <div className="bg-white rounded-lg shadow-lg p-8">
-                <form onSubmit={handleUpdate} className="space-y-6">
+                <form data-track-form="Contact page enquiry" onSubmit={handleUpdate} className="space-y-6">
                   <div>
                     <input
                       type="text"

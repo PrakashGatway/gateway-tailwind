@@ -412,6 +412,7 @@ const onSubmit = async (data: FormData) => {
 
         {/* Form with Government Style */}
         <form
+          data-track-form="Student enquiry"
           onSubmit={handleSubmit(onSubmit)}
           className="bg-white border-2 border-gray-200 shadow-2xl"
         >

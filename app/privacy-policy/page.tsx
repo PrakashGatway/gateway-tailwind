@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
             {/* Last Updated */}
             <div className="mb-8 p-4 bg-red-50 rounded-lg border border-red-200">
               <p className="text-red-700 font-semibold">
-                Last Updated: December 2023
+                Last Updated: October 2026
               </p>
             </div>
 
@@ -240,6 +240,12 @@ export default function PrivacyPolicy() {
             {/* Cookies */}
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Cookies and Tracking Technologies</h2>
+              <p className="text-gray-700 mb-4">
+                Our first-party website activity log records the pages you open, links or buttons you click, the time of each action, and which form you start or submit. When you submit a form, this log may also keep your name, email, phone number, city, study destination, and selected enquiry details entered in that form. It does not copy passwords, files, or long free-text answers. A form submission event means you attempted to submit it; it does not confirm that the form was accepted. We also record your IP address, an approximate country based on the IP address or hosting provider, a broad device category, and a random browser visitor ID. The ID is stored in your browser and helps us recognize a return visit on the same browser within 15 days. It does not identify your physical device.
+              </p>
+              <p className="text-gray-700 mb-4">
+                This activity is visible to authorized administrators. Activity records automatically expire from our database after 15 days; database deletion can occur shortly after the expiry time. Your browser&apos;s visitor ID is replaced after 15 days without a visit or when you clear site storage. Other information you provide through a form is handled separately under the rest of this policy.
+              </p>
               <p className="text-gray-700 mb-4">
                 We use cookies and similar tracking technologies to enhance your experience on our website. Cookies help us:
               </p>

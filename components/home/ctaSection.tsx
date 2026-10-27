@@ -54,6 +54,7 @@ const LandingPage = ({ content }) => {
 
         {/* CTA Section (Input + Button) */}
       <form
+  data-track-form="Free consultation request"
   onSubmit={handleSubmit(onSubmit)}
   className="flex flex-col lg:flex-row items-start justify-center gap-4 max-w-5xl mx-auto mt-6"
 >

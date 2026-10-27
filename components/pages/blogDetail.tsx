@@ -415,7 +415,7 @@ export default function SingleBlogPage({
                     <p className="text-gray-600 text-sm mb-4">
                       Your email address will not be published.
                     </p>
-                    <form onSubmit={handleCommentSubmit} className="space-y-4">
+                    <form data-track-form="Blog comment" onSubmit={handleCommentSubmit} className="space-y-4">
                       <textarea
                         placeholder="Your Comment *"
                         className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"

@@ -1535,7 +1535,7 @@ function Index({
         <div className="modal-box max-w-4xl">
           <div className="modal-header mb-6">
             <h3 className="text-2xl font-bold text-gray-900">Partner</h3>
-            <form method="dialog">
+            <form data-no-track method="dialog">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
@@ -1545,6 +1545,7 @@ function Index({
           <div className="modal-body max-h-[70vh] px-2 overflow-y-auto">
             <div className="get-in-touch-form">
               <form
+                data-track-form="Partner enquiry"
                 onSubmit={handleSubmitPartner(handleUpdate2)}
                 className="space-y-4"
               >

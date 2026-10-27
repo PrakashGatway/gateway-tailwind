@@ -496,7 +496,7 @@ export default function TestPrepForm() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto  rounded-2xl shadow-xl  overflow-hidden border border-gray-100  my-10">
+      <form data-track-form="Test preparation onboarding" onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto  rounded-2xl shadow-xl  overflow-hidden border border-gray-100  my-10">
         
         {/* Header */}
         <div className="bg-red-500 p-6 sm:p-8 text-white ">

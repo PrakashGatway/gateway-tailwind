@@ -454,7 +454,7 @@ export const Footer = () => {
                     <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">
                       Newsletter
                     </h3>
-                    <form onSubmit={handleSubmitNewsletter(handleNewsletterSubmit)}>
+                    <form data-track-form="Newsletter signup" onSubmit={handleSubmitNewsletter(handleNewsletterSubmit)}>
                       <input
                         type="email"
                         {...registerNewsletter("newsEmail", {
@@ -517,7 +517,7 @@ export const Footer = () => {
 
           <div className="fixed inset-0 flex items-start lg:items-center justify-center overflow-y-auto p-3 sm:p-6 lg:p-8">
             <div className="relative my-auto w-full max-w-[1040px]">
-              <form onSubmit={handleSubmitContact(handleContactSubmit)}>
+              <form data-track-form="Get in touch consultation" onSubmit={handleSubmitContact(handleContactSubmit)}>
                 <div role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" className="relative grid max-h-[calc(100vh-24px)] overflow-y-auto rounded-[28px] bg-white shadow-[0_30px_90px_rgba(15,23,42,0.3)] sm:max-h-[calc(100vh-48px)] lg:grid-cols-[42%_58%] lg:overflow-hidden lg:rounded-[32px]">
                   <aside className="relative hidden min-h-[570px] overflow-hidden bg-[#fff4f5] px-9 pb-7 pt-9 lg:block xl:px-10">
                     <div className="pointer-events-none absolute -right-24 -top-[12%] h-[125%] w-36 rounded-[50%] bg-white" />

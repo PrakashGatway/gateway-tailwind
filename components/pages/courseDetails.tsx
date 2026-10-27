@@ -890,7 +890,7 @@ const handleGetStarted = () => {
             </div>
 
             <div className="p-6">
-              <form onSubmit={handleSubmitContact(handlepUpdate)} className="space-y-4">
+              <form data-track-form="Course detail enquiry" onSubmit={handleSubmitContact(handlepUpdate)} className="space-y-4">
                 <div>
                   <input
                     type="text"

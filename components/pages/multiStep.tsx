@@ -166,7 +166,7 @@ export default function EnhancedMultiStepForm() {
 
               {/* Form Content */}
               <div className="bg-white/0 rounded-xl sm:rounded-2xl p-4 sm:p-6 border-white/0">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-2">
+                <form data-track-form="Study abroad enquiry" onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-2">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={step}
