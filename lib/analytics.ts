@@ -4,7 +4,7 @@ import type { Collection } from "mongodb";
 export const ANALYTICS_RETENTION_DAYS = 15;
 export const ANALYTICS_RETENTION_MS = ANALYTICS_RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
-export type ActivityType = "page_view" | "click" | "form_start" | "form_submit";
+export type ActivityType = "page_view" | "page_duration" | "click" | "form_start" | "form_submit";
 export type LeadField = { key: string; value: string };
 export type LeadSnapshot = { name?: string; email?: string; phone?: string; fields: LeadField[] };
 
@@ -18,8 +18,10 @@ export type ActivityEvent = {
   expiresAt: Date;
   ip: string | null;
   country: string | null;
+  city: string | null;
   device: "mobile" | "tablet" | "desktop";
   lead?: LeadSnapshot;
+  durationMs?: number;
 };
 
 let indexesPromise: Promise<void> | undefined;

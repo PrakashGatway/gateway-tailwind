@@ -265,7 +265,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
       </section>
 
       {/* Blog Section */}
-      <section className="py-12 bg-white">
+      <section className="bg-[#fbfcfe] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4">
           {/* Category Tabs */}
           <div className="relative mb-8">
@@ -313,7 +313,7 @@ export default function AllBlogs({ initialData, searchParams }: any) {
           </div>
 
           {/* Blog Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
   {loading
     ? Array.from({ length: 6 }).map((_, index) => (
         <BlogCard key={index} loading />
@@ -322,9 +322,6 @@ export default function AllBlogs({ initialData, searchParams }: any) {
         <BlogCard
           key={blog.Slug}
           blog={blog}
-          onClick={() =>
-            router.push(`/blog-description/${blog.Slug}`)
-          }
         />
       ))}
 </div>

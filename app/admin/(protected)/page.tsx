@@ -65,10 +65,7 @@ export default async function AdminDashboardPage() {
     <main className="mx-auto max-w-[1440px] font-medium space-y-7 px-5 py-7 sm:px-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#d81635]">
-            Workspace overview
-          </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-[#263247] sm:text-[34px]">
+          <h1 className="text-2xl font-bold tracking-tight text-[#263247]">
             Dashboard
           </h1>
         </div>

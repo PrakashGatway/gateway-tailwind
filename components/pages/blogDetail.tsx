@@ -9,33 +9,50 @@ import { useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
 import { Eye, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useGlobal } from "@/hooks/AppStateContext";
-import EditorContent from "../EditorContent";
+import BlogArticleContent from "@/components/blog/BlogArticleContent";
+import { blogImageSource, cloudinaryCardImage } from "@/lib/blog-image";
 import { useBannerCategory } from "@/components/BannerCategoryContext";
+
+type BlogComment = {
+  _id: string;
+  author?: { name?: string };
+  createdAt: string;
+  content: string;
+  nestedReplies?: BlogComment[];
+};
 
 export default function SingleBlogPage({
   blogData,
   similarBlogs,
   adjacentBlogs,
   sanitizedContent,
+  tableOfContents = [],
   slug,
 }: any) {
   const { prevBlog, nextBlog } = adjacentBlogs || {};
+  const categoryName =
+    typeof blogData?.category === "string"
+      ? blogData.category
+      : blogData?.category?.name;
+  const heroSource = blogImageSource(blogData?.image);
+  const heroImage = cloudinaryCardImage(heroSource, 1200) || heroSource;
   const pathname = usePathname() || "/";
   const { setCategoryForPath } = useBannerCategory();
 
   useEffect(() => {
-    const name = typeof blogData?.category === "string"
-      ? blogData.category
-      : blogData?.category?.name;
+    const name =
+      typeof blogData?.category === "string"
+        ? blogData.category
+        : blogData?.category?.name;
     setCategoryForPath(pathname, name || null);
   }, [blogData?.category, pathname, setCategoryForPath]);
 
-  const [viewCount, setviewCount] = useState(null);
-  const [comments, setComments] = useState([]);
+  const [viewCount, setviewCount] = useState<number | null>(null);
+  const [comments, setComments] = useState<BlogComment[]>([]);
   const [loading, setLoading] = useState(false);
-  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyingToName, setReplyingToName] = useState("");
-  const [showReplies, setShowReplies] = useState({});
+  const [showReplies, setShowReplies] = useState<Record<string, boolean>>({});
 
   const { user, setDrawer } = useGlobal();
 
@@ -115,6 +132,13 @@ export default function SingleBlogPage({
     });
   };
 
+  const toggleReplies = (commentId: string) => {
+    setShowReplies((current) => ({
+      ...current,
+      [commentId]: !current[commentId],
+    }));
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -172,10 +196,13 @@ export default function SingleBlogPage({
     <>
       <div>
         {/* Hero Section with New Design */}
-        <section className="bg-[#f3e8ff] py-8 relative z-1">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+        <section className="relative bg-pink-100 py-8">
+          <div className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
             {/* Breadcrumb Navigation */}
-            <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4 relative z-10">
+            <nav
+              aria-label="Breadcrumb"
+              className="relative z-10 mb-5 flex min-w-0 items-center gap-2 text-sm text-slate-500"
+            >
               <Link href="/" className="hover:text-[#E12827] transition-colors">
                 Home
               </Link>
@@ -187,29 +214,28 @@ export default function SingleBlogPage({
                 Blog
               </Link>
               <span>›</span>
-              <span className="text-gray-900 font-medium truncate">
+              <span className="min-w-0 truncate font-medium text-slate-700">
                 {blogData?.blogTitle}
               </span>
             </nav>
 
             {/* Blog Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            <h1 className="mb-5 max-w-5xl text-2xl font-bold !leading-tight text-[#1e293b] sm:text-4xl ">
               {blogData?.blogTitle}
             </h1>
 
-
             {/* Blog Meta Information */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
               <div className="flex items-center space-x-2">
                 <span>📅</span>
                 <span>
                   {new Date(blogData?.createdAt).toLocaleDateString()}
                 </span>
               </div>
-              {blogData?.category && (
+              {categoryName && (
                 <div className="flex items-center space-x-2">
                   <span className="bg-[#E12827] bg-opacity-10 text-[#E12827] px-3 py-1 rounded-full text-xs font-medium">
-                    {blogData.category}
+                    {categoryName}
                   </span>
                 </div>
               )}
@@ -224,7 +250,7 @@ export default function SingleBlogPage({
 
                   <span className="text-sm font-bold text-[#E12827]">
                     {(
-                      1000 + (viewCount ?? Number(viewCount?.viewCount ?? 0))
+                      viewCount ?? Number(blogData?.viewCount ?? 0)
                     ).toLocaleString()}
                   </span>
                 </div>
@@ -240,29 +266,65 @@ export default function SingleBlogPage({
         </section>
 
         {/* Blog Content Section */}
-        <section className={`py-12 px-4 `}>
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-8">
+        <section className="bg-[#fbfcfe] px-4 py-8 ">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid min-w-0 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_350px]">
               {/* Main Content */}
-              <div className="lg:w-8/12">
-                <div className=" overflow-hidden">
+              <div className="min-w-0">
+                <article className="min-w-0">
                   {/* Blog Image */}
-                  <div className="mb-6">
+                  <div className="mb-8 overflow-hidden">
                     <img
-                      className="w-full h-auto"
-                      // src={`${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
-                      src={blogData.image.startsWith('http') ? blogData.image : `${constant.REACT_APP_URL}/api/uploads/${blogData.image}`}
+                      className=" w-full object-cover"
+                      src={heroImage}
+                      srcSet={
+                        cloudinaryCardImage(heroSource, 800)
+                          ? [800, 1200, 1600]
+                              .map(
+                                (width) =>
+                                  `${cloudinaryCardImage(heroSource, width)} ${width}w`,
+                              )
+                              .join(", ")
+                          : undefined
+                      }
+                      sizes="(min-width: 1024px) 850px, 100vw"
                       alt={blogData?.blogTitle || "Blog Image"}
-                      loading="lazy"
+                      loading="eager"
+                      onError={(event) => {
+                        const image = event.currentTarget;
+                        if (image.dataset.fallback) return;
+                        image.dataset.fallback = "true";
+                        image.srcset = "";
+                        image.src = "/img/blog-banner-img.svg";
+                      }}
                     />
                   </div>
 
+                  {tableOfContents.length > 1 && (
+                    <details className="mb-8 rounded-2xl border border-[#f0dce1] bg-[#fff9fa] p-4 sm:p-5">
+                      <summary className="cursor-pointer text-sm font-bold text-[#a91b36]">
+                        In this article
+                      </summary>
+                      <nav
+                        aria-label="Article sections"
+                        className="mt-4 grid gap-2 border-t border-rose-100 pt-4 sm:grid-cols-2"
+                      >
+                        {tableOfContents.map((heading) => (
+                          <a
+                            key={heading.id}
+                            href={`#${heading.id}`}
+                            className={`text-sm leading-5 text-slate-600 transition-colors hover:text-[#c41430] ${heading.level === 3 ? "pl-4" : "font-semibold"}`}
+                          >
+                            {heading.text}
+                          </a>
+                        ))}
+                      </nav>
+                    </details>
+                  )}
+
                   {/* Blog Content */}
-                  <div className=" pb-8">
-
-                      <EditorContent content_data={sanitizedContent}/>
-
-                    {/* Blog Navigation */}
+                  <div className="min-w-0 pb-8">
+                    <BlogArticleContent html={sanitizedContent} />
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-6 border-t border-gray-200">
                       {prevBlog ? (
                         <Link
@@ -329,15 +391,11 @@ export default function SingleBlogPage({
                       </div>
                     </div>
 
-                    <div className="space-y-3 mt-4 border border-gray-200 p-4">
+                    <div className="mt-6 rounded-2xl border border-slate-200 bg-[#fafbfe] p-5">
                       <Link href="/author/sakshi-taneja">
-                        <div className="inline-flex items-center gap-3 px-4 py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                          <div className="w-20 h-20 rounded-full bg-[#E12827] text-white flex items-center justify-center text-sm font-bold">
-                            <img
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcxSIkbDpRi11M201gRDRamK_4nK4D1rGbeGT3LUJM3g&s=10"
-                              alt=""
-                              loading="lazy"
-                            />
+                        <div className="inline-flex items-center gap-3 rounded-xl transition-colors hover:text-[#c41430]">
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#d81635] text-lg font-bold text-white">
+                            S
                           </div>
 
                           <div className="leading-tight">
@@ -368,7 +426,7 @@ export default function SingleBlogPage({
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
 
                 {/* Comment Section */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 mt-8 p-6">
@@ -392,50 +450,56 @@ export default function SingleBlogPage({
                   </div>
 
                   {/* Comment form depends on login and is temporarily disabled. */}
-                  {false && <div
-                    id="comment-form"
-                    className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
-                  >
-                    <h4 className="text-lg font-bold text-gray-900 mb-2">
-                      {replyingTo ? "Reply to Comment" : "Leave a Comment"}
-                    </h4>
-                    {replyingTo && (
-                      <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
-                        <span className="font-medium">
-                          Replying to: {replyingToName}
-                        </span>
-                        <button
-                          onClick={handleCancelReply}
-                          className="text-red-600 hover:text-red-800 text-sm font-medium"
-                        >
-                          Cancel Reply
-                        </button>
-                      </div>
-                    )}
-                    <p className="text-gray-600 text-sm mb-4">
-                      Your email address will not be published.
-                    </p>
-                    <form data-track-form="Blog comment" onSubmit={handleCommentSubmit} className="space-y-4">
-                      <textarea
-                        placeholder="Your Comment *"
-                        className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
-                        value={commentForm.content}
-                        onChange={(e) =>
-                          setCommentForm({
-                            ...commentForm,
-                            content: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                      <button
-                        type="submit"
-                        className="bg-[#E12827] text-white px-8 py-3 rounded-lg hover:bg-[#c82322] transition duration-200 font-semibold hover:shadow-lg"
+                  {false && (
+                    <div
+                      id="comment-form"
+                      className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
+                    >
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">
+                        {replyingTo ? "Reply to Comment" : "Leave a Comment"}
+                      </h4>
+                      {replyingTo && (
+                        <div className="mb-4 p-3 bg-blue-50 rounded-lg text-sm flex justify-between items-center">
+                          <span className="font-medium">
+                            Replying to: {replyingToName}
+                          </span>
+                          <button
+                            onClick={handleCancelReply}
+                            className="text-red-600 hover:text-red-800 text-sm font-medium"
+                          >
+                            Cancel Reply
+                          </button>
+                        </div>
+                      )}
+                      <p className="text-gray-600 text-sm mb-4">
+                        Your email address will not be published.
+                      </p>
+                      <form
+                        data-track-form="Blog comment"
+                        onSubmit={handleCommentSubmit}
+                        className="space-y-4"
                       >
-                        POST {replyingTo ? "REPLY" : "COMMENT"}
-                      </button>
-                    </form>
-                  </div>}
+                        <textarea
+                          placeholder="Your Comment *"
+                          className="w-full h-[150px] bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-xl border-2 border-gray-300 focus:border-red-500 w-full py-4 px-4 text-gray-900 transition-colors resize-none"
+                          value={commentForm.content}
+                          onChange={(e) =>
+                            setCommentForm({
+                              ...commentForm,
+                              content: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                        <button
+                          type="submit"
+                          className="bg-[#E12827] text-white px-8 py-3 rounded-lg hover:bg-[#c82322] transition duration-200 font-semibold hover:shadow-lg"
+                        >
+                          POST {replyingTo ? "REPLY" : "COMMENT"}
+                        </button>
+                      </form>
+                    </div>
+                  )}
 
                   {loading ? (
                     <div className="flex justify-center py-8">
@@ -482,18 +546,20 @@ export default function SingleBlogPage({
                                     </span>
                                   </div>
                                   <div className="flex items-center space-x-3 mt-1 sm:mt-0">
-                                     {/* Reply depends on login and is temporarily disabled. */}
-                                     {false && <button
-                                      onClick={() =>
-                                        handleReply(
-                                          comment._id,
-                                          comment.author?.name,
-                                        )
-                                      }
-                                      className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
-                                    >
-                                      Reply
-                                     </button>}
+                                    {/* Reply depends on login and is temporarily disabled. */}
+                                    {false && (
+                                      <button
+                                        onClick={() =>
+                                          handleReply(
+                                            comment._id,
+                                            comment.author?.name,
+                                          )
+                                        }
+                                        className="text-red-600 hover:text-red-800 transition-colors text-sm font-medium"
+                                      >
+                                        Reply
+                                      </button>
+                                    )}
                                   </div>
                                 </div>
                                 <p className="text-gray-700 mb-3">
@@ -567,10 +633,11 @@ export default function SingleBlogPage({
               </div>
 
               {/* Sidebar */}
-              <div className="lg:w-4/12">
-                <div className="space-y-6 sticky top-24">
-                  {/* Search Box */}
-                  {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <aside className="w-full self-start  lg:sticky lg:top-24 lg:h-fit">
+                <div className="space-y-6">
+                  <div className="space-y-6 ">
+                    {/* Search Box */}
+                    {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <h5 className="text-lg font-bold text-gray-900 mb-4">Search</h5>
                     <div className="relative">
                       <input
@@ -584,44 +651,52 @@ export default function SingleBlogPage({
                       </button>
                     </div>
                   </div> */}
+                    <ContactForm type="article" />
 
-                  <ContactForm type="article" />
-
-                  {/* Similar Blogs */}
-                  {similarBlogs && similarBlogs.length > 0 && (
-                    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                      <h5 className="text-lg font-bold text-gray-900 mb-4">
-                        Similar Blogs
-                      </h5>
-                      <div className="space-y-3">
-                        {similarBlogs.map((blog) => (
-                          <Link
-                            key={blog.Slug}
-                            href={`/blog-description/${blog.Slug}`}
-                            className="flex items-start space-x-3 p-3 rounded-lg border border-gray-100 hover:border-[#E12827] hover:bg-red-50 transition-all duration-200 group"
-                          >
-                            <div className="flex-shrink-0 w-[7rem] h-[4rem] bg-gray-200 rounded-lg overflow-hidden">
-                              <img
-                                className="w-full h-full object-fill transition duration-300"
-                                src={`${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-                                alt={blog?.blogTitle || "Similar Blog Image"}
-                                loading="lazy"
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h6 className="">{blog.blogTitle}</h6>
-                              <p className="text-xs text-gray-500 font-normal">
-                                {new Date(blog.createdAt).toLocaleDateString()}
-                              </p>
-                            </div>
-                          </Link>
-                        ))}
+                    {/* Similar Blogs */}
+                    {similarBlogs && similarBlogs.length > 0 && (
+                      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <h5 className="text-lg font-bold text-gray-900 mb-4">
+                          Similar Blogs
+                        </h5>
+                        <div className="space-y-3">
+                          {similarBlogs.map((blog) => (
+                            <Link
+                              key={blog.Slug}
+                              href={`/blog-description/${blog.Slug}`}
+                              className="flex items-start space-x-3 p-3 rounded-lg border border-gray-100 hover:border-[#E12827] hover:bg-red-50 transition-all duration-200 group"
+                            >
+                              <div className="h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-200">
+                                <img
+                                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                  src={
+                                    cloudinaryCardImage(
+                                      blogImageSource(blog.image),
+                                      320,
+                                    ) || blogImageSource(blog.image)
+                                  }
+                                  alt={blog?.blogTitle || "Similar Blog Image"}
+                                  loading="lazy"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h6 className="line-clamp-2 text-sm font-semibold leading-5 text-slate-800 group-hover:text-[#c41430]">
+                                  {blog.blogTitle}
+                                </h6>
+                                <p className="text-xs text-gray-500 font-normal">
+                                  {new Date(
+                                    blog.createdAt,
+                                  ).toLocaleDateString()}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
-                  {/* Latest Posts */}
-                  {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    {/* Latest Posts */}
+                    {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <h5 className="text-lg font-bold text-gray-900 mb-4">Latest Post</h5>
                     <div className="space-y-3">
                       {similarBlogs && similarBlogs.slice(0, 4).map((blog) => (
@@ -651,59 +726,60 @@ export default function SingleBlogPage({
                     </div>
                   </div> */}
 
-                  {/* Categories */}
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h5 className="text-lg font-bold text-gray-900 mb-4">
-                      Categories
-                    </h5>
-                    <div className="flex flex-wrap gap-4">
-                      {[
-                        "GMAT",
-                        "TOEFL",
-                        "IELTS",
-                        "GRE",
-                        "PTE",
-                        "SAT",
-                        "SPOKEN ENGLISH",
-                      ].map((category) => (
-                        <Link
-                          key={category}
-                          href={`/blog?category=${category}`}
-                          className="flex items-center bg-gray-100 text-gray-700 px-3 py-2 rounded-md hover:bg-[#E12827] hover:text-white transition duration-200 text-base font-normal"
-                        >
-                          {category}
-                        </Link>
-                      ))}
+                    {/* Categories */}
+                    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                      <h5 className="text-lg font-bold text-gray-900 mb-4">
+                        Categories
+                      </h5>
+                      <div className="flex flex-wrap gap-4">
+                        {[
+                          "GMAT",
+                          "TOEFL",
+                          "IELTS",
+                          "GRE",
+                          "PTE",
+                          "SAT",
+                          "SPOKEN ENGLISH",
+                        ].map((category) => (
+                          <Link
+                            key={category}
+                            href={`/blog?category=${category}`}
+                            className="flex items-center bg-gray-100 text-gray-700 px-3 py-2 rounded-md hover:bg-[#E12827] hover:text-white transition duration-200 text-base font-normal"
+                          >
+                            {category}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Tags Cloud */}
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h5 className="text-base font-bold text-gray-900 mb-4">
-                      Tags
-                    </h5>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        "Study Abroad",
-                        "Education",
-                        "University",
-                        "Scholarship",
-                        "Visa",
-                        "Career",
-                        "Student Life",
-                      ].map((tag) => (
-                        <Link
-                          key={tag}
-                          href={`/blog?tag=${tag.toLowerCase()}`}
-                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-[#E12827] hover:text-white transition duration-200 font-normal"
-                        >
-                          {tag}
-                        </Link>
-                      ))}
+                    {/* Tags Cloud */}
+                    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                      <h5 className="text-base font-bold text-gray-900 mb-4">
+                        Tags
+                      </h5>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          "Study Abroad",
+                          "Education",
+                          "University",
+                          "Scholarship",
+                          "Visa",
+                          "Career",
+                          "Student Life",
+                        ].map((tag) => (
+                          <Link
+                            key={tag}
+                            href={`/blog?tag=${tag.toLowerCase()}`}
+                            className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-[#E12827] hover:text-white transition duration-200 font-normal"
+                          >
+                            {tag}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </section>
@@ -717,17 +793,17 @@ export default function SingleBlogPage({
                   <div className="w-full lg:w-[48%]">
                     <div className="text-center lg:text-left pl-[17px]">
                       <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#D71635] lg:leading-[37px]">
-                        Have a question about GMAT?
+                        Planning your study abroad journey?
                       </h2>
                       <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276] font-normal">
-                        Want some help figuring out what kind of prep service is
-                        right for you?
+                        Talk to our team about universities, applications,
+                        visas, and the next step toward your goals.
                       </p>
                       <a
                         href="/contact"
                         className="inline-block bg-[#d71635] text-white px-6 sm:px-8 lg:px-10 py-2 sm:py-3 rounded-3xl text-sm sm:text-base font-bold shadow-[0_0_8px_0_rgba(0,0,0,0.2)] hover:bg-[#b5122b] transition-all duration-300"
                       >
-                        Help and Support
+                        Get expert guidance
                       </a>
                     </div>
                   </div>

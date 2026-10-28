@@ -12,7 +12,6 @@ import {
   type BannerPopup,
 } from "@/lib/banner-popups";
 import { getWhatsAppMessage } from "@/lib/whatsapp-message";
-import { useBannerCategory } from "@/components/BannerCategoryContext";
 
 const WHATSAPP_NUMBER = "918302092630";
 
@@ -29,7 +28,6 @@ export default function RouteBannerPopup() {
   const pathname = usePathname() || "/";
   const router = useRouter();
   const reduceMotion = useReducedMotion();
-  const { categoryName } = useBannerCategory();
   const [banners, setBanners] = useState<BannerPopup[]>([]);
   const [closedKey, setClosedKey] = useState<string | null>(null);
   const pendingAction = useRef<{ action: BannerAction; path: string } | null>(null);
@@ -56,11 +54,11 @@ export default function RouteBannerPopup() {
   const isOpen = Boolean(banner && key !== closedKey);
   const isFull = isOpen && banner?.layout === "full";
   const imageUrl = useMemo(
-    () => banner ? getBannerImageUrl(banner, categoryName) : null,
-    [banner, categoryName],
+    () => banner ? getBannerImageUrl(banner) : null,
+    [banner],
   );
   const imageAlt = banner
-    ? banner.imageAlt || `${banner.eyebrow}${categoryName && (banner.id === "articles" || banner.id === "blogs") ? `, ${categoryName}` : ""}. ${banner.title} ${banner.description}`
+    ? banner.imageAlt || banner.title
     : "";
 
   useEffect(() => {
@@ -128,7 +126,7 @@ export default function RouteBannerPopup() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.25 }}
-            className="fixed inset-0 z-[9000] flex items-center justify-center bg-[#101424]/75 p-3 backdrop-blur-[6px] sm:p-6"
+            className="fixed inset-0 z-[9000] flex items-center justify-center bg-[#101424]/50 p-3  sm:p-6"
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) dismiss(banner.closeAction);
             }}
@@ -151,6 +149,8 @@ export default function RouteBannerPopup() {
               >
                 <img
                   src={imageUrl}
+                  srcSet={[640, 980, 1600].map((width) => `${getBannerImageUrl(banner, width)} ${width}w`).join(", ")}
+                  sizes="(max-width: 1024px) 100vw, 980px"
                   alt={imageAlt}
                   className="block h-auto max-h-[80vh] w-auto max-w-[min(980px,calc(100vw-24px))] object-contain"
                 />
@@ -185,6 +185,8 @@ export default function RouteBannerPopup() {
             >
               <img
                 src={imageUrl}
+                srcSet={[390, 780].map((width) => `${getBannerImageUrl(banner, width)} ${width}w`).join(", ")}
+                sizes="(max-width: 414px) calc(100vw - 24px), 390px"
                 alt={imageAlt}
                 className="block h-auto max-h-[150px] w-full object-contain"
               />

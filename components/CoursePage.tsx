@@ -1202,7 +1202,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                 <div className="text-center lg:text-left lg:pl-[17px]">
                   <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold text-[#D71635] mb-4 lg:leading-[37px]">
                     {counsellingContent?.title ||
-                      "Avail A Complementary Counselling Session"}
+                      "Ace Your Test Preparation with Expert Mentors"}
                   </h2>
                   {counsellingContent?.description && (
                     <div

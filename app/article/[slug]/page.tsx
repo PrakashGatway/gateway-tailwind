@@ -1,6 +1,6 @@
 import ArticleClient from "@/components/pages/ArticleDetails";
 import Script from "next/script";
-import DOMPurify from 'isomorphic-dompurify';
+import { prepareBlogContent } from "@/lib/blog-content";
 // export const revalidate = 21600;
 
 export async function generateStaticParams() {
@@ -43,10 +43,11 @@ export async function generateMetadata({ params }) {
       article?.meta?.metaDescription || article?.description ||
       "Expert study abroad & test prep guidance from Gateway Abroad.";
     const keyword = article?.meta?.keywords?.map((k) => k).join(", ");
-    const ogImage =
-      article?.coverImage
-        ? `https://uat.gatewayabroadeducations.com/uploads/${article.coverImage}`
-        : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
+    const ogImage = article?.coverImage
+      ? /^https?:\/\//i.test(article.coverImage)
+        ? article.coverImage
+        : `https://uat.gatewayabroadeducations.com/uploads/${article.coverImage}`
+      : "https://www.gatewayabroadeducations.com/img/ga-logo.svg";
 
     return {
       metadataBase: new URL("https://www.gatewayabroadeducations.com"),
@@ -88,90 +89,6 @@ function decodeContent(content) {
   }
 }
 
-function sanitizeContent(html) {
-  if (!html) return '';
-
-  return DOMPurify.sanitize(html);
-}
-
-function processContentWithIds(htmlContent) {
-  if (!htmlContent) return htmlContent;
-
-  // Use regex to add IDs to headings
-  let processedContent = htmlContent;
-
-  // Add IDs to h2 elements
-  let h2Index = 0;
-  processedContent = processedContent.replace(/<h2(.*?)>(.*?)<\/h2>/g, (match, attrs, content) => {
-    h2Index++;
-    const id = `h2-${h2Index}-${Date.now()}`;
-    return `<h2 id="${id}"${attrs}>${content}</h2>`;
-  });
-
-  // Add IDs to h3 elements
-  // let h3Index = 0;
-  // processedContent = processedContent.replace(/<h3(.*?)>(.*?)<\/h3>/g, (match, attrs, content) => {
-  //     h3Index++;
-  //     const id = `h3-${h3Index}-${Date.now()}`;
-  //     return `<h3 id="${id}"${attrs}>${content}</h3>`;
-  // });
-
-  return processedContent;
-}
-
-function extractTableOfContents(htmlContent) {
-  if (!htmlContent) return [];
-
-  // Parse HTML content to extract headings
-  const h2Regex = /<h2[^>]*>(.*?)<\/h2>/g;
-  // const h3Regex = /<h3[^>]*>(.*?)<\/h3>/g;
-
-  const headings = [];
-  let h2Matches = [...htmlContent.matchAll(h2Regex)];
-  // let h3Matches = [...htmlContent.matchAll(h3Regex)];
-
-  // Process h2 elements
-  h2Matches.forEach((match, index) => {
-    const content = match[1].replace(/<[^>]*>/g, ''); // Remove HTML tags
-    const h2Id = `h2-${index + 1}-${Date.now()}`;
-    const h2Item = {
-      id: h2Id,
-      text: content || `Section ${index + 1}`,
-      level: 2,
-      children: []
-    };
-    headings.push(h2Item);
-  });
-
-  // Process h3 elements
-  // h3Matches.forEach((match, index) => {
-  //     const content = match[1].replace(/<[^>]*>/g, '');
-  //     const h3Id = `h3-${index + 1}-${Date.now()}`;
-
-  //     // Find parent h2 (associate with last h2)
-  //     let parentH2 = headings.length > 0 ? headings[headings.length - 1] : null;
-
-  //     if (parentH2 && parentH2.level === 2) {
-  //         parentH2.children.push({
-  //             id: h3Id,
-  //             text: content || `Subsection ${index + 1}`,
-  //             level: 3
-  //         });
-  //     } else {
-  //         // Independent h3
-  //         headings.push({
-  //             id: h3Id,
-  //             text: content || `Section ${index + 1}`,
-  //             level: 3,
-  //             children: [],
-  //             isIndependent: true
-  //         });
-  //     }
-  // });
-
-  return headings;
-}
-
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
 
@@ -209,11 +126,7 @@ export default async function BlogPostPage({ params }) {
 
   // Decode and process content
   const decodedContent = decodeContent(article.content);
-  const sanitizedContent = sanitizeContent(decodedContent);
-  const processedContent = processContentWithIds(sanitizedContent);
-
-  // Extract table of contents
-  const tableOfContents = extractTableOfContents(sanitizedContent);
+  const { html: processedContent, headings: tableOfContents } = prepareBlogContent(decodedContent);
 
   // Related articles and comments are independent; fetch them together.
   const [latestArticles, comments] = await Promise.all([
@@ -289,50 +202,6 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <>
-      <Script id="smooth-scroll-script" strategy="afterInteractive">
-        {`
-          document.addEventListener('DOMContentLoaded', function() {
-            // Handle anchor clicks with offset
-            document.addEventListener('click', function(e) {
-              if (e.target.matches('a[href^="#"]')) {
-                e.preventDefault();
-                const targetId = e.target.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                  const offset = 120; // Adjust this value for your header height
-                  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-                  
-                  window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                  });
-                  
-                  // Update URL without page reload
-                  history.pushState(null, null, '#' + targetId);
-                }
-              }
-            });
-            
-            // Also handle URL hash on page load
-            if (window.location.hash) {
-              setTimeout(() => {
-                const targetId = window.location.hash.substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                  const offset = 120;
-                  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-                  window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                  });
-                }
-              }, 100);
-            }
-          });
-        `}
-      </Script>
       {slugdata && (
         <Script
           id="blogposting-schema"
@@ -357,7 +226,6 @@ export default async function BlogPostPage({ params }) {
 
       <ArticleClient
         article={article}
-        decodedContent={decodedContent}
         processedContent={processedContent}
         tableOfContents={tableOfContents}
         latestArticles={latestArticles}

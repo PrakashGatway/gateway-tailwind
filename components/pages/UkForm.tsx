@@ -103,7 +103,7 @@ export default function ContactForm({ type }) {
             <h2 className="text-xl font-bold text-red-700">Contact Details</h2>
             <p className="text-gray-500 text-sm mb-3">Please provide your contact information</p>
 
-            <p className='absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-sm py-3'>
+            <p className='absolute -top-[1px] rounded-bl-3xl -right-1 border bg-red-500 text-white font-semibold px-4 text-xs sm:text-sm py-3'>
                 Free Counselling
             </p>
 

@@ -15,6 +15,7 @@ const uuidPattern =
   /^[a-f\d]{8}-[a-f\d]{4}-[1-8][a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}$/i;
 const types = new Set<ActivityType>([
   "page_view",
+  "page_duration",
   "click",
   "form_start",
   "form_submit",
@@ -107,13 +108,13 @@ function getIp(request: NextRequest) {
   );
 }
 
-function getCountry(request: NextRequest, ip: string | null) {
+function getCountry(request: NextRequest, geoCountry: string | null) {
   const value =
     request.headers.get("cf-ipcountry") ||
     request.headers.get("x-vercel-ip-country");
   if (value && /^[A-Z]{2}$/i.test(value) && value.toUpperCase() !== "XX")
     return value.toUpperCase();
-  return ip ? lookup(ip)?.country || null : null;
+  return geoCountry;
 }
 
 function getDevice(request: NextRequest): ActivityEvent["device"] {
@@ -194,7 +195,9 @@ export async function POST(request: NextRequest) {
       { status: 429, headers: noStore },
     );
   }
-  const country = getCountry(request, ip);
+  const geo = ip ? lookup(ip) : null;
+  const country = getCountry(request, geo?.country || null);
+  const city = geo?.city?.trim().slice(0, 80) || null;
   const device = getDevice(request);
   const events: ActivityEvent[] = [];
   for (const rawEvent of payload.events) {
@@ -209,6 +212,12 @@ export async function POST(request: NextRequest) {
       path.startsWith("/admin") ||
       path.includes("?") ||
       path.includes("#")
+    )
+      continue;
+    const durationMs = type === "page_duration" ? event.durationMs : undefined;
+    if (
+      type === "page_duration" &&
+      (typeof durationMs !== "number" || !Number.isInteger(durationMs) || durationMs < 1000 || durationMs > 86400000)
     )
       continue;
     const clientTime =
@@ -232,7 +241,9 @@ export async function POST(request: NextRequest) {
       expiresAt: new Date(occurredAt.getTime() + ANALYTICS_RETENTION_MS),
       ip,
       country,
+      city,
       device,
+      ...(type === "page_duration" ? { durationMs: durationMs as number } : {}),
       ...(type === "form_submit" ? { lead: cleanLead(event.lead) } : {}),
     });
   }

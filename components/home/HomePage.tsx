@@ -1496,10 +1496,10 @@ function Index({
                 <div className="w-full lg:w-[48%]">
                   <div className="text-center lg:text-left pl-[17px]">
                     <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#d71635] lg:leading-[37px]">
-                      Become a Partner
+                      Start Your Study Abroad Journey with Expert Guidance
                     </h2>
                     <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
-                      Join thousand of instructors and earn money hassle free!
+                      Get personalized coaching, proven strategies, and comprehensive study materials to achieve your target score.
                     </p>
                     <button
                       onClick={handleGetStarted}

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Activity,
+  Images,
+  ChartNoAxesCombined,
   ArrowUpRight,
   ChevronRight,
   Globe2,
@@ -18,7 +20,9 @@ import type { AdminIdentity } from "@/lib/admin/session";
 
 const navigation = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/traffic", label: "Traffic trends", icon: ChartNoAxesCombined },
   { href: "/admin/activity", label: "Visitor activity", icon: Activity },
+  { href: "/admin/banners", label: "Popup banners", icon: Images },
 ];
 
 export default function AdminShell({
@@ -33,9 +37,13 @@ export default function AdminShell({
   const [menuOpen, setMenuOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState("");
-  const currentSection = pathname.startsWith("/admin/activity")
-    ? "Visitor activity"
-    : "Dashboard";
+  const currentSection = pathname.startsWith("/admin/traffic")
+    ? "Traffic trends"
+    : pathname.startsWith("/admin/activity")
+      ? "Visitor activity"
+      : pathname.startsWith("/admin/banners")
+        ? "Popup banners"
+      : "Dashboard";
 
   async function signOut() {
     if (signingOut) return;
@@ -202,7 +210,7 @@ export default function AdminShell({
             </button>
             <div className="min-w-0">
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9ca4b3]">
-                Gateway Abroad / Admin
+                Gateway Abroad
               </p>
               <p className="truncate text-sm font-bold text-[#263247]">
                 {currentSection}

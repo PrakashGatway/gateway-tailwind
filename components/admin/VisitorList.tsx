@@ -12,6 +12,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Clock3,
   FilePenLine,
   Globe2,
   LoaderCircle,
@@ -30,8 +31,10 @@ type TimelineEvent = {
   occurredAt: string;
   sessionId: string;
   country: string | null;
+  city: string | null;
   ip: string | null;
   lead: LeadSnapshot | null;
+  durationMs: number | null;
 };
 type TimelineResponse = { events: TimelineEvent[]; nextCursor: string | null };
 
@@ -85,6 +88,19 @@ function countryLabel(country: string | null) {
   }
 }
 
+function locationLabel(city: string | null, country: string | null) {
+  if (!city) return countryLabel(country);
+  return country ? `${city}, ${countryLabel(country)}` : city;
+}
+
+function formatDuration(durationMs: number) {
+  const seconds = Math.round(durationMs / 1000);
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ${seconds % 60}s`;
+  return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+}
+
 function eventMeta(type: ActivityType) {
   switch (type) {
     case "page_view":
@@ -93,6 +109,13 @@ function eventMeta(type: ActivityType) {
         Icon: Globe2,
         tone: "text-blue-600 bg-blue-50 border-blue-200",
         badge: "Page view",
+      };
+    case "page_duration":
+      return {
+        title: "Time on page",
+        Icon: Clock3,
+        tone: "text-cyan-700 bg-cyan-50 border-cyan-200",
+        badge: "Visible time",
       };
     case "click":
       return {
@@ -267,7 +290,7 @@ export default function VisitorList({
                 </td>
                 <td className="px-5 py-4">
                   <span className="block text-sm font-medium text-slate-700">
-                    {countryLabel(visitor.country)}
+                    {locationLabel(visitor.city, visitor.country)}
                   </span>
                   <span className="mt-1 block font-mono text-[11px] text-slate-400">
                     {visitor.ip || "IP unavailable"}
@@ -278,6 +301,19 @@ export default function VisitorList({
                     <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-700">
                       {visitor.events} events
                     </span>
+                    <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold text-indigo-700">
+                      {visitor.pageViews} page views
+                    </span>
+                    {visitor.formStarts > 0 && (
+                      <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-700">
+                        {visitor.formStarts} forms started
+                      </span>
+                    )}
+                    {visitor.timeSpentMs > 0 && (
+                      <span className="rounded-full bg-cyan-50 px-2.5 py-1 text-[11px] font-semibold text-cyan-700">
+                        {formatDuration(visitor.timeSpentMs)} on pages
+                      </span>
+                    )}
                     {visitor.forms > 0 && (
                       <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700">
                         {visitor.forms} forms
@@ -303,10 +339,10 @@ export default function VisitorList({
               <UserRound className="h-6 w-6" />
             </div>
             <p className="mt-4 text-sm font-semibold text-slate-700">
-              No visitors in this date range
+              No visitors match these filters
             </p>
             <p className="mt-1 text-xs text-slate-400">
-              Activity will appear here as people browse the website.
+              Try a wider date range or reset the filters.
             </p>
           </div>
         )}
@@ -351,6 +387,11 @@ export default function VisitorList({
                   <span className="rounded-full bg-blue-50 px-3 py-1.5 font-semibold text-blue-700">
                     {selected.events} events in range
                   </span>
+                  {selected.timeSpentMs > 0 && (
+                    <span className="rounded-full bg-cyan-50 px-3 py-1.5 font-semibold text-cyan-700">
+                      {formatDuration(selected.timeSpentMs)} visible time
+                    </span>
+                  )}
                   <span className="rounded-full bg-slate-100 px-3 py-1.5 font-semibold text-slate-600">
                     {selected.sessions} session
                     {selected.sessions === 1 ? "" : "s"}
@@ -361,7 +402,7 @@ export default function VisitorList({
                     </span>
                   )}
                   <span className="rounded-full bg-slate-100 px-3 py-1.5 font-semibold text-slate-600">
-                    {countryLabel(selected.country)}
+                    {locationLabel(selected.city, selected.country)}
                   </span>
                 </div>
               </div>
@@ -434,11 +475,16 @@ export default function VisitorList({
                             </span>
                           </div>
                           <p className=" break-words text-sm text-slate-700">
-                            {event.type === "page_view"
+                            {event.type === "page_view" || event.type === "page_duration"
                               ? event.path
                               : event.label || event.path}
                           </p>
-                          {event.type !== "page_view" && (
+                          {event.type === "page_duration" && event.durationMs !== null && (
+                            <p className="mt-1 text-sm font-bold text-cyan-700">
+                              {formatDuration(event.durationMs)} visible on this page
+                            </p>
+                          )}
+                          {event.type !== "page_view" && event.type !== "page_duration" && (
                             <p className="mt-1 break-all text-xs text-slate-500">
                               On {event.path}
                             </p>

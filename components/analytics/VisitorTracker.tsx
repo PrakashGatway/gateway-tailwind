@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 type LeadField = { key: string; value: string };
-type QueuedEvent = { type: "page_view" | "click" | "form_start" | "form_submit"; path: string; label: string; at: number; lead?: { name?: string; email?: string; phone?: string; fields: LeadField[] } };
+type QueuedEvent = { type: "page_view" | "page_duration" | "click" | "form_start" | "form_submit"; path: string; label: string; at: number; durationMs?: number; lead?: { name?: string; email?: string; phone?: string; fields: LeadField[] } };
 type VisitorIdentity = { id: string; lastSeen: number };
 
 const ID_KEY = "gateway_visitor_v1";
@@ -68,6 +68,8 @@ export default function VisitorTracker() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const flushRef = useRef<(beacon?: boolean) => void>(() => {});
   const lastPath = useRef<string | null>(null);
+  const activeSince = useRef<number | null>(null);
+  const finishPageRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     identity.current = getIds();
@@ -96,12 +98,24 @@ export default function VisitorTracker() {
     }
     flushRef.current = flush;
 
-    function queue(type: QueuedEvent["type"], label: string, lead?: QueuedEvent["lead"]) {
+    function queue(type: QueuedEvent["type"], label: string, lead?: QueuedEvent["lead"], path = location.pathname, durationMs?: number) {
       if (lead && pending.current.length) flush();
-      pending.current.push({ type, label: safeLabel(label), path: location.pathname, at: Date.now(), ...(lead ? { lead } : {}) });
+      pending.current.push({ type, label: safeLabel(label), path, at: Date.now(), ...(lead ? { lead } : {}), ...(durationMs !== undefined ? { durationMs } : {}) });
       if (lead) flush(true);
       else if (pending.current.length >= 20) flush();
       else if (!timer.current) timer.current = setTimeout(() => flush(), 1000);
+    }
+
+    function finishPage() {
+      const started = activeSince.current;
+      activeSince.current = null;
+      if (started === null || !lastPath.current) return;
+      const durationMs = Math.round(performance.now() - started);
+      if (durationMs >= 1000) queue("page_duration", "", undefined, lastPath.current, durationMs);
+    }
+    finishPageRef.current = finishPage;
+    if (lastPath.current && document.visibilityState === "visible" && activeSince.current === null) {
+      activeSince.current = performance.now();
     }
 
     function onClick(event: MouseEvent) {
@@ -130,28 +144,41 @@ export default function VisitorTracker() {
     }
 
     function onVisibility() {
-      if (document.visibilityState === "hidden") flush(true);
+      if (document.visibilityState === "hidden") {
+        finishPage();
+        flush(true);
+      } else if (lastPath.current && activeSince.current === null) {
+        activeSince.current = performance.now();
+      }
     }
-    function onPageHide() { flush(true); }
+    function onPageHide() { finishPage(); flush(true); }
+    function onPageShow() {
+      if (document.visibilityState === "visible" && lastPath.current && activeSince.current === null) activeSince.current = performance.now();
+    }
 
     document.addEventListener("click", onClick, true);
     document.addEventListener("submit", onSubmit, true);
     document.addEventListener("focusin", onFormFocus, true);
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("pagehide", onPageHide);
+    window.addEventListener("pageshow", onPageShow);
     return () => {
       document.removeEventListener("click", onClick, true);
       document.removeEventListener("submit", onSubmit, true);
       document.removeEventListener("focusin", onFormFocus, true);
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pagehide", onPageHide);
+      window.removeEventListener("pageshow", onPageShow);
+      finishPage();
       flush(true);
     };
   }, []);
 
   useEffect(() => {
     if (!pathname || lastPath.current === pathname) return;
+    finishPageRef.current();
     lastPath.current = pathname;
+    activeSince.current = document.visibilityState === "visible" ? performance.now() : null;
     pending.current.push({ type: "page_view", label: "", path: pathname, at: Date.now() });
     if (!timer.current) timer.current = setTimeout(() => flushRef.current(), 1000);
   }, [pathname]);

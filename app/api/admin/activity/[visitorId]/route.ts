@@ -39,8 +39,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       occurredAt: event.occurredAt.toISOString(),
       sessionId: event.sessionId,
       country: event.country,
+      city: event.city || null,
       ip: event.ip,
       lead: event.lead || null,
+      durationMs: event.durationMs ?? null,
     })),
     nextCursor: rows.length > PAGE_SIZE && last ? `${last.occurredAt.toISOString()}|${String(last._id)}` : null,
   }, { headers: noStore });

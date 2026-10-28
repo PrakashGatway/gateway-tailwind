@@ -843,10 +843,10 @@ const handleGetStarted = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
           <div className="text-center lg:text-left lg:pl-[17px]">
             <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold text-[#D71635] mb-4 lg:leading-[37px]">
-              Avail A Complementary Counselling Session
+              Ace Your Test Preparation with Expert Mentors
             </h2>
             <p className="text-base  lg:text-[18px] text-[#666276] mb-4 sm:mb-6">
-              Join thousand of instructors and earn money hassle free!
+              Get personalized coaching, proven strategies, and comprehensive study materials to achieve your target score.
             </p>
             <Link
               href="/contact"

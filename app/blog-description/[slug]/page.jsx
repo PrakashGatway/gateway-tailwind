@@ -1,5 +1,6 @@
 import SingleBlogPage from "@/components/pages/blogDetail";
-import DOMPurify from 'isomorphic-dompurify';
+import { prepareBlogContent } from "@/lib/blog-content";
+import { blogImageSource } from "@/lib/blog-image";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }) {
     const title = seoData?.blogTitle || defaultTitle;
     const description = seoData?.descriptions || defaultDescription;
     const keywords = seoData?.keyword || "study abroad blog, IELTS tips, student visa updates, university admissions, abroad education news, Gateway Abroad blog";
-    const ogImage = seoData?.image ? `https://api.gatewayabroadeducations.com/api/uploads/${seoData.image}` : defaultImage;
+    const ogImage = seoData?.image ? blogImageSource(seoData.image) : defaultImage;
 
     return {
       metadataBase: new URL('https://www.gatewayabroadeducations.com'),
@@ -87,16 +88,6 @@ export async function generateMetadata({ params }) {
   }
 }
 
-function sanitizeContent(html) {
-  if (!html) return '';
-  
-  // Use DOMPurify for server-side sanitization
-  const cleanHtml = DOMPurify.sanitize(html)
-  
-  return cleanHtml;
-}
-
-
 export const dynamic = "force-dynamic";
 
 
@@ -145,7 +136,7 @@ export default async function SingleBlog({ params }) {
     };
     
     // Sanitize blog content
-    const sanitizedContent = sanitizeContent(blogData?.blogDescription);
+    const { html: sanitizedContent, headings: tableOfContents } = prepareBlogContent(blogData?.blogDescription);
     
     return (
       <SingleBlogPage 
@@ -154,6 +145,7 @@ export default async function SingleBlog({ params }) {
         similarBlogs={similarBlogs}
         adjacentBlogs={adjacentBlogs}
         sanitizedContent={sanitizedContent}
+        tableOfContents={tableOfContents}
         slug={slug}
       />
     );

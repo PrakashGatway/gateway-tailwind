@@ -2,6 +2,175 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Blog articles use one site-owned typographic system. Editor HTML arrives
+   without its own visual attributes and tables are wrapped for narrow screens. */
+.blog-article-content {
+  min-width: 0;
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.blog-article-content :where(p, ul, ol, blockquote, pre, figure, .blog-table-scroll) {
+  margin-block: 0rem 0.8rem;
+}
+
+.blog-article-content :where(h2, h3, h4, h5, h6) {
+  color: #1e293b;
+  font-weight: 750;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  scroll-margin-top: 7rem;
+}
+
+.blog-article-content h2 {
+  margin-block: 1.5rem 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid #e9edf2;
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+}
+
+.blog-article-content h3 {
+  margin-block: 1.5rem 0.5rem;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+}
+
+.blog-article-content :where(h4, h5, h6) {
+  margin-block: 1.3rem 0.5rem;
+  font-size: 1.08rem;
+}
+
+.blog-article-content :where(h2, h3, h4, h5, h6):first-child,
+.blog-article-content p:first-child {
+  margin-top: 0;
+}
+
+.blog-article-content :where(strong, b) {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.blog-article-content :where(ul, ol) {
+  padding-left: 1.45rem;
+}
+
+.blog-article-content ul { list-style: disc; }
+.blog-article-content ol { list-style: decimal; }
+.blog-article-content li { margin-block: 0.45rem; padding-left: 0.2rem; }
+.blog-article-content li::marker { color: #d81635; }
+.blog-article-content li * {padding: 0; margin: 0;}
+.blog-article-content td * {padding: 0; margin: 0;}
+.blog-article-content th * {padding: 0; margin: 0;}
+
+
+.blog-article-content li :where(ul, ol) { margin-block: 0.55rem; }
+
+.blog-article-content a {
+  color: #c41430;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #f4bac5;
+  text-underline-offset: 3px;
+}
+.blog-article-content a:hover { color: #9e1028; text-decoration-color: currentColor; }
+.blog-article-content a:focus-visible { outline: 2px solid #d81635; outline-offset: 3px; }
+
+.blog-article-content blockquote {
+  border-left: 4px solid #d81635;
+  border-radius: 0 12px 12px 0;
+  background: #fff7f8;
+  padding: 1rem 1.3rem;
+  color: #475569;
+  font-style: italic;
+}
+.blog-article-content blockquote > :first-child { margin-top: 0; }
+.blog-article-content blockquote > :last-child { margin-bottom: 0; }
+
+.blog-article-content :where(img, video) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-inline: auto;
+}
+.blog-article-content figure { max-width: 100%; }
+.blog-article-content figcaption {
+  margin-top: 0.55rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.blog-article-content .blog-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #e9a0ae transparent;
+}
+.blog-article-content .blog-table-scroll::-webkit-scrollbar { height: 4px; }
+.blog-article-content .blog-table-scroll::-webkit-scrollbar-thumb { border-radius: 999px; background: #e9a0ae; }
+.blog-article-content .blog-table-scroll::-webkit-scrollbar-track { background: transparent; }
+.blog-article-content .blog-table-scroll:focus-visible { outline: 2px solid #d81635; outline-offset: 3px; }
+.blog-article-content table {
+  width: 100%;
+  min-width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.blog-article-content :where(th, td) {
+  min-width: 9rem;
+  max-width: 23rem;
+  padding: 0.8rem 1rem;
+  border-right: 1px solid #edf0f4;
+  border-bottom: 1px solid #edf0f4;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+}
+.blog-article-content :where(th, td):last-child { border-right: 0; }
+.blog-article-content tr:last-child td { border-bottom: 0; }
+.blog-article-content th { background: #fff3f5; color: #912039; font-weight: 700; }
+.blog-article-content tbody tr:nth-child(even) td { background: #fafbfd; }
+.blog-article-content caption { padding: 0.75rem 1rem; color: #475569; font-weight: 700; text-align: left; }
+
+.blog-article-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #172033;
+  padding: 1rem 1.25rem;
+  color: #f8fafc;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.blog-article-content :not(pre) > code {
+  border-radius: 4px;
+  background: #f1f5f9;
+  padding: 0.12rem 0.3rem;
+  font-size: 0.92em;
+}
+.blog-article-content hr { margin-block: 2rem; border: 0; border-top: 1px solid #e7eaf0; }
+.blog-article-content details { margin-block: 1rem; border: 1px solid #e7eaf0; border-radius: 12px; padding: 0.85rem 1rem; }
+.blog-article-content summary { cursor: pointer; color: #1e293b; font-weight: 700; }
+
+@media (max-width: 640px) {
+  .blog-article-content { font-size: 0.96rem; line-height: 1.75; }
+  .blog-article-content h2 { margin-top: 2rem; }
+  .blog-article-content :where(th, td) { min-width: 8rem; padding: 0.7rem 0.8rem; }
+}
+
+@media (min-width: 1024px) {
+  .blog-article-content .blog-table-scroll { scrollbar-width: none; }
+  .blog-article-content .blog-table-scroll::-webkit-scrollbar { display: none; }
+}
+
 .admin-font,
 .admin-font button,
 .admin-font input,

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Loader from "@/components/loader";
 import axiosInstance from "@/services/axiosInstance";
+import BlogCard from "./usable components/BlogCard";
 
 const fetchArticles = async ({ page, limit, category, search }: {
   page: number;
@@ -26,22 +27,7 @@ const fetchArticles = async ({ page, limit, category, search }: {
 };
 
 
-const BlogCardSkeleton = () => (
-  <div className="w-full">
-    <div className="bg-white rounded-xl  overflow-hidden hover:shadow-xl transition-all duration-300 border-bottom border-gray-100">
-      <div className="w-full h-48 bg-gray-200 animate-pulse rounded-t-xl" />
-      <div className="p-6">
-        <div className="flex justify-between items-center mb-4">
-          <div className="w-32 h-4 bg-gray-200 animate-pulse rounded" />
-          <div className="w-20 h-4 bg-gray-200 animate-pulse rounded" />
-        </div>
-        <div className="w-3/4 h-5 bg-gray-200 animate-pulse rounded mb-3" />
-        <div className="w-full h-3 bg-gray-200 animate-pulse rounded mb-2" />
-        <div className="w-5/6 h-3 bg-gray-200 animate-pulse rounded" />
-      </div>
-    </div>
-  </div>
-);
+const BlogCardSkeleton = () => <BlogCard loading />;
 
 const Blog = () => {
   const router = useRouter();
@@ -224,13 +210,6 @@ const Blog = () => {
     updateUrlParams(1, selectedCategory, "");
   };
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    });
-
   const getCoverImageUrl = (coverImage: string) => {
     if (!coverImage) return "/img/placeholder-blog.jpg";
     if (coverImage.startsWith("http")) return coverImage;
@@ -339,7 +318,7 @@ const Blog = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="bg-[#fbfcfe] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="relative mb-8">
             <div className="relative">
@@ -396,53 +375,24 @@ const Blog = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {loading
               ? Array.from({ length: 6 }).map((_, index) => (
                 <BlogCardSkeleton key={index} />
               ))
               : articles.map((article) => (
-                <div
+                <BlogCard
                   key={article.slug}
-                  onClick={() => router.push(`/article/${article.slug}`)}
-                  className="group cursor-pointer"
-                >
-                  <div className="bg-white rounded-2xl pb-6 overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 ">
-                    <div className="relative h-52 overflow-hidden">
-                      {getArticleCategoryName(article) && (
-                        <span className="absolute left-3 top-3 z-10 max-w-[calc(100%-24px)] truncate rounded-full border border-white/70 bg-white/95 px-3 py-1 text-xs font-bold text-[#bd1b3a] shadow-sm">
-                          {getArticleCategoryName(article)}
-                        </span>
-                      )}
-                      <Image
-                        src={getCoverImageUrl(article.coverImage)}
-                        alt={article.title}
-                        fill
-                        className="object-fit object-top transition-transform duration-300"
-                        onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-                      />
-                    </div>
-                    <div className="p-4 pt-2 pb-2">
-                      <div className="flex justify-between items-center mb-2">
-                        <div className="flex items-center space-x-2 text-sm text-gray-500">
-                          <Image
-                            src="/img/date-icon.svg"
-                            alt="calendar"
-                            width={16}
-                            height={16}
-                          />
-                          <span>{formatDate(article.createdAt)}</span>
-                        </div>
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors duration-200">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm line-clamp-2">
-                        {article.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  href={`/article/${article.slug}`}
+                  blog={{
+                    Slug: article.slug,
+                    image: getCoverImageUrl(article.coverImage),
+                    blogTitle: article.title,
+                    blogDescription: article.description,
+                    createdAt: article.createdAt,
+                    category: getArticleCategoryName(article) || undefined,
+                  }}
+                />
               ))}
           </div>
 

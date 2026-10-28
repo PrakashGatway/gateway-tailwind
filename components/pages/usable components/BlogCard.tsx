@@ -1,98 +1,130 @@
-import Image from "next/image";
-import { constant } from "@/constant/index.constant";
 import Link from "next/link";
+import { ArrowUpRight, CalendarDays } from "lucide-react";
+import { blogImageSource, cloudinaryCardImage } from "@/lib/blog-image";
 
-const BlogCard = ({ blog, onClick, loading = false, showDescription = true }) => {
-  // If loading, return skeleton
-  if (loading) {
+type Blog = {
+  Slug?: string;
+  image?: string;
+  blogTitle?: string;
+  blogDescription?: string;
+  descriptions?: string;
+  createdAt?: string;
+  category?: string | { name?: string };
+};
+
+type BlogCardProps = {
+  blog?: Blog;
+  loading?: boolean;
+  showDescription?: boolean;
+  href?: string;
+};
+
+function excerpt(value: string) {
+  return value
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&(?:nbsp|#160);/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#(?:39|x27);/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 180);
+}
+
+export default function BlogCard({
+  blog,
+  loading = false,
+  showDescription = true,
+  href,
+}: BlogCardProps) {
+  if (loading || !blog) {
     return (
-      <div className="animate-pulse bg-white rounded-xl  overflow-hidden">
-        {/* Image Skeleton */}
-        <div className="bg-gray-300 h-48"></div>
-        
-        {/* Content Skeleton */}
-        <div className="p-4 space-y-3">
-          <div className="flex justify-between">
-            <div className="h-4 bg-gray-300 rounded w-24"></div>
-            <div className="h-4 bg-gray-300 rounded w-16"></div>
-          </div>
-          <div className="h-5 bg-gray-300 rounded w-3/4"></div>
-          <div className="space-y-2">
-            <div className="h-4 bg-gray-300 rounded w-full"></div>
-            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-            <div className="h-4 bg-gray-300 rounded w-4/6"></div>
-          </div>
-          <div className="h-4 bg-gray-300 rounded w-20 mt-3"></div>
+      <div
+        aria-hidden="true"
+        className="overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-sm"
+      >
+        <div className="aspect-[16/8] animate-pulse bg-slate-100" />
+        <div className="space-y-3 p-5">
+          <div className="h-3 w-24 animate-pulse rounded bg-slate-100" />
+          <div className="h-5 w-11/12 animate-pulse rounded bg-slate-100" />
+          <div className="h-5 w-8/12 animate-pulse rounded bg-slate-100" />
+          <div className="h-3 w-full animate-pulse rounded bg-slate-100" />
+          <div className="h-3 w-3/4 animate-pulse rounded bg-slate-100" />
         </div>
       </div>
     );
   }
 
-  // If not loading, return actual blog card
-  const formatDate = (date) =>
-    new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    });
-
-  const sanitizedData = (content) => ({
-    __html: content,
-  });
-  const categoryName = typeof blog.category === "string"
-    ? blog.category
-    : blog.category?.name;
+  const source = blogImageSource(blog.image);
+  const cloudinary = cloudinaryCardImage(source, 480);
+  const srcSet = cloudinary
+    ? [320, 480, 800]
+        .map((width) => `${cloudinaryCardImage(source, width)} ${width}w`)
+        .join(", ")
+    : undefined;
+  const category =
+    typeof blog.category === "string" ? blog.category : blog.category?.name;
+  const date = blog.createdAt ? new Date(blog.createdAt) : null;
+  const published =
+    date && Number.isFinite(date.getTime())
+      ? new Intl.DateTimeFormat("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }).format(date)
+      : null;
+  const summary = excerpt(blog.descriptions || blog.blogDescription || "");
 
   return (
     <Link
-      href={`/blog-description/${blog.Slug}`}
-      className="bg-white rounded-2xl cursor-pointer pb-2  transition-all duration-300 transform hover:translate-x hover:border-red-600  overflow-hidden"
+      href={href || `/blog-description/${blog.Slug || ""}`}
+      className="group border flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
-      {/* Image Section */}
-      <div className="relative h-52 overflow-hidden">
-        {categoryName && (
-          <span className="absolute left-3 top-3 z-10 max-w-[calc(100%-24px)] truncate rounded-full border border-white/70 bg-white/95 px-3 py-1 text-xs font-bold text-[#bd1b3a] shadow-sm">
-            {categoryName}
+      <div className="relative aspect-[16/8] overflow-hidden bg-[#f8e6e9]">
+        <img
+          src={cloudinary || source}
+          srcSet={srcSet}
+          sizes="(min-width: 1280px) 390px, (min-width: 768px) 46vw, calc(100vw - 32px)"
+          alt={blog.blogTitle || "Study abroad article"}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-500"
+          onError={(event) => {
+            const image = event.currentTarget;
+            if (image.dataset.fallback) return;
+            image.dataset.fallback = "true";
+            image.srcset = "";
+            image.src = "/img/blog-banner-img.svg";
+          }}
+        />
+        {category && (
+          <span className="absolute bottom-3 left-3 max-w-[calc(100%-24px)] truncate rounded-full border border-white/80 bg-white/95 px-3 py-1.5 text-[11px] font-bold text-[#bd1b3a] shadow-sm backdrop-blur">
+            {category}
           </span>
         )}
-        <Image
-          src={blog.image.startsWith('http') ? blog.image : `${constant.REACT_APP_URL}/api/uploads/${blog.image}`}
-          alt={blog.blogTitle}
-          onError={(e) => (e.currentTarget.src = "https://media.istockphoto.com/id/922745190/photo/blogging-blog-concepts-ideas-with-worktable.jpg?s=612x612&w=0&k=20&c=xR2vOmtg-N6Lo6_I269SoM5PXEVRxlgvKxXUBMeMC_A=")}
-          fill
-          className="object-cover object-top"
-        />
       </div>
-
-      {/* Content Section */}
-      <div className="p-4">
-        {/* Date */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
-          <div className="flex items-center space-x-1">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-            </svg>
-            <span>{formatDate(blog.createdAt)}</span>
-          </div>
-        </div>
-
-        {/* Title */}
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
+      <div className="flex flex-1 flex-col p-4">
+        <h2 className=" line-clamp-2 text-lg font-semibold leading-snug text-[#1e293b] transition-colors group-hover:text-[#c41430] sm:text-lg">
           {blog.blogTitle}
-        </h3>
-
-        {/* Description - Conditionally rendered */}
-        {showDescription && (
-          <div
-            className="text-gray-600 line-clamp-2"
-            dangerouslySetInnerHTML={sanitizedData(blog.blogDescription)}
-          />
+        </h2>
+        {showDescription && summary && (
+          <p className="mt-1 line-clamp-2 text-sm leading-6 text-[#64748b]">
+            {summary}
+          </p>
         )}
-
-       
+        <div className="mt-auto flex justify-between items-center">
+          <span className=" inline-flex items-center gap-1.5 pt-3 text-sm font-bold text-[#d81635]">
+            Read article{" "}
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </span>
+          {published && (
+            <p className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+              <CalendarDays className="h-3.5 w-3.5" />
+              {published}
+            </p>
+          )}
+        </div>
       </div>
     </Link>
   );
-};
-
-export default BlogCard;
+}
