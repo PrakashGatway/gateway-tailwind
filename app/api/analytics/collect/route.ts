@@ -7,6 +7,7 @@ import {
   getActivityCollection,
   type ActivityEvent,
   type ActivityType,
+  type ClickKind,
 } from "@/lib/analytics";
 
 export const runtime = "nodejs";
@@ -20,6 +21,7 @@ const types = new Set<ActivityType>([
   "form_start",
   "form_submit",
 ]);
+const clickKinds = new Set<ClickKind>(["whatsapp", "phone", "button", "link"]);
 const noStore = { "Cache-Control": "no-store" };
 const rateWindowMs = 60_000;
 const maxEventsPerWindow = 600;
@@ -244,6 +246,10 @@ export async function POST(request: NextRequest) {
       city,
       device,
       ...(type === "page_duration" ? { durationMs: durationMs as number } : {}),
+      ...(type === "click" && clickKinds.has(event.clickKind as ClickKind) ? {
+        clickKind: event.clickKind as ClickKind,
+        clickTarget: cleanText(event.clickTarget, 100),
+      } : {}),
       ...(type === "form_submit" ? { lead: cleanLead(event.lead) } : {}),
     });
   }

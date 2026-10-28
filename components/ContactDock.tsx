@@ -101,6 +101,7 @@ export default function ContactDock() {
 
       <motion.a
         href={whatsappHref}
+        data-track-label="WhatsApp floating contact"
         target="_blank"
         rel="noopener noreferrer"
         onMouseEnter={() => setWhatsappActive(true)}

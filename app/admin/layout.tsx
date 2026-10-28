@@ -9,5 +9,5 @@ export const metadata = {
 export const runtime = "nodejs";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  return <div className="admin-font">{children}</div>;
+  return <div className="admin-font font-medium">{children}</div>;
 }

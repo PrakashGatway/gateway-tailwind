@@ -5,6 +5,7 @@ export const ANALYTICS_RETENTION_DAYS = 15;
 export const ANALYTICS_RETENTION_MS = ANALYTICS_RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
 export type ActivityType = "page_view" | "page_duration" | "click" | "form_start" | "form_submit";
+export type ClickKind = "whatsapp" | "phone" | "button" | "link";
 export type LeadField = { key: string; value: string };
 export type LeadSnapshot = { name?: string; email?: string; phone?: string; fields: LeadField[] };
 
@@ -22,6 +23,8 @@ export type ActivityEvent = {
   device: "mobile" | "tablet" | "desktop";
   lead?: LeadSnapshot;
   durationMs?: number;
+  clickKind?: ClickKind;
+  clickTarget?: string;
 };
 
 let indexesPromise: Promise<void> | undefined;
@@ -34,6 +37,7 @@ export async function getActivityCollection(): Promise<Collection<ActivityEvent>
     collection.createIndex({ visitorId: 1, occurredAt: -1 }, { name: "visitor_timeline" }),
     collection.createIndex({ occurredAt: -1 }, { name: "recent_activity" }),
     collection.createIndex({ type: 1, occurredAt: -1 }, { name: "activity_type" }),
+    collection.createIndex({ type: 1, occurredAt: -1, path: 1, clickKind: 1 }, { name: "click_filters" }),
   ]).then(() => undefined).catch((error) => {
     indexesPromise = undefined;
     throw error;

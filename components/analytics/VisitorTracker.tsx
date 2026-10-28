@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 type LeadField = { key: string; value: string };
-type QueuedEvent = { type: "page_view" | "page_duration" | "click" | "form_start" | "form_submit"; path: string; label: string; at: number; durationMs?: number; lead?: { name?: string; email?: string; phone?: string; fields: LeadField[] } };
+type ClickKind = "whatsapp" | "phone" | "button" | "link";
+type QueuedEvent = { type: "page_view" | "page_duration" | "click" | "form_start" | "form_submit"; path: string; label: string; at: number; durationMs?: number; clickKind?: ClickKind; clickTarget?: string; lead?: { name?: string; email?: string; phone?: string; fields: LeadField[] } };
 type VisitorIdentity = { id: string; lastSeen: number };
 
 const ID_KEY = "gateway_visitor_v1";
@@ -36,6 +37,29 @@ function getIds() {
 
 function safeLabel(value: string) {
   return value.replace(/\s+/g, " ").replace(/\b\S+@\S+\b/g, "[email]").replace(/\b\+?\d[\d\s()-]{7,}\d\b/g, "[number]").trim().slice(0, 100);
+}
+
+function clickDetails(control: Element): { clickKind: ClickKind; clickTarget: string } {
+  const element = control as HTMLElement;
+  const explicit = element.dataset.trackKind;
+  const explicitTarget = element.dataset.trackTarget?.slice(0, 100) || "";
+  if (explicit === "whatsapp" || explicit === "phone" || explicit === "button" || explicit === "link") {
+    return { clickKind: explicit, clickTarget: explicitTarget };
+  }
+  const href = control.getAttribute("href") || "";
+  if (/^tel:/i.test(href)) return { clickKind: "phone", clickTarget: `tel:${href.slice(4).replace(/[^\d+]/g, "").slice(0, 20)}` };
+  if (href) {
+    try {
+      const url = new URL(href, location.origin);
+      const host = url.hostname.toLowerCase();
+      if (["wa.me", "api.whatsapp.com", "web.whatsapp.com"].includes(host)) {
+        const rawNumber = host === "wa.me" ? url.pathname.split("/")[1] : url.searchParams.get("phone") || url.pathname.split("/")[1];
+        return { clickKind: "whatsapp", clickTarget: `whatsapp:${(rawNumber || "").replace(/\D/g, "").slice(0, 18)}` };
+      }
+      return { clickKind: "link", clickTarget: host === location.hostname ? url.pathname.slice(0, 100) : `external:${host.slice(0, 85)}` };
+    } catch { return { clickKind: "link", clickTarget: "" }; }
+  }
+  return { clickKind: "button", clickTarget: (element.id ? `button:${element.id}` : "").slice(0, 100) };
 }
 
 function formName(form: HTMLFormElement) {
@@ -98,9 +122,9 @@ export default function VisitorTracker() {
     }
     flushRef.current = flush;
 
-    function queue(type: QueuedEvent["type"], label: string, lead?: QueuedEvent["lead"], path = location.pathname, durationMs?: number) {
+    function queue(type: QueuedEvent["type"], label: string, lead?: QueuedEvent["lead"], path = location.pathname, durationMs?: number, click?: { clickKind: ClickKind; clickTarget: string }) {
       if (lead && pending.current.length) flush();
-      pending.current.push({ type, label: safeLabel(label), path, at: Date.now(), ...(lead ? { lead } : {}), ...(durationMs !== undefined ? { durationMs } : {}) });
+      pending.current.push({ type, label: safeLabel(label), path, at: Date.now(), ...(lead ? { lead } : {}), ...(durationMs !== undefined ? { durationMs } : {}), ...(click || {}) });
       if (lead) flush(true);
       else if (pending.current.length >= 20) flush();
       else if (!timer.current) timer.current = setTimeout(() => flush(), 1000);
@@ -125,7 +149,7 @@ export default function VisitorTracker() {
       if (!control || control.closest("[data-no-track]")) return;
       const element = control as HTMLElement;
       const label = element.dataset.trackLabel || element.getAttribute("aria-label") || element.textContent || element.getAttribute("title") || control.tagName.toLowerCase();
-      queue("click", label);
+      queue("click", label, undefined, location.pathname, undefined, clickDetails(control));
     }
 
     function onSubmit(event: SubmitEvent) {

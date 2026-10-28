@@ -295,13 +295,11 @@ export default function BannerManager() {
     <main className="mx-auto max-w-[1500px] px-5 py-7 sm:px-7 lg:px-9">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#d81635]">
-            Campaigns
-          </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-[#202b3f]">
+      
+          <h1 className=" text-2xl font-bold tracking-tight text-[#202b3f]">
             Popup banners
           </h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-px text-sm text-slate-500">
             Show image-only offers on the routes you choose.
           </p>
         </div>

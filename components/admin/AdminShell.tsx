@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  MousePointerClick,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -22,6 +23,7 @@ const navigation = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/traffic", label: "Traffic trends", icon: ChartNoAxesCombined },
   { href: "/admin/activity", label: "Visitor activity", icon: Activity },
+  { href: "/admin/buttons", label: "Button tracker", icon: MousePointerClick },
   { href: "/admin/banners", label: "Popup banners", icon: Images },
 ];
 
@@ -43,6 +45,8 @@ export default function AdminShell({
       ? "Visitor activity"
       : pathname.startsWith("/admin/banners")
         ? "Popup banners"
+      : pathname.startsWith("/admin/buttons")
+        ? "Button tracker"
       : "Dashboard";
 
   async function signOut() {

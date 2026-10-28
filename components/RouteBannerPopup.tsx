@@ -144,6 +144,9 @@ export default function RouteBannerPopup() {
               <button
                 type="button"
                 onClick={() => dismiss(banner.buttonAction)}
+                data-track-label={`Banner: ${banner.title}`}
+                data-track-kind={banner.buttonAction.type === "whatsapp" ? "whatsapp" : "button"}
+                data-track-target={banner.buttonAction.type === "whatsapp" ? `whatsapp:${WHATSAPP_NUMBER}` : undefined}
                 aria-label={`Open offer: ${banner.title}`}
                 className="block overflow-hidden rounded-[24px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white"
               >
@@ -158,6 +161,9 @@ export default function RouteBannerPopup() {
               <button
                 type="button"
                 onClick={() => dismiss(banner.closeAction)}
+                data-track-label={`Close banner: ${banner.title}`}
+                data-track-kind={banner.closeAction.type === "whatsapp" ? "whatsapp" : "button"}
+                data-track-target={banner.closeAction.type === "whatsapp" ? `whatsapp:${WHATSAPP_NUMBER}` : undefined}
                 title={closeHint(banner.closeAction)}
                 aria-label={closeHint(banner.closeAction)}
                 className="absolute right-3 top-3 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/70 bg-white/95 text-[#a91534] shadow-lg transition hover:rotate-90 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d71635]"
@@ -180,6 +186,9 @@ export default function RouteBannerPopup() {
             <button
               type="button"
               onClick={() => dismiss(banner.buttonAction)}
+              data-track-label={`Banner: ${banner.title}`}
+              data-track-kind={banner.buttonAction.type === "whatsapp" ? "whatsapp" : "button"}
+              data-track-target={banner.buttonAction.type === "whatsapp" ? `whatsapp:${WHATSAPP_NUMBER}` : undefined}
               aria-label={`Open offer: ${banner.title}`}
               className="block w-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#d71635]"
             >
@@ -194,6 +203,9 @@ export default function RouteBannerPopup() {
             <button
               type="button"
               onClick={() => dismiss(banner.closeAction)}
+              data-track-label={`Close banner: ${banner.title}`}
+              data-track-kind={banner.closeAction.type === "whatsapp" ? "whatsapp" : "button"}
+              data-track-target={banner.closeAction.type === "whatsapp" ? `whatsapp:${WHATSAPP_NUMBER}` : undefined}
               title={closeHint(banner.closeAction)}
               aria-label={closeHint(banner.closeAction)}
               className="absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/60 bg-white/95 text-[#a91534] shadow-md transition hover:rotate-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d71635]"
