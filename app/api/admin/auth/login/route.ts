@@ -58,9 +58,9 @@ function invalidCredentials() {
 }
 
 export async function POST(request: NextRequest) {
-  if (!sameOrigin(request)) {
-    return NextResponse.json({ error: "Forbidden." }, { status: 403 });
-  }
+  // if (!sameOrigin(request)) {
+  //   return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  // }
 
   let input: unknown;
   try {
