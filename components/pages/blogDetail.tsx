@@ -220,7 +220,7 @@ export default function SingleBlogPage({
             </nav>
 
             {/* Blog Title */}
-            <h1 className="mb-5 max-w-5xl text-2xl font-bold !leading-tight text-[#1e293b] sm:text-4xl ">
+            <h1 className="mb-5 max-w-5xl text-xl font-bold !leading-tight text-[#1e293b] sm:text-4xl ">
               {blogData?.blogTitle}
             </h1>
 
@@ -313,7 +313,7 @@ export default function SingleBlogPage({
                           <a
                             key={heading.id}
                             href={`#${heading.id}`}
-                            className={`text-sm leading-5 text-slate-600 transition-colors hover:text-[#c41430] ${heading.level === 3 ? "pl-4" : "font-semibold"}`}
+                            className={`text-sm leading-5 text-slate-700 transition-colors hover:text-[#c41430] ${heading.level === 3 ? "pl-4" : "font-semibold"}`}
                           >
                             {heading.text}
                           </a>

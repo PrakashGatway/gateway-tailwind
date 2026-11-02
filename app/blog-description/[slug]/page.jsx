@@ -94,11 +94,6 @@ export const dynamic = "force-dynamic";
 export default async function SingleBlog({ params }) {
   const { slug } = await params;
 
-  
-
-
-
-  
   try {
     // Fetch current blog data
     const [blogData, allBlogsRes] = await Promise.all([
@@ -107,9 +102,6 @@ export default async function SingleBlog({ params }) {
     ]);
 
 
-
-  
-    
     if (!blogData) {
       throw new Error('Blog data not found');
     }
