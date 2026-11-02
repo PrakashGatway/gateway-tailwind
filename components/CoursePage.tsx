@@ -700,7 +700,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
       </section>
 
       {/* Brochure Section */}
-      <section className="py-1 md:py-8 bg-red-600 max-w-[69rem] mx-auto rounded-[20px] my-[70px]">
+      <section className="py-1 md:py-8 bg-red-600 max-w-[69rem] mx-auto rounded-[20px] my-[70px] mx-4">
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 items-center">
             <div className="lg:col-span-2 text-center lg:text-left">

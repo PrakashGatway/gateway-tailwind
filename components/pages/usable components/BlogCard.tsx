@@ -80,7 +80,7 @@ export default function BlogCard({
       href={href || `/blog-description/${blog.Slug || ""}`}
       className="group border flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
-      <div className="relative aspect-[16/8] overflow-hidden bg-[#f8e6e9]">
+      <div className="relative  overflow-hidden bg-[#f8e6e9]">
         <img
           src={cloudinary || source}
           srcSet={srcSet}

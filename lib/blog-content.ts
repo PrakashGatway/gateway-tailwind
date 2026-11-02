@@ -18,7 +18,7 @@ const allowedAttributes = [
 export type BlogHeading = {
   id: string;
   text: string;
-  level: 2 | 3;
+  level: 2;
 };
 
 export function prepareBlogContent(html: unknown) {
@@ -110,7 +110,7 @@ body.querySelectorAll("[style]:not(img):not(figure)").forEach((element) => {
     headings.push({
       id,
       text,
-      level: heading.tagName.toLowerCase() === "h3" ? 3 : 2,
+      level: 2,
     });
   });
 

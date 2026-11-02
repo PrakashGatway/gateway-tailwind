@@ -300,7 +300,7 @@ export default function SingleBlogPage({
                     />
                   </div>
 
-                  {tableOfContents.length > 1 && (
+                  {tableOfContents.length > 0 && (
                     <details className="mb-8 rounded-2xl border border-[#f0dce1] bg-[#fff9fa] p-4 sm:p-5">
                       <summary className="cursor-pointer text-sm font-bold text-[#a91b36]">
                         In this article
@@ -313,7 +313,7 @@ export default function SingleBlogPage({
                           <a
                             key={heading.id}
                             href={`#${heading.id}`}
-                            className={`text-sm leading-5 text-slate-700 transition-colors hover:text-[#c41430] ${heading.level === 3 ? "pl-4" : "font-semibold"}`}
+                            className="text-sm font-semibold leading-5 text-slate-700 transition-colors hover:text-[#c41430]"
                           >
                             {heading.text}
                           </a>
@@ -435,7 +435,7 @@ export default function SingleBlogPage({
                       Comments ({comments.length})
                     </h3>
                     {/* Comment entry point depends on login and is temporarily disabled. */}
-                    {false && comments.length > 0 && (
+                    { comments.length > 0 && (
                       <button
                         onClick={() =>
                           document
@@ -450,7 +450,7 @@ export default function SingleBlogPage({
                   </div>
 
                   {/* Comment form depends on login and is temporarily disabled. */}
-                  {false && (
+                  { (
                     <div
                       id="comment-form"
                       className="bg-white border border-gray-200 rounded-lg p-6 mb-8"

@@ -422,7 +422,7 @@ export default function ArticleClient({
                     Comments ({comments.length})
                   </h3>
                   {/* Comment entry point depends on login and is temporarily disabled. */}
-                  {false && comments.length > 0 && (
+                  { comments.length > 0 && (
                     <button
                       onClick={() =>
                         document
@@ -437,7 +437,7 @@ export default function ArticleClient({
                 </div>
 
                 {/* Comment form depends on login and is temporarily disabled. */}
-                {false && <div
+                { <div
                   id="comment-form"
                   className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
                 >

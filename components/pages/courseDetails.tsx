@@ -257,7 +257,7 @@ const handleGetStarted = () => {
  
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
+    <div className="grid grid-cols-1 items-center gap-8 pt-12 sm:gap-10 md:pt-[85px] lg:grid-cols-2 lg:gap-[9rem]">
       <div className="space-y-4 md:space-y-6 text-center lg:text-left">
         <h1 className="text-2xl sm:text-3xl md:text-[40px] font-bold text-red-600 leading-tight break-words">
           {courseData?.textFild}
@@ -347,7 +347,7 @@ const handleGetStarted = () => {
       {/* Overview Section */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <Image
                 src={courseData.image3 ? `${constant.REACT_APP_URL}/api/uploads/${courseData.image3}` : '/placeholder.jpg'}
@@ -457,7 +457,7 @@ const handleGetStarted = () => {
 
       <section className="py-12 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
             {/* Image Column */}
             <div className="flex justify-center">
@@ -633,15 +633,15 @@ const handleGetStarted = () => {
     <div className="backdrop-blur-lg bg-white/80 shadow-2xl rounded-3xl py-10 px-4 md:px-6 md:py-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Classroom Training */}
-        <div className="px-4 md:px-6">
+          <div className="px-4 md:px-6">
           <h5 className="text-2xl md:text-[28px] font-medium text-zinc-700 mb-6">Classroom training</h5>
           <div className="mb-8">
             <ul className="space-y-4 min-h-[200px] md:min-h-[242px]">
-              <li className="relative text-neutral-600 font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-neutral-600 before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
                 Gateway Abroad Jaipur empowers you to achieve your {courseName} goals with top-notch instructors. They provide
                 in-person guidance through a comprehensive offline preparation program.
               </li>
-              <li className="relative text-neutral-600 font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-neutral-600 before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
                 Don't let academic hurdles hold you back from achieving success. Conquer the {courseName} exam entirely offline and
                 unlock the door to a thriving academic journey.
               </li>
@@ -662,11 +662,11 @@ const handleGetStarted = () => {
           <h5 className="text-2xl md:text-[28px] font-medium text-zinc-700 mb-6">Live online training</h5>
           <div className="mb-8">
             <ul className="space-y-4 min-h-[200px] md:min-h-[242px]">
-              <li className="relative text-neutral-600 font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-neutral-600 before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
                 Level Up Your Scores: Anytime, Anywhere. Conquer standardized tests from the comfort of your home with our
                 interactive online prep courses.
               </li>
-              <li className="relative text-neutral-600 font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-neutral-600 before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle.532cdb95.svg')] before:bg-cover">
                 Our flexible online classes and dedicated support ensure you can progress at your own pace, tailoring your learning
                 journey to your busy schedule.
               </li>
@@ -692,11 +692,11 @@ const handleGetStarted = () => {
           <h5 className="text-2xl md:text-[28px] font-medium text-white mb-6">Hybrid</h5>
           <div className="mb-8">
             <ul className="space-y-4 min-h-[200px] md:min-h-[242px]">
-              <li className="relative text-white font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-white before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-cover">
                 Get the best of both worlds with our hybrid courses - the flexibility of online learning combined with the
                 personalized support of in-person instruction!
               </li>
-              <li className="relative text-white font-medium text-justify pl-8 before:absolute before:left-0 before:top-0 before:w-5 before:h-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-cover">
+              <li className="relative pl-8 text-left font-medium text-white before:absolute before:left-0 before:top-0 before:h-5 before:w-5 before:bg-[url('https://www.gatewayabroadeducations.com/_next/static/media/check-circle-2.3eccd6cf.svg')] before:bg-cover">
                 Why choose between online convenience and offline expertise when you can have both? Experience the ultimate exam
                 prep fusion with our hybrid courses!
               </li>
@@ -815,7 +815,7 @@ const handleGetStarted = () => {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            <Accordion type="single" collapsible className="w-3xl space-y-4">
+            <Accordion type="single" collapsible className="w-full space-y-4">
               {faqData.map((f, index) => (
                 <AccordionItem
                   key={index}
