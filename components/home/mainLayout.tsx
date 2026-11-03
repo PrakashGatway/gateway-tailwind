@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, lazy } from "react";
+import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
@@ -11,6 +11,7 @@ import ContactDock from "../ContactDock";
 import RouteBannerPopup from "../RouteBannerPopup";
 import { BannerCategoryProvider } from "../BannerCategoryContext";
 import VisitorTracker from "@/components/analytics/VisitorTracker";
+import CookieConsent from "@/components/CookieConsent";
 
 
 // const Header = lazy(() => import("@/components/header"));
@@ -19,6 +20,22 @@ import VisitorTracker from "@/components/analytics/VisitorTracker";
 // const AuthDrawer = lazy(() => import("../auth/drawer"));
 
 const hideLayoutOnPaths = ['/thank-you'];
+const COOKIE_CONSENT_KEY = "gateway_cookie_consent_v1";
+
+function ConsentAwareVisitorTracker() {
+  const [consented, setConsented] = useState(false);
+  useEffect(() => {
+    const syncConsent = () => setConsented(window.localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted");
+    syncConsent();
+    window.addEventListener("gateway-cookie-consent", syncConsent);
+    window.addEventListener("storage", syncConsent);
+    return () => {
+      window.removeEventListener("gateway-cookie-consent", syncConsent);
+      window.removeEventListener("storage", syncConsent);
+    };
+  }, []);
+  return consented ? <VisitorTracker /> : null;
+}
 
 const LayoutFallback = () => (
   null
@@ -39,7 +56,9 @@ function LoaderWrapper({ children }: { children: ReactNode }) {
   );
 }
 
-export default function ClientLayout({ children }: { children: ReactNode }) {
+type NavigationData = { countries: any[]; courses: any[]; cities: any[] };
+
+export default function ClientLayout({ children, navigationData }: { children: ReactNode; navigationData: NavigationData }) {
   const pathname = usePathname();
   if (pathname === "/admin" || pathname?.startsWith("/admin/")) {
     return <main className="min-h-screen">{children}</main>;
@@ -51,13 +70,14 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <GlobalProvider>
           <BannerCategoryProvider>
           <LoaderWrapper>
-            <VisitorTracker />
+            <ConsentAwareVisitorTracker />
+            <CookieConsent />
             {!shouldHideLayout && (
-                <Header />
+                <Header countries={navigationData.countries} courses={navigationData.courses} />
             )}
             <main>{children}</main>
             {!shouldHideLayout && (
-                <Footer />
+                <Footer courses={navigationData.courses} cities={navigationData.cities} countries={navigationData.countries} />
             )}
             <ContactDock />
             <RouteBannerPopup />

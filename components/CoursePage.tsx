@@ -355,7 +355,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
       <section className="bg-[#f3e8ff] py-12 md:py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 md:gap-[9rem] pt-16 md:pt-[85px] items-center">
-            <div className="space-y-4 md:space-y-6 text-center lg:text-left">
+            <div className="space-y-4 md:space-y-6 text-left text-justify lg:text-left">
               <h1 className="text-2xl sm:text-3xl md:text-[40px] font-bold text-red-600 !leading-tight break-words">
                 {heroContent?.title ||
                   pageData?.title ||
@@ -700,7 +700,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
       </section>
 
       {/* Brochure Section */}
-      <section className="py-1 md:py-8 bg-red-600 max-w-[69rem] mx-auto rounded-[20px] my-[70px] mx-4">
+      <section className="py-6 md:py-8 bg-red-600 max-w-[69rem] lg:mx-auto rounded-[20px] my-[70px] mx-6 ">
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 items-center">
             <div className="lg:col-span-2 text-center lg:text-left">

@@ -10,6 +10,7 @@ import BlogArticleContent from "@/components/blog/BlogArticleContent";
 import { cloudinaryCardImage } from "@/lib/blog-image";
 import { usePathname } from "next/navigation";
 import { useBannerCategory } from "@/components/BannerCategoryContext";
+import { Facebook, Linkedin, Mail, Twitter } from "lucide-react";
 // import { useEffect, useState } from 'react';
 // import axiosInstance from '@/services/axiosInstance';
 // import { useGlobal } from '@/hooks/AppStateContext';
@@ -351,7 +352,7 @@ export default function ArticleClient({
                           href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/article/${article.slug}`)}`}
                           className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200 hover:scale-110"
                         >
-                          <i className="fa fa-facebook"></i>
+                          <Facebook/>
                         </Link>
                         <Link
                           target="_blank"
@@ -359,7 +360,7 @@ export default function ArticleClient({
                           href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/article/${article.slug}`)}`}
                           className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200 hover:scale-110"
                         >
-                          <i className="fa fa-twitter"></i>
+                          <Twitter/>
                         </Link>
                         <Link
                           target="_blank"
@@ -367,13 +368,13 @@ export default function ArticleClient({
                           href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/article/${article.slug}`)}`}
                           className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200 hover:scale-110"
                         >
-                          <i className="fa fa-linkedin"></i>
+                          <Linkedin/>
                         </Link>
                         <Link
                           href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(`${constant.BASE_URL}/article/${article.slug}`)}`}
                           className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200 hover:scale-110"
                         >
-                          <i className="fa fa-envelope"></i>
+                          <Mail/>
                         </Link>
                       </div>
                     </div>

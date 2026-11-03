@@ -1,0 +1,14 @@
+import PolicyPage from "@/components/policies/PolicyPage";
+
+export const metadata = { title: "Content Policy | Gateway Abroad Educations", description: "Guidelines for website information and material submitted through Gateway Abroad Educations website features." };
+
+export default function ContentPolicy() {
+  return <PolicyPage title="Content Policy" intro="Our content policy sets expectations for information published on this website and for material submitted through our forms or other website features." sections={[
+    { title: "Our published information", paragraphs: ["We aim to make our study destination, admissions, test preparation, and student guidance content clear and useful. Requirements, fees, dates, scholarship details, and immigration rules can change and may differ by institution or applicant. Check important decisions with the relevant university or government authority before acting."] },
+    { title: "Information submitted by visitors", paragraphs: ["Please submit accurate, relevant information when contacting us. Do not include passwords, payment card details, confidential records, or another person’s personal information unless you have permission and we have requested it through an appropriate channel. Enquiry forms are for requesting assistance and are not a public posting service."] },
+    { title: "Content we do not allow", bullets: ["Illegal, threatening, harassing, hateful, discriminatory, or abusive material.", "False claims, impersonation, spam, deceptive promotions, or content intended to disrupt our services.", "Private or sensitive personal information shared without authority.", "Content that infringes another person’s copyright, trademark, privacy, or other rights.", "Malware, harmful links, or instructions intended to compromise systems or accounts."] },
+    { title: "Reviews and third-party material", paragraphs: ["Where visitor comments, reviews, or third-party content are available, views expressed by their authors are their own and are not necessarily endorsed by Gateway Abroad Educations. Do not post personal information or material that violates this policy. We may moderate or remove material where we reasonably consider it unlawful, unsafe, irrelevant, or inconsistent with these rules."] },
+    { title: "Reporting a concern", paragraphs: ["To report a content or rights concern, email jaipur@gatewayabroad.in with the page or material involved and a short explanation. Include enough information for us to locate and assess it. We may ask for additional details before taking action."] },
+    { title: "Updates", paragraphs: ["We may update this policy when website features or our content practices change. Continued use of the website after a revised version is posted is subject to the updated policy, together with our Terms and Conditions and Privacy Policy."] },
+  ]} />;
+}

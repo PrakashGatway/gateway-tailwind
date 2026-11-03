@@ -54,14 +54,14 @@ const QUICK_LINKS = [
   { href: "/gallery", text: "Gallery" },
 ];
 
-export const Footer = () => {
+export const Footer = ({ courses = [], cities = [], countries = [] }: { courses?: any[]; cities?: any[]; countries?: any[] }) => {
   const pathname = usePathname();
   const router = useRouter();
   
   // State
-  const [courseData, setCourseData] = useState([]);
+  const courseData = courses;
   const [contactData, setContactData] = useState({});
-  const [cityPage, setCityPage] = useState([]);
+  const cityPage = cities;
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadFooterData, setLoadFooterData] = useState(false);
@@ -111,32 +111,14 @@ export const Footer = () => {
     },
   });
 
-  // Fetch page data
-  const getPageData = useCallback(async (type, setState) => {
-    try {
-      const response = await axiosInstance.get(
-        `/page/list/type?type=${type}&featured=true`
-      );
-      if (response.data?.data) {
-        setState(response.data.data);
-      }
-    } catch (error) {
-      console.error(`Error fetching ${type}:`, error);
-    }
-  }, []);
-
   useEffect(() => {
     if (!loadFooterData) return;
     let active = true;
-    PageServices.getCourse()
-      .then(res => { if (active && res?.data?.page) setCourseData(res.data.page); })
-      .catch(() => {});
     PageServices.getSettingData()
       .then(res => { if (active && res?.data?.setting) setContactData(res.data.setting); })
       .catch(() => {});
-    getPageData("city_page", setCityPage);
     return () => { active = false; };
-  }, [loadFooterData, getPageData]);
+  }, [loadFooterData]);
 
   // Modal handlers
   const closeModal = useCallback(() => {
@@ -362,6 +344,21 @@ export const Footer = () => {
                 </div>
               </div>
 
+              {/* Destinations */}
+              <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
+                <div className="pl-0 md:pl-2 mb-6">
+                  <h3 className="text-zinc-800 text-[17px] font-semibold leading-[normal] mb-[15px]">Study destinations</h3>
+                  <ul className="list-none pl-0 mb-4 flex flex-wrap md:block">
+                    {countries.map((country, index) => {
+                      const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
+                      return <li key={country?._id || slug || index} className="relative mb-2 w-1/2 md:w-auto pr-4 md:pr-0">
+                        <Link href={`/study-in/${slug}`} className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200">{country?.name || `Study in ${country?.slug}`}</Link>
+                      </li>;
+                    })}
+                  </ul>
+                </div>
+              </div>
+
               {/* Test Preparation */}
               <div className="shrink-0 max-w-full w-full px-3 md:w-[16.6667%]">
                 <div className="pl-0 md:pl-2 mb-6">
@@ -371,14 +368,14 @@ export const Footer = () => {
                   <ul className="list-none pl-0 mb-4 flex flex-wrap md:block">
                     {courseData.map((course) => (
                       <li
-                        key={course.pageName}
+                        key={course._id || course.slug || course.pageName}
                         className="relative mb-2 w-1/2 md:w-auto pr-4 md:pr-0"
                       >
                         <Link
-                          href={`/course/${course.pageName.toLowerCase()}`}
+                          href={`/course/${(course.slug || course.pageName || course.title || "").toLowerCase()}`}
                           className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200"
                         >
-                          {course.pageName}
+                          {course.pageName || course.title || course.slug}
                         </Link>
                       </li>
                     ))}
@@ -488,11 +485,17 @@ export const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="md:text-white border-b-gray-200 border-l-gray-200 border-r-gray-200 text-center px-5 py-6 border-t-white border-t border-solid">
+        <div className="text-white text-center px-5 py-6 border-t-white border-t border-solid">
           <p className="leading-[normal] mb-4">
             Copyrights © {new Date().getFullYear()} All Rights Reserved by
             Gateway Abroad education.
           </p>
+          <nav aria-label="Legal policies" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
+            <Link href="/cookie-policy" className="hover:underline">Cookie Policy</Link>
+            <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline">Terms and Conditions</Link>
+            <Link href="/content-policy" className="hover:underline">Content Policy</Link>
+          </nav>
         </div>
       </footer>
 

@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
-import Script from "next/script";
 import "./globals.css";
 import ClientLayout from "@/components/home/mainLayout";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import { Poppins, Rubik } from "next/font/google";
+import { getSiteNavigationData } from "@/lib/site-navigation-data";
+import Script from "next/script";
 
 export const metadata = {
   title: "Gateway Abroad | Study Abroad Consultants",
@@ -15,13 +16,14 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: ReactNode;
   params: any;
 }) {
+  const navigationData = await getSiteNavigationData();
   return (
     <html lang="en" className={poppins.variable}>
       <head>
@@ -352,6 +354,7 @@ export default function RootLayout({
           }}
         /> */}
 
+        {/* <BreadcrumbSchema params = {params} /> */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){
@@ -379,8 +382,6 @@ export default function RootLayout({
             gtag('config', 'AW-11490727253');
           `}
         </Script>
-
-        {/* <BreadcrumbSchema params = {params} /> */}
       </head>
       <body suppressHydrationWarning>
         <noscript>
@@ -391,7 +392,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout navigationData={navigationData}>{children}</ClientLayout>
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){

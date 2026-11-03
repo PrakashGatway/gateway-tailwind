@@ -23,26 +23,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { constant } from "@/constant/index.constant";
 import { useGlobal } from "@/hooks/AppStateContext";
 import { useRouter, usePathname } from "next/navigation";
-import axiosInstance from "@/services/axiosInstance";
 
-const Header = () => {
+const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?: any[] }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  const [countryPage, setCountyPage] = useState([]);
-  const [loadingCountries, setLoadingCountries] = useState(false);
-  const [loadingCourses, setLoadingCourses] = useState(false);
-  const requestedMenus = useRef({ countries: false, courses: false });
+  const countryPage = countries;
 
   const destinationRef = useRef(null);
   const studyAbroadRef = useRef(null);
   const testPrepRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  const { user, course, logout, drawer, setDrawer } = useGlobal();
-  const [CourseData, setCourseData] = useState<any[]>([]);
+  const { user, logout, drawer, setDrawer } = useGlobal();
+  const CourseData = courses;
 
   const searchParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
   const router = useRouter();
@@ -62,40 +58,10 @@ const Header = () => {
     "SPOKEN-ENGLISH" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy5TnSFRcyIuhZTSckFhutSF5UJCXvJSJt6w&s"
   }
 
-  async function getPageData(type, setState) {
-    const response = await axiosInstance.get(`/page/list/type?type=${type}&featured=true`);
-    if (response.data?.data) {
-      setState(response.data.data);
-    }
-  }
-
-  useEffect(() => {
-    if ((openMenu === "destination" || openMenu === "destinationsMobile") && !requestedMenus.current.countries) {
-      requestedMenus.current.countries = true;
-      setLoadingCountries(true);
-      getPageData("country_page", setCountyPage)
-        .catch(() => { requestedMenus.current.countries = false; })
-        .finally(() => setLoadingCountries(false));
-    }
-    if ((openMenu === "testPrep" || openMenu === "testPrepMobile") && !requestedMenus.current.courses) {
-      requestedMenus.current.courses = true;
-      setLoadingCourses(true);
-      getPageData("course_page", setCourseData)
-        .catch(() => { requestedMenus.current.courses = false; })
-        .finally(() => setLoadingCourses(false));
-    }
-  }, [openMenu]);
-
   // Set mounted state to avoid hydration errors
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (course?.page) {
-      // setCourseData(course.page);
-    }
-  }, [course]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -214,7 +180,7 @@ const Header = () => {
                         return (
                           <Link
                             key={index}
-                            href={`/study-in-${slug}`}
+                            href={`/study-in/${slug}`}
                             className="flex items-center space-x-2 p-2 xl:p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                           >
                             <Image
@@ -235,7 +201,7 @@ const Header = () => {
 
                       {countryPage.length === 0 && (
                         <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-2 xl:col-span-3">
-                          {loadingCountries ? "Loading destinations…" : "No countries available"}
+                          No destinations available
                         </div>
                       )}
                     </div>
@@ -304,7 +270,7 @@ const Header = () => {
                       })}
                       {CourseData.length === 0 && (
                         <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-2">
-                          {loadingCourses ? "Loading courses…" : "No courses available"}
+                          No courses available
                         </div>
                       )}
                     </div>
@@ -618,7 +584,7 @@ const Header = () => {
                                   setIsMenuOpen(false);
                                   setOpenMenu(null);
                                 }}
-                                href={`/study-in-${slug}`}
+                                href={`/study-in/${slug}`}
                                 className="flex items-center space-x-2 p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                               >
                                 <Image
@@ -639,7 +605,7 @@ const Header = () => {
 
                           {countryPage.length === 0 && (
                             <div className="text-center py-4 text-gray-500 dark:text-gray-400 col-span-1 sm:col-span-2">
-                              {loadingCountries ? "Loading destinations…" : "No countries available"}
+                              No destinations available
                             </div>
                           )}
                         </div>
@@ -698,7 +664,7 @@ const Header = () => {
                         )})}
                         {CourseData.length === 0 && (
                           <div className="py-4 text-sm text-gray-500 dark:text-gray-400">
-                            {loadingCourses ? "Loading courses…" : "No courses available"}
+                            No courses available
                           </div>
                         )}
                       </div>

@@ -80,29 +80,29 @@ export default function BlogCard({
       href={href || `/blog-description/${blog.Slug || ""}`}
       className="group border flex h-full min-w-0 flex-col overflow-hidden rounded-[22px] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
-      <div className="relative  overflow-hidden bg-[#f8e6e9]">
-        <img
-          src={cloudinary || source}
-          srcSet={srcSet}
-          sizes="(min-width: 1280px) 390px, (min-width: 768px) 46vw, calc(100vw - 32px)"
-          alt={blog.blogTitle || "Study abroad article"}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover transition-transform duration-500"
-          onError={(event) => {
-            const image = event.currentTarget;
-            if (image.dataset.fallback) return;
-            image.dataset.fallback = "true";
-            image.srcset = "";
-            image.src = "/img/blog-banner-img.svg";
-          }}
-        />
-        {category && (
-          <span className="absolute bottom-3 left-3 max-w-[calc(100%-24px)] truncate rounded-full border border-white/80 bg-white/95 px-3 py-1.5 text-[11px] font-bold text-[#bd1b3a] shadow-sm backdrop-blur">
-            {category}
-          </span>
-        )}
-      </div>
+      <div className="relative overflow-hidden h-[220px] bg-[#f8e6e9]">
+  <img
+    src={cloudinary || source}
+    srcSet={srcSet}
+    alt={blog.blogTitle || "Study abroad article"}
+    loading="lazy"
+    decoding="async"
+    className="object-contain w-full"
+    onError={(event) => {
+      const image = event.currentTarget;
+      if (image.dataset.fallback) return;
+      image.dataset.fallback = "true";
+      image.srcset = "";
+      image.src = "/img/blog-banner-img.svg";
+    }}
+  />
+
+  {category && (
+    <span className="absolute bottom-3 left-3 max-w-[calc(100%-24px)] truncate rounded-full border border-white/80 bg-white/95 px-3 py-1.5 text-[11px] font-bold text-[#bd1b3a] shadow-sm backdrop-blur">
+      {category}
+    </span>
+  )}
+</div>
       <div className="flex flex-1 flex-col p-4">
         <h2 className=" line-clamp-2 text-lg font-semibold leading-snug text-[#1e293b] transition-colors group-hover:text-[#c41430] sm:text-lg">
           {blog.blogTitle}

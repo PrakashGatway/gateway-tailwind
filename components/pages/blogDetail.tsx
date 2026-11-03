@@ -7,7 +7,7 @@ import ContactForm from "./UkForm";
 
 import { useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
-import { Eye, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Eye, Facebook, FacebookIcon, Linkedin, Mail, ThumbsDown, ThumbsUp, Twitter } from "lucide-react";
 import { useGlobal } from "@/hooks/AppStateContext";
 import BlogArticleContent from "@/components/blog/BlogArticleContent";
 import { blogImageSource, cloudinaryCardImage } from "@/lib/blog-image";
@@ -363,7 +363,7 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
                           >
-                            <i className="fa fa-facebook"></i>
+                            <FacebookIcon/>
                           </a>
                           <a
                             target="_blank"
@@ -371,7 +371,7 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
                           >
-                            <i className="fa fa-twitter"></i>
+                            <Twitter/>
                           </a>
                           <a
                             target="_blank"
@@ -379,13 +379,13 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
                           >
-                            <i className="fa fa-linkedin"></i>
+                            <Linkedin/>
                           </a>
                           <a
                             href={`mailto:?subject=${encodeURIComponent(blogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
                           >
-                            <i className="fa fa-envelope"></i>
+                            <Mail/>
                           </a>
                         </div>
                       </div>
@@ -786,8 +786,8 @@ export default function SingleBlogPage({
 
         {/* ====== CTA Section ====== */}
         <section className="py-12 md:py-16 bg-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+          <div className="container mx-auto px-0 max-w-7xl">
+            <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto  py-6 lg:py-0">
               <div className="px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
                   <div className="w-full lg:w-[48%]">

@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getArticle(),
   ]);
 
-  const StaticURL = ['/about', '/spoken-english', '/gallery', '/course/TOEFL', '/study-abroad', '/course/IELTS', '/course/GRE', '/course/SAT', '/course/PTE', '/course/GMAT', '/blog', '/career', '/contact', '/study-abroad', '/study-in-uk', '/course/duolingo']
+  const StaticURL = ['/about', '/spoken-english', '/gallery', '/course/TOEFL', '/study-abroad', '/course/IELTS', '/course/GRE', '/course/SAT', '/course/PTE', '/course/GMAT', '/blog', '/career', '/contact', '/study-abroad', '/course/duolingo', '/cookie-policy', '/privacy-policy', '/terms', '/content-policy']
 
   const staticRoutes: MetadataRoute.Sitemap = StaticURL.map((item: any) => ({
     url: `${baseUrl}${item.toLowerCase()}`,
@@ -63,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const countryRoutes: MetadataRoute.Sitemap = countryPages.map((page: any) => ({
-    url: `${baseUrl}/study-in-${page.slug?.toLowerCase()}`,
+    url: `${baseUrl}/study-in/${page.slug?.toLowerCase()}`,
     lastModified: page.updatedAt ? new Date(page.updatedAt) : new Date(),
   }));
 
