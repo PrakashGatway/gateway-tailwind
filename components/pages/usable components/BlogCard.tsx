@@ -64,7 +64,7 @@ export default function BlogCard({
     : undefined;
   const category =
     typeof blog.category === "string" ? blog.category : blog.category?.name;
-  const date = blog.createdAt ? new Date(blog.createdAt) : null;
+  const date = blog.updatedAt ? new Date(blog.updatedAt) : null;
   const published =
     date && Number.isFinite(date.getTime())
       ? new Intl.DateTimeFormat("en-IN", {
@@ -120,7 +120,7 @@ export default function BlogCard({
           {published && (
             <p className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
               <CalendarDays className="h-3.5 w-3.5" />
-              {published}
+             Updated At {published}
             </p>
           )}
         </div>

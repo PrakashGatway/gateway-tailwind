@@ -7,7 +7,7 @@ import ContactForm from "./UkForm";
 
 import { useEffect, useState } from "react";
 import PageServices from "@/services/PageServices";
-import { Eye, Facebook, FacebookIcon, Linkedin, Mail, ThumbsDown, ThumbsUp, Twitter } from "lucide-react";
+import { Calendar, Calendar1, Eye, Facebook, FacebookIcon, Linkedin, Mail, ThumbsDown, ThumbsUp, Twitter } from "lucide-react";
 import { useGlobal } from "@/hooks/AppStateContext";
 import BlogArticleContent from "@/components/blog/BlogArticleContent";
 import { blogImageSource, cloudinaryCardImage } from "@/lib/blog-image";
@@ -261,6 +261,17 @@ export default function SingleBlogPage({
               >
                 Author - Sakshi Taneja
               </Link>
+
+               {blogData.updatedAt && (
+                      <div className="mt-3 flex items-center gap-1.5 text-xs text-[#777]">
+                        <Calendar1 size={14} aria-hidden="true" />
+                        <span>Last Update {new Date(blogData.updatedAt).toLocaleDateString("en-IN", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}</span>
+                      </div>
+                    )}
             </div>
           </div>
         </section>
