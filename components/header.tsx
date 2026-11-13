@@ -180,7 +180,7 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
                         return (
                           <Link
                             key={index}
-                            href={`/study-in/${slug}`}
+                            href={`/study-in-${slug}`}
                             className="flex items-center space-x-2 p-2 xl:p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-green-50 dark:hover:from-slate-700 dark:hover:to-slate-600"
                           >
                             <Image

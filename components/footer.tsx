@@ -352,7 +352,7 @@ export const Footer = ({ courses = [], cities = [], countries = [] }: { courses?
                     {countries.map((country, index) => {
                       const slug = country?.slug?.toLowerCase().replace(/\s+/g, "-");
                       return <li key={country?._id || slug || index} className="relative mb-2 w-1/2 md:w-auto pr-4 md:pr-0">
-                        <Link href={`/study-in/${slug}`} className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200">{country?.name || `Study in ${country?.slug}`}</Link>
+                        <Link href={`/study-in-${slug}`} className="text-zinc-800 text-sm font-medium inline-block hover:text-red-600 transition-colors duration-200">{country?.name || `Study in ${country?.slug}`}</Link>
                       </li>;
                     })}
                   </ul>
