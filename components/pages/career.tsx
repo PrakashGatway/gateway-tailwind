@@ -159,8 +159,8 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
                       Location: {job.location}
                     </h6>
                     <div className="max-h-[21rem] overflow-y-auto overflow-x-hidden mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
-                      <div className="text-[14px] leading-[20px] mb-2 break-words" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
-                      <div className="text-gray-700 text-sm break-words" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
+                      <div className="text-[14px] leading-[20px] mb-2 break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
+                      <div className="text-gray-700 text-sm break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
                     </div>
                     <div>
                       <div className="flex flex-wrap gap-2 mb-4">

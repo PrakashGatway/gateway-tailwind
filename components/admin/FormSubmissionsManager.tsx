@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ClipboardList, ChevronLeft, ChevronRight, Download, ExternalLink, FileText, Image as ImageIcon, LoaderCircle, RefreshCw, Trash2, X } from "lucide-react";
+import { ClipboardList, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, ExternalLink, FileText, Image as ImageIcon, LoaderCircle, RefreshCw, Trash2, X } from "lucide-react";
 
 type FormField = { key: string; value: unknown };
 type FormSubmission = { id: string; fields: FormField[] };
@@ -149,6 +149,7 @@ export default function FormSubmissionsManager() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [selectedAttachment, setSelectedAttachment] = useState<Attachment | null>(null);
+  const [expandedFormId, setExpandedFormId] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState("");
 
@@ -300,74 +301,108 @@ export default function FormSubmissionsManager() {
             <LoaderCircle className="h-5 w-5 animate-spin" /> Loading submissions…
           </div>
         ) : forms.length ? (
-          <div className="divide-y divide-slate-100">
-            {forms.map((form) => {
-              const name = fieldValue(form.fields, "name");
-              const email = fieldValue(form.fields, "email");
-              const phone = fieldValue(form.fields, "mobileNo") ?? fieldValue(form.fields, "phone");
-              const submissionType = fieldValue(form.fields, "type");
-              return (
-                <article key={form.id} className="px-5 py-5 sm:px-7">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base font-bold text-[#263247]">
-                          {typeof name === "string" && name.trim() ? name : "Form submission"}
-                        </h3>
-                        <span className="rounded-full bg-[#fff0f3] px-2.5 py-1 text-[10px] font-bold text-[#b9142e]">
-                          {typeof submissionType === "string" && submissionType ? formatLabel(submissionType) : "Uncategorized"}
-                        </span>
-                      </div>
-                      <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
-                        {typeof email === "string" && <span className="break-all">{email}</span>}
-                        {typeof phone === "string" && <span>{phone}</span>}
-                      </div>
-                      <p className="mt-1 truncate text-[10px] text-slate-400">ID: {form.id}</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => void deleteForm(form)}
-                      disabled={Boolean(deleting)}
-                      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-rose-200 px-3.5 py-2.5 text-xs font-bold text-rose-700 transition hover:bg-rose-50 disabled:opacity-50"
-                    >
-                      {deleting === form.id ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                      Delete
-                    </button>
-                  </div>
-
-                  <dl className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                    {form.fields.map((item) => {
-                      const attachment = attachmentFor(form, item);
-                      return (
-                        <div
-                          key={item.key}
-                          className={"min-w-0 rounded-xl bg-[#f8f9fc] px-3.5 py-3" + (item.key.toLowerCase() === "message" ? " sm:col-span-2 xl:col-span-3" : "")}
-                        >
-                          <dt className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">{formatLabel(item.key)}</dt>
-                          {attachment ? (
-                            <dd className="mt-2">
-                              <button
-                                type="button"
-                                onClick={() => { setDownloadError(""); setSelectedAttachment(attachment); }}
-                                className="inline-flex max-w-full items-center gap-2 rounded-lg border border-rose-200 bg-white px-3 py-2 text-left text-xs font-bold text-[#b9142e] transition hover:bg-rose-50"
-                              >
-                                <FileText className="h-4 w-4 shrink-0" />
-                                <span className="truncate">{attachment.filename}</span>
-                                <span className="shrink-0">View</span>
-                              </button>
-                            </dd>
-                          ) : (
-                            <dd className="mt-1 whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">
-                              {displayValue(item.value)}
-                            </dd>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </dl>
-                </article>
-              );
-            })}
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] text-left">
+              <thead className="bg-[#f8f9fc] text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
+                <tr>
+                  <th scope="col" className="px-5 py-3.5 sm:px-7">Contact</th>
+                  <th scope="col" className="px-4 py-3.5">Form type</th>
+                  <th scope="col" className="px-4 py-3.5">Phone</th>
+                  <th scope="col" className="px-4 py-3.5">Submission details</th>
+                  <th scope="col" className="px-5 py-3.5 text-right sm:px-7">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {forms.map((form) => {
+                  const name = fieldValue(form.fields, "name");
+                  const email = fieldValue(form.fields, "email");
+                  const phone = fieldValue(form.fields, "mobileNo") ?? fieldValue(form.fields, "phone");
+                  const submissionType = fieldValue(form.fields, "type");
+                  const expanded = expandedFormId === form.id;
+                  return (
+                    <Fragment key={form.id}>
+                      <tr className="align-middle transition hover:bg-slate-50/70">
+                        <td className="max-w-[280px] px-5 py-4 sm:px-7">
+                          <p className="truncate text-sm font-bold text-[#263247]">{typeof name === "string" && name.trim() ? name : "Form submission"}</p>
+                          <p className="mt-1 break-all text-xs text-slate-500">{typeof email === "string" && email ? email : "No email provided"}</p>
+                        </td>
+                        <td className="px-4 py-4">
+                          <span className="inline-flex rounded-full bg-[#fff0f3] px-2.5 py-1 text-[10px] font-bold text-[#b9142e]">
+                            {typeof submissionType === "string" && submissionType ? formatLabel(submissionType) : "Uncategorized"}
+                          </span>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-slate-600">{typeof phone === "string" && phone ? phone : "—"}</td>
+                        <td className="px-4 py-4">
+                          <button
+                            type="button"
+                            aria-expanded={expanded}
+                            onClick={() => setExpandedFormId(expanded ? null : form.id)}
+                            className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-bold text-[#b9142e] transition hover:bg-[#fff0f3]"
+                          >
+                            {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                            {form.fields.length} fields
+                          </button>
+                        </td>
+                        <td className="px-5 py-4 text-right sm:px-7">
+                          <button
+                            type="button"
+                            onClick={() => void deleteForm(form)}
+                            disabled={Boolean(deleting)}
+                            aria-label={"Delete submission from " + (typeof name === "string" && name.trim() ? name : "unknown contact")}
+                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-rose-200 px-3 py-2 text-xs font-bold text-rose-700 transition hover:bg-rose-50 disabled:opacity-50"
+                          >
+                            {deleting === form.id ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                            <span className="hidden sm:inline">Delete</span>
+                          </button>
+                        </td>
+                      </tr>
+                      {expanded && (
+                        <tr className="bg-[#fafbfe]">
+                          <td colSpan={5} className="px-5 pb-5 pt-1 sm:px-7">
+                            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                              <div className="border-b border-slate-100 px-4 py-3">
+                                <p className="text-xs font-bold text-[#263247]">All submitted fields</p>
+                                <p className="mt-0.5 truncate text-[10px] text-slate-400">Submission ID: {form.id}</p>
+                              </div>
+                              <table className="w-full text-left">
+                                <thead className="bg-slate-50 text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                                  <tr><th scope="col" className="w-1/4 px-4 py-2.5">Field</th><th scope="col" className="px-4 py-2.5">Value</th></tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                  {form.fields.map((item) => {
+                                    const attachment = attachmentFor(form, item);
+                                    return (
+                                      <tr key={item.key} className="align-top">
+                                        <th scope="row" className="px-4 py-3 text-xs font-bold text-slate-600">{formatLabel(item.key)}</th>
+                                        <td className="px-4 py-3 text-sm leading-6 text-slate-700">
+                                          {attachment ? (
+                                            <button
+                                              type="button"
+                                              onClick={() => { setDownloadError(""); setSelectedAttachment(attachment); }}
+                                              className="inline-flex max-w-full items-center gap-2 rounded-lg border border-rose-200 bg-white px-3 py-2 text-left text-xs font-bold text-[#b9142e] transition hover:bg-rose-50"
+                                            >
+                                              <FileText className="h-4 w-4 shrink-0" />
+                                              <span className="truncate">{attachment.filename}</span>
+                                              <span className="shrink-0">View</span>
+                                            </button>
+                                          ) : (
+                                            <span className="whitespace-pre-wrap break-words">{displayValue(item.value)}</span>
+                                          )}
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         ) : (
           <div className="px-6 py-16 text-center">

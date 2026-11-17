@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { BriefcaseBusiness, LoaderCircle, MapPin, Plus, RefreshCw, Search, Trash2, Users, X } from "lucide-react";
+import { BriefcaseBusiness, LoaderCircle, MapPin, Pencil, Plus, RefreshCw, Search, Trash2, Users, X } from "lucide-react";
+import DescriptionEditor from "@/components/admin/DescriptionEditor";
 
 type Job = {
   _id: string;
@@ -45,6 +46,7 @@ export default function JobsManager() {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [editingJobId, setEditingJobId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
@@ -76,26 +78,56 @@ export default function JobsManager() {
     );
   }, [jobs, search]);
 
-  async function createJob(event: FormEvent<HTMLFormElement>) {
+  function editJob(job: Job) {
+    setDraft({
+      jobTitle: job.jobTitle,
+      jobShortDescription: job.jobShortDescription || "",
+      jobDescription: job.jobDescription || "",
+      vacancy: job.vacancy,
+      location: job.location,
+      jobType: job.jobType,
+      jobExp: job.jobExp,
+      jobLevel: job.jobLevel,
+      Status: job.Status,
+    });
+    setEditingJobId(job._id);
+    setShowForm(true);
+    setError("");
+    setNotice("");
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+
+  function closeForm() {
+    setShowForm(false);
+    setEditingJobId(null);
+    setDraft(emptyDraft);
+  }
+
+  async function saveJob(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (saving) return;
     setSaving(true);
     setError("");
     setNotice("");
     try {
-      const response = await fetch("/api/admin/jobs", {
-        method: "POST",
+      const response = await fetch(editingJobId ? "/api/admin/jobs/" + encodeURIComponent(editingJobId) : "/api/admin/jobs", {
+        method: editingJobId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(draft),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Could not create job");
-      setJobs((current) => [data.job, ...current]);
+      if (!response.ok) throw new Error(data.error || (editingJobId ? "Could not update job" : "Could not create job"));
+      if (editingJobId) {
+        setJobs((current) => current.map((job) => job._id === editingJobId ? data.job : job));
+      } else {
+        setJobs((current) => [data.job, ...current]);
+      }
       setDraft(emptyDraft);
       setShowForm(false);
-      setNotice("Job created.");
+      setEditingJobId(null);
+      setNotice(editingJobId ? "Job updated." : "Job created.");
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not create job");
+      setError(cause instanceof Error ? cause.message : editingJobId ? "Could not update job" : "Could not create job");
     } finally {
       setSaving(false);
     }
@@ -141,7 +173,7 @@ export default function JobsManager() {
           </button>
           <button
             type="button"
-            onClick={() => { setShowForm((value) => !value); setError(""); }}
+            onClick={() => { if (showForm) closeForm(); else { setDraft(emptyDraft); setEditingJobId(null); setShowForm(true); } setError(""); }}
             className="inline-flex items-center gap-2 rounded-xl bg-[#d81635] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#b9132d]"
           >
             {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
@@ -156,10 +188,10 @@ export default function JobsManager() {
       {showForm && (
         <section className="overflow-hidden rounded-[22px] border border-slate-200 bg-white">
           <div className="border-b border-slate-100 px-5 py-4 sm:px-7">
-            <h2 className="text-base font-bold text-[#1b2538]">Add a job opening</h2>
+            <h2 className="text-base font-bold text-[#1b2538]">{editingJobId ? "Edit job opening" : "Add a job opening"}</h2>
             <p className="mt-1 text-xs text-slate-500">Descriptions accept HTML, matching the format of your existing job records.</p>
           </div>
-          <form onSubmit={createJob} className="space-y-4 px-5 py-5 sm:px-7">
+          <form onSubmit={saveJob} className="space-y-4 px-5 py-5 sm:px-7">
             <div className="grid gap-4 md:grid-cols-2">
               <label><span className={label}>Job title *</span><input required maxLength={150} value={draft.jobTitle} onChange={(event) => setDraft({ ...draft, jobTitle: event.target.value })} className={field} /></label>
               <label><span className={label}>Location *</span><input required maxLength={200} value={draft.location} onChange={(event) => setDraft({ ...draft, location: event.target.value })} placeholder="Jaipur" className={field} /></label>
@@ -172,13 +204,13 @@ export default function JobsManager() {
               <input type="checkbox" checked={draft.Status} onChange={(event) => setDraft({ ...draft, Status: event.target.checked })} className="h-4 w-4 accent-[#d81635]" />
               Active on careers list
             </label>
-            <label className="block"><span className={label}>Short description</span><textarea maxLength={20000} rows={3} value={draft.jobShortDescription} onChange={(event) => setDraft({ ...draft, jobShortDescription: event.target.value })} placeholder="Short role summary (plain text or HTML)" className={field + " resize-y"} /></label>
-            <label className="block"><span className={label}>Job description</span><textarea maxLength={50000} rows={7} value={draft.jobDescription} onChange={(event) => setDraft({ ...draft, jobDescription: event.target.value })} placeholder="Full role details (plain text or HTML)" className={field + " resize-y"} /></label>
+            <label className="block"><span className={label}>Short description</span><DescriptionEditor value={draft.jobShortDescription} onChange={(jobShortDescription) => setDraft((current) => ({ ...current, jobShortDescription }))} placeholder="Write a short role summary…" /></label>
+            <label className="block"><span className={label}>Job description</span><DescriptionEditor value={draft.jobDescription} onChange={(jobDescription) => setDraft((current) => ({ ...current, jobDescription }))} placeholder="Add responsibilities, requirements, and benefits…" minHeight="min-h-56" /></label>
             <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
-              <button type="button" onClick={() => setShowForm(false)} disabled={saving} className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600">Cancel</button>
+              <button type="button" onClick={closeForm} disabled={saving} className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600">Cancel</button>
               <button type="submit" disabled={saving} className="inline-flex min-w-32 items-center justify-center gap-2 rounded-xl bg-[#d81635] px-4 py-2.5 text-xs font-bold text-white disabled:opacity-60">
-                {saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-                {saving ? "Creating…" : "Create job"}
+                {saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : editingJobId ? <Pencil className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                {saving ? (editingJobId ? "Saving…" : "Creating…") : editingJobId ? "Save changes" : "Create job"}
               </button>
             </div>
           </form>
@@ -215,15 +247,25 @@ export default function JobsManager() {
                   {job.jobShortDescription && <p className="mt-3 line-clamp-2 max-w-4xl text-sm leading-6 text-slate-600">{plainText(job.jobShortDescription)}</p>}
                   <p className="mt-2 truncate text-[10px] text-slate-400">ID: {job._id}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => void deleteJob(job)}
-                  disabled={Boolean(deleting)}
-                  className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-xl border border-rose-200 px-3.5 py-2.5 text-xs font-bold text-rose-700 transition hover:bg-rose-50 disabled:opacity-50"
-                >
-                  {deleting === job._id ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                  Delete
-                </button>
+                <div className="flex shrink-0 items-center gap-2 self-start">
+                  <button
+                    type="button"
+                    onClick={() => editJob(job)}
+                    disabled={Boolean(deleting) || saving}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+                  >
+                    <Pencil className="h-4 w-4" /> Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void deleteJob(job)}
+                    disabled={Boolean(deleting) || saving}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-rose-200 px-3.5 py-2.5 text-xs font-bold text-rose-700 transition hover:bg-rose-50 disabled:opacity-50"
+                  >
+                    {deleting === job._id ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                    Delete
+                  </button>
+                </div>
               </article>
             ))}
           </div>
