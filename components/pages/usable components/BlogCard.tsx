@@ -55,7 +55,7 @@ export default function BlogCard({
       </div>
     );
   }
-console.log(blog, "blog");
+
   const source = blogImageSource(blog.image);
   const cloudinary = cloudinaryCardImage(source, 480);
   const srcSet = cloudinary
