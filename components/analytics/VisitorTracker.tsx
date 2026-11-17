@@ -204,7 +204,7 @@ export default function VisitorTracker() {
     lastPath.current = pathname;
     activeSince.current = document.visibilityState === "visible" ? performance.now() : null;
     pending.current.push({ type: "page_view", label: "", path: pathname, at: Date.now() });
-    if (!timer.current) timer.current = setTimeout(() => flushRef.current(), 1000);
+    flushRef.current();
   }, [pathname]);
 
   return null;

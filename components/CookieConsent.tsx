@@ -70,7 +70,7 @@ export default function CookieConsent() {
           <div className="min-w-0">
             <h2 id="cookie-consent-title" className="text-base font-semibold tracking-tight text-[#20212a] sm:text-lg">Accept the use of cookies</h2>
             <p id="cookie-consent-description" className="mt-1.5 text-sm leading-5 text-[#555761]">
-              Cookies help our site work and improve your experience. Accepting enables optional analytics. Read our <Link className="font-medium text-[#9f1028] underline underline-offset-2 hover:text-[#d71635]" href="/cookie-policy">Cookie Policy</Link> and <Link className="font-medium text-[#9f1028] underline underline-offset-2 hover:text-[#d71635]" href="/privacy-policy">Privacy Policy</Link>.
+              We use first-party activity tracking to understand site visits. Accepting enables optional third-party analytics and advertising. Read our <Link className="font-medium text-[#9f1028] underline underline-offset-2 hover:text-[#d71635]" href="/cookie-policy">Cookie Policy</Link> and <Link className="font-medium text-[#9f1028] underline underline-offset-2 hover:text-[#d71635]" href="/privacy-policy">Privacy Policy</Link>.
             </p>
             <button type="button" onClick={acceptAll} className="mt-4 inline-flex min-h-10 items-center justify-center rounded-lg bg-[#b51e37] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#8f172d] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b51e37] focus-visible:ring-offset-2">
               Accept all cookies

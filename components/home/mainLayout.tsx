@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
+import { ReactNode, Suspense, lazy } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalProvider, useGlobal } from "@/hooks/AppStateContext";
 import { usePathname } from "next/navigation";
@@ -20,23 +20,6 @@ import CookieConsent from "@/components/CookieConsent";
 // const AuthDrawer = lazy(() => import("../auth/drawer"));
 
 const hideLayoutOnPaths = ['/thank-you'];
-const COOKIE_CONSENT_KEY = "gateway_cookie_consent_v1";
-
-function ConsentAwareVisitorTracker() {
-  const [consented, setConsented] = useState(false);
-  useEffect(() => {
-    const syncConsent = () => setConsented(window.localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted");
-    syncConsent();
-    window.addEventListener("gateway-cookie-consent", syncConsent);
-    window.addEventListener("storage", syncConsent);
-    return () => {
-      window.removeEventListener("gateway-cookie-consent", syncConsent);
-      window.removeEventListener("storage", syncConsent);
-    };
-  }, []);
-  return consented ? <VisitorTracker /> : null;
-}
-
 const LayoutFallback = () => (
   null
 );
@@ -70,7 +53,7 @@ export default function ClientLayout({ children, navigationData }: { children: R
         <GlobalProvider>
           <BannerCategoryProvider>
           <LoaderWrapper>
-            <ConsentAwareVisitorTracker />
+            <VisitorTracker />
             <CookieConsent />
             {!shouldHideLayout && (
                 <Header countries={navigationData.countries} courses={navigationData.courses} />
