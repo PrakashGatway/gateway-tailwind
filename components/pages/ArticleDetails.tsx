@@ -310,7 +310,7 @@ export default function ArticleClient({
                     src={coverImage}
                     srcSet={cloudinaryCardImage(coverSource, 800) ? [800, 1200, 1600].map((width) => `${cloudinaryCardImage(coverSource, width)} ${width}w`).join(", ") : undefined}
                     sizes="(min-width: 1024px) 850px, 100vw"
-                    alt={article.title || "Article Image"}
+                    alt={article.coverImageAlt || article.title}
                     loading="eager"
                     onError={(event) => {
                       const image = event.currentTarget;

@@ -10,6 +10,7 @@ type Blog = {
   descriptions?: string;
   createdAt?: string;
   category?: string | { name?: string };
+  coverImageAlt?: string;
 };
 
 type BlogCardProps = {
@@ -54,7 +55,7 @@ export default function BlogCard({
       </div>
     );
   }
-
+console.log(blog, "blog");
   const source = blogImageSource(blog.image);
   const cloudinary = cloudinaryCardImage(source, 480);
   const srcSet = cloudinary
@@ -84,7 +85,7 @@ export default function BlogCard({
   <img
     src={cloudinary || source}
     srcSet={srcSet}
-    alt={blog.blogTitle || "Study abroad article"}
+    alt={blog?.coverImageAlt || blog.blogTitle}
     loading="lazy"
     decoding="async"
     className="object-contain w-full"

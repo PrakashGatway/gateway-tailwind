@@ -391,6 +391,7 @@ const Blog = () => {
                     blogDescription: article.description,
                     createdAt: article.createdAt,
                     category: getArticleCategoryName(article) || undefined,
+                    coverImageAlt: article.coverImageAlt || undefined,
                   }}
                 />
               ))}

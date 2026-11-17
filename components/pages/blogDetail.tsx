@@ -301,7 +301,7 @@ export default function SingleBlogPage({
                           : undefined
                       }
                       sizes="(min-width: 1024px) 850px, 100vw"
-                      alt={blogData?.blogTitle || "Blog Image"}
+                      alt={blogData?.coverImageAlt || blogData?.blogTitle}
                       loading="eager"
                       onError={(event) => {
                         const image = event.currentTarget;
