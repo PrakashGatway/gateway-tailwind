@@ -94,6 +94,7 @@ function About({ aboutPage: data }: any) {
             description={heroData.description || ''}
             highlightText={heroData.highlightText || ''}
             image={pageContent?.heroImage ? getImageUrl(pageContent.heroImage) : `/img/about-us-banner-img.svg`}
+            alt={pageContent?.heroImageAlt || 'About Us Banner'}
           />
         )}
 
@@ -107,7 +108,7 @@ function About({ aboutPage: data }: any) {
                       <div className="flex justify-center">
                         <Image
                           src={pageContent?.file ? getImageUrl(pageContent.file) : "/img/about-us-img-1.svg"}
-                          alt="About Us Image 1"
+                          alt={pageContent?.fileAlt || 'About Us Image 1'}
                           width={400}
                           height={300}
                           loading='lazy'
@@ -153,7 +154,7 @@ function About({ aboutPage: data }: any) {
                         <div className="flex justify-center">
                           <Image
                             src={pageContent?.file1 ? getImageUrl(pageContent.file1) : "/img/about-us-img-2.svg"}
-                            alt="About Us Image 2"
+                            alt={pageContent?.file1Alt || 'About Us Image 2'}
                             width={400}
                             height={300}
                             loading='lazy'
@@ -257,7 +258,7 @@ function About({ aboutPage: data }: any) {
                       <div className="flex justify-center">
                         <img
                           src={pageContent?.image ? getImageUrl(pageContent.image) : "img/counselling-session.svg"}
-                          alt="Counselling Session"
+                          alt={pageContent?.imageAlt || 'Counselling Session'}
                           className="w-full max-w-xs sm:max-w-sm lg:max-w-[25rem]"
                           loading='lazy'
                         />

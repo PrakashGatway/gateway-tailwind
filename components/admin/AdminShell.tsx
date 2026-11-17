@@ -8,12 +8,17 @@ import {
   Images,
   ChartNoAxesCombined,
   ArrowUpRight,
+  BriefcaseBusiness,
+  ClipboardList,
   ChevronRight,
   Globe2,
   LayoutDashboard,
   LogOut,
   Menu,
   MousePointerClick,
+  Star,
+  GraduationCap,
+  Users,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -24,6 +29,12 @@ const navigation = [
   { href: "/admin/traffic", label: "Traffic trends", icon: ChartNoAxesCombined },
   { href: "/admin/activity", label: "Visitor activity", icon: Activity },
   { href: "/admin/buttons", label: "Button tracker", icon: MousePointerClick },
+  { href: "/admin/jobs", label: "Jobs", icon: BriefcaseBusiness },
+  { href: "/admin/forms", label: "Form submissions", icon: ClipboardList },
+  { href: "/admin/testimonials", label: "Testimonials", icon: Star },
+  { href: "/admin/members", label: "Members", icon: Users },
+  { href: "/admin/students", label: "Students", icon: GraduationCap },
+  { href: "/admin/galleries", label: "Galleries", icon: Images },
   { href: "/admin/banners", label: "Popup banners", icon: Images },
 ];
 
@@ -45,6 +56,18 @@ export default function AdminShell({
       ? "Visitor activity"
       : pathname.startsWith("/admin/banners")
         ? "Popup banners"
+      : pathname.startsWith("/admin/jobs")
+        ? "Jobs"
+      : pathname.startsWith("/admin/forms")
+        ? "Form submissions"
+      : pathname.startsWith("/admin/testimonials")
+        ? "Testimonials"
+      : pathname.startsWith("/admin/members")
+        ? "Members"
+      : pathname.startsWith("/admin/students")
+        ? "Students"
+      : pathname.startsWith("/admin/galleries")
+        ? "Galleries"
       : pathname.startsWith("/admin/buttons")
         ? "Button tracker"
       : "Dashboard";

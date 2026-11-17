@@ -16,6 +16,12 @@ import 'yet-another-react-lightbox/plugins/captions.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import { constant } from '@/constant/index.constant'; // Adjust path as needed
 
+const galleryImageUrl = (mediaLink) => {
+  if (!mediaLink) return '';
+  if (/^https?:\/\//i.test(mediaLink)) return mediaLink;
+  return `${constant.REACT_APP_URL}/api/uploads/${mediaLink}`;
+};
+
 const Gallery = () => {
   const [activeTab, setActiveTab] = useState('photos'); // Default to 'photos'
 
@@ -42,7 +48,7 @@ const Gallery = () => {
   const openImageLightbox = (index) => {
     const slides = photos.map(photo => ({
       type: "image",
-      src: `${constant.REACT_APP_URL}/api/uploads/${photo.mediaLink}`,
+      src: galleryImageUrl(photo.mediaLink),
       alt: photo.altText || `Gallery Image ${photo._id || photo.id}`,
     }));
     setLightboxSlides(slides);
@@ -154,9 +160,10 @@ const Gallery = () => {
                         onClick={() => openImageLightbox(index)}
                       >
                         <Image
-                          src={`${constant.REACT_APP_URL}/api/uploads/${photo.mediaLink}`}
+                          src={galleryImageUrl(photo.mediaLink)}
                           alt={photo.altText || `Gallery Image ${photo._id || photo.id}`}
                           fill
+                          unoptimized
                           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                           style={{ objectFit: 'cover' }}
                           className="transition-transform duration-500 ease-in-out transform"

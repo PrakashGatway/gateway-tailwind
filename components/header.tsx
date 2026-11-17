@@ -495,9 +495,9 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
             }
           `}</style>
 
-          <nav className="py-4 mt-2 border-t border-gray-100 dark:border-gray-700">
+          <nav className="py-4 flex flex-col mt-2 border-t border-gray-100 dark:border-gray-700 h-[87.5vh] overflow-y-auto">
             {/* Mobile User Info */}
-            {user?.email && (
+            {/* {user?.email && (
               <div className="mb-2 px-2">
                 <div className="flex items-center space-x-2 px-3 py-3 bg-gradient-to-r from-red-50 to-pink-50 dark:from-slate-800 dark:to-slate-700 rounded-lg">
                   <Image
@@ -517,10 +517,10 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Mobile Nav Links */}
-            <div className="flex flex-col space-y-1 px-2">
+            <div className="flex flex-1 flex-col space-y-1 px-2">
               <Link
                 href="/"
                 className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
@@ -548,7 +548,7 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
                 <span>Spoken English</span>
               </Link>
 
-              <div className="relative">
+              <div className="relative ">
                 <button
                   onClick={() => handleClick("destinationsMobile")}
                   className="flex items-center justify-between w-full space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
@@ -719,7 +719,7 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
               </Link>
 
               {/* Mobile Contact Number Box */}
-              <div className="my-3">
+              <div className="my-3 mt-auto">
                 <Link
                   href={`tel:${contactNumber}`}
                   className="flex btn-primary !m-0 items-center justify-center px-4 py-2.5 !bg-[#fbbf24] rounded-lg shadow-lg transition-all duration-300 text-sm md:text-base"

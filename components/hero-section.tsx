@@ -4,7 +4,7 @@ import Link from "next/link"
 
 
 
-const HeroSection = ({ type, title, description, image, content }: any) => {
+const HeroSection = ({ type, title, description, image, content,alt }: any) => {
 
   const handleGetStarted = () => {
     window.dispatchEvent(new CustomEvent('openFooterModal'));
@@ -122,7 +122,7 @@ const HeroSection = ({ type, title, description, image, content }: any) => {
               <div className="relative z-10 animate-floa mx-auto">
                 <Image
                   src={title ? image : "https://uat.gatewayabroadeducations.com/uploads/1725703170821-319524011.svg"}
-                  alt="Study Abroad Illustration"
+                  alt={alt || "Study Abroad Illustration"}
                   width={type == "about" ? 490 : 430}
                   height={400}
                   className="drop-shadow-xl"

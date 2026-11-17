@@ -136,8 +136,10 @@ export async function POST(request: NextRequest) {
       maxAge: SESSION_MAX_AGE,
     });
     return response;
-  } catch {
+  } catch(error) {
+    console.error("Login error:", error);
     return NextResponse.json(
+
       { error: "Sign-in is temporarily unavailable. Please try again." },
       { status: 503, headers: { "Cache-Control": "no-store" } },
     );

@@ -395,7 +395,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                       ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image2}`
                       : "/placeholder.svg"
                 }
-                alt={`${courseName} Preparation`}
+                alt={pageData.pageContent.heroImageAlt || `${courseName} Preparation`}
                 width={500}
                 height={400}
                 className="rounded-2xl shadow-xl w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]"
@@ -485,7 +485,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                         ? `https://uat.gatewayabroadeducations.com/uploads/${courseData.image3}`
                         : "/placeholder.jpg"
                   }
-                  alt={`${courseName} Overview`}
+                  alt={pageData?.pageContent?.WhatIsImageAlt || `${courseName} Overview`}
                   width={500}
                   height={400}
                   className="rounded-lg w-[90%]"
@@ -578,7 +578,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                         ? `https://uat.gatewayabroadeducations.com/uploads/${pageData.pageContent.Scoresimg}`
                         : "/placeholder.svg"
                     }
-                    alt={`${courseName} Countries`}
+                    alt={pageData?.pageContent?.ScoresimgAlt || ` ${courseName} Countries`}
                     className="rounded-lg shadow-lg w-full max-w-md"
                     width={100}
                     height={100}
@@ -937,7 +937,7 @@ const CourseClient: React.FC<CourseClientProps> = ({
                           ? `${imageBaseUrl}/${item.file}`
                           : `/img/resource-img-${index + 1}.svg`
                       }
-                      alt={item.title || "Resource"}
+                      alt={item.fileAlt || "Resource"}
                       width={350}
                       height={40}
                       loading="lazy"

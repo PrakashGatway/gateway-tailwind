@@ -16,6 +16,7 @@ interface Destination {
     badgeColor?: string;
     bgClass: string;
     image: string;
+    imageAlt?: string;
 }
 
 // --- Helper: Map API Response to Component Interface ---
@@ -48,6 +49,7 @@ const mapApiToDestination = (apiItem: any, index: number): Destination => {
         description: cleanText(apiItem.subtitle),
         link: `/${apiItem.slug}`, // Ensure slug exists in API
         image: apiItem.image ? (apiItem.image) : "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop",
+        imageAlt: apiItem.imageAlt ? apiItem.imageAlt : apiItem.name,
         bgClass: bgColors[index % bgColors.length],
         // Add badges dynamically if needed, e.g., if name is UK
         badge: (id === 'uk' || id === 'united-kingdom') ? "Most Popular" : undefined,
@@ -267,7 +269,7 @@ function DesktopCard({
     delay?: number;
 }) {
 
-    
+   console.log(dest) 
     
     return (
         <motion.a
@@ -282,7 +284,7 @@ function DesktopCard({
         >
             <img
                   src={`${baseUrl}/uploads/${dest?.image}`}
-                alt={dest.name}
+                alt={dest.imageAlt ? dest.imageAlt : dest.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
             />
@@ -325,7 +327,7 @@ function MobileCard({ dest }: { dest: Destination }) {
         >
             <img
                 src={`${baseUrl}/uploads/${dest?.image}`}
-                alt={dest.name}
+                alt={dest.imageAlt ? dest.imageAlt : dest.name}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
             />

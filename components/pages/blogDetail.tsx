@@ -262,8 +262,9 @@ export default function SingleBlogPage({
                 Author - Sakshi Taneja
               </Link>
 
-               {blogData.updatedAt && (
-                      <div className="mt-3 flex items-center gap-1.5 text-xs text-[#777]">
+              <div className="flex items-center gap-2">
+                 {blogData.updatedAt && (
+                      <div className=" flex items-center gap-1.5 text-xs text-[#777]">
                         <Calendar1 size={14} aria-hidden="true" />
                         <span>Last Update {new Date(blogData.updatedAt).toLocaleDateString("en-IN", {
                           day: "2-digit",
@@ -272,6 +273,7 @@ export default function SingleBlogPage({
                         })}</span>
                       </div>
                     )}
+              </div>
             </div>
           </div>
         </section>

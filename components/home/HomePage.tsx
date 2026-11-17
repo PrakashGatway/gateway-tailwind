@@ -638,6 +638,7 @@ function Index({
         title={homePageDetails?.sections[0]?.content?.title}
         description={homePageDetails?.sections[0]?.content?.subtitle}
         image={`${baseUrl}/uploads/${homePageDetails?.pageContent?.heroImage}`}
+        alt={homePageDetails?.pageContent?.heroImageAlt || "Study Abroad Illustration"}
       />
 
       {/* Student Info Section - AUTO HEIGHT */}
@@ -658,7 +659,7 @@ function Index({
                               <div className="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-full">
                                 <Image
                                   src={`${baseUrl}/uploads/${s.image}`}
-                                  alt={s.name || "Student"}
+                                  alt={s.imageAlt ? s.imageAlt : "student image"}
                                   width={300}
                                   height={300}
                                   priority={index === 0}
