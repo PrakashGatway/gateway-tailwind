@@ -312,7 +312,7 @@ export default function AuthorPage({ initialData, latestArticles }) {
                         {/* RIGHT SIDE */}
                         <div>
                             <div className="sticky top-6">
-                                <ContactForm />
+                                <ContactForm fromPage="Author" />
 
 
                                 {/* Newsletter */}

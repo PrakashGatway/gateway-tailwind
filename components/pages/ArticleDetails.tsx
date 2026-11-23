@@ -693,7 +693,7 @@ export default function ArticleClient({
                                     </div>
                                 </div> */}
                 <div>
-                  <ContactForm type="article" />
+                  <ContactForm type="article" fromPage="ArticleDetails" />
                 </div>
 
                 {/* Latest Articles */}

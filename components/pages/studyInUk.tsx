@@ -476,7 +476,7 @@ const StudyInUk = ({
   const heroContent = getContentByType("hero");
   const stats = heroContent?.stats || [];
 
-  console.log(content);
+
 
   return (
     <>
@@ -563,7 +563,7 @@ const StudyInUk = ({
 
             {/* Right Illustration */}
             <div className="relative animate-fadeInRight w-full lg:w-[38%]">
-              <ContactForm />
+              <ContactForm fromPage="Destination Page" />
             </div>
           </div>
         </div>

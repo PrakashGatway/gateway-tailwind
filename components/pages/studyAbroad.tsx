@@ -133,7 +133,7 @@ const StudyAbroadPage = ({ content, faq, slug }: any) => {
             {/* Right Illustration with floating animation */}
             <div className="relative animate-fadeInRight mx-auto w-full max-w-md lg:max-w-lg xl:max-w-none">
               <div className="relative z-10 mx-auto">
-                <ContactForm />
+                <ContactForm fromPage="StudyAbroad" />
               </div>
 
               <div className="absolute lg:-bottom-8 -bottom-12 lg:-left-4 -left-2 z-10 border-2 border-red-600 bg-white shadow-3xl rounded-xl p-3 sm:p-4">

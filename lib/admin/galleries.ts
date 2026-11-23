@@ -6,6 +6,7 @@ export type GalleryRecord = {
   id?: string;
   title: string;
   mediaLink: string;
+  mediaPublicId?: string;
   catogary: string;
   Status: boolean;
   __v?: number;
@@ -42,7 +43,7 @@ export function parseGalleryInput(value: unknown): GalleryInput {
   if (typeof raw.Status !== "boolean") throw new Error("Choose whether this item is active");
   return {
     title: text(raw.title, "title", 180, true),
-    mediaLink: text(raw.mediaLink, "media link", 2000, true),
+    mediaLink: text(raw.mediaLink, "media link", 2000, catogary === "video"),
     catogary,
     Status: raw.Status,
   };
@@ -50,5 +51,5 @@ export function parseGalleryInput(value: unknown): GalleryInput {
 
 export function serializeGallery(item: GalleryRecord) {
   const id = String(item.id || item._id);
-  return { _id: String(item._id), id, title: item.title || "", mediaLink: item.mediaLink || "", catogary: item.catogary || "image", Status: item.Status !== false };
+  return { _id: String(item._id), id, title: item.title || "", mediaLink: item.mediaLink || "", mediaPublicId: item.mediaPublicId, catogary: item.catogary || "image", Status: item.Status !== false };
 }

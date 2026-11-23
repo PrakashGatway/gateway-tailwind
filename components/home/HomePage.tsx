@@ -1237,7 +1237,7 @@ function Index({
             {/* Right Column: Sticky Sidebar */}
             <div className="w-full lg:w-[33%]">
               <div className="sticky top-24 space-y-4">
-                <ContactForm />
+                <ContactForm fromPage="Home" />
 
                 {/* Contact Info Card */}
                 <div className="bg-pink-50 border border-red-600 rounded-xl p-5 text-center">

@@ -664,7 +664,7 @@ export default function SingleBlogPage({
                       </button>
                     </div>
                   </div> */}
-                    <ContactForm type="article" />
+                    <ContactForm type="article" fromPage="BlogDetail" />
 
                     {/* Similar Blogs */}
                     {similarBlogs && similarBlogs.length > 0 && (

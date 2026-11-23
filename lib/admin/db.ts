@@ -25,9 +25,10 @@ export async function connectAdminDb() {
       .connect(uri, {
         dbName: process.env.MONGODB_DB_NAME || "test",
         maxPoolSize: 5,
-        serverSelectionTimeoutMS: 8000,
+        serverSelectionTimeoutMS: 80000,
       })
       .catch((error) => {
+        console.error("MongoDB connection error:", error);
         cache.promise = null;
         throw error;
       });

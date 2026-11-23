@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import axiosInstance from '@/services/axiosInstance';
 import { useParams } from 'next/navigation';
 
-export default function ContactForm({ type }) {
+export default function ContactForm({ type,fromPage }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [submitError, setSubmitError] = useState(null);
@@ -52,7 +52,8 @@ export default function ContactForm({ type }) {
                 extraDetails: {
                     programLevel: data.programLevel,
                     type: 'contact',
-                    message: data.message
+                    message: data.message,
+                    fromPage: fromPage || "unknown",
                 }
             });
 
