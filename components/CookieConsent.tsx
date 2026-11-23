@@ -60,8 +60,8 @@ export default function CookieConsent() {
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-start px-4 py-6 " role="presentation">
       <section aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description" role="dialog" aria-modal="true" className="relative w-full max-w-[620px] rounded-xl border border-white/80 bg-white p-4 pr-12 shadow-[0_24px_80px_rgba(35,20,50,0.2)] sm:p-5 sm:pr-14">
-        <button type="button" onClick={cancel} aria-label="Cancel cookie notice" title="Cancel" className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md text-[#68656d] transition hover:bg-[#f4f1f2] hover:text-[#27242c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f172d]">
-          <X className="h-5 w-5" aria-hidden="true" />
+        <button type="button" onClick={cancel} aria-label="Cancel cookie notice" title="Cancel" className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md text-[#68656d]/40 transition hover:bg-[#f4f1f2] hover:text-[#27242c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f172d]">
+          <X className="h-3 w-3" aria-hidden="true" />
         </button>
         <div className="flex items-start gap-3">
           <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#d71635]/10 text-[#d71635]">
