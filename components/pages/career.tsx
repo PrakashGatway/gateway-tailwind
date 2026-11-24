@@ -67,6 +67,8 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
     }
   };
 
+  console.log(jobData)
+
   return (
     <div>
 
@@ -148,47 +150,76 @@ export default function CareerPage({careerPage:data,jobFormData}:any) {
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8">Vacancies</h2>
           <div className="pt-4">
             <div className="flex flex-wrap justify-center gap-6">
-              {jobData.map((job) => (
-                <div key={job._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm">
-                  <div className="p-6">
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{job.jobTitle}</h4>
-                    <h6 className="text-[#666276] text-base font-medium pt-2">
-                      No. of Vacancy: {job.vacancy}
-                    </h6>
-                    <h6 className="text-[#666276] text-base font-medium pt-2 mb-4">
-                      Location: {job.location}
-                    </h6>
-                    <div className="max-h-[21rem] overflow-y-auto overflow-x-hidden mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
-                      <div className="text-[14px] leading-[20px] mb-2 break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: job.jobShortDescription }} />
-                      <div className="text-gray-700 text-sm break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: job.jobDescription }} />
-                    </div>
-                    <div>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
-                          {job.jobType}
-                        </span>
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
-                          {job.jobExp} Year
-                        </span>
-                        <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
-                          {job.jobLevel} Level
-                        </span>
-                      </div>
-                      <div className="text-center">
-                        <button 
-                          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center mx-auto"
-                          onClick={() => section1Ref.current.scrollIntoView({ behavior: 'smooth' })}
-                        >
-                          Apply Now 
-                          <span className="ml-2">
-                            <i className="fa fa-paper-plane"></i>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+             {[...jobData]
+  .reverse()
+  .map((job) => (
+    <div
+      key={job._id}
+      className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm"
+    >
+      <div className="p-6">
+        <h4 className="text-xl font-bold text-gray-900 mb-2">
+          {job.jobTitle}
+        </h4>
+
+        <h6 className="text-[#666276] text-base font-medium pt-2">
+          No. of Vacancy: {job.vacancy}
+        </h6>
+
+        <h6 className="text-[#666276] text-base font-medium pt-2 mb-4">
+          Location: {job.location}
+        </h6>
+
+        <div className="max-h-[21rem] overflow-y-auto overflow-x-hidden mb-4 pe-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
+          <div
+            className="text-[14px] leading-[20px] mb-2 break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold"
+            dangerouslySetInnerHTML={{
+              __html: job.jobShortDescription,
+            }}
+          />
+
+          <div
+            className="text-gray-700 text-sm break-words [&_p]:mb-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_strong]:font-semibold"
+            dangerouslySetInnerHTML={{
+              __html: job.jobDescription,
+            }}
+          />
+        </div>
+
+        <div>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+              {job.jobType}
+            </span>
+
+            <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+              {job.jobExp} Year
+            </span>
+
+            <span className="rounded bg-[#fbe7ea] px-3 py-1 text-sm font-medium text-[#455A64]">
+              {job.jobLevel} Level
+            </span>
+          </div>
+
+          <div className="text-center">
+            <button
+              className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center mx-auto"
+              onClick={() =>
+                section1Ref.current.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
+              Apply Now
+              <span className="ml-2">
+                <i className="fa fa-paper-plane"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
             </div>
           </div>
         </div>

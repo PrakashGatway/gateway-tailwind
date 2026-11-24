@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId, type Filter } from "mongodb";
 import { getCurrentAdmin } from "@/lib/admin/session";
+import { destroyStudentImage, uploadStudentImage } from "@/lib/cloudinary";
 import {
   getStudentsCollection,
   parseStudentInput,
@@ -82,23 +83,45 @@ export async function POST(request: NextRequest) {
     if (request.headers.get("sec-fetch-site") === "cross-site") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: noStore });
     }
-    if (Number(request.headers.get("content-length") || 0) > 20_000) {
-      return NextResponse.json({ error: "Student details are too large" }, { status: 413, headers: noStore });
+    if (Number(request.headers.get("content-length") || 0) > 10 * 1024 * 1024) {
+      return NextResponse.json({ error: "Image must be under 8 MB" }, { status: 413, headers: noStore });
     }
 
     let input;
+    let file: File | null = null;
     try {
-      input = parseStudentInput(await request.json());
+      if (request.headers.get("content-type")?.includes("multipart/form-data")) {
+        const form = await request.formData();
+        const raw = form.get("student");
+        const image = form.get("image");
+        if (typeof raw !== "string" || raw.length > 12000) throw new Error("Invalid student details");
+        if (image !== null && !(image instanceof File)) throw new Error("Invalid image upload");
+        input = parseStudentInput(JSON.parse(raw));
+        file = image instanceof File && image.size ? image : null;
+      } else {
+        input = parseStudentInput(await request.json());
+      }
+      if (!file && !input.image) throw new Error("Choose an image to upload or provide an image URL");
+      if (file && (!file.size || file.size > 8 * 1024 * 1024 || !["image/jpeg", "image/png", "image/webp", "image/avif"].includes(file.type))) {
+        throw new Error("Use a JPG, PNG, WebP, or AVIF image under 8 MB");
+      }
     } catch (error) {
       return NextResponse.json(
         { error: error instanceof Error ? error.message : "Invalid student details" },
         { status: 400, headers: noStore },
       );
     }
-    const id = new ObjectId().toHexString();
-    const record: StudentRecord = { _id: id, id, ...input, __v: 0 };
-    await (await getStudentsCollection()).insertOne(record);
-    return NextResponse.json({ student: serializeStudent(record) }, { status: 201, headers: noStore });
+    let uploaded: Awaited<ReturnType<typeof uploadStudentImage>> | null = null;
+    try {
+      if (file) uploaded = await uploadStudentImage(file);
+      const id = new ObjectId().toHexString();
+      const record: StudentRecord = { _id: id, id, ...input, ...(uploaded || {}), __v: 0 };
+      await (await getStudentsCollection()).insertOne(record);
+      return NextResponse.json({ student: serializeStudent(record) }, { status: 201, headers: noStore });
+    } catch (error) {
+      if (uploaded) await destroyStudentImage(uploaded.imagePublicId).catch((cleanupError) => console.error("Could not clean failed student image upload", cleanupError));
+      throw error;
+    }
   } catch (error) {
     console.error("Admin student creation failed", error);
     return NextResponse.json({ error: "Could not create student" }, { status: 503, headers: noStore });

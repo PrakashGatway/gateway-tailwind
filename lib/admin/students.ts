@@ -5,6 +5,7 @@ export type StudentRecord = {
   _id: ObjectId | string;
   id?: string;
   image: string;
+  imagePublicId?: string;
   name: string;
   content?: string;
   rank: number;
@@ -56,7 +57,7 @@ export function parseStudentInput(value: unknown): StudentInput {
     throw new Error("Enter a valid rank");
   }
   return {
-    image: text(raw.image, "image filename or URL", 2000, true),
+    image: text(raw.image ?? "", "image filename or URL", 2000),
     name: text(raw.name, "name", 160, true),
     content: text(raw.content ?? "", "content", 10000),
     rank,

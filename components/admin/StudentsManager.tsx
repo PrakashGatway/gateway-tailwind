@@ -74,8 +74,20 @@ export default function StudentsManager() {
   const [deleting, setDeleting] = useState("");
   const [editor, setEditor] = useState<"new" | Student | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    if (!imageFile) {
+      setImagePreview("");
+      return;
+    }
+    const preview = URL.createObjectURL(imageFile);
+    setImagePreview(preview);
+    return () => URL.revokeObjectURL(preview);
+  }, [imageFile]);
 
   const loadStudents = useCallback(async () => {
     setLoading(true);
@@ -112,6 +124,7 @@ export default function StudentsManager() {
   }, [loadStudents, search]);
 
   function openNew() {
+    setImageFile(null);
     setDraft({ ...emptyDraft, type: types[0] || "home", courseName: courses[0] || "" });
     setEditor("new");
     setError("");
@@ -119,6 +132,7 @@ export default function StudentsManager() {
   }
 
   function openEdit(student: Student) {
+    setImageFile(null);
     setDraft({
       image: student.image || "",
       name: student.name || "",
@@ -141,12 +155,14 @@ export default function StudentsManager() {
     setNotice("");
     const editing = editor === "new" ? null : editor;
     try {
+      const body = new FormData();
+      body.set("student", JSON.stringify(draft));
+      if (imageFile) body.set("image", imageFile);
       const response = await fetch(
         editing ? "/api/admin/students/" + encodeURIComponent(editing.id) : "/api/admin/students",
         {
           method: editing ? "PATCH" : "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(draft),
+          body,
         },
       );
       const data = await response.json();
@@ -425,12 +441,38 @@ export default function StudentsManager() {
               <form id="student-form" onSubmit={save} className="space-y-4 overflow-y-auto px-5 py-5 sm:px-7">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="sm:col-span-2"><span className={labelClass}>Name *</span><input required maxLength={160} value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} className={inputClass} placeholder="Student name" /></label>
-                  <label className="sm:col-span-2">
-                    <span className={labelClass}>Image filename or URL *</span>
-                    <input required maxLength={2000} value={draft.image} onChange={(event) => setDraft({ ...draft, image: event.target.value })} className={inputClass} placeholder="1712850438008-Ananya (10).png or https://…" />
-                    <span className="mt-1 block text-[11px] text-slate-500">Use an existing uploaded filename or a complete image URL.</span>
-                  </label>
-                  {draft.image && <div className="sm:col-span-2 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3"><img src={imageUrl(draft.image)} alt="Student preview" className="h-16 w-16 rounded-lg object-cover" /><span className="min-w-0 truncate text-xs font-semibold text-slate-500">{draft.image}</span><ImagePlus className="ml-auto h-5 w-5 shrink-0 text-slate-400" /></div>}
+                  <div className="sm:col-span-2">
+                    <span className={labelClass}>Student image *</span>
+                    <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-4 text-sm font-bold text-slate-600 transition hover:border-rose-300 hover:bg-rose-50/50">
+                      <ImagePlus className="h-5 w-5 text-[#d81635]" />
+                      <span>{imageFile ? "Choose a different image" : "Upload an image to Cloudinary"}</span>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/avif"
+                        className="sr-only"
+                        onChange={(event) => {
+                          const selected = event.target.files?.[0] || null;
+                          if (selected && !["image/jpeg", "image/png", "image/webp", "image/avif"].includes(selected.type)) {
+                            setError("Choose a JPG, PNG, WebP, or AVIF image.");
+                            setImageFile(null);
+                          } else if (selected && selected.size > 8 * 1024 * 1024) {
+                            setError("Choose an image under 8 MB.");
+                            setImageFile(null);
+                          } else {
+                            setError("");
+                            setImageFile(selected);
+                          }
+                          event.currentTarget.value = "";
+                        }}
+                      />
+                    </label>
+                    <span className="mt-1 block text-[11px] text-slate-500">JPG, PNG, WebP, or AVIF · maximum 8 MB. Uploading a new image replaces the current one.</span>
+                    <label className="mt-3 block">
+                      <span className="mb-1.5 block text-[11px] font-semibold text-slate-500">Or use an existing image URL / filename</span>
+                      <input maxLength={2000} required={!imageFile} value={draft.image} onChange={(event) => setDraft({ ...draft, image: event.target.value })} className={inputClass} placeholder="https://… or existing image filename" />
+                    </label>
+                  </div>
+                  {(imagePreview || draft.image) && <div className="sm:col-span-2 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3"><img src={imagePreview || imageUrl(draft.image)} alt="Student image preview" className="h-16 w-16 rounded-lg object-cover" /><span className="min-w-0 flex-1 truncate text-xs font-semibold text-slate-500">{imageFile?.name || draft.image}</span>{imageFile && <button type="button" onClick={() => setImageFile(null)} className="shrink-0 rounded-lg px-2 py-1 text-xs font-bold text-rose-700 hover:bg-rose-50">Remove upload</button>}</div>}
                   <label><span className={labelClass}>Course name *</span><input required maxLength={80} list="student-courses" value={draft.courseName} onChange={(event) => setDraft({ ...draft, courseName: event.target.value })} className={inputClass} placeholder="SAT" /><datalist id="student-courses">{courses.map((item) => <option key={item} value={item} />)}</datalist></label>
                   <label><span className={labelClass}>Rank *</span><input required type="number" min={0} max={100000} step={1} value={draft.rank} onChange={(event) => setDraft({ ...draft, rank: Number(event.target.value) })} className={inputClass} /></label>
                   <label><span className={labelClass}>University</span><input maxLength={160} value={draft.univercity} onChange={(event) => setDraft({ ...draft, univercity: event.target.value })} className={inputClass} placeholder="University name (optional)" /></label>

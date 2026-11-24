@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ClipboardList, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Download, ExternalLink, FileText, Image as ImageIcon, LoaderCircle, RefreshCw, Trash2, X } from "lucide-react";
 
 type FormField = { key: string; value: unknown };
-type FormSubmission = { id: string; fields: FormField[] };
+type FormSubmission = { id: string; createdAt: string; fields: FormField[] };
 type Attachment = {
   title: string;
   filename: string;
@@ -41,6 +41,15 @@ function displayValue(value: unknown): string {
   } catch {
     return "[Value unavailable]";
   }
+}
+
+function formatSubmissionDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
 }
 
 function isFileKey(value: string) {
@@ -302,12 +311,13 @@ export default function FormSubmissionsManager() {
           </div>
         ) : forms.length ? (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-left">
+            <table className="w-full min-w-[900px] text-left">
               <thead className="bg-[#f8f9fc] text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
                 <tr>
                   <th scope="col" className="px-5 py-3.5 sm:px-7">Contact</th>
                   <th scope="col" className="px-4 py-3.5">Form type</th>
                   <th scope="col" className="px-4 py-3.5">Phone</th>
+                  <th scope="col" className="px-4 py-3.5">Submitted</th>
                   <th scope="col" className="px-4 py-3.5">Submission details</th>
                   <th scope="col" className="px-5 py-3.5 text-right sm:px-7">Action</th>
                 </tr>
@@ -332,6 +342,7 @@ export default function FormSubmissionsManager() {
                           </span>
                         </td>
                         <td className="px-4 py-4 text-sm text-slate-600">{typeof phone === "string" && phone ? phone : "—"}</td>
+                        <td className="whitespace-nowrap px-4 py-4 text-xs text-slate-600">{formatSubmissionDate(form.createdAt)}</td>
                         <td className="px-4 py-4">
                           <button
                             type="button"
@@ -358,7 +369,7 @@ export default function FormSubmissionsManager() {
                       </tr>
                       {expanded && (
                         <tr className="bg-[#fafbfe]">
-                          <td colSpan={5} className="px-5 pb-5 pt-1 sm:px-7">
+                          <td colSpan={6} className="px-5 pb-5 pt-1 sm:px-7">
                             <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
                               <div className="border-b border-slate-100 px-4 py-3">
                                 <p className="text-xs font-bold text-[#263247]">All submitted fields</p>

@@ -37,10 +37,17 @@ function safeValue(value: unknown, depth = 0): unknown {
 }
 
 export function serializeForm(record: FormRecord) {
+  const createdAt = record.createdAt instanceof Date
+    ? record.createdAt.toISOString()
+    : typeof record.createdAt === "string" && !Number.isNaN(Date.parse(record.createdAt))
+      ? new Date(record.createdAt).toISOString()
+      : record._id.getTimestamp().toISOString();
+
   return {
     id: String(record._id),
+    createdAt,
     fields: Object.entries(record)
-      .filter(([key]) => key !== "_id" && key !== "__v")
+      .filter(([key]) => key !== "_id" && key !== "__v" && key !== "createdAt")
       .map(([key, value]) => ({ key, value: safeValue(value) })),
   };
 }

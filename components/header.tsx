@@ -293,12 +293,7 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
               Articles
             </Link>
 
-            <Link
-              href="/career"
-              className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 group text-sm 2xl:text-base whitespace-nowrap"
-            >
-              Career
-            </Link>
+           
 
             <Link
               href="/contact"
@@ -691,14 +686,14 @@ const Header = ({ countries = [], courses = [] }: { countries?: any[]; courses?:
                 <span>Articles</span>
               </Link>
 
-              <Link
+              {/* <Link
                 href="/career"
                 className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-[#E83A3A] dark:hover:text-[#FF6B6B] font-medium transition-all duration-300 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-slate-800 text-sm md:text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Award className="h-5 w-5 flex-shrink-0" />
                 <span>Career</span>
-              </Link>
+              </Link> */}
 
               <Link
                 href="/gallery"
