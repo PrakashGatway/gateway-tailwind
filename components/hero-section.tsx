@@ -6,6 +6,14 @@ import Link from "next/link"
 
 const HeroSection = ({ type, title, description, image, content,alt }: any) => {
 
+  // Hero headings use `||` to separate the regular and highlighted parts.
+  // Keep `;` as a fallback for older content already stored in the API.
+  const headingParts = typeof title === "string"
+    ? (title.includes("||") ? title.split("||") : title.split(";"))
+    : [];
+  const headingStart = headingParts[0]?.trim() || "Gateway";
+  const headingHighlight = headingParts.slice(1).join(" ").trim() || "Abroad Jaipur";
+
   const handleGetStarted = () => {
     window.dispatchEvent(new CustomEvent('openFooterModal'));
   };
@@ -36,10 +44,10 @@ const HeroSection = ({ type, title, description, image, content,alt }: any) => {
             <div className="space-y-3">
               <div className="">
                 <h1 className="text-3xl lg:text-4xl font-bold leading-[1.1]">
-                  <span className="inline">{title?.split(';')[0] || "Gateway"}</span>
+                  <span className="inline">{headingStart}</span>
                   {/* <br /> */}
                   {type != "about" && <> <span className="text-gradient py-1 inline">
-                    {title?.split(';')?.slice(1, title?.split(';')?.length)?.join(" ") || "Abroad Jaipur"}
+                    {headingHighlight}
                   </span>
                     <br /> </>}
                 </h1>

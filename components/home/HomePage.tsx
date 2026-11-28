@@ -1264,7 +1264,7 @@ function Index({
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
-                      500+ Students Placed in UK
+                      5000+ Students Placed in UK
                     </li>
                    
                     <li className="flex items-center gap-2">
@@ -1489,17 +1489,17 @@ function Index({
 
       {/* ====== Partner Section ====== */}
       <section className="py-12 md:py-12 bg-white">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full max-w-[1127px]">
+        <div className=" mx-auto px-4 max-w-7xl">
+          <div className="bg-[#fbe7ea] rounded-2xl sm:rounded-[24px] shadow-lg mx-auto w-full">
             {/* Content container with specific padding */}
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8">
-                <div className="w-full lg:w-[48%]">
+                <div className="w-full lg:w-[62%] py-6 sm:py-8 lg:py-10">
                   <div className="text-center lg:text-left pl-[17px]">
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[36px] font-bold mb-4 text-[#d71635] lg:leading-[37px]">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 text-[#d71635] lg:leading-[37px]">
                       Start Your Study Abroad Journey with Expert Guidance
                     </h2>
-                    <p className="text-base sm:text-lg lg:text-[18px] mb-4 sm:mb-6 text-[#666276]">
+                    <p className="text-base sm:text-lg lg:text-[18px] mb-2 text-[#666276]">
                       Get personalized coaching, proven strategies, and comprehensive study materials to achieve your target score.
                     </p>
                     <button
@@ -1513,7 +1513,7 @@ function Index({
                 <div className="w-full lg:w-[38%]">
                   <div className="flex justify-center">
                     <img
-                      src="/img/partner-img.svg"
+                      src="/img/partner-img.webp"
                       alt="Partner Program"
                       className="w-full max-w-xs sm:max-w-sm lg:max-w-[20rem]"
                       loading="lazy"

@@ -64,6 +64,7 @@ export const Footer = ({ courses = [], cities = [], countries = [] }: { courses?
   const cityPage = cities;
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [newsletterState, setNewsletterState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [loadFooterData, setLoadFooterData] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
 
@@ -214,20 +215,23 @@ export const Footer = ({ courses = [], cities = [], countries = [] }: { courses?
   // Newsletter submission
   const handleNewsletterSubmit = useCallback(async (formData) => {
     const { newsEmail } = formData;
-    
     try {
-      const response = await PageServices.addEmail({
-        email: newsEmail,
-        Subscribed: "Yes",
+      setNewsletterState("loading");
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsEmail }),
       });
-      
-      if (response.status === "success") {
+      if (!response.ok) throw new Error("Subscription failed");
+      if (response.ok) {
         resetNewsletterForm();
+        setNewsletterState("success");
       } else {
-        console.error("Newsletter subscription failed:", response);
+        setNewsletterState("error");
       }
     } catch (error) {
       console.error("Error subscribing to newsletter:", error);
+      setNewsletterState("error");
     }
   }, [resetNewsletterForm]);
 
@@ -472,10 +476,13 @@ export const Footer = ({ courses = [], cities = [], countries = [] }: { courses?
                       )}
                       <button
                         type="submit"
+                        disabled={newsletterState === "loading"}
                         className="text-white font-semibold bg-red-600 shadow-[rgba(0,0,0,0.25)_0px_0px_12px_0px] text-center px-[30px] py-[9px] hover:bg-red-700 transition-colors duration-200"
                       >
-                        Subscribe
+                        {newsletterState === "loading" ? "Subscribing…" : "Subscribe"}
                       </button>
+                      {newsletterState === "success" && <p className="mt-2 text-sm font-semibold text-green-700" role="status">You’re subscribed successfully.</p>}
+                      {newsletterState === "error" && <p className="mt-2 text-sm font-semibold text-red-700" role="alert">Could not subscribe. Please try again.</p>}
                     </form>
                   </div>
                 </div>

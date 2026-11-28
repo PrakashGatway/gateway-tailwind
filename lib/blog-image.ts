@@ -37,3 +37,25 @@ export function cloudinaryCardImage(source: string, width: number) {
     return null;
   }
 }
+
+/**
+ * Responsive detail image: resize within the requested width without cropping
+ * or forcing a fixed aspect ratio, so the complete source image remains visible.
+ */
+export function cloudinaryDetailImage(source: string, width: number) {
+  try {
+    const url = new URL(source);
+    if (url.protocol !== "https:" || url.hostname !== "res.cloudinary.com") return null;
+    const marker = "/image/upload/";
+    const markerIndex = url.pathname.indexOf(marker);
+    if (markerIndex < 0) return null;
+    const prefix = url.pathname.slice(0, markerIndex + marker.length);
+    const segments = url.pathname.slice(markerIndex + marker.length).split("/");
+    while (segments.length > 1 && /^(?:[a-z]{1,3}_[^/,]+)(?:,[a-z]{1,3}_[^/,]+)*$/i.test(segments[0])) segments.shift();
+    if (!segments.length) return null;
+    url.pathname = `${prefix}c_limit,w_${width},q_90,f_auto,dpr_auto/${segments.join("/")}`;
+    return url.toString();
+  } catch {
+    return null;
+  }
+}

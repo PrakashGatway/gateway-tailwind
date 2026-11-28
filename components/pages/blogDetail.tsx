@@ -5,12 +5,30 @@ import { constant } from "@/constant/index.constant";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import ContactForm from "./UkForm";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageServices from "@/services/PageServices";
-import { Calendar, Calendar1, Eye, Facebook, FacebookIcon, Linkedin, Mail, ThumbsDown, ThumbsUp, Twitter } from "lucide-react";
+import {
+  Calendar,
+  Calendar1,
+  Check,
+  Eye,
+  FacebookIcon,
+  Linkedin,
+  Mail,
+  MoreHorizontal,
+  Share2,
+  Star,
+  ThumbsUp,
+  X,
+} from "lucide-react";
+import { FaGoogle, FaInstagram, FaYoutube, FaXTwitter } from "react-icons/fa6";
 import { useGlobal } from "@/hooks/AppStateContext";
 import BlogArticleContent from "@/components/blog/BlogArticleContent";
-import { blogImageSource, cloudinaryCardImage } from "@/lib/blog-image";
+import {
+  blogImageSource,
+  cloudinaryCardImage,
+  cloudinaryDetailImage,
+} from "@/lib/blog-image";
 import { useBannerCategory } from "@/components/BannerCategoryContext";
 
 type BlogComment = {
@@ -35,7 +53,7 @@ export default function SingleBlogPage({
       ? blogData.category
       : blogData?.category?.name;
   const heroSource = blogImageSource(blogData?.image);
-  const heroImage = cloudinaryCardImage(heroSource, 1200) || heroSource;
+  const heroImage = cloudinaryDetailImage(heroSource, 1800) || heroSource;
   const pathname = usePathname() || "/";
   const { setCategoryForPath } = useBannerCategory();
 
@@ -53,12 +71,55 @@ export default function SingleBlogPage({
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyingToName, setReplyingToName] = useState("");
   const [showReplies, setShowReplies] = useState<Record<string, boolean>>({});
+  const [showRatingPopup, setShowRatingPopup] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [ratingSubmitted, setRatingSubmitted] = useState(false);
+  const [blogRating, setBlogRating] = useState(5);
+  const [showMoreSocial, setShowMoreSocial] = useState(false);
+  const ratingEndRef = useRef<HTMLDivElement>(null);
 
   const { user, setDrawer } = useGlobal();
+
+  useEffect(() => {
+    if (!blogData?.Slug) return;
+    fetch(`/api/blog-ratings?slug=${encodeURIComponent(blogData.Slug)}`, { cache: "no-store" })
+      .then((response) => response.json())
+      .then((data) => setBlogRating(Number(data.rating) || 5))
+      .catch(() => setBlogRating(5));
+  }, [blogData?.Slug]);
+
+  const submitRating = async () => {
+    if (!selectedRating || !blogData?.Slug) return;
+    try {
+      const response = await fetch("/api/blog-ratings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug: blogData.Slug, title: blogData.blogTitle, rating: selectedRating }) });
+      if (!response.ok) throw new Error("Rating failed");
+      const updated = await fetch(`/api/blog-ratings?slug=${encodeURIComponent(blogData.Slug)}`, { cache: "no-store" }).then((result) => result.json());
+      setBlogRating(Number(updated.rating) || 5);
+      setRatingSubmitted(true);
+    } catch { setRatingSubmitted(false); }
+  };
 
   const [commentForm, setCommentForm] = useState({
     content: "",
   });
+
+  useEffect(() => {
+    const target = ratingEndRef.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || !blogData?.Slug) return;
+        const storageKey = `gateway_blog_rating_prompt_${blogData.Slug}`;
+        if (sessionStorage.getItem(storageKey)) return;
+        sessionStorage.setItem(storageKey, "shown");
+        setShowRatingPopup(true);
+      },
+      { threshold: 0.8 },
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [blogData?.Slug]);
 
   const fetchComments = async () => {
     if (!blogData?._id) return;
@@ -146,6 +207,17 @@ export default function SingleBlogPage({
       day: "numeric",
     });
   };
+
+  useEffect(() => {
+    if (!showRatingPopup) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowRatingPopup(false);
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [showRatingPopup]);
 
   if (!blogData || !blogData.Slug) {
     return (
@@ -255,6 +327,17 @@ export default function SingleBlogPage({
                   </span>
                 </div>
               }
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-700" aria-label={`Blog rating ${blogRating} out of 5`}>
+                <Star className="h-4 w-4 fill-amber-400 text-amber-400" /> {blogRating.toFixed(1)} / 5
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowRatingPopup(true)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-700 transition hover:-translate-y-0.5 hover:bg-amber-100"
+              >
+                <Star className="h-4 w-4 fill-amber-400 text-amber-400" /> Rate
+                this blog
+              </button>
               <Link
                 href={"/author/sakshi-taneja"}
                 className="text-[#E12827] px-3 py-1 rounded-full text-sm font-bold z-10"
@@ -263,16 +346,22 @@ export default function SingleBlogPage({
               </Link>
 
               <div className="flex items-center gap-2">
-                 {blogData.updatedAt && (
-                      <div className=" flex items-center gap-1.5 text-xs text-[#777]">
-                        <Calendar1 size={14} aria-hidden="true" />
-                        <span>Last Update {new Date(blogData.updatedAt).toLocaleDateString("en-IN", {
+                {blogData.updatedAt && (
+                  <div className=" flex items-center gap-1.5 text-xs text-[#777]">
+                    <Calendar1 size={14} aria-hidden="true" />
+                    <span>
+                      Last Update{" "}
+                      {new Date(blogData.updatedAt).toLocaleDateString(
+                        "en-IN",
+                        {
                           day: "2-digit",
                           month: "short",
                           year: "numeric",
-                        })}</span>
-                      </div>
-                    )}
+                        },
+                      )}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -283,19 +372,89 @@ export default function SingleBlogPage({
           <div className="mx-auto max-w-7xl">
             <div className="grid min-w-0 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_350px]">
               {/* Main Content */}
-              <div className="min-w-0">
+              <div className="relative min-w-0">
+                <div className="pointer-events-none absolute inset-y-0 -left-[60px] hidden xl:block">
+                  <aside className="pointer-events-auto sticky top-24">
+                    <div className="flex flex-col items-center gap-2">
+                        <button
+                          type="button"
+                          aria-label="Share this blog"
+                          title="Share this blog"
+                          onClick={() => {
+                            if (navigator.share) {
+                              void navigator.share({
+                                title: blogData?.blogTitle,
+                                url: `${constant.BASE_URL}/blog-description/${blogData?.Slug}`,
+                              }).catch(() => undefined);
+                            }
+                          }}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"
+                        >
+                          <Share2 className="h-[18px] w-[18px]" />
+                        </button>
+                        <a
+                          aria-label="Share on Facebook"
+                          title="Share on Facebook"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"
+                        >
+                          <FacebookIcon className="h-[18px] w-[18px]" />
+                        </a>
+                        <a
+                          aria-label="Share on X"
+                          title="Share on X"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"
+                        >
+                          <FaXTwitter className="h-[17px] w-[17px]" />
+                        </a>
+                        <a
+                          aria-label="Share on LinkedIn"
+                          title="Share on LinkedIn"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"
+                        >
+                          <Linkedin className="h-[18px] w-[18px]" />
+                        </a>
+                        <button type="button" aria-label={showMoreSocial ? "Show fewer sharing options" : "Show more sharing options"} title={showMoreSocial ? "Show fewer" : "Show more"} onClick={() => setShowMoreSocial((current) => !current)} className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"><MoreHorizontal className="h-[18px] w-[18px]" /></button>
+                        {showMoreSocial && <>
+                        <a aria-label="Open Instagram" title="Instagram" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"><FaInstagram className="h-[18px] w-[18px]" /></a>
+                        <a aria-label="Open YouTube" title="YouTube" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/" className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"><FaYoutube className="h-[18px] w-[18px]" /></a>
+                        <a aria-label="Open Google" title="Google" target="_blank" rel="noopener noreferrer" href="https://www.google.com/" className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"><FaGoogle className="h-[17px] w-[17px]" /></a>
+                        <button
+                          type="button"
+                          aria-label="Rate this blog"
+                          title="Rate this blog"
+                          onClick={() => {
+                            setRatingSubmitted(false);
+                            setShowRatingPopup(true);
+                          }}
+                          className="grid h-10 w-10 place-items-center rounded-full bg-[#6f9fc3] text-white shadow-sm transition-all hover:scale-105 hover:bg-[#5d8eaf]"
+                        >
+                          <Star className="h-[19px] w-[19px] fill-amber-400" />
+                        </button>
+                        </>}
+                      </div>
+                  </aside>
+                </div>
                 <article className="min-w-0">
                   {/* Blog Image */}
                   <div className="mb-8 overflow-hidden">
                     <img
-                      className=" w-full object-cover"
+                      className="mx-auto block h-auto max-h-[75vh] w-full object-contain"
                       src={heroImage}
                       srcSet={
-                        cloudinaryCardImage(heroSource, 800)
-                          ? [800, 1200, 1600]
+                        cloudinaryDetailImage(heroSource, 800)
+                          ? [1000, 1400, 1800]
                               .map(
                                 (width) =>
-                                  `${cloudinaryCardImage(heroSource, width)} ${width}w`,
+                                  `${cloudinaryDetailImage(heroSource, width)} ${width}w`,
                               )
                               .join(", ")
                           : undefined
@@ -338,6 +497,11 @@ export default function SingleBlogPage({
                   {/* Blog Content */}
                   <div className="min-w-0 pb-8">
                     <BlogArticleContent html={sanitizedContent} />
+                    <div
+                      ref={ratingEndRef}
+                      className="h-2"
+                      aria-hidden="true"
+                    />
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-6 border-t border-gray-200">
                       {prevBlog ? (
                         <Link
@@ -376,7 +540,7 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.FB}/?u=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#3b5998] text-white rounded-full flex items-center justify-center hover:bg-[#344e86] transition duration-200"
                           >
-                            <FacebookIcon/>
+                            <FacebookIcon />
                           </a>
                           <a
                             target="_blank"
@@ -384,7 +548,7 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.TWITTER}/?url=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#1da1f2] text-white rounded-full flex items-center justify-center hover:bg-[#0d95e8] transition duration-200"
                           >
-                            <Twitter/>
+                            <FaXTwitter />
                           </a>
                           <a
                             target="_blank"
@@ -392,13 +556,13 @@ export default function SingleBlogPage({
                             href={`${constant.SOCIAL_MEDIA_LINK.LINKEDIN}${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#0077b5] text-white rounded-full flex items-center justify-center hover:bg-[#00669c] transition duration-200"
                           >
-                            <Linkedin/>
+                            <Linkedin />
                           </a>
                           <a
                             href={`mailto:?subject=${encodeURIComponent(blogData?.blogTitle)}&body=${encodeURIComponent(`${constant.BASE_URL}/blog-description/${blogData.Slug}`)}`}
                             className="w-10 h-10 bg-[#EA4335] text-white rounded-full flex items-center justify-center hover:bg-[#d33426] transition duration-200"
                           >
-                            <Mail/>
+                            <Mail />
                           </a>
                         </div>
                       </div>
@@ -448,7 +612,7 @@ export default function SingleBlogPage({
                       Comments ({comments.length})
                     </h3>
                     {/* Comment entry point depends on login and is temporarily disabled. */}
-                    { comments.length > 0 && (
+                    {comments.length > 0 && (
                       <button
                         onClick={() =>
                           document
@@ -463,7 +627,7 @@ export default function SingleBlogPage({
                   </div>
 
                   {/* Comment form depends on login and is temporarily disabled. */}
-                  { (
+                  {
                     <div
                       id="comment-form"
                       className="bg-white border border-gray-200 rounded-lg p-6 mb-8"
@@ -512,7 +676,7 @@ export default function SingleBlogPage({
                         </button>
                       </form>
                     </div>
-                  )}
+                  }
 
                   {loading ? (
                     <div className="flex justify-center py-8">
@@ -835,6 +999,109 @@ export default function SingleBlogPage({
             </div>
           </div>
         </section>
+
+        {showRatingPopup && (
+          <div
+            className="fixed inset-0 z-[9500] flex items-end justify-center bg-slate-950/65 p-0 sm:items-center sm:p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Rate this blog"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget)
+                setShowRatingPopup(false);
+            }}
+          >
+            <div className="relative w-full rounded-t-[28px] border border-slate-200 bg-white px-5 pb-6 pt-5 shadow-[0_-16px_55px_rgba(15,23,42,0.3)] sm:max-w-md sm:rounded-[28px] sm:p-8 sm:shadow-[0_24px_70px_rgba(15,23,42,0.28)]">
+              <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-slate-200 sm:hidden" />
+              <button
+                type="button"
+                onClick={() => setShowRatingPopup(false)}
+                aria-label="Close rating popup"
+                className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:rotate-90 hover:border-rose-100 hover:bg-rose-50 hover:text-[#d81635]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              {ratingSubmitted ? (
+                <div className="py-4 text-center">
+                  <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-8 ring-emerald-50/60">
+                    <Check className="h-8 w-8" />
+                  </div>
+                  <h2 className="mt-5 text-2xl font-bold text-[#202b3f]">
+                    Thanks for your feedback!
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-500">
+                    Your rating helps us improve Gateway Abroad&apos;s content.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowRatingPopup(false)}
+                    className="mt-6 w-full rounded-xl bg-[#d81635] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#b9142e]"
+                  >
+                    Done
+                  </button>
+                </div>
+              ) : (
+                <>
+                
+                  <h2 className="mt-3 text-center text-2xl font-bold text-[#202b3f]">
+                    How useful was this article?
+                  </h2>
+                  <p className="mt-1 mb-3 text-center text-sm leading-6 text-slate-500">
+                    Choose a rating to help us create better study abroad
+                    content.
+                  </p>
+                    <div className="flex flex-col items-center">
+                    <span className="text-5xl leading-none" aria-hidden="true">
+                      {(hoverRating || selectedRating) === 1 ? "🥺" :
+                        (hoverRating || selectedRating) === 2 ? "😶" :
+                        (hoverRating || selectedRating) === 3 ? "😊" :
+                        (hoverRating || selectedRating) === 4 ? "🥰" :
+                        (hoverRating || selectedRating) === 5 ? "🤩" : "😊"}
+                    </span>
+                    <span className="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
+                      {(hoverRating || selectedRating) ? `${hoverRating || selectedRating} out of 5` : "Rate this blog"}
+                    </span>
+                  </div>
+                  <div className="mt-2 flex justify-center px-3 py-4" aria-label="Choose a rating from 1 to 5 stars">
+                    {[1, 2, 3, 4, 5].map((rating, index) => (
+                      <button
+                        key={rating}
+                        type="button"
+                        aria-label={`${rating} star${rating > 1 ? "s" : ""}`}
+                        aria-pressed={rating === selectedRating}
+                        onMouseEnter={() => setHoverRating(rating)}
+                        onMouseLeave={() => setHoverRating(0)}
+                        onFocus={() => setHoverRating(rating)}
+                        onBlur={() => setHoverRating(0)}
+                        onClick={() => setSelectedRating(rating)}
+                        style={{ animationDelay: `${[0.12, 0.15, 0.17, 0.2, 0.22][index]}s` }}
+                        className="group grid h-12 w-12 place-items-center rounded-xl transition duration-200 hover:-translate-y-1 hover:bg-white animate-fadeInUp sm:h-14 sm:w-14"
+                      >
+                        <Star className={`h-9 w-9 transition-transform group-hover:scale-110 sm:h-10 sm:w-10 ${rating <= (hoverRating || selectedRating) ? "scale-105 fill-amber-400 text-amber-400" : "text-slate-300 group-hover:text-amber-300"}`} />
+                      </button>
+                    ))}
+                  </div>
+                 
+                  <button
+                    type="button"
+                    onClick={submitRating}
+                    disabled={!selectedRating}
+                    className="mt-4 w-full rounded-xl bg-[#d81635] px-4 py-3.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(216,22,53,0.18)] transition hover:-translate-y-0.5 hover:bg-[#b9142e] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+                  >
+                    Submit rating
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowRatingPopup(false)}
+                    className="mt-3 w-full text-sm font-semibold text-slate-400 transition hover:text-slate-600"
+                  >
+                    Maybe later
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

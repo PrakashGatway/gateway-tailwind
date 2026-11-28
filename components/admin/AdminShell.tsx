@@ -16,6 +16,7 @@ import {
   LogOut,
   Menu,
   MousePointerClick,
+  Mail,
   Star,
   GraduationCap,
   Users,
@@ -29,6 +30,8 @@ const navigation = [
   { href: "/admin/traffic", label: "Traffic trends", icon: ChartNoAxesCombined },
   { href: "/admin/activity", label: "Visitor activity", icon: Activity },
   { href: "/admin/buttons", label: "Button tracker", icon: MousePointerClick },
+  { href: "/admin/subscribers", label: "Subscribers", icon: Mail },
+  { href: "/admin/ratings", label: "Blog ratings", icon: Star },
   { href: "/admin/jobs", label: "Jobs", icon: BriefcaseBusiness },
   { href: "/admin/forms", label: "Form submissions", icon: ClipboardList },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
@@ -70,6 +73,10 @@ export default function AdminShell({
         ? "Galleries"
       : pathname.startsWith("/admin/buttons")
         ? "Button tracker"
+      : pathname.startsWith("/admin/subscribers")
+        ? "Subscribers"
+      : pathname.startsWith("/admin/ratings")
+        ? "Blog ratings"
       : "Dashboard";
 
   async function signOut() {
